@@ -1,24 +1,22 @@
-package persistence;
+package persistence.brokers;
 
-import business.domainClasses.GlossaryEntry;
+import business.domainClasses.PasswordRequest;
 import java.util.List;
 
 /**
- * The GlossaryEntryBroker provide connectivity to the database and allow insertion,
- * retrieval and removal of GlossaryEntry from the database
+ * The PasswordRequestBroker provide connectivity to the database and allow insertion,
+ * retrieval and removal of PasswordRequest from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
-public class GlossaryEntryBroker extends Broker{
-
+public class PasswordRequestBroker extends Broker{
+    
     /**
-     * The getByTerm method shows the results of a search of a specified term.
-     *
-     * @param term represents the term to be entered into the search for a
-     * matching result set.
-     * @return a Glossary Request object.
+     * The getRequest method get the PasswordRequest with it ID
+     * @param id represents the ID of a the PasswordRequest
+     * @return a PasswordRequest object with the specified ID.
      */
-    public GlossaryEntry getByTerm(String term) {
+    public PasswordRequest getRequest(String id) {
         return null;
     }
 

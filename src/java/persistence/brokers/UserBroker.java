@@ -1,4 +1,4 @@
-package persistence;
+package persistence.brokers;
 
 import business.domainClasses.User;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * The UserBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of User from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
 public class UserBroker extends Broker{
 
@@ -19,6 +19,15 @@ public class UserBroker extends Broker{
      * @return a User object with the specified email.
      */
     public User getByEmail(String email) {
+        return null;
+    }
+    
+    /**
+     * The getByName method returns the user by their name
+     * @param name represents the name of the user
+     * @return a User list
+     */
+    public List<User> getByName(String name) {
         return null;
     }
 

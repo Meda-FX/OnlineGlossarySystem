@@ -1,4 +1,4 @@
-package persistence;
+package persistence.brokers;
 
 import business.domainClasses.Course;
 import business.domainClasses.Definition;
@@ -10,7 +10,7 @@ import java.util.List;
  * The DefinitionBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of Definition from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
 public class DefinitionBroker extends Broker{
 
@@ -21,6 +21,15 @@ public class DefinitionBroker extends Broker{
      * @return a list of definitions by user.
      */
     public List<Definition> getByUser(User user) {
+        return null;
+    }
+    
+    /**
+     * The getById method returns a definition related to the user's ID.
+     * @param id represents the course in the course table in the database.
+     * @return a definition of a term
+     */
+    public Definition getById(String id) {
         return null;
     }
 

@@ -3,7 +3,7 @@ package business.serviceClasses;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
-import persistence.UserBroker;
+import persistence.brokers.UserBroker;
 
 /**
  * UserService class uses to access data from the database by utilizing the UserBroker.

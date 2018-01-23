@@ -1,4 +1,4 @@
-package persistence;
+package persistence.brokers;
 
 import com.mysql.jdbc.Connection;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The generalization contract of all the Broker classes in the Online Glossary System
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
 public abstract class Broker {
 
@@ -54,12 +54,6 @@ public abstract class Broker {
      * otherwise it returns 0.
      */
     public abstract Integer update(Object object);
-
-    /**
-     * The closeBroker method of this class ends the connection from the
-     * application to database.
-     */
-    public void closeBroker(){}
 
     /**
      * The getAll method returns all of the records from a table.

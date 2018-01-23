@@ -4,7 +4,7 @@ import business.domainClasses.PasswordRequest;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
-import persistence.PasswordRequestBroker;
+import persistence.brokers.PasswordRequestBroker;
 
 /**
  * PasswordRequestService class uses to access data from the database by utilizing the PasswordRequestBroker.

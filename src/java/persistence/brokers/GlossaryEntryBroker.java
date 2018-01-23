@@ -1,23 +1,24 @@
-package persistence;
+package persistence.brokers;
 
-import business.domainClasses.Department;
+import business.domainClasses.GlossaryEntry;
 import java.util.List;
 
 /**
- * The DepartmentBroker provide connectivity to the database and allow insertion,
- * retrieval and removal of Department from the database
+ * The GlossaryEntryBroker provide connectivity to the database and allow insertion,
+ * retrieval and removal of GlossaryEntry from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
-public class DepartmentBroker extends Broker{
+public class GlossaryEntryBroker extends Broker{
 
     /**
-     * The getByID method gets the department with the ID of a department.
+     * The getByTerm method shows the results of a search of a specified term.
      *
-     * @param departmentID represents the ID of a department.
-     * @return a Department object from the Department database.
+     * @param term represents the term to be entered into the search for a
+     * matching result set.
+     * @return a Glossary Request object.
      */
-    public Department getByID(String departmentID) {
+    public GlossaryEntry getByTerm(String term) {
         return null;
     }
 

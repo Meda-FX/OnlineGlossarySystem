@@ -1,22 +1,23 @@
-package persistence;
+package persistence.brokers;
 
-import business.domainClasses.PasswordRequest;
+import business.domainClasses.Department;
 import java.util.List;
 
 /**
- * The PasswordRequestBroker provide connectivity to the database and allow insertion,
- * retrieval and removal of PasswordRequest from the database
+ * The DepartmentBroker provide connectivity to the database and allow insertion,
+ * retrieval and removal of Department from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
-public class PasswordRequestBroker extends Broker{
-    
+public class DepartmentBroker extends Broker{
+
     /**
-     * The getRequest method get the PasswordRequest with it ID
-     * @param id represents the ID of a the PasswordRequest
-     * @return a PasswordRequest object with the specified ID.
+     * The getByID method gets the department with the ID of a department.
+     *
+     * @param departmentID represents the ID of a department.
+     * @return a Department object from the Department database.
      */
-    public PasswordRequest getRequest(String id) {
+    public Department getByID(String departmentID) {
         return null;
     }
 

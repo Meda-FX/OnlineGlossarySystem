@@ -1,4 +1,4 @@
-package persistence;
+package persistence.brokers;
 
 import business.domainClasses.GlossaryRequest;
 import business.domainClasses.User;
@@ -8,7 +8,7 @@ import java.util.List;
  * The GlossaryRequestBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of GlossaryRequest from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
 public class GlossaryRequestBroker extends Broker{
 

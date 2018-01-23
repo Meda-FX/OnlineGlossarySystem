@@ -3,7 +3,7 @@ package business.serviceClasses;
 import business.domainClasses.GlossaryRequest;
 import java.util.ArrayList;
 import java.util.List;
-import persistence.GlossaryEntryBroker;
+import persistence.brokers.GlossaryEntryBroker;
 
 /**
  * GlossaryRequestService class uses to access data from the database by utilizing the GlossaryEntryBroker.

@@ -1,24 +1,36 @@
-package persistence;
+package persistence.brokers;
 
-import business.domainClasses.Privilege;
+import business.domainClasses.Course;
 import java.util.List;
 
 /**
- * The PrivilegeBroker provide connectivity to the database and allow insertion,
- * retrieval and removal of Privilege from the database
+ * The CourseBroker provide connectivity to the database and allow insertion,
+ * retrieval and removal of Course from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
-public class PrivilegeBroker extends Broker{
+public class CourseBroker extends Broker{
 
     /**
-     * The getByID method gets the privilege with the privilege ID.
+     * The getByID method returns the course by the specified course ID.
      *
-     * @param privilegeID represents the ID of the privilege.
-     * @return a Privilege object with the specified ID.
+     * @param courseID represents the ID for a certain course.
+     * @return a Course object representing a course from the database.
      */
-    public Privilege getByID(Integer privilegeID) {
+    public Course getByID(String courseID) {
         return null;
+    }
+
+    /**
+     * The getByDepartmentID return a list of courses by the specified
+     * department ID.
+     *
+     * @param departmentID represents the ID for a certain department.
+     * @return a list of Course objects representing courses from the database.
+     */
+    public List<Course> getByDepartmentID(String departmentID) {
+        return null;
+
     }
 
     @Override
