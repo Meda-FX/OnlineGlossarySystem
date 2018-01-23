@@ -56,6 +56,13 @@ public class Definition {
     public Date getDateCreated() {
         return dateCreated;
     }
+    
+    /**
+     * Sets the date of the definition created
+     * @param date representing the current date
+     */
+    public void setDateCreated(Date date) {
+    }
 
     /**
      * Returns the citation of the definition

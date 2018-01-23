@@ -74,4 +74,8 @@ public class PasswordRequest {
     public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
+    
+    public String getSalt() {
+        return null;
+    }
 }

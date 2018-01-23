@@ -125,15 +125,6 @@ public class User {
     }
     
     /**
-     * Changes the permission of users that is granted by the administrator.
-     * examples of privileges includes, instructor, editor and administrator  
-     * @param privileges privileges the privilege of the user to be set
-     */
-    public void setPrivileges(PrivilegeList privileges) {
-        this.privileges = privileges;
-    }
-    
-    /**
      * The method will return the list of the courses that the users 
      * @return the courseList of the users 
      */
