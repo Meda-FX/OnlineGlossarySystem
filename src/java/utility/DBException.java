@@ -9,6 +9,12 @@ package utility;
  *
  * @author 727153
  */
-public class DBException {
+public class DBException extends Exception {
+    public DBException(){
+        
+    }
     
+    public DBException(String msg){
+        super(msg);
+    }
 }
