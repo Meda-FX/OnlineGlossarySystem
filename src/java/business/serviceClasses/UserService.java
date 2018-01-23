@@ -83,9 +83,19 @@ public class UserService {
      * Method used to find a specific user by email. As the succession of the search the method returns 
      * the user if the user exists and null if the email with a specific email address does not exist.
      * @param email email the email of the user that will be used for the search
-     * @return returns a user if the user with the email exists and returns null if it does not eist
+     * @return returns a user if the user with the email exists and returns null if it does not exist
      */
     public User getByEmail(String email){
+        return null;
+    }
+    
+    /**
+     * The getByName method is to find a list of users with the specified name. If there are
+     * entries with that name the list is returned or null otherwise
+     * @param name representing a user's name
+     * @return returns a List of type user on account that they exist in the database
+     */
+    public List<User> getByName(String name) {
         return null;
     }
 }
