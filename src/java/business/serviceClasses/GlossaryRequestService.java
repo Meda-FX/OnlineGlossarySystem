@@ -8,7 +8,7 @@ import persistence.brokers.GlossaryEntryBroker;
 /**
  * GlossaryRequestService class uses to access data from the database by utilizing the GlossaryEntryBroker.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 0.1.1 
  */
 public class GlossaryRequestService {
     private GlossaryEntryBroker requestDB;
@@ -27,7 +27,7 @@ public class GlossaryRequestService {
      * @param id id the id that is passed to find a specific glossary request
      * @return returns a glossary request object if the request exists and null if it does not
      */
-    public GlossaryRequest get(String id) {
+    public GlossaryRequest get(int id) {
         return null;
     }
     
