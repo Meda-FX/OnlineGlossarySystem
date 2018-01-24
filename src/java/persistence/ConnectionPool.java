@@ -14,7 +14,7 @@ import javax.naming.NamingException;
  * ConnectionPool class is a singular connection that allow simultaneous
  * connections to the database 
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ * @version 0.1.1
  */
 public class ConnectionPool {
     private static ConnectionPool pool;

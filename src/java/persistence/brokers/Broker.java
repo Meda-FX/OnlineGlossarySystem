@@ -1,30 +1,15 @@
 package persistence.brokers;
 
 
-import java.sql.Connection;
 import java.util.List;
 
 /**
  * The generalization contract of all the Broker classes in the Online Glossary System
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1.1
+ * @version 0.1.2
  */
 public abstract class Broker {
 
-    private Connection conn;
-    private Broker broker;
-
-    /**
-     * The getBroker method provide a singular Broker object providing 
-     * connectivity to the database
-     *
-     * @param username the username of the account accessing the database
-     * @param password the password of the account accessing the database
-     * @return the Broker object providing connectivity to the database
-     */
-    public Broker getBroker(String username, String password) {
-        return null;
-    }
 
     /**
      * The insert method gives the application the ability of inserting an entry
@@ -34,7 +19,7 @@ public abstract class Broker {
      * @return if the operation is successful, the method return Integer 1, 
      * otherwise it returns 0.
      */
-    public abstract Integer insert(Object object);
+    public abstract int insert(Object object);
 
     /**
      * The delete method gives the application the ability of deleting a row in
@@ -44,7 +29,7 @@ public abstract class Broker {
      * @return if the operation is successful, the method return Integer 1, 
      * otherwise it returns 0.
      */
-    public abstract Integer delete(Object object);
+    public abstract int delete(Object object);
 
     /**
      * The update method gives the application the ability of updating a row in
@@ -54,7 +39,7 @@ public abstract class Broker {
      * @return if the operation is successful, the method return Integer 1, 
      * otherwise it returns 0.
      */
-    public abstract Integer update(Object object);
+    public abstract int update(Object object);
 
     /**
      * The getAll method returns all of the records from a table.

@@ -8,7 +8,7 @@ import java.util.List;
  * The GlossaryRequestBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of GlossaryRequest from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class GlossaryRequestBroker extends Broker{
 
@@ -43,17 +43,17 @@ public class GlossaryRequestBroker extends Broker{
     }
 
     @Override
-    public Integer insert(Object object) {
+    public int insert(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Integer delete(Object object) {
+    public int delete(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Integer update(Object object) {
+    public int update(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

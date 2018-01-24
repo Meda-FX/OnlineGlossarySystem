@@ -10,7 +10,7 @@ import java.util.List;
  * The DefinitionBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of Definition from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class DefinitionBroker extends Broker{
 
@@ -29,7 +29,7 @@ public class DefinitionBroker extends Broker{
      * @param id represents the course in the course table in the database.
      * @return a definition of a term
      */
-    public Definition getById(String id) {
+    public Definition getByID(String id) {
         return null;
     }
 
@@ -55,17 +55,17 @@ public class DefinitionBroker extends Broker{
     }
 
     @Override
-    public Integer insert(Object object) {
+    public int insert(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Integer delete(Object object) {
+    public int delete(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Integer update(Object object) {
+    public int update(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
