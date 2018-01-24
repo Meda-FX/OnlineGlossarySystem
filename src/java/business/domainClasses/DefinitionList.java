@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DefinitionList class used to list, add, remove, edit and delete the definitions that are set by the user.
+ * DefinitionList class used to list, add, remove, edit and delete the definitions of a GlossaryEntry.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1 
  */
@@ -18,26 +18,26 @@ public class DefinitionList {
     }
     
     /**
-     * Returns the definition of all terms
-     * @return the definitions of all terms
+     * Returns all definitions of the term
+     * @return all definitions of the term
      */
     private List<Definition> getAll(){
         return new ArrayList<Definition>();        
     }
     
     /**
-     * Returns the course of the definition belongs to
-     * @param course course the course to be set
-     * @return the course of the definition 
+     * Returns the definitions belong to the same courses
+     * @param course the course the definitions belong to
+     * @return the definitions belong to the course 
      */
     private List<Definition> getByCourse(Course course){
         return new ArrayList<Definition>();
     }
     
     /**
-     * Gets the instructor of the definition writer
-     * @param writtenBy writtenBy the writer of the definition parameter
-     * @return the instructor of the definition writer
+     * Returns the definitions written by the User
+     * @param writtenBy the User created the definition
+     * @return the definitions written by the same User
      */
     private List<Definition> getByInstructor(User writtenBy){
         return new ArrayList<Definition>();
