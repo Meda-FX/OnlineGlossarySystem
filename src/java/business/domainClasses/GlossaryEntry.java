@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * GlossaryEntry class constructs the glossary entry object it allowed mutation and accessing of the attributes of the glossary entry.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 0.1.1 
  */
 public class GlossaryEntry {
     private Date dateCreated;
@@ -45,23 +45,23 @@ public class GlossaryEntry {
     }
 
     /**
-     * returns the term fro the glossary fro the list
-     * @return the term fro the glossary
+     * returns the term of the GlossaryEntry
+     * @return the term of the GlossaryEntry
      */
     public String getTerm() {
         return term;
     }
     
     /**
-     * Changes the term of in the glossary
-     * @param term term the term to be set
+     * Changes the term of the GlossaryEntry
+     * @param term the term to be set
      */
     public void setTerm(String term) {
         this.term = term;
     }
     
     /**
-     * Returns the creator of the term definition 
+     * Returns the creator of the term 
      * @return the creator of the term
      */
     public User getCreatedBy() {

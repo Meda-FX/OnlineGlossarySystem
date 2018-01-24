@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * DefinitionList class used to list, add, remove, edit and delete the definitions of a GlossaryEntry.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 0.1.1 
  */
 public class DefinitionList {
     private List<Definition> definitionList;

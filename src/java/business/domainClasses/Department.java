@@ -3,7 +3,7 @@ package business.domainClasses;
 /**
  * Department class constructs the department object it allowed mutation and accessing of the attributes of the department.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 0.1.1
  */
 public class Department {    
     private String departmentID;
