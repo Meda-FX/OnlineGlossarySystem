@@ -1,0 +1,163 @@
+body
+{
+    font-family: Titillium Web,sans-serif;
+    color: #565a61;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.3em;
+    font-weight: 400;
+}
+
+.navbar{
+    background-color: #da291c;
+	/*background-color: #da291c;*/
+}
+
+.navbar-header a {
+	color: white;
+}
+
+.navbar li a{
+	color: white;
+}
+
+.navbar li a:hover{
+	color: #CB2925;
+}
+
+/*a:visited {
+    color: #003f7b;
+}*/
+
+/*a:visited 
+{
+    color: #ccc;
+}*/
+
+a {
+    color: #005eb8;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.meda-style {
+	text-align: center;	
+	padding: 10%;
+}
+.meda-style-advsearch{
+    margin: 0 auto;
+    /*background-color: #565a61;*/
+}
+
+.btn {
+	background-color: #da291c;
+	color: white;
+}
+
+.alphabets .btn {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.alphabets btn-group btn-group-xs {
+	/*padding-bottom: 500px;*/
+     align-items: center;
+    margin: 0 auto;
+    margin-left: 25px;
+    
+}
+
+#dropdown_search 
+{
+    width: 100%;
+}
+
+.search-filter {
+    /*border-style: solid;*/
+    /*border-color: coral;*/
+}
+
+.list-terms {
+    /*background-color: red;*/
+}
+
+#icons {
+    color: #da291c;
+    font-size: 18px;
+    height: auto;
+    text-align: center;
+    padding: 12px;
+}
+
+#toogleText{
+    font-size: 50px;
+}
+
+.panel {
+    background-color: red;
+}
+
+/* Login */
+#form-login{
+     max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: #303138;
+    color: #ffffff;
+    height: 100%;
+    margin-top: 80px;
+}
+
+#form-login label {
+    color: #ffffff;
+}
+
+hr{
+     border: 0;
+    height: 2px;
+    background: #fff;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.form-header {
+     padding: 50px;
+     color: #ffffff;    
+}
+
+.login-button{
+   
+    font-size: 18px;
+    background-color: #da291c;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.login-button:hover{
+    color: #ffffff;
+    background: #FF243B;
+    width: 100%;
+     font-size: 18px;
+}
+
+#login-footer-link {
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.errorMessage {
+    color: red;
+    text-align: center;
+}
+
+.regis-reset_login {
+    text-align: center;
+}
+

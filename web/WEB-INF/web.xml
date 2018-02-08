@@ -96,6 +96,9 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>search</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30
