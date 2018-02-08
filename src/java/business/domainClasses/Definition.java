@@ -62,6 +62,7 @@ public class Definition {
      * @param date representing the current date
      */
     public void setDateCreated(Date date) {
+        this.dateCreated = date;
     }
 
     /**
