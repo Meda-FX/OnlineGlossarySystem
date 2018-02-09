@@ -22,6 +22,7 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action;
+        String searchedTerm;
         getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
     
