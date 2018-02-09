@@ -18,6 +18,7 @@ public class GlossaryEntryService {
      */
     public GlossaryEntryService() {
         this.glossaryEntryDB = glossaryEntryDB;
+        System.out.println("Hello");
     }
     
     /**
