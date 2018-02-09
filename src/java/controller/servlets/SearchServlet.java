@@ -23,8 +23,7 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
         String action;
         String searchedTerm = "";
-        String aaa;
-        String Fengqi;
+        String bbb;
         getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
     
