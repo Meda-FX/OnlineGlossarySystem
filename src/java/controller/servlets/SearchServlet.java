@@ -24,13 +24,13 @@ public class SearchServlet extends HttpServlet {
         String action;
         String searchedTerm = "";
         String bbb;
+        String ccc;
         getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Kyle = "Kyle";
-        String feng;
+        
     }
 }
