@@ -5,10 +5,6 @@ CREATE DATABASE [GlossaryDataBase]
 use [GlossaryDataBase]
 
 
-
-
-
-
 CREATE TABLE [dbo].[department](
 	department_id varchar (20) NOT NULL PRIMARY KEY,
 	name varchar (100) NOT NULL
