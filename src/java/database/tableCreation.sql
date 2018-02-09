@@ -1,4 +1,4 @@
-use [master]   
+use [master]     
 DROP DATABASE [GlossaryDataBase]
 CREATE DATABASE [GlossaryDataBase] 
 
