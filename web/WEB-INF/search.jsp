@@ -1,4 +1,3 @@
-
 <%@ include file="includes/home-header.jsp" %>   
 
 <div class="row">
