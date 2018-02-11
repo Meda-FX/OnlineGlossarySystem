@@ -1,6 +1,10 @@
-body
-{
-    font-family: Titillium Web,sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+body {
+    
+}
+.container-fluid {
+    font-family: 'Titillium Web', sans-serif;
     color: #565a61;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -11,19 +15,38 @@ body
 
 .navbar{
     background-color: #da291c;
-	/*background-color: #da291c;*/
+    /*background-color: #da291c;*/
 }
 
 .navbar-header a {
-	color: white;
+    color: white;
 }
 
 .navbar li a{
-	color: white;
+    color: white;
 }
 
 .navbar li a:hover{
-	color: #CB2925;
+    color: #CB2925;
+}
+
+#logoImage>img {
+    margin-top: -15px;
+    height: 50px;
+    background-color: white;
+}
+
+/*.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  width: 50%;
+}*/
+
+/* hamburger color for celphones and Ipad*/
+.icon-bar{
+    background-color: white;
 }
 
 /*a:visited {
@@ -42,18 +65,33 @@ a {
     font-weight: 600;
 }
 
-.meda-style {
-	text-align: center;	
-	padding: 10%;
-}
-.meda-style-advsearch{
-    margin: 0 auto;
-    /*background-color: #565a61;*/
+.glossarySearchHeaderStyle {
+/*    width: 100%;
+     position: absolute;
+  top: 50%;
+  left: 50%;
+   bring your own prefixes 
+  transform: translate(-50%, -50%);
+  background-color: blue;*/
+text-align: center;    
 }
 
+.customContainerLandingPage {
+    margin-top: 20%;
+}
+
+/*.meda-style-advsearch{
+    margin: 0 auto;
+}*/
+
 .btn {
-	background-color: #da291c;
-	color: white;
+    background-color: #da291c;
+    color: white;
+}
+
+.alphabets{
+    text-align: center;	
+    padding-bottom: 10px;
 }
 
 .alphabets .btn {
@@ -62,21 +100,22 @@ a {
 }
 
 .alphabets btn-group btn-group-xs {
-	/*padding-bottom: 500px;*/
-     align-items: center;
+    /*padding-bottom: 500px;*/
+    align-items: center;
     margin: 0 auto;
     margin-left: 25px;
-    
 }
 
-#dropdown_search 
-{
+#dropdown_search {
     width: 100%;
 }
 
-.search-filter {
-    /*border-style: solid;*/
-    /*border-color: coral;*/
+.dropdown-menu {
+    width: 100%;    
+}
+
+.dropdown-menu li{
+    text-align: center;
 }
 
 .list-terms {
@@ -101,7 +140,7 @@ a {
 
 /* Login */
 #form-login{
-     max-width: 400px;
+    max-width: 400px;
     padding: 15px;
     margin: 0 auto;
     background-color: #303138;
@@ -114,20 +153,20 @@ a {
     color: #ffffff;
 }
 
-hr{
-     border: 0;
-    height: 2px;
+.line{
+    border: 0;
+    height: 1px;
     background: #fff;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    margin-top: 0px;
 }
 
 .form-header {
-     padding: 50px;
-     color: #ffffff;    
+    padding: 50px;
+    color: #ffffff;    
 }
 
 .login-button{
-   
     font-size: 18px;
     background-color: #da291c;
     color: white;
@@ -143,7 +182,7 @@ hr{
     color: #ffffff;
     background: #FF243B;
     width: 100%;
-     font-size: 18px;
+    font-size: 18px;
 }
 
 #login-footer-link {
@@ -152,9 +191,10 @@ hr{
     text-decoration: none;
 }
 
-.errorMessage {
+.message {
     color: red;
     text-align: center;
+    font-weight: bold;
 }
 
 .regis-reset_login {
