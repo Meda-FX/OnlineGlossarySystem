@@ -122,8 +122,6 @@
             <hr class="line">
         </div>       
     </div> <!-- Term definitions end here -->
-
-    <h1>Programs & Courses</h1>
     
 </div> <!-- list items  -->
 

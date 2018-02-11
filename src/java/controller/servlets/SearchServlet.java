@@ -25,7 +25,7 @@ public class SearchServlet extends HttpServlet {
         String searchedTerm = "";
         String bbb;
         String ccc;
-        getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
     }
     
     @Override

@@ -1,3 +1,4 @@
+/*Sait font from google api*/
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 body {
@@ -15,7 +16,6 @@ body {
 
 .navbar{
     background-color: #da291c;
-    /*background-color: #da291c;*/
 }
 
 .navbar-header a {
