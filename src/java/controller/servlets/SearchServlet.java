@@ -42,6 +42,8 @@ public class SearchServlet extends HttpServlet {
             }
             else
             {
+                
+                //TODO 
                 //should return a list of entries based on the searching term
                 termlist = ges.get(searchedEntry);
                 if(termlist != null)
