@@ -15,6 +15,7 @@ public class DefinitionList {
      * Constructor for the definition list
      */
     public DefinitionList() {
+        definitionList = new ArrayList<Definition>();
     }
     
     /**
@@ -22,7 +23,7 @@ public class DefinitionList {
      * @return all definitions of the term
      */
     private List<Definition> getAll(){
-        return new ArrayList<Definition>();        
+        return definitionList;        
     }
     
     /**
@@ -31,7 +32,12 @@ public class DefinitionList {
      * @return the definitions belong to the course 
      */
     private List<Definition> getByCourse(Course course){
-        return new ArrayList<Definition>();
+        ArrayList<Definition> definitionListByCourse = new ArrayList<Definition>();
+        for (Definition definition: definitionList) {
+            if (definition.getCourse().equals(course))
+                definitionListByCourse.add(definition);
+        }
+        return definitionListByCourse;
     }
     
     /**
@@ -40,25 +46,36 @@ public class DefinitionList {
      * @return the definitions written by the same User
      */
     private List<Definition> getByInstructor(User writtenBy){
-        return new ArrayList<Definition>();
+        ArrayList<Definition> definitionListByInstructor = new ArrayList<Definition>();
+        for (Definition definition: definitionList) {
+            if (definition.getWrittenBy().equals(writtenBy))
+                definitionListByInstructor.add(definition);
+        }
+        return definitionListByInstructor;
     }
           
     /**
      * Adds a definition to the list
      * @param definition definition the definition to be added to the list
      */
-    private void add(Definition definition){ }
+    private void add(Definition definition){
+        definitionList.add(definition);
+    }
     
     /**
      * removes the definition from the list
      * @param definition definition the definition to be removed
      */
-    private void remove(Definition definition){ }
+    private void remove(Definition definition){
+        definitionList.remove(definition);
+    }
     
     /**
      * Edits the definition from the list 
      * @param toEdit toEdit the definition to be edited
      * @param newDefinition newDefinition the new definition to be edited
      */
-    private void edit(Definition toEdit, Definition newDefinition) { } 
+    private void edit(Definition toEdit, Definition newDefinition) {
+        definitionList.set(definitionList.indexOf(toEdit), newDefinition);
+    } 
 }

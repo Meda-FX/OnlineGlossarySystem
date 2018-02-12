@@ -69,4 +69,10 @@ public class Course {
     public void setDepartment(Department department) {
         this.department = department;
     }    
+    
+    @Override
+    public boolean equals(Object o) {
+        Course toCompare = (Course)o;
+        return toCompare.getCourseCode().equals(this.courseCode);
+    }
 }
