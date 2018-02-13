@@ -41,9 +41,9 @@
 <div class="row glossarySearchHeaderStyle">
     <div class="col-sm-8 col-md-6 col-md-offset-3 col-sm-offset-2">
         <h3>SEARCH TERMS</h3>
-        <form action="" method="GET">    
+        <form action="search?action=searchTerm" method="GET">    
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
+                <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch"/>
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -59,7 +59,6 @@
         <div>
             <p class="message">${message}</p>   
         </div>    
-
 </div> 
 </div><!--Search filter ends here-->
 </div>

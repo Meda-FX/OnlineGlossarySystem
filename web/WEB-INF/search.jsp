@@ -39,9 +39,9 @@
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-        <form action="#" method="GET">    
+        <form action="search?action=searchTerm" method="GET">    
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search terms" id="txtSearch"/>
+                <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch"/>
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
