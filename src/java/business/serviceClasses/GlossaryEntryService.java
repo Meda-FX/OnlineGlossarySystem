@@ -17,8 +17,7 @@ public class GlossaryEntryService {
      * Constructs a glossary entry object to be used as a service to the glossary entry DB
      */
     public GlossaryEntryService() {
-        this.glossaryEntryDB = glossaryEntryDB;
-        System.out.println("Hello");
+        this.glossaryEntryDB = new GlossaryEntryBroker();
     }
     
     /**
@@ -27,7 +26,7 @@ public class GlossaryEntryService {
      * @return return a glossary entry object if the term exists and null if the term does not exist
      */
     public GlossaryEntry get(String term) {
-        return null;
+        return glossaryEntryDB.getByTerm(term);
     }
     
     /**
@@ -35,7 +34,12 @@ public class GlossaryEntryService {
      * @return a list of all glossary entries made by the users
      */
     public List<GlossaryEntry> getAll() {
-        return new ArrayList<GlossaryEntry>();
+        List<Object> objectList = glossaryEntryDB.getAll();
+        List<GlossaryEntry> glossaryEntryList = new ArrayList<>();
+        for (Object o: objectList) {
+            glossaryEntryList.add((GlossaryEntry)o);
+        }
+        return glossaryEntryList;
     }
     
     /**
@@ -45,7 +49,7 @@ public class GlossaryEntryService {
      * @return returns 1 if the update is a success and 0 if the update is un successful
      */
     public int update(GlossaryEntry glossaryEntry) {
-        return 1;
+        return glossaryEntryDB.update(glossaryEntry);
     }
     
     /**
@@ -55,7 +59,7 @@ public class GlossaryEntryService {
      * @return returns 1 if the deletion is a success and 0 if the deletion is un successful
      */
     public int delete(GlossaryEntry glossaryEntry) {
-        return 1;
+        return glossaryEntryDB.delete(glossaryEntry);
     }
     
     /**
@@ -65,10 +69,10 @@ public class GlossaryEntryService {
      * @return returns 1 if the insertion is a success and 0 if the insertion is un successful
      */
     public int insert(GlossaryEntry glossaryEntry) {
-        return 1;
+        return glossaryEntryDB.insert(glossaryEntry);
     }
     
     public List<GlossaryEntry> getMatched(String term) {
-        return null;
+        return glossaryEntryDB.getMatched(term);
     }
 }
