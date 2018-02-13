@@ -117,11 +117,11 @@
         <div class="col-xs-12 col-md-9">
             <h4>Term Definition</h4>
             <p>Citations are included in research projects anytime you use another individual?s work in your own assignment. When including a quote, paraphrased information, images, or any other piece of information from another?s work, you need to show where you found it by including a citation. This APA format guide explains how to make citations in APA style.</p>
-            <span><a href="#">Read</a></span>
-            <hr class="line">
+            <span><a href="#">Read</a></span>            
         </div>       
     </div> <!-- Term definitions end here -->
-    
+    <br>
+    <hr class="line">
 </div> <!-- list items  -->
 
 <%@ include file="includes/footer.jsp" %>

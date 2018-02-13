@@ -118,6 +118,13 @@ text-align: center;
     text-align: center;
 }
 
+
+.dropdown-menu li a:hover{
+    text-align: center;
+    background-color: #005eb8;
+}
+
+
 .list-terms {
     /*background-color: red;*/
 }
