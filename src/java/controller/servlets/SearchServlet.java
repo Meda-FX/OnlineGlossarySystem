@@ -5,8 +5,11 @@
  */
 package controller.servlets;
 
+import business.domainClasses.GlossaryEntry;
+import business.serviceClasses.GlossaryEntryService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,18 +24,48 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action;
-        String searchedTerm = "";
-        String bbb;
-        String ccc;
-        getServletContext().getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
+        String action=request.getParameter("action");
+        GlossaryEntryService ges = new GlossaryEntryService();
+        ArrayList<GlossaryEntry> termlist;
+        String url="/WEB-INF/index.jsp";
+        
+        //get searching key word from field
+        if(action!=null && action.equals("searchTerm"))
+        {
+             url="/WEB-INF/search.jsp";
+            String searchedEntry = request.getParameter("searchedEntry");
+            //term can't be null or empty
+            if(searchedEntry==null || searchedEntry.equals(""))
+            {
+                //display error message about empty input
+                request.setAttribute("emptyInput", true);
+            }
+            else
+            {
+                
+                //TODO 
+                //should return a list of entries based on the searching term
+                termlist = ges.get(searchedEntry);
+                if(termlist != null)
+                {
+                    request.setAttribute("termlist",termlist);
+                }
+                //return null means no such entries
+                else
+                {
+                    //display message to tell user
+                    request.setAttribute("noSuchEntry", true);
+                }
+            }
+        }
+
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String feng;
-        int a = 0;
-        String fgrgdsafa;
+        doGet(request, response);
+
     }
 }
