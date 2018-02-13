@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * PasswordRequest class constructs the password request object it allowed mutation and accessing of the attributes of password requests.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class PasswordRequest {
     private String requestID;
@@ -76,6 +76,6 @@ public class PasswordRequest {
     }
     
     public String getSalt() {
-        return null;
+        return salt;
     }
 }

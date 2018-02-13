@@ -3,7 +3,7 @@ package business.domainClasses;
 /**
  * Privilege class constructs the privilege object it allowed mutation and accessing of the attributes of the privileges of users.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class Privilege {
     private int privilegeID;

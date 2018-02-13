@@ -8,7 +8,7 @@ import persistence.brokers.GlossaryEntryBroker;
 /**
  * GlossaryEntryService class uses to access data from the database by utilizing the GlossaryEntryBroker.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class GlossaryEntryService {
     private GlossaryEntryBroker glossaryEntryDB;

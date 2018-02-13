@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * GlossaryEntry class constructs the glossary entry object it allowed mutation and accessing of the attributes of the glossary entry.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1.1 
+ * @version 1.0 
  */
 public class GlossaryEntry {
     private Date dateCreated;

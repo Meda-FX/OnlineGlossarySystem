@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * PrivilegeList class used to list, add, remove by id, and checks the availability of the users privilege.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class PrivilegeList {
     private List<Privilege> privileges;

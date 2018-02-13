@@ -8,7 +8,7 @@ import java.util.List;
  * CourseList class contain a list of course for a specific user. Methods used in these class are used to fetch lists of courses,
  * add, and remove courses.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class CourseList {
     private List<Course> courses;
