@@ -3,7 +3,7 @@ package business.domainClasses;
 /**
  * Course class contains the data of the courses that exists in SAIT. The class constructs the course object.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class Course {
     private String courseCode;
@@ -69,4 +69,10 @@ public class Course {
     public void setDepartment(Department department) {
         this.department = department;
     }    
+    
+    @Override
+    public boolean equals(Object o) {
+        Course toCompare = (Course)o;
+        return toCompare.getCourseCode().equals(this.courseCode);
+    }
 }

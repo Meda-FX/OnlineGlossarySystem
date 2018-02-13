@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * GlossaryRequest class constructs the glossary request object it allowed mutation and accessing of the attributes of the glossary request.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1 
+ * @version 1.0 
  */
 public class GlossaryRequest {
     private String glossaryEntryTerm;
