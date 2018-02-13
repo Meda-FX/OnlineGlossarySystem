@@ -51,4 +51,10 @@ public class Privilege {
     public void setDescription(String description) {
         this.description = description;
     }    
+    
+    @Override
+    public boolean equals(Object o) {
+        Privilege toCompare = (Privilege)o;
+        return toCompare.getPrivilegeID() == this.privilegeID;
+    }
 }

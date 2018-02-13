@@ -67,4 +67,8 @@ public class GlossaryEntryService {
     public int insert(GlossaryEntry glossaryEntry) {
         return 1;
     }
+    
+    public List<GlossaryEntry> getMatched(String term) {
+        return null;
+    }
 }
