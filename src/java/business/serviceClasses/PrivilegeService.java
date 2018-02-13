@@ -16,10 +16,10 @@ public class PrivilegeService {
     private PrivilegeBroker privilegeDB;
     
     public PrivilegeService() {
-        
+        privilegeDB = new PrivilegeBroker();
     }
     
     public Privilege get(int privilegeID) {
-        return null;
+        return privilegeDB.getByID(privilegeID);
     }
 }

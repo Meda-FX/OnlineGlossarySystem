@@ -15,9 +15,11 @@ import persistence.brokers.CourseBroker;
 public class CourseService {
     private CourseBroker courseDB;
     
-    public CourseService() {}
+    public CourseService() {
+        courseDB = new CourseBroker();
+    }
     
     public Course get(String courseCode) {
-        return null;
+        return courseDB.getByID(courseCode);
     }
 }
