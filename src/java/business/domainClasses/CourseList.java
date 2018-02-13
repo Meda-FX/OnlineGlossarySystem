@@ -1,5 +1,6 @@
 package business.domainClasses;
 
+import business.serviceClasses.CourseService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,28 +16,39 @@ public class CourseList {
     /**
      * Constructs a course list of the courses in the school
      */
-    public CourseList() { }
+    public CourseList() {
+        courses = new ArrayList<Course>();
+    }
     
     /**
      * Returns all of the courses from the list 
      * @return the list of all courses
      */
     public List<Course> getAll() { 
-        return new ArrayList<Course>();
+        return courses;
     }
     
     /**
      * Adds a course in to the list using a parameter course code
      * @param courseCode courseCode the course code to be added to the list
      */
-    public void add(String courseCode) { }
+    public void add(String courseCode) {
+        CourseService cs = new CourseService();
+        Course newCourse = cs.get(courseCode);
+        courses.add(newCourse);
+    }
     
     /**
      * Removes a course from the course by accessing the list using a course code
      * provided as a parameter
      * @param courseCode courseCode the course code to be removed
      */
-    public void remove(String courseCode) { }
+    public void remove(String courseCode) {
+        for (Course course: courses) {
+            if (course.getCourseCode().equals(courseCode))
+                courses.remove(course);
+        }
+    }
     
     /**
      * Checks if the the course exists inside the list using a parameter courseCode 
@@ -44,7 +56,10 @@ public class CourseList {
      * @return returns true if the course exists in the list
      */
     public boolean contains(String courseCode) {
-        return true;
+       for (Course course: courses) {
+           if (course.getCourseCode().equals(courseCode))
+               return true;
+       }
+       return false;
     }
-    
 }
