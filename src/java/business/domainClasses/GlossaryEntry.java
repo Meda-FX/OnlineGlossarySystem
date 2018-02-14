@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class GlossaryEntry {
     private Date dateCreated;
-    private List<Definition> definitionList;
+    private DefinitionList definitionList;
     private String term;
     private User createdBy;
 
@@ -21,7 +21,7 @@ public class GlossaryEntry {
      * @param term term the term of the glossary
      * @param createdBy createdBy the creator of the term
      */
-    public GlossaryEntry(Date dateCreated, List<Definition> definitionList, String term, User createdBy) {
+    public GlossaryEntry(Date dateCreated, DefinitionList definitionList, String term, User createdBy) {
         this.dateCreated = dateCreated;
         this.definitionList = definitionList;
         this.term = term;
@@ -40,7 +40,7 @@ public class GlossaryEntry {
      * Returns the definition list of the glossary
      * @return list of the definition list 
      */
-    public List<Definition> getDefinitionList() {
+    public DefinitionList getDefinitionList() {
         return definitionList;
     }
 

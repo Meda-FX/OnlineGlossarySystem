@@ -22,7 +22,7 @@ public class DefinitionList {
      * Returns all definitions of the term
      * @return all definitions of the term
      */
-    private List<Definition> getAll(){
+    public List<Definition> getDefinitionList(){
         return definitionList;        
     }
     
@@ -31,7 +31,7 @@ public class DefinitionList {
      * @param course the course the definitions belong to
      * @return the definitions belong to the course 
      */
-    private List<Definition> getByCourse(Course course){
+    public List<Definition> getByCourse(Course course){
         ArrayList<Definition> definitionListByCourse = new ArrayList<Definition>();
         for (Definition definition: definitionList) {
             if (definition.getCourse().equals(course))
@@ -45,7 +45,7 @@ public class DefinitionList {
      * @param writtenBy the User created the definition
      * @return the definitions written by the same User
      */
-    private List<Definition> getByInstructor(User writtenBy){
+    public List<Definition> getByInstructor(User writtenBy){
         ArrayList<Definition> definitionListByInstructor = new ArrayList<Definition>();
         for (Definition definition: definitionList) {
             if (definition.getWrittenBy().equals(writtenBy))
@@ -58,7 +58,7 @@ public class DefinitionList {
      * Adds a definition to the list
      * @param definition definition the definition to be added to the list
      */
-    private void add(Definition definition){
+    public void add(Definition definition){
         definitionList.add(definition);
     }
     
@@ -66,7 +66,7 @@ public class DefinitionList {
      * removes the definition from the list
      * @param definition definition the definition to be removed
      */
-    private void remove(Definition definition){
+    public void remove(Definition definition){
         definitionList.remove(definition);
     }
     
@@ -75,7 +75,7 @@ public class DefinitionList {
      * @param toEdit toEdit the definition to be edited
      * @param newDefinition newDefinition the new definition to be edited
      */
-    private void edit(Definition toEdit, Definition newDefinition) {
+    public void edit(Definition toEdit, Definition newDefinition) {
         definitionList.set(definitionList.indexOf(toEdit), newDefinition);
     } 
 }

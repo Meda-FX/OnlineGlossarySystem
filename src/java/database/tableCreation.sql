@@ -38,11 +38,12 @@ CREATE TABLE [dbo].[user_role] (
 
 CREATE TABLE [dbo].[definition](
 	definition_uid varchar (20) NOT NULL PRIMARY KEY, 
-	glossary_entry varchar (40) NOT NULL,
+	glossary_entry varchar (40) NOT NULL,   
+        definition varchar (500) NOT NULL,
 	date_created date NOT NULL,
-	citation varchar(100) NOT NULL,
+	citation varchar(100) ,
 	made_by varchar (20) NOT NULL,
-	course_id varchar (20) NOT NULL,
+	course_id varchar (20),
 	[type] char(1) NOT NULL,
         CONSTRAINT FK_definition_definition_id FOREIGN KEY (made_by)
 	REFERENCES [user](user_id)
