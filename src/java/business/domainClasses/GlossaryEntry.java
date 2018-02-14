@@ -14,6 +14,11 @@ public class GlossaryEntry {
     private String term;
     private User createdBy;
 
+    public GlossaryEntry() {
+    }
+
+    
+    
     /**
      * constructs a glossary entry object  
      * @param dateCreated dateCreated the date in which the glossary created

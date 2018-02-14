@@ -18,6 +18,9 @@ public class Definition {
     private Character definitionType;
     private String term;
 
+    public Definition() {
+    }
+    
     /**
      * Constructs the definition object 
      * @param writtenBy writtenBy the writer of the definition

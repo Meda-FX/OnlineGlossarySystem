@@ -9,6 +9,11 @@ public class Privilege {
     private int privilegeID;
     private String description;
 
+    public Privilege() {
+    }
+
+    
+    
     /**
      * Constructs a privilege object consist of id and description of the privilege type.
      * Privilege types includes instructor, editor and administrator
