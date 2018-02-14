@@ -23,7 +23,7 @@ public class PrivilegeList {
      * Returns all of the privileges 
      * @return the list of the privileges
      */
-    public List<Privilege> getAll() {
+    public List<Privilege> getPrivileges() {
         return privileges;
     }
     

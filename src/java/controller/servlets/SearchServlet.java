@@ -44,12 +44,13 @@ public class SearchServlet extends HttpServlet {
             else
             {
                 request.setAttribute("searchedEntry", searchedEntry);
+
                 //TODO 
                 //should return a list of entries based on the searching term
                 termlist = (ArrayList<GlossaryEntry>) ges.getMatched(searchedEntry);
                 if(termlist != null)
                 {
-                    request.setAttribute("termlist",termlist);
+                    request.setAttribute("termlist", termlist);
                 }
                 //return null means no such entries
                 else
@@ -59,7 +60,7 @@ public class SearchServlet extends HttpServlet {
                 }
             }
         }
-
+        
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     

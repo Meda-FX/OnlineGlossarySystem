@@ -41,7 +41,7 @@
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
         <form action="search?action=searchTerm" method="GET">    
             <div class="input-group">
-                <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch"/>
+                <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch" value="${searchedEntry}" />
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -84,27 +84,40 @@
     <h4>Term List</h4>
     <hr class="line">
     </div>
-    
-    <!-- Term definitions starts here -->
-    <c:forEach var="definition" items="${definitions}"> 
-        <div class="row">
-            <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
-            <div class="col-xs-12 col-md-3">
-                <h4>${definition.glossary_entry}</h4>
-                <p>Instructor: $definition.made_by} </p>
-                <p>Citation: ${definition.citation}</p>
-                <p>Date: ${definition.date_created}</p>
-            </div><!--Left side of the search ends here-->
 
-            <!--Right side of the search result starts here: term definition-->
-            <div class="col-xs-12 col-md-9">
-                <h4>Term Definition</h4>
-                <p>${definition.definition}</p>
-                <span><a href="#">Read</a></span>
-                <hr>
-            </div><!--Right side of the search ends here-->      
-        </div><!-- Term definitions end here -->
-    </c:forEach>
+    <!-- Term definitions starts here -->
+    <c:if test="${noSuchEntry != true}">
+        <c:forEach var="term" items="${termlist}"> 
+            <c:forEach var="definition" items="${term.definitionList}"> 
+            <div class="row">
+                <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
+                <div class="col-xs-12 col-md-3">
+                    <h4>${term.term}</h4>
+                    <p>Instructor: ${definition.writtenBy.name} </p>
+                    <p>Citation: ${definition.citation}</p>
+                    <p>Date: ${definition.dateCreated}</p>
+                </div><!--Left side of the search ends here-->
+
+                <!--Right side of the search result starts here: term definition-->
+                <div class="col-xs-12 col-md-9">
+                    <h4>Term Definition</h4>
+                    <p>${definition.definition}</p>
+                    <span><a href="#">Read</a></span>
+                    <hr>
+                </div><!--Right side of the search ends here-->      
+            </div><!-- Term definitions end here -->
+        </c:forEach>
+            </c:forEach>
+    </c:if>
+
+    <c:if test="${emptyInput == true}">
+        <p class="message">You have to type a term.</p>   
+    </c:if>
+
+    <c:if test="${noSuchEntry == true}">
+        <p class="message">The term does not exist.</p>   
+    </c:if>
+
 
     <div class="row">
         <div class="col-xs-12 col-md-3">
