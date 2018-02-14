@@ -24,6 +24,12 @@ public class ConnectionPool {
     * construct a ConnectionPool object to be used for database connectivity
     */
     private ConnectionPool() {
+         try {
+            InitialContext ic = new InitialContext();
+            source = (DataSource) ic.lookup("java:/comp/env/jdbc/MSSQL");
+        } catch (NamingException e) {
+            System.out.println(e);
+        }
     }
     
     
@@ -31,8 +37,11 @@ public class ConnectionPool {
      * The getInstance method return a singular connection pool to the database
      * @return the connection pool returned
      */
-    public ConnectionPool getInstance() {
-        return null;
+    public static synchronized ConnectionPool getInstance() {
+        if (pool == null) {
+            pool = new ConnectionPool();
+        }
+        return pool;
     }
     
     /**
@@ -40,7 +49,12 @@ public class ConnectionPool {
      * @return the connection returned
      */
     public Connection getConnection() {
-        return null;
+        try {
+            return source.getConnection();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
     
     /**
@@ -48,6 +62,11 @@ public class ConnectionPool {
      * @param c the connection to be stopped
      */
     public void freeConnection(Connection c) {
+        try {
+            c.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
        
     }
 }
