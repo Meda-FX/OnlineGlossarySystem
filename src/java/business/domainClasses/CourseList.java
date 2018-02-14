@@ -24,7 +24,7 @@ public class CourseList {
      * Returns all of the courses from the list 
      * @return the list of all courses
      */
-    public List<Course> getAll() { 
+    public List<Course> getCourses() { 
         return courses;
     }
     
