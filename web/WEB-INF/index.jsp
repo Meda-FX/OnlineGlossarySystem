@@ -45,9 +45,9 @@
             <div class="input-group">
                 <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch" value="${searchedEntry}"/>
                 <div class="input-group-btn">
-                    <button class="btn" type="submit">
+                    <input class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
-                    </button>
+                    </input>
                 </div>
             </div>
         </form>

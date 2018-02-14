@@ -94,6 +94,7 @@ public class GlossaryEntryBroker extends Broker {
                 //java.util.Date = new Date(rs.getDate(""));
                 //date = (rs.getDate("date_added"));
                  ge = new GlossaryEntry();
+                 ge.
                   DefinitionList definitionList = ge.getDefinitionList();
                 // if reuslt is null or not
                 ps2 = connection.prepareStatement(selectSQL2);
@@ -104,10 +105,11 @@ public class GlossaryEntryBroker extends Broker {
                     //sqlDate = new Date(rs2.getDate("date_created"));
                     definition = new Definition();
                    
+                    
+                    
+                    citation = rs2.getString("citation");
                     content = rs2.getString("definition");
                     definition_id = rs2.getInt("definition_uid");
-                    citation = rs2.getString("citation");
-                    
                     definition.setCitation(citation);
                     definition.setContent(content);
                     definition.setDefinitionID(definition_id+"");
