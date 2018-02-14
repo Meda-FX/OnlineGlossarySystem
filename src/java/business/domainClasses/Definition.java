@@ -16,6 +16,7 @@ public class Definition {
     private Date dateLastModified;
     private String definitionID;
     private Character definitionType;
+    private String term;
 
     /**
      * Constructs the definition object 
@@ -160,4 +161,14 @@ public class Definition {
     public void setDefinitionType(Character definitionType) {
         this.definitionType = definitionType;
     }    
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+    
+    
 }
