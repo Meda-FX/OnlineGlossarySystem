@@ -28,12 +28,13 @@ public class SearchServlet extends HttpServlet {
         GlossaryEntryService ges = new GlossaryEntryService();
         ArrayList<GlossaryEntry> termlist;
         String url="/WEB-INF/index.jsp";
+        String searchedEntry;
         
         //get searching key word from field
         if(action!=null && action.equals("searchTerm"))
         {
              url="/WEB-INF/search.jsp";
-            String searchedEntry = request.getParameter("searchedEntry");
+            searchedEntry = request.getParameter("searchedEntry");
             //term can't be null or empty
             if(searchedEntry==null || searchedEntry.equals(""))
             {
@@ -42,7 +43,7 @@ public class SearchServlet extends HttpServlet {
             }
             else
             {
-                
+                request.setAttribute("searchedEntry", searchedEntry);
                 //TODO 
                 //should return a list of entries based on the searching term
                 termlist = (ArrayList<GlossaryEntry>) ges.getMatched(searchedEntry);
