@@ -26,7 +26,7 @@ public class ConnectionPool {
     private ConnectionPool() {
          try {
             InitialContext ic = new InitialContext();
-            source = (DataSource) ic.lookup("java:/comp/env/jdbc/MSSQL");
+            source = (DataSource) ic.lookup("java:/comp/env/jdbc/OnlineGlossarySystem");
         } catch (NamingException e) {
             System.out.println(e);
         }
