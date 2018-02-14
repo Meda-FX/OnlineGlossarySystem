@@ -1,5 +1,6 @@
 package business.domainClasses;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class GlossaryEntry {
     private User createdBy;
 
     public GlossaryEntry() {
+        definitionList = new DefinitionList();
     }
 
     
