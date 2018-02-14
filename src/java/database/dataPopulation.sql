@@ -107,7 +107,7 @@ VALUES
     ('BNBH-201-B','1', '2017-Fall');
 
 INSERT INTO user_course
-    (course_code,user_id,)
+    (course_code,user_id,year)
 VALUES
     ('HH-201-B','0', '2017-Fall');
 
