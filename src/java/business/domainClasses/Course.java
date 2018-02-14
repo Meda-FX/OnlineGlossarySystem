@@ -11,6 +11,10 @@ public class Course {
     private Department department;
     private String year;
 
+    public Course() {
+    }
+    
+    
     /**
      * Constructs a course object for courses exists in the system
      * @param courseCode courseCode the course code of the courses

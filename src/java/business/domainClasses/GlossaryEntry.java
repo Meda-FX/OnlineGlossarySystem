@@ -1,5 +1,6 @@
 package business.domainClasses;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,12 @@ public class GlossaryEntry {
     private String term;
     private User createdBy;
 
+    public GlossaryEntry() {
+        definitionList = new DefinitionList();
+    }
+
+    
+    
     /**
      * constructs a glossary entry object  
      * @param dateCreated dateCreated the date in which the glossary created

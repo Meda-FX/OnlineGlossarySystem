@@ -13,6 +13,11 @@ public class User {
     private String password;
     private PrivilegeList privileges;
     private CourseList courses;
+
+    public User() {
+    }
+    
+    
     
     /**
      * Constructs a User object for the online glossary system.   
