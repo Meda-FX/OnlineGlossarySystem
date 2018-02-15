@@ -59,76 +59,61 @@ public class GlossaryEntryBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
+       // String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
         // String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
-
+        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where [GlossaryDataBase].[dbo].[definition].glossary_entry = ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[definition] join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where glossary_entry = ?;";
-
-        PreparedStatement ps2 = null;
-        ResultSet rs2 = null;
+//        String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[definition] join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where glossary_entry = ?;";
+//
+//        PreparedStatement ps2 = null;
+//        ResultSet rs2 = null;
         
         ArrayList<GlossaryEntry> terms = new ArrayList<>();
-        GlossaryEntry ge ;
+        GlossaryEntry ge =null;
         Definition definition;
         //ArrayList<Definition> definitionlist= new ArrayList<>();
 
         String username = null;
-        String glossaryTerm = null;
+        String glossaryTerm = "";
         Date sqlDate = null;
         String content = null;
         int definition_id;
         String citation;
-        int user_id;
+        String user_id;
         User user;
+        
+        String comparedTerm="";
 
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, term);
             rs = ps.executeQuery();
-            
+            DefinitionList definitionList=null;
             while (rs.next()) {
                 glossaryTerm = (rs.getString("glossary_entry"));
-                //java.util.Date = new Date(rs.getDate(""));
-                //date = (rs.getDate("date_added"));
-                 ge = new GlossaryEntry();
-                 ge.
-                  DefinitionList definitionList = ge.getDefinitionList();
-                // if reuslt is null or not
-                ps2 = connection.prepareStatement(selectSQL2);
-                ps2.setString(1, glossaryTerm);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    //glossaryTerm = rs2.getString("");
-                    //sqlDate = new Date(rs2.getDate("date_created"));
-                    definition = new Definition();
-                   
-                    
-                    
-                    citation = rs2.getString("citation");
-                    content = rs2.getString("definition");
-                    definition_id = rs2.getInt("definition_uid");
-                    definition.setCitation(citation);
-                    definition.setContent(content);
-                    definition.setDefinitionID(definition_id+"");
-                    definition.setTerm(term);
-                    //user_id=rs2.getInt("made_by");
-                   // definition= new Definition();
-                   
-                   user = new User();
-                   user.setName(rs2.getString("name"));
-                   user.setID(rs2.getString("user_id")); //maybe string or int
-                   
-                   definition.setWrittenBy(user);
-                   
-                   definitionList.add(definition);
+                if(!comparedTerm.equals(glossaryTerm))
+                {
+                    if(!comparedTerm.equals("")) terms.add(ge);
+                    comparedTerm=glossaryTerm;
+                    ge=new GlossaryEntry();
+                    definitionList = ge.getDefinitionList();
                 }
-                ge.setTerm(glossaryTerm);
-                //ge.setDefinitionList(definitionlist);
+                definition = new Definition();
+                content = rs.getString("definition");
+                citation = rs.getString("citation");
+                user = new User();
+                username = rs.getString("name");
+                user_id=rs.getString("user_id");
+                user.setID(user_id);
+                user.setName(username);
                 
-                terms.add(ge);
+                definition.setCitation(citation);
+                definition.setContent(content);
+                definition.setTerm(glossaryTerm);
+                definition.setWrittenBy(user);
+                definitionList.add(definition);
             }
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
