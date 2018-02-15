@@ -9,91 +9,91 @@
  */
 
 INSERT INTO role
-    (priviledge_id, description)
+    ( description)
 VALUES 
-    (0,'admin');
+    ('admin');
 INSERT INTO role
-    (priviledge_id, description)
+    (description)
 VALUES 
-    (1,'student');
+    ('student');
 INSERT INTO role
-    (priviledge_id, description)
+    (description)
 VALUES 
-    (2,'editor');
+    ('editor');
 
 
 INSERT INTO department 
-    (department_id, name)
+    (name)
 VALUES 
-    (0,'Information Technology');
+    ('Information Technology');
 
 INSERT INTO department 
-    (department_id, name)
+    ( name)
 VALUES 
-    (1,'Culinary Arts');
+    ('Culinary Arts');
 
 INSERT INTO department 
-    (department_id, name)
+    ( name)
 VALUES 
-    (2,'Hosptiality');
+    ('Hosptiality');
 
 
 INSERT INTO [user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('0','password',0,'John Johnson','johnjohnson@gmail.com', 1);
+    ('0','password',1,'John Johnson','johnjohnson@gmail.com', 1);
 
 INSERT INTO [user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('1','password',0,'Bob Bobson','bobBobson@gmail.com', 1);
+    ('1','password',1,'Bob Bobson','bobBobson@gmail.com', 1);
 
 INSERT INTO course
     (course_code,department_id,course_name)
 VALUES 
-    ('CMPS-307-A',0,'Databasing');
+    ('CMPS-307-A','1','Databasing');
 
 INSERT INTO course
     (course_code,department_id,course_name)
 VALUES 
-    ('CMPS-311-A',0,'Web Application');
-
-
-INSERT INTO course
-    (course_code,department_id,course_name)
-VALUES 
-    ('CMPS-352-A',0,'Advanced Object Orientated Programming');
-
-INSERT INTO course
-    (course_code,department_id,course_name)
-VALUES 
-    ('PNB-101-B',1,'Pastries and Bread');
-
-INSERT INTO course
-    (course_code,department_id,course_name)
-VALUES 
-    ('MC-101-B',1,'Meat Cutting');
-
-INSERT INTO course
-    (course_code,department_id,course_name)
-VALUES 
-    ('SS-181-B',1,'Soups and Sauces');
+    ('CMPS-311-A','1','Web Application');
 
 
 INSERT INTO course
     (course_code,department_id,course_name)
 VALUES 
-    ('HH-201-B',2,'Hotel Hospitality');
+    ('CMPS-352-A','1','Advanced Object Orientated Programming');
 
 INSERT INTO course
     (course_code,department_id,course_name)
 VALUES 
-    ('MH-301-B',2,'Motel Hospitality');
+    ('PNB-101-B','2','Pastries and Bread');
 
 INSERT INTO course
     (course_code,department_id,course_name)
 VALUES 
-    ('BNBH-201-B',2,'Bed and Breakfast Hospitality');
+    ('MC-101-B','2','Meat Cutting');
+
+INSERT INTO course
+    (course_code,department_id,course_name)
+VALUES 
+    ('SS-181-B','2','Soups and Sauces');
+
+
+INSERT INTO course
+    (course_code,department_id,course_name)
+VALUES 
+    ('HH-201-B','3','Hotel Hospitality');
+
+INSERT INTO course
+    (course_code,department_id,course_name)
+VALUES 
+    ('MH-301-B','3','Motel Hospitality');
+
+INSERT INTO course
+    (course_code,department_id,course_name)
+VALUES 
+    ('BNBH-201-B','3','Bed and Breakfast Hospitality');
 
 
 
@@ -128,23 +128,44 @@ VALUES
 INSERT INTO glossary_entry
     (glossary_entry,date_added,made_by)
 VALUES
-    ('Java','2016-06-03',0);
-
-INSERT INTO definition 
-    (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    ('Java','2016-06-03','0');
+INSERT INTO glossary_entry
+    (glossary_entry,date_added,made_by)
 VALUES
-    (0,'Java','A cup of coffee. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-10-02',null,'0','HH-201-B','I');
-INSERT INTO definition 
-    (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    (1,'Java','A drink you dunk biscuits in. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-08-01',null,'0','PNB-101-B','I');
-INSERT INTO definition 
-    (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    (2,'Java','A programming language. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-06-03',null,'0','CMPS-352-A', 'I');
-INSERT INTO definition 
-    (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    (3,'Java','Coffee. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
+    ('Cookie','2016-06-03','0');
 
 
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Java','A cup of coffee','2017-10-02',null,'0','HH-201-B','I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Java','A drink you dunk biscuits in','2017-08-01',null,'0','PNB-101-B','I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Java','A programming language','2017-06-03',null,'0','CMPS-352-A', 'I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Java','Coffee','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
+
+
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Cookie','Put out beside coffee','2017-12-01',null,'0','HH-201-B','I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Cookie','A dessert disk','2017-08-01',null,'0','PNB-101-B','I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Cookie','A way for browsers to store information','2017-06-03',null,'0','CMPS-352-A', 'I');
+INSERT INTO definition 
+    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+VALUES
+    ('Cookie','A round sweet treat','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
