@@ -107,7 +107,7 @@ public class DefinitionBroker extends Broker {
         Connection connection = pool.getConnection();
 
         Definition definition = (Definition) object;
-        String sql = "INSERT INTO [dbo].[definition] VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO [GlossaryDataBase][dbo].[definition] VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = null;
         
