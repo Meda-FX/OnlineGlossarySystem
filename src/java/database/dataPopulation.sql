@@ -133,18 +133,18 @@ VALUES
 INSERT INTO definition 
     (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
-    (0,'Java','A cup of coffee','2017-10-02',null,'0','HH-201-B','I');
+    (0,'Java','A cup of coffee. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-10-02',null,'0','HH-201-B','I');
 INSERT INTO definition 
     (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
-    (1,'Java','A drink you dunk biscuits in','2017-08-01',null,'0','PNB-101-B','I');
+    (1,'Java','A drink you dunk biscuits in. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-08-01',null,'0','PNB-101-B','I');
 INSERT INTO definition 
     (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
-    (2,'Java','A programming language','2017-06-03',null,'0','CMPS-352-A', 'I');
+    (2,'Java','A programming language. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2017-06-03',null,'0','CMPS-352-A', 'I');
 INSERT INTO definition 
     (definition_uid,glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
-    (3,'Java','Coffee','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
+    (3,'Java','Coffee. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text.','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
 
 

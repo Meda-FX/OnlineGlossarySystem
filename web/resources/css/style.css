@@ -36,9 +36,19 @@ body {
     background-color: white;
 }
 
-/*.navbar-brand {
-  padding: 0px;
+/** headers style */
+.container-fluid h4 {
+     font-size: 1.2em;
+    font-weight: 700;
 }
+
+/** logo style */
+#navbar-brand {
+   font-size: 1.6em;
+    font-weight: 700;
+}
+
+/*
 .navbar-brand>img {
   height: 100%;
   width: 50%;
@@ -118,13 +128,6 @@ text-align: center;
     text-align: center;
 }
 
-
-.dropdown-menu li a:hover{
-    text-align: center;
-    background-color: #005eb8;
-}
-
-
 .list-terms {
     /*background-color: red;*/
 }
@@ -141,9 +144,9 @@ text-align: center;
     font-size: 50px;
 }
 
-.panel {
+/*.panel {
     background-color: red;
-}
+}*/
 
 /* Login */
 #form-login{
@@ -206,5 +209,14 @@ text-align: center;
 
 .regis-reset_login {
     text-align: center;
+}
+
+/** term definition mediaquiery */
+/** Medium devices (tablets, 768px and up)*/
+@media (max-width: 768px) {
+    #termDefinition {
+        display: none;
+        background-color: red;
+    }
 }
 
