@@ -89,7 +89,7 @@
     <!-- Term definitions starts here -->
     <c:if test="${noSuchEntry != true}">
         <c:forEach var="term" items="${termlist}"> 
-            <c:forEach var="definition" items="${term.definitionList}"> 
+            <c:forEach var="definition" items="${term.definitionList.definitionList}"> 
             <div class="row">
                 <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
                 <div class="col-xs-12 col-md-3">
