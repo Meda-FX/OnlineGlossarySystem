@@ -7,7 +7,7 @@
         <title>Admin Home Page</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="stylesheet" href="resources/css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">      
         <!--Favicons starts-->
         <link rel="icon" type="image/png" href="http://www.sait.ca/assets/prebuilt/img/favicon/favicon-16x16.png" sizes="16x16">
