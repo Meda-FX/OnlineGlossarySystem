@@ -6,12 +6,12 @@ use [GlossaryDataBase]
 
 
 CREATE TABLE [dbo].[department](
-	department_id int NOT NULL PRIMARY KEY,
+	department_id int IDENTITY(1,1) PRIMARY KEY,
 	name varchar (100) NOT NULL
 	
 	)
 CREATE TABLE [dbo].[role](
-	priviledge_id int NOT NULL PRIMARY KEY,
+	priviledge_id int IDENTITY(1,1) PRIMARY KEY,
 	description varchar (40) NOT NULL
 	)
 		
@@ -58,7 +58,7 @@ CREATE TABLE [dbo].[glossary_entry](
 	)
 
 CREATE TABLE [dbo].[definition](
-	definition_uid int NOT NULL PRIMARY KEY, 
+	definition_uid int IDENTITY(1,1) PRIMARY KEY, 
 	glossary_entry varchar (40) NOT NULL,   
         definition varchar (500) NOT NULL,
 	date_created date NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[user_course](
 	)
 
 CREATE TABLE [dbo].[password_request_log](
-	request_id int NOT NULL,
+	request_id int IDENTITY(1,1) PRIMARY KEY,
 	request_date date NOT NULL,
 	request_by Varchar(20) NOT NULL,
         CONSTRAINT FK_password_request_log_request_id FOREIGN KEY (request_by)
