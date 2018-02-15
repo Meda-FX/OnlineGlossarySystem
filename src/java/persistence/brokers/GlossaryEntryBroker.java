@@ -95,9 +95,10 @@ public class GlossaryEntryBroker extends Broker {
                 glossaryTerm = (rs.getString("glossary_entry"));
                 if(!comparedTerm.equals(glossaryTerm))
                 {
-                    if(!comparedTerm.equals("")) terms.add(ge);
+                    if(!comparedTerm.equals("")) {terms.add(ge);}
                     comparedTerm=glossaryTerm;
                     ge=new GlossaryEntry();
+                    ge.setTerm(glossaryTerm);
                     definitionList = ge.getDefinitionList();
                 }
                 definition = new Definition();
@@ -115,6 +116,7 @@ public class GlossaryEntryBroker extends Broker {
                 definition.setWrittenBy(user);
                 definitionList.add(definition);
             }
+            terms.add(ge);
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
