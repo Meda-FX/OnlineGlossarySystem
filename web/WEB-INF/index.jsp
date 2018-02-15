@@ -41,9 +41,10 @@
 <div class="row glossarySearchHeaderStyle">
     <div class="col-sm-8 col-md-6 col-md-offset-3 col-sm-offset-2">
         <h3>SEARCH TERMS</h3>
-        <form action="search?action=searchTerm" method="GET">    
+        <form action="search" method="GET">    
             <div class="input-group">
                 <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch" value="${searchedEntry}"/>
+                <input type="text" name="action" value="searchTerm" hidden/>
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
