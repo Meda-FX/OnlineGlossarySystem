@@ -46,9 +46,9 @@
                 <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch" value="${searchedEntry}"/>
                 <input type="text" name="action" value="searchTerm" hidden/>
                 <div class="input-group-btn">
-                    <input class="btn" type="submit">
+                    <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
-                    </input>
+                    </button>
                 </div>
             </div>
         </form>
