@@ -45,7 +45,7 @@ public class DefinitionBroker extends Broker {
         String definitionID;
         java.util.Date newDate;
 
-        String selectSQL = "SELECT * from [dbo].[definition].[made_by]=?";
+        String selectSQL = "SELECT * from [dbo].[definition] where made_by =?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;

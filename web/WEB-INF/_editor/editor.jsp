@@ -1,4 +1,4 @@
-<%@ include file="includes/admin-header.jsp" %>   
+<%@ include file="../includes/editor-header.jsp" %>   
 
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
@@ -57,8 +57,7 @@
 
 <!--Search filter starts here-->
 <div class="row search-filter"> <!-- main filter container -->    
-     <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-    
+     <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">    
     
     <!-- Filter by instructor starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -186,4 +185,4 @@
     
 </div> <!-- list items  -->
 
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
