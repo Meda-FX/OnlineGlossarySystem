@@ -31,13 +31,69 @@ public class GlossaryEntryBroker extends Broker {
      * matching result set.
      * @return a Glossary Entry object.
      */
+    
     public GlossaryEntry getByTerm(String term) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public int insert(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        GlossaryEntry ge = (GlossaryEntry)object;
+        boolean check = true;
+        
+//        String user_id = null;
+//        String password = null;
+//        int department_id = 0;
+//        String name = null;
+//        String email = null;
+//        int activated = 0;
+//        
+//        String glossary_entry = null;
+//        Date date_added = null;
+//        String made_by = null;
+//        
+//        int definition_uid = 0;
+//	  String geGlossary_entry = null;  
+//        String definition = null;
+//	  Date date_created = null;
+//	  String citation = null;
+//	  String geMade_by = null;
+//	  String course_code = null;
+//	  char type = 'x';
+                
+//        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[glossary_entry], [GlossaryDataBase].[dbo].[user], [GlossaryDataBase].[dbo].[definition] WHERE [GlossaryDataBase].[dbo].[user].user_id = [GlossaryDataBase].[dbo].[definition].made_by AND [GlossaryDataBase].[dbo].[user].user_id = [GlossaryDataBase].[dbo].[glossary_entry].made_by;";
+        
+        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[glossary_entry] (glossary_entry, date_added, made_by) VALUES (?,?,?);";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            rs = ps.executeQuery();
+            
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, ge.getTerm());
+            ps.setDate(2, (java.sql.Date)ge.getDateCreated());
+            ps.setString(3, ge.getCreatedBy().getName());
+            rs = ps.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
