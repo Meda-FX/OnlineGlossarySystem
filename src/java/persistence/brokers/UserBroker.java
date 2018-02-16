@@ -32,6 +32,37 @@ public class UserBroker extends Broker{
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user] WHERE [GlossaryDataBase].[dbo].[user].email = ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
+        
+        String compareName = "";
+        String username = null;
+        User user = new User();
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                username = (rs.getString("name"));
+                if(!compareName.equals(username)) {
+                    if(!compareName.equals("")) {
+                        user.setName(username);
+                        return user;
+                    }
+                }
+            }
+        
+         } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        
         return null;
     }
     
