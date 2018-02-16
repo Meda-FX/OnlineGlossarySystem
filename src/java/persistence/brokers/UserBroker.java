@@ -34,8 +34,14 @@ public class UserBroker extends Broker{
         ResultSet rs = null;
         
         String compareName = "";
-        String username = null;
-        User user = new User();
+        User user = null;
+        
+        String user_id = null;
+	String password = null;
+	int department_id = 0;
+	String name = null;
+	String userEmail = null;
+	int activated = 0;
         
         try {
             ps = connection.prepareStatement(selectSQL);
@@ -43,13 +49,24 @@ public class UserBroker extends Broker{
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                username = (rs.getString("name"));
-                if(!compareName.equals(username)) {
-                    if(!compareName.equals("")) {
-                        user.setName(username);
-                        return user;
-                    }
-                }
+                user = new User();
+                user_id = (rs.getString("user_id"));
+                password = (rs.getString("password"));
+                department_id = (rs.getInt("department_id"));
+                name = (rs.getString("name"));
+                userEmail = (rs.getString("email"));
+                activated = (rs.getInt("activated"));
+                
+                
+//                if(!compareName.equals(username)) {
+//                        return user;
+//                }
+                user.setID(user_id);
+                user.setPassword(password);
+                //user.setDepartment("1");
+                user.setName(name);
+                user.setEmail(email);
+                //user.
             }
         
          } catch (SQLException ex) {
@@ -63,7 +80,7 @@ public class UserBroker extends Broker{
             pool.freeConnection(connection);
         }
         
-        return null;
+        return user;
     }
     
     /**
