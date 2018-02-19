@@ -107,17 +107,22 @@ public class DefinitionBroker extends Broker {
         Connection connection = pool.getConnection();
 
         Definition definition = (Definition) object;
-        String sql = "INSERT INTO [GlossaryDataBase][dbo].[definition] VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO definition \n" +
+                     "(glossary_entry,definition, date_created,citation,made_by,course_code,[type])\n" +
+                     "VALUES (?,?,?,?,?,?,?)";
 
         PreparedStatement ps = null;
         
         try {
             ps = connection.prepareStatement(sql);
-          //   ps.setString(1, user.getID());
-          
-          //need to set definition id increment automatically 
-          //syntax
-          //ID_column INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+             ps.setString(1, definition.getTerm());
+             ps.setString(2, definition.getContent());
+             ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+             ps.setString(4, definition.getCitation());
+             ps.setString(5, definition.getWrittenBy().getID());
+             ps.setString(6,definition.getDefinitionType()+"");
+            
+          // may need to update the definition edit log
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
