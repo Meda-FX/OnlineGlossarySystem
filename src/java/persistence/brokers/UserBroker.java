@@ -39,8 +39,17 @@ public class UserBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
-        String sql_user = "SELECT user_id,password,[dbo].[user].department_id,[dbo].[user].name,activated,[dbo].[department].name FROM [dbo].[user] join [dbo].[department] on ([dbo].[user].department_id = [dbo].[department].department_id) WHERE email =?";
-        String sql_priv = "SELECT * FROM [dbo].[user_role] JOIN [dbo].[role] ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) WHERE user_id =?";
+        String sql_user = "SELECT user_id,"
+                                + "password,"
+                                + "[dbo].[user].department_id,"
+                                + "[dbo].[user].name,"
+                                + "activated,"
+                                + "[dbo].[department].name "
+                        + "FROM [dbo].[user] "
+                        + "JOIN [dbo].[department] "
+                        + "ON ([dbo].[user].department_id = [dbo].[department].department_id) "
+                        + "WHERE email =?";
+        //String sql_priv = "SELECT * FROM [dbo].[user_role] JOIN [dbo].[role] ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) WHERE user_id =?";
         User user = null;
         Department department = null;
 

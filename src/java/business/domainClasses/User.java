@@ -13,6 +13,7 @@ public class User {
     private String password;
     private PrivilegeList privileges;
     private CourseList courses;
+    private boolean isActivated;
 
     public User() {
     }
@@ -30,7 +31,7 @@ public class User {
      * @param privileges the privilege given by the administrator if the glossary system manager
      * @param courses the corse that the user enrolled into.
      */
-    public User(Department department, String name, String email, String id, String password, PrivilegeList privileges, CourseList courses) {
+    public User(Department department, String name, String email, String id, String password, PrivilegeList privileges, CourseList courses, boolean isActivated) {
         this.department = department;
         this.name = name;
         this.email = email;
@@ -38,6 +39,7 @@ public class User {
         this.password = password;
         this.privileges = privileges;
         this.courses = courses;
+        this.isActivated = isActivated;
     }      
     
     /**
@@ -136,4 +138,14 @@ public class User {
     public CourseList getCourses() {
         return courses;
     }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
+
+    public boolean getIsActivated() {
+        return isActivated;
+    }
+    
+    
 }
