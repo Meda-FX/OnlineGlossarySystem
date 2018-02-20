@@ -38,22 +38,18 @@ public class UserBroker extends Broker{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
-        //String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user] WHERE [GlossaryDataBase].[dbo].[user].email = ?;";
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where [GlossaryDataBase].[dbo].[user].email = ?;";
+        String sql_user = "SELECT user_id,password,[dbo].[user].department_id,[dbo].[user].name,activated,[dbo].[department].name FROM [dbo].[user] join [dbo].[department] on ([dbo].[user].department_id = [dbo].[department].department_id) WHERE email =?";
+        String sql_priv = "SELECT * FROM [dbo].[user_role] JOIN [dbo].[role] ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) WHERE user_id =?";
+        User user = null;
+        Department department =null;
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        ArrayList<User> users = new ArrayList<>();
-        Department department = null;
-        
-        String compareName = "";
-        User user = null;
-        
         String user_id = null;
-	String password = null;
+        String password = null;
 	int department_id = 0;
-	String name = null;
-	String userEmail = null;
+	String userName = null;
 	int activated = 0;
         String deptID = null;
         String deptName = null;
@@ -64,75 +60,45 @@ public class UserBroker extends Broker{
         String year = null;
         
         try {
-            ps = connection.prepareStatement(selectSQL);
+            ps = connection.prepareStatement(sql_user);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            PrivilegeList privilegeList=null;
-            CourseList courseList = null;
             
             while (rs.next()) {
-                user_id = (rs.getString("user_id"));
-                if(!compareName.equals(user_id)) {
-                    if(!compareName.equals("")) {users.add(user);}
-                        compareName = user_id;
-                        user = new User();
-                        user.setID(user_id);
-                        privilegeList = user.getPrivileges();
-                        courseList = user.getCourses();
-                }
-                
-                //DEPARTMENT
+                user = new User();
                 department = new Department();
-                deptID = rs.getString("departmentID");
-                deptName = rs.getString("name");
+                user_id = rs.getString(1);
+                password= rs.getString(2);
+                department_id = rs.getInt(3);
+                userName = rs.getString (4);
+               // activated=rs.getInt(5);
+                deptName=rs.getString(6);
                 
                 department.setDepartmentID(deptID);
                 department.setName(deptName);
                 
-                //PRIVILEGE
-                Privilege priv = new Privilege();
-                privID = rs.getInt("privilegeID");
-                description = rs.getString("description");
-                priv.setPrivilegeID(privID);
-                priv.setDescription(description);
-                privilegeList.add(privID);
-                
-                //USER
-                password = (rs.getString("password"));
-                department_id = (rs.getInt("department_id"));
-                name = (rs.getString("name"));
-                userEmail = (rs.getString("email"));
-                activated = (rs.getInt("activated"));
-                
+                user.setEmail(email);
                 user.setID(user_id);
+                user.setName(userName);
                 user.setPassword(password);
                 user.setDepartment(department);
-                user.setName(name);
-                user.setEmail(email);
-                
-                //COURSE
-                Course course = new Course();
-                courseCode = rs.getString("courseCode");
-                courseName = rs.getString("courseName");
-                year = rs.getString("year");
-                
-                //LISTS
-                privilegeList.add(privID);
-                courseList.add(courseCode);
+               
             }
-            users.add(user);
-        
-         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
-            pool.freeConnection(connection);
-        }
-        
+            if(user != null)
+            {
+                
+            }}
+            
+        pool.freeConnection(connection);
+
         return user;
     }
     

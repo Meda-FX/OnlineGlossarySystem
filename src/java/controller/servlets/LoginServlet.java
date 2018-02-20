@@ -54,9 +54,24 @@ public class LoginServlet extends HttpServlet {
         {
             //user.setPassword("");
             session.setAttribute("user", user);
-
+            if(user.getPrivileges().contains(1)) // admin
+            {
+               url = "/WEB-INF/_admin/admin.jsp";
+            }
+            else if(user.getPrivileges().contains(2)) //editor
+            {
+                url = "/WEB-INF/_editor/editor.jsp";
+            }
+            else if(user.getPrivileges().contains(3)) //instructor
+            {
+                url = "/WEB-INF/_instructor/instructor.jsp";
+            }
+            else if(user.getPrivileges().contains(4)) //student
+            {
+                url = "/WEB-INF/_student/student.jsp";
+            }
         }
-     //   getServletContext().getRequestDispatcher(url).forward(req, resp);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
         
         
     }

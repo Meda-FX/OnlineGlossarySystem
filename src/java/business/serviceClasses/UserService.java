@@ -3,6 +3,8 @@ package business.serviceClasses;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistence.brokers.UserBroker;
 
 /**
@@ -29,6 +31,13 @@ public class UserService {
      * @return returns a user object
      */
     public User checkLogin(String email, String password) {
+        UserBroker udb = new UserBroker();
+        
+            User u = udb.getByEmail(email);
+            if (u != null && password.equals(u.getPassword())) {
+                return u;
+            }
+        
         return null;
     }
     
