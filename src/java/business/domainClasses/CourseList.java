@@ -32,9 +32,7 @@ public class CourseList {
      * Adds a course in to the list using a parameter course code
      * @param courseCode courseCode the course code to be added to the list
      */
-    public void add(String courseCode) {
-        CourseService cs = new CourseService();
-        Course newCourse = cs.get(courseCode);
+    public void add(Course newCourse) {
         courses.add(newCourse);
     }
     
