@@ -24,14 +24,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-        
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        String url = "/WEB-INF/login.jsp";
+        if(action != null && action.equals("logout"))
+        {
+            session.invalidate();
+        }
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String username = request.getParameter("username");
+        String username = request.getParameter("email");
         String password = request.getParameter("password");
         String url = "/WEB-INF/login.jsp";
         HttpSession session = request.getSession();

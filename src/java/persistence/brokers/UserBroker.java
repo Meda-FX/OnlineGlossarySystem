@@ -40,32 +40,32 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
 
         String sql_user = "SELECT user_id,"
-                                + "password,"
-                                + "[dbo].[user].department_id,"
-                                + "[dbo].[user].name,"
-                                + "activated,"
-                                + "[dbo].[department].name "
-                        + "FROM [dbo].[user] "
-                        + "JOIN [dbo].[department] "
-                        + "ON ([dbo].[user].department_id = [dbo].[department].department_id) "
-                        + "WHERE email =?";
-        
+                + "password,"
+                + "[GlossaryDataBase].[dbo].[user].department_id,"
+                + "[GlossaryDataBase].[dbo].[user].name,"
+                + "activated,"
+                + "[GlossaryDataBase].[dbo].[department].name "
+                + "FROM [GlossaryDataBase].[dbo].[user] "
+                + "JOIN [GlossaryDataBase].[dbo].[department] "
+                + "ON ([GlossaryDataBase].[dbo].[user].department_id = [GlossaryDataBase].[dbo].[department].department_id) "
+                + "WHERE email =?";
+
         String sql_priv = "SELECT * "
-                        + "FROM [dbo].[user_role] "
-                        + "JOIN [dbo].[role] "
-                        + "ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) "
-                        + "WHERE user_id =?";
-        
-        String sql_course = "SELECT *"
-                            + "FROM [dbo].[user_course]"
-                            + "JOIN [dbo].[course]"
-                            + "ON [dbo].[user_course].course_code = [dbo].[course].course_code"
-                            + "JOIN [dbo].[department]"
-                            + "ON ([dbo].[course].department_id = [dbo].[department].department_id)"
-                            + "WHERE user_id = ?";
+                + "FROM [GlossaryDataBase].[dbo].[user_role] "
+                + "JOIN [GlossaryDataBase].[dbo].[role] "
+                + "ON([GlossaryDataBase].[dbo].[user_role].privilege_id = [GlossaryDataBase].[dbo].[role].privilege_id) "
+                + "WHERE user_id =?";
+
+        String sql_course = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user_course] "
+                + "JOIN [GlossaryDataBase].[dbo].[course] "
+                + "ON ([GlossaryDataBase].[dbo].[user_course].course_code = [GlossaryDataBase].[dbo].[course].course_code) "
+                + "JOIN [GlossaryDataBase].[dbo].[department] "
+                + "ON ([GlossaryDataBase].[dbo].[course].department_id = [GlossaryDataBase].[dbo].[department].department_id) "
+                + "WHERE user_id = ?";
         User user = null;
-        Department department = null;        
-        
+        Department department = null;
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -93,7 +93,7 @@ public class UserBroker extends Broker {
                 password = rs.getString(2);
                 department_id = rs.getInt(3);
                 userName = rs.getString(4);
-                activated=rs.getBoolean(5);
+                activated = rs.getBoolean(5);
                 deptName = rs.getString(6);
 
                 department.setDepartmentID(department_id);
@@ -106,30 +106,30 @@ public class UserBroker extends Broker {
                 user.setDepartment(department);
                 user.setIsActivated(activated);
             }
-            
+
             PrivilegeList privileges = user.getPrivileges();
             String privilegeDescription = null;
-            
+
             ps = connection.prepareStatement(sql_priv);
             ps.setString(1, user_id);
             rs = ps.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 privID = rs.getInt("privilege_id");
                 privilegeDescription = rs.getString("description");
                 privileges.add(new Privilege(privID, privilegeDescription));
             }
-            
+
             CourseList courses = user.getCourses();
-            int courseDepartmentID ;
+            int courseDepartmentID;
             String courseDepartmentName;
             Department courseDepartment;
-            
+
             ps = connection.prepareStatement(sql_course);
             ps.setString(1, user_id);
             rs = ps.executeQuery();
-            
-            while(rs.next()) {
+
+            while (rs.next()) {
                 courseCode = rs.getString("course_code");
                 courseName = rs.getString("course_name");
                 courseDepartmentID = rs.getInt("department_id");
@@ -137,18 +137,17 @@ public class UserBroker extends Broker {
                 courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
                 courses.add(new Course(courseCode, courseName, courseDepartment));
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 rs.close();
                 ps.close();
+
             } catch (SQLException ex) {
             }
-
-        pool.freeConnection(connection);
+            pool.freeConnection(connection);
         }
         return user;
     }
@@ -164,12 +163,12 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         String searchPattern = ("%" + name + "%").toUpperCase();
         String selectSQL = "SELECT * "
-                            + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
-                            + "JOIN [GlossaryDataBase].[dbo].[definition] "
-                            + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
-                            + "JOIN [GlossaryDataBase].[dbo].[user] "
-                            + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
-                            + "WHERE UPPER([GlossaryDataBase].[dbo].[user].name) LIKE ?;";
+                + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
+                + "JOIN [GlossaryDataBase].[dbo].[definition] "
+                + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
+                + "JOIN [GlossaryDataBase].[dbo].[user] "
+                + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                + "WHERE UPPER([GlossaryDataBase].[dbo].[user].name) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 

@@ -36,7 +36,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.html"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
-                        <li><a href="index.html"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
+                        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
                     </ul>
 
                 </div><!-- /.navbar-collapse -->
