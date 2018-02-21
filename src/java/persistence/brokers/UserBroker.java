@@ -162,14 +162,14 @@ public class UserBroker extends Broker {
     public List<User> getByName(String name) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-
+        String searchPattern = ("%" + name + "%").toUpperCase();
         String selectSQL = "SELECT * "
                             + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
                             + "JOIN [GlossaryDataBase].[dbo].[definition] "
                             + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
                             + "JOIN [GlossaryDataBase].[dbo].[user] "
                             + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
-                            + "WHERE [GlossaryDataBase].[dbo].[user].name = ?;";
+                            + "WHERE UPPER([GlossaryDataBase].[dbo].[user].name) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -197,7 +197,7 @@ public class UserBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, name);
+            ps.setString(1, searchPattern);
             rs = ps.executeQuery();
             PrivilegeList privilegeList = null;
             CourseList courseList = null;
