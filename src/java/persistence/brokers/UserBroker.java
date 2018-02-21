@@ -184,15 +184,13 @@ public class UserBroker extends Broker {
         String userName = null;
         String userEmail = null;
         boolean activated;
-        String deptID = null;
+        int deptID = 0;
         String deptName = null;
         int privID;
         String description;
         String courseCode = null;
         String courseName = null;
         String year = null;
-
-        String compareName = "";
 
         try {
             ps = connection.prepareStatement(selectSQL);
@@ -203,8 +201,7 @@ public class UserBroker extends Broker {
 
             while (rs.next()) {
 
-                user_id = (rs.getString("user_id"));
-                compareName = user_id;
+                user_id = (rs.getString(1));
                 user = new User();
                 user.setID(user_id);
                 privilegeList = user.getPrivileges();
@@ -212,7 +209,7 @@ public class UserBroker extends Broker {
 
                 //DEPARTMENT
                 department = new Department();
-                deptID = rs.getString("departmentID");
+                deptID = rs.getInt("departmentID");
                 deptName = rs.getString("name");
 
                 department.setDepartmentID(deptID);
@@ -224,16 +221,16 @@ public class UserBroker extends Broker {
                 description = rs.getString("description");
                 priv.setPrivilegeID(privID);
                 priv.setDescription(description);
-                privilegeList.add(privID);
+                privilegeList.add(new Privilege(privID, description));
 
                 //USER
                 password = (rs.getString("password"));
                 department_id = (rs.getInt("department_id"));
                 name = (rs.getString("name"));
                 userEmail = (rs.getString("email"));
-                activated = (rs.getInt("activated"));
+                activated = (rs.getBoolean("activated"));
 
-                user.setID(user_id);
+                //user.setID(user_id);
                 user.setPassword(password);
                 user.setDepartment(department);
                 user.setName(name);
@@ -246,8 +243,8 @@ public class UserBroker extends Broker {
                 year = rs.getString("year");
 
                 //LISTS
-                privilegeList.add(privID);
-                courseList.add(courseCode);
+                //privilegeList.add(priv);
+                courseList.add(new Course(courseCode, courseName, department));
                 users.add(user);
             }
 
