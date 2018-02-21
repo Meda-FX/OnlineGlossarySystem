@@ -440,6 +440,87 @@ public class UserBroker extends Broker {
 
     @Override
     public List<Object> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        List<Object> users = new ArrayList<>();
+        
+        String user_id = null;
+	String password = null;
+	int department_id = 0;
+	String name = null;
+	String userEmail = null;
+	int activated = 0;
+        int deptID = 0;
+        String deptName = null;
+        int privID;
+        String description;
+        String courseCode =null;
+        String courseName = null;
+        String year = null;
+        
+        Department department = null;
+        
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user];";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user = null;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            PrivilegeList privilegeList=null;
+            CourseList courseList = null;
+            privilegeList = user.getPrivileges();
+            courseList = user.getCourses();
+            while (rs.next()) {
+                //DEPARTMENT
+                department = new Department();
+                deptID = rs.getInt("departmentID");
+                deptName = rs.getString("name");
+                
+                department.setDepartmentID(deptID);
+                department.setName(deptName);
+                
+                //PRIVILEGE
+                Privilege priv = new Privilege();
+                privID = rs.getInt("privilegeID");
+                description = rs.getString("description");
+                priv.setPrivilegeID(privID);
+                priv.setDescription(description);
+                privilegeList.add(new Privilege(privID, description));
+                
+                //USER
+                password = (rs.getString("password"));
+                department_id = (rs.getInt("department_id"));
+                name = (rs.getString("name"));
+                userEmail = (rs.getString("email"));
+                activated = (rs.getInt("activated"));
+                
+                user.setID(user_id);
+                user.setPassword(password);
+                user.setDepartment(department);
+                user.setName(name);
+                user.setEmail(userEmail);
+                
+                //COURSE
+                Course course = new Course();
+                courseCode = rs.getString("courseCode");
+                courseName = rs.getString("courseName");
+                year = rs.getString("year");
+                
+                //LISTS
+                //privilegeList.add(privID);
+                courseList.add(new Course(courseCode, courseName, department));
+                
+                users.add(user);
+            }
+            
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
