@@ -5,6 +5,8 @@
  */
 package controller.servlets;
 
+import business.domainClasses.User;
+import business.serviceClasses.PasswordRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,6 +38,15 @@ public class PasswordServlet extends HttpServlet {
             String email = request.getParameter("email");
             
             UserService us = new UserService();
+            User user = us.getByEmail(email);
+            if (!user.getIsActivated()) {
+                request.setAttribute("errormessage", "no active account with this email");
+                getServletContext().getRequestDispatcher("/WEB-INF/forgetPassword.jsp").forward(request, response);
+                return;
+            }
+            
+            PasswordRequestService prs = new PasswordRequestService();
+            String token = prs.insert(user);
         }
     }
 }
