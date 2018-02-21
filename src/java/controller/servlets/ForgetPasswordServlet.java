@@ -8,8 +8,10 @@ package controller.servlets;
 import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
+import business.serviceClasses.WebMailService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,8 +49,22 @@ public class ForgetPasswordServlet extends HttpServlet {
             
             AccountRequestService prs = new AccountRequestService();
             String token = prs.insert(user, 2);
-        } catch (Exception ex) {
             
+            HashMap<String, String> contents = new HashMap<>();
+            StringBuffer url = request.getRequestURL();
+            String uri  = request.getRequestURI();
+            String ctx = request.getContextPath();
+            String base = url.substring(0, url.length() - uri.length() + ctx.length());
+            contents.put("link", base + "/newpassword?id=" + token);
+            
+            WebMailService.sendMail(email, "OnlineGlossarySystem Reset Password", 
+                    getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/resetpassword.html", contents);
+            session.setAttribute("message", "Please check your email");
+            response.sendRedirect("login");
+        } catch (Exception ex) {
+            request.setAttribute("message", "No active account with this email");
+            getServletContext().getRequestDispatcher("/WEB-INF/forgetPassword.jsp").forward(request, response);
+            return;
         }
     }
 }

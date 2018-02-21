@@ -41,7 +41,7 @@
         <servlet-class>controller.servlets.SearchServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PasswordServlet</servlet-name>
+        <servlet-name>ForgetPasswordServlet</servlet-name>
         <servlet-class>controller.servlets.ForgetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
@@ -73,8 +73,8 @@
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PasswordServlet</servlet-name>
-        <url-pattern>/password</url-pattern>
+        <servlet-name>ForgetPasswordServlet</servlet-name>
+        <url-pattern>/forgetpassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InstructorServlet</servlet-name>
