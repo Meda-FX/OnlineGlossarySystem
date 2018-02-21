@@ -3,6 +3,7 @@ package business.serviceClasses;
 import business.domainClasses.AccountRequest;
 import business.domainClasses.User;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,7 +73,7 @@ public class AccountRequestService {
         
         accountRequest.setRequestDate(new Date());
         
-        removeOld(requestUser);
+        //removeOld(requestUser);
         
         requestDB.insert(accountRequest);
         return token;
@@ -94,15 +95,32 @@ public class AccountRequestService {
     /**
      * Method to verify user identity with the supplied string
      * @param token token the token that is passed to verify the user
+     * @param requestType the request type of the current call for verify ID
      * @return the verified user when verified and returns null when failed
      */
-    public User verifyID(String token) {
+    public User verifyID(String token, int requestType) throws NoSuchAlgorithmException {
+        List<AccountRequest> accountRequestList = requestDB.getToVerify(requestType);
+        for (AccountRequest accountRequest: accountRequestList) {
+            String salt = accountRequest.getSalt();
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update((token + salt).getBytes());
+            String hash = new String(md.digest());
+            if (hash.equals(accountRequest.getRequestID())) {
+                User user = accountRequest.getRequestdBy();
+                //requestDB.delete(accountRequest);
+                return user;
+            }
+        }
         return null;
     }
+    
     
     /**
      * Removes a old password request with its requested user
      * @param requestUser requestUser the requester who's password request to be removed
      */
-    public void removeOld(User requestUser) { }
+    //public void removeOld(User requestUser) {
+    //    
+    //}
+    
 }
