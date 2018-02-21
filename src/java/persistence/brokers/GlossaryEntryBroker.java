@@ -114,7 +114,7 @@ public class GlossaryEntryBroker extends Broker {
     public List<GlossaryEntry> getMatched(String term) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-
+        String searchPattern = ("%" + term + "%").toUpperCase();
        // String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
         // String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
         String selectSQL = "SELECT * "
@@ -123,7 +123,7 @@ public class GlossaryEntryBroker extends Broker {
                          + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
                          + "JOIN [GlossaryDataBase].[dbo].[user] "
                          + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
-                         + "WHERE [GlossaryDataBase].[dbo].[definition].glossary_entry = ?;";
+                         + "WHERE UPPER([GlossaryDataBase].[dbo].[definition].glossary_entry) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -150,7 +150,7 @@ public class GlossaryEntryBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, term);
+            ps.setString(1, searchPattern);
             rs = ps.executeQuery();
             DefinitionList definitionList=null;
             while (rs.next()) {

@@ -163,7 +163,13 @@ public class UserBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where [GlossaryDataBase].[dbo].[user].name = ?;";
+        String selectSQL = "SELECT * "
+                            + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
+                            + "JOIN [GlossaryDataBase].[dbo].[definition] "
+                            + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
+                            + "JOIN [GlossaryDataBase].[dbo].[user] "
+                            + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                            + "WHERE [GlossaryDataBase].[dbo].[user].name = ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 

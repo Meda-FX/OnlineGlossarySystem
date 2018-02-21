@@ -139,6 +139,10 @@ INSERT INTO glossary_entry
     (glossary_entry,date_added,made_by)
 VALUES
     ('Cookie','2016-06-03','0');
+INSERT INTO glossary_entry
+    (glossary_entry,date_added,made_by)
+VALUES
+    ('JavaScript','2016-06-03','0');
 
 
 INSERT INTO definition 
@@ -152,7 +156,7 @@ VALUES
 INSERT INTO definition 
     (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
-    ('Java','A programming language','2017-06-03',null,'0','CMPS-352-A', 'I');
+    ('JavaScript','A programming language','2017-06-03',null,'0','CMPS-352-A', 'I');
 INSERT INTO definition 
     (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
 VALUES
