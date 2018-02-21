@@ -49,10 +49,14 @@ VALUES
     ('1','password',1,'Bob Bobson','bobBobson@gmail.com', 1);
 
 INSERT INTO [user_role]
-    (user_id, privilede_id)
+    (user_id, privilege_id)
 VALUES
     ('0',1);
 
+INSERT INTO [user_role]
+    (user_id, privilege_id)
+VALUES
+    ('1',2);
 
 INSERT INTO course
     (course_code,department_id,course_name)

@@ -135,7 +135,7 @@ public class UserBroker extends Broker {
                 courseDepartmentID = rs.getInt("department_id");
                 courseDepartmentName = rs.getString("name");
                 courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
-                courses.add(new Course(courseCode, courseName, courseDepartment));
+           //     courses.add(new Course(courseCode, courseName, courseDepartment));
             }
 
         } catch (SQLException ex) {
