@@ -6,7 +6,7 @@
 package controller.servlets;
 
 import business.domainClasses.User;
-import business.serviceClasses.PasswordRequestService;
+import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1
  */
-public class PasswordServlet extends HttpServlet {
+public class ForgetPasswordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,8 +45,10 @@ public class PasswordServlet extends HttpServlet {
                 return;
             }
             
-            PasswordRequestService prs = new PasswordRequestService();
-            String token = prs.insert(user);
+            AccountRequestService prs = new AccountRequestService();
+            String token = prs.insert(user, 2);
+        } catch (Exception ex) {
+            
         }
     }
 }

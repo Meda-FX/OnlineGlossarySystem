@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>PasswordServlet</servlet-name>
-        <servlet-class>controller.servlets.PasswordServlet</servlet-class>
+        <servlet-class>controller.servlets.ForgetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>InstructorServlet</servlet-name>
@@ -104,7 +104,7 @@
             30
         </session-timeout>
     </session-config>
-        <env-entry>
+    <env-entry>
         <env-entry-name>webmail-username</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>ogs.capstone@gmail.com</env-entry-value>

@@ -90,20 +90,22 @@ CREATE TABLE [dbo].[user_course](
         PRIMARY KEY(course_code,user_id,[year])
 	)
 
-CREATE TABLE [dbo].[password_request_log](
+CREATE TABLE [dbo].[account_request_log](
 	request_id int IDENTITY(1,1) PRIMARY KEY,
 	request_date date NOT NULL,
 	request_by Varchar(20) NOT NULL,
-        CONSTRAINT FK_password_request_log_request_id FOREIGN KEY (request_by)
+        request_log_type Varchar(30) NOT NULL,
+        CONSTRAINT FK_account_request_log_request_id FOREIGN KEY (request_by)
         REFERENCES [user](user_id)
 	)
 
-CREATE TABLE [dbo].[password_request](
+CREATE TABLE [dbo].[account_request](
 	request_id Int NOT NULL,
 	request_date date NOT NULL,
 	salt varchar (256) NOT NULL,
  	request_by Varchar(20) NOT NULL,
-        CONSTRAINT FK_password_request_request_id FOREIGN KEY (request_by)
+        request_type int NOT NULL,
+        CONSTRAINT FK_account_request_request_id FOREIGN KEY (request_by)
         REFERENCES [user](user_id)
 	)
 	

@@ -3,28 +3,32 @@ package business.domainClasses;
 import java.util.Date;
 
 /**
- * PasswordRequest class constructs the password request object it allowed mutation and accessing of the attributes of password requests.
+ * AccountRequest class constructs the account request object it allowed mutation and accessing of the attributes of account requests.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 1.0 
  */
-public class PasswordRequest {
+public class AccountRequest {
     private String requestID;
     private User requestedBy;
     private Date requestDate;
     private String salt;
+    private int requestType;
     
     /**
-     * Constructs a password request object
+     * Constructs a account request object
      * @param requestID  requestID the request id in changing password
      * @param requestedBy requestdBy the requester of the password change
      * @param requestDate requestDate the date in which the request is sent
      * @param salt salt the string used for hashing 
+     * @param requestType the type of account request, 1 mean is a request creating
+     * new account, 2 is a forget password request 
      */
-    public PasswordRequest(String requestID, User requestedBy, Date requestDate, String salt) {
+    public AccountRequest(String requestID, User requestedBy, Date requestDate, String salt, int requestType) {
         this.requestID = requestID;
         this.requestedBy = requestedBy;
         this.requestDate = requestDate;
         this.salt = salt;
+        this.requestType = requestType;
     }
     
     /**
@@ -78,4 +82,14 @@ public class PasswordRequest {
     public String getSalt() {
         return salt;
     }
+
+    public void setRequestType(int requestType) {
+        this.requestType = requestType;
+    }
+
+    public int getRequestType() {
+        return requestType;
+    }
+    
+    
 }

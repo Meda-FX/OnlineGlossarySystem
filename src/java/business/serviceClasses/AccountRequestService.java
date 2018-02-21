@@ -1,23 +1,23 @@
 package business.serviceClasses;
 
-import business.domainClasses.PasswordRequest;
+import business.domainClasses.AccountRequest;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
-import persistence.brokers.PasswordRequestBroker;
+import persistence.brokers.AccountRequestBroker;
 
 /**
- * PasswordRequestService class uses to access data from the database by utilizing the PasswordRequestBroker.
+ * AccountRequestService class uses to access data from the database by utilizing the AccountRequestBroker.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1 
  */
-public class PasswordRequestService {
-    private PasswordRequestBroker requestDB;
+public class AccountRequestService {
+    private AccountRequestBroker requestDB;
 
     /**
      * Constructs an object for the password request service
      */
-    public PasswordRequestService() {
+    public AccountRequestService() {
         this.requestDB = requestDB;
     }
     
@@ -26,7 +26,7 @@ public class PasswordRequestService {
      * @param id id the id of the password request
      * @return the password request 
      */
-    public PasswordRequest get(String id) {         
+    public AccountRequest get(String id) {         
         return null;
     }
     
@@ -44,9 +44,11 @@ public class PasswordRequestService {
      * Adding the a forgotten password request for a specific user. Returns a string 
      * that is to be sent to the user requesting for a password change
      * @param requestUser requestUser the request made by the user
+     * @param requestType requestType the type of request being made, 1 is a request
+     * for creating new account, 2 is a forget password request
      * @return the string to be send to the user 
      */
-    public String insert(User requestUser) {
+    public String insert(User requestUser, int requestType) {
         return null;
     }
     
@@ -54,8 +56,8 @@ public class PasswordRequestService {
      * Returns list of all password requests
      * @return all list of the request password 
      */
-    public List<PasswordRequest> getAll() {
-        return new ArrayList<PasswordRequest>();
+    public List<AccountRequest> getAll() {
+        return new ArrayList<AccountRequest>();
     }
     
     /**

@@ -1,22 +1,22 @@
 package persistence.brokers;
 
-import business.domainClasses.PasswordRequest;
+import business.domainClasses.AccountRequest;
 import java.util.List;
 
 /**
- * The PasswordRequestBroker provide connectivity to the database and allow insertion,
- * retrieval and removal of PasswordRequest from the database
+ * The AccountRequestBroker provide connectivity to the database and allow insertion,
+ retrieval and removal of AccountRequest from the database
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1.2
  */
-public class PasswordRequestBroker extends Broker{
+public class AccountRequestBroker extends Broker{
     
     /**
-     * The getRequest method get the PasswordRequest with it ID
-     * @param id represents the ID of a the PasswordRequest
-     * @return a PasswordRequest object with the specified ID.
+     * The getRequest method get the AccountRequest with it ID
+     * @param id represents the ID of a the AccountRequest
+     * @return a AccountRequest object with the specified ID.
      */
-    public PasswordRequest getRequest(String id) {
+    public AccountRequest getRequest(String id) {
         return null;
     }
 
