@@ -288,7 +288,9 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         User user = (User) object;
 
-        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user] (user_id, password, department_id, name, email, activated) VALUES (?,?,?,?,?,?);";
+        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user]"
+                + " (user_id, password, department_id, name, email, activated)"
+                + " VALUES (?,?,?,?,?,?);";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -323,16 +325,211 @@ public class UserBroker extends Broker {
 
     @Override
     public int delete(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        User user = (User)object;
+        
+        
+        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry]"
+                + " join [GlossaryDataBase].[dbo].[definition]"
+                + " on ([GlossaryDataBase].[dbo].[definition].glossary_entry"
+                + "=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry)"
+                + " join [GlossaryDataBase].[dbo].[user]"
+                + " on ([GlossaryDataBase].[dbo].[definition].made_by"
+                + "=[GlossaryDataBase].[dbo].[user].user_id)"
+                + " join [GlossaryDataBase].[dbo].[user_course]"
+                + " on [GlossaryDataBase].[dbo].[user].user_id"
+                + "=[GlossaryDataBase].[dbo].[user_course].user_id"
+                + " where [GlossaryDataBase].[dbo].[user].user_id = ?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
+                + " WHERE user_id = ?;";
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+        
+        String selectSQL3 = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
+                + " WHERE user_id = ?;";
+        PreparedStatement ps3 = null;
+        ResultSet rs3 = null;
+        
+        String selectSQL4 = "DELETE FROM [GlossaryDataBase].[dbo].[definition]"
+                + " WHERE made_by = ?;";
+        PreparedStatement ps4 = null;
+        ResultSet rs4 = null;
+        
+        String selectSQL5 = "DELETE FROM [GlossaryDataBase].[dbo].[glossary_entry]"
+                + " WHERE made_by = ?;";
+        PreparedStatement ps5 = null;
+        ResultSet rs5 = null;
+        
+        try {            
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, user.getID());
+            rs = ps.executeQuery();
+            
+            ps2 = connection.prepareStatement(selectSQL2);
+            ps2.setString(1, user.getID());
+            rs2 = ps2.executeQuery();
+            
+            ps3 = connection.prepareStatement(selectSQL3);
+            ps3.setString(1, user.getID());
+            rs3 = ps3.executeQuery();
+            
+            ps4 = connection.prepareStatement(selectSQL4);
+            ps4.setString(1, user.getID());
+            rs4 = ps4.executeQuery();
+            
+            ps5 = connection.prepareStatement(selectSQL5);
+            ps5.setString(1, user.getID());
+            rs5 = ps5.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int update(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        User user = (User)object;
+        
+        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) join [GlossaryDataBase].[dbo].[user_course] on [GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_course].user_id where [GlossaryDataBase].[dbo].[user].user_id = ?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        
+        String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? WHERE name = ?;";
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, user.getID());
+            rs = ps2.executeQuery();
+            
+            ps2 = connection.prepareStatement(selectSQL2);
+            ps2.setString(1, user.getID());
+            ps2.setString(2, user.getPassword());
+            ps2.setInt(3, '1');
+            ps2.setString(4, user.getName());
+            ps2.setString(5, user.getEmail());
+            ps2.setInt(6, '1');
+            ps2.setString(7, rs.getString("user_id"));
+            rs2 = ps2.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Object> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        List<Object> users = new ArrayList<>();
+        
+        String user_id = null;
+	String password = null;
+	int department_id = 0;
+	String name = null;
+	String userEmail = null;
+	int activated = 0;
+        String deptID = null;
+        String deptName = null;
+        int privID;
+        String description;
+        String courseCode =null;
+        String courseName = null;
+        String year = null;
+        
+        Department department = null;
+        
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user];";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user = null;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            PrivilegeList privilegeList=null;
+            CourseList courseList = null;
+            privilegeList = user.getPrivileges();
+            courseList = user.getCourses();
+            while (rs.next()) {
+                //DEPARTMENT
+                department = new Department();
+                deptID = rs.getString("departmentID");
+                deptName = rs.getString("name");
+                
+                department.setDepartmentID(deptID);
+                department.setName(deptName);
+                
+                //PRIVILEGE
+                Privilege priv = new Privilege();
+                privID = rs.getInt("privilegeID");
+                description = rs.getString("description");
+                priv.setPrivilegeID(privID);
+                priv.setDescription(description);
+                privilegeList.add(privID);
+                
+                //USER
+                password = (rs.getString("password"));
+                department_id = (rs.getInt("department_id"));
+                name = (rs.getString("name"));
+                userEmail = (rs.getString("email"));
+                activated = (rs.getInt("activated"));
+                
+                user.setID(user_id);
+                user.setPassword(password);
+                user.setDepartment(department);
+                user.setName(name);
+                user.setEmail(userEmail);
+                
+                //COURSE
+                Course course = new Course();
+                courseCode = rs.getString("courseCode");
+                courseName = rs.getString("courseName");
+                year = rs.getString("year");
+                
+                //LISTS
+                privilegeList.add(privID);
+                courseList.add(courseCode);
+                
+                users.add(user);
+            }
+            
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
