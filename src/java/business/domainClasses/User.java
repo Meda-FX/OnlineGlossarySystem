@@ -130,6 +130,7 @@ public class User {
      * @return returns the PrivilegeList
      */
     public PrivilegeList getPrivileges() {
+        
         return privileges;
     }
     
@@ -138,6 +139,7 @@ public class User {
      * @return the courseList of the users 
      */
     public CourseList getCourses() {
+        
         return courses;
     }
 
