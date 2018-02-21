@@ -14,6 +14,10 @@ public class AccountRequest {
     private String salt;
     private int requestType;
     
+    
+    public AccountRequest() {
+        
+    }
     /**
      * Constructs a account request object
      * @param requestID  requestID the request id in changing password
@@ -89,6 +93,10 @@ public class AccountRequest {
 
     public int getRequestType() {
         return requestType;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
     
     

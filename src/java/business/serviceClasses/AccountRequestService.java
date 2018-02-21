@@ -2,8 +2,12 @@ package business.serviceClasses;
 
 import business.domainClasses.AccountRequest;
 import business.domainClasses.User;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import persistence.brokers.AccountRequestBroker;
 
 /**
@@ -27,7 +31,7 @@ public class AccountRequestService {
      * @return the password request 
      */
     public AccountRequest get(String id) {         
-        return null;
+        return requestDB.getRequest(id);
     }
     
     /**
@@ -37,7 +41,7 @@ public class AccountRequestService {
      * @return 1 if the deletion is complete. If the return is 0 the delete is not completed.
      */
     public int delete(String id) {
-        return 1;
+        return requestDB.delete(requestDB.getRequest(id));
     }
     
     /**
@@ -48,8 +52,30 @@ public class AccountRequestService {
      * for creating new account, 2 is a forget password request
      * @return the string to be send to the user 
      */
-    public String insert(User requestUser, int requestType) {
-        return null;
+    public String insert(User requestUser, int requestType) throws Exception {
+        AccountRequest accountRequest = new AccountRequest();
+        accountRequest.setRequestType(requestType);
+        accountRequest.setRequestdBy(requestUser);
+        
+        SecureRandom sr = new SecureRandom();
+        byte salt[] = new byte[32];
+        sr.nextBytes(salt);
+        String saltStr = salt.toString();
+        accountRequest.setSalt(saltStr);
+        
+        String token = UUID.randomUUID().toString();
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update((token + saltStr).getBytes());
+        
+        String hash = new String(md.digest());
+        accountRequest.setRequestID(hash);
+        
+        accountRequest.setRequestDate(new Date());
+        
+        removeOld(requestUser);
+        
+        requestDB.insert(accountRequest);
+        return token;
     }
     
     /**
@@ -57,7 +83,12 @@ public class AccountRequestService {
      * @return all list of the request password 
      */
     public List<AccountRequest> getAll() {
-        return new ArrayList<AccountRequest>();
+        List<Object> objectList = requestDB.getAll();
+        List<AccountRequest> requestList = new ArrayList<>();
+        for (Object o: objectList) {
+            requestList.add((AccountRequest)o);
+        }
+        return requestList;
     }
     
     /**
