@@ -14,6 +14,17 @@ public class Course {
     public Course() {
     }
     
+        /**
+     * Constructs a course object for courses exists in the system
+     * @param courseCode courseCode the course code of the courses
+     * @param courseName courseName the course name of the courses
+     * @param department department the department i which he courses reside
+     */
+    public Course(String courseCode, String courseName, Department department) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.department = department;
+    }
     
     /**
      * Constructs a course object for courses exists in the system

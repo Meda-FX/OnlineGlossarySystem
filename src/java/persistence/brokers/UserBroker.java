@@ -49,19 +49,31 @@ public class UserBroker extends Broker {
                         + "JOIN [dbo].[department] "
                         + "ON ([dbo].[user].department_id = [dbo].[department].department_id) "
                         + "WHERE email =?";
-        //String sql_priv = "SELECT * FROM [dbo].[user_role] JOIN [dbo].[role] ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) WHERE user_id =?";
+        
+        String sql_priv = "SELECT * "
+                        + "FROM [dbo].[user_role] "
+                        + "JOIN [dbo].[role] "
+                        + "ON([dbo].[user_role].priviledge_id = [dbo].[role].priviledge_id) "
+                        + "WHERE user_id =?";
+        
+        String sql_course = "SELECT *"
+                            + "FROM [dbo].[user_course]"
+                            + "JOIN [dbo].[course]"
+                            + "ON [dbo].[user_course].course_code = [dbo].[course].course_code"
+                            + "JOIN [dbo].[department]"
+                            + "ON ([dbo].[course].department_id = [dbo].[department].department_id)"
+                            + "WHERE user_id = ?";
         User user = null;
-        Department department = null;
-
+        Department department = null;        
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         String user_id = null;
         String password = null;
-        int department_id = 0;
+        int department_id;
         String userName = null;
-        int activated = 0;
-        String deptID = null;
+        boolean activated;
         String deptName = null;
         int privID;
         String description;
@@ -81,10 +93,10 @@ public class UserBroker extends Broker {
                 password = rs.getString(2);
                 department_id = rs.getInt(3);
                 userName = rs.getString(4);
-                // activated=rs.getInt(5);
+                activated=rs.getBoolean(5);
                 deptName = rs.getString(6);
 
-                department.setDepartmentID(deptID);
+                department.setDepartmentID(department_id);
                 department.setName(deptName);
 
                 user.setEmail(email);
@@ -92,8 +104,41 @@ public class UserBroker extends Broker {
                 user.setName(userName);
                 user.setPassword(password);
                 user.setDepartment(department);
-
+                user.setIsActivated(activated);
             }
+            
+            PrivilegeList privileges = user.getPrivileges();
+            String privilegeDescription = null;
+            
+            ps = connection.prepareStatement(sql_priv);
+            ps.setString(1, user_id);
+            rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                privID = rs.getInt("privilege_id");
+                privilegeDescription = rs.getString("description");
+                privileges.add(new Privilege(privID, privilegeDescription));
+            }
+            
+            CourseList courses = user.getCourses();
+            int courseDepartmentID ;
+            String courseDepartmentName;
+            Department courseDepartment;
+            
+            ps = connection.prepareStatement(sql_course);
+            ps.setString(1, user_id);
+            rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                courseCode = rs.getString("course_code");
+                courseName = rs.getString("course_name");
+                courseDepartmentID = rs.getInt("department_id");
+                courseDepartmentName = rs.getString("name");
+                courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
+                courses.add(new Course(courseCode, courseName, courseDepartment));
+            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -102,26 +147,9 @@ public class UserBroker extends Broker {
                 ps.close();
             } catch (SQLException ex) {
             }
-            if (user != null) {
-                try {
-                    ps = connection.prepareStatement(sql_priv);
-                    ps.setString(1, user.getID());
-                    rs = ps.executeQuery();
-                    PrivilegeList pl = new PrivilegeList();
-                     while (rs.next()) {
-                         //set privlige list to a user 
-                         // figure this out
-                         pl.add(privID);
-                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        }
 
         pool.freeConnection(connection);
-
+        }
         return user;
     }
 
@@ -147,10 +175,10 @@ public class UserBroker extends Broker {
 
         String user_id = null;
         String password = null;
-        int department_id = 0;
+        int department_id;
         String userName = null;
         String userEmail = null;
-        int activated = 0;
+        boolean activated;
         String deptID = null;
         String deptName = null;
         int privID;

@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[department](
 	
 	)
 CREATE TABLE [dbo].[role](
-	priviledge_id int IDENTITY(1,1) PRIMARY KEY,
+	privilege_id int IDENTITY(1,1) PRIMARY KEY,
 	description varchar (40) NOT NULL
 	)
 		
@@ -28,13 +28,13 @@ CREATE TABLE [dbo].[user] (
 	)
 
 CREATE TABLE [dbo].[user_role] (
-	priviledge_id int NOT NULL,
+	privilege_id int NOT NULL,
 	user_id Varchar(20) NOT NULL,
 	CONSTRAINT FK_user_role_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id),
-	CONSTRAINT FK_user_role_priviledge_id FOREIGN KEY (priviledge_id)
-	REFERENCES role(priviledge_id),
-        PRIMARY KEY (priviledge_id,user_id)
+	CONSTRAINT FK_user_role_privilege_id FOREIGN KEY (privilege_id)
+	REFERENCES role(privilege_id),
+        PRIMARY KEY (privilege_id,user_id)
 	)
 
 
