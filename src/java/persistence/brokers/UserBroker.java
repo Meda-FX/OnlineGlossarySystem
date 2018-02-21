@@ -449,7 +449,7 @@ public class UserBroker extends Broker {
 	int department_id = 0;
 	String name = null;
 	String userEmail = null;
-	int activated = 0;
+	boolean activated;
         int deptID = 0;
         String deptName = null;
         int privID;
@@ -495,13 +495,14 @@ public class UserBroker extends Broker {
                 department_id = (rs.getInt("department_id"));
                 name = (rs.getString("name"));
                 userEmail = (rs.getString("email"));
-                activated = (rs.getInt("activated"));
+                activated = (rs.getBoolean("activated"));
                 
                 user.setID(user_id);
                 user.setPassword(password);
                 user.setDepartment(department);
                 user.setName(name);
                 user.setEmail(userEmail);
+                user.setIsActivated(activated);
                 
                 //COURSE
                 Course course = new Course();
