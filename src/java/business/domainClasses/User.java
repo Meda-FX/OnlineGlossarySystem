@@ -16,6 +16,8 @@ public class User {
     private boolean isActivated;
 
     public User() {
+        privileges = new PrivilegeList();
+        courses = new CourseList();
     }
     
     
@@ -128,7 +130,7 @@ public class User {
      * @return returns the PrivilegeList
      */
     public PrivilegeList getPrivileges() {
-        privileges = new PrivilegeList();
+        
         return privileges;
     }
     
@@ -137,7 +139,7 @@ public class User {
      * @return the courseList of the users 
      */
     public CourseList getCourses() {
-        courses = new CourseList();
+        
         return courses;
     }
 
