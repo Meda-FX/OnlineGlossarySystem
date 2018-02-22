@@ -79,6 +79,8 @@ public class AccountRequestBroker extends Broker {
 
                 accountRequest.setRequestDate(requestDate);
                 accountRequest.setRequestID(requestID);
+                //the user is not fully construct but only hold its id to avoid 
+                //large amount of reading from database
                 user.setID(requestBy);
                 accountRequest.setRequestdBy(user);
                 accountRequest.setSalt(salt);

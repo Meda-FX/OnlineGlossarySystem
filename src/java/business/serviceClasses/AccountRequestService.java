@@ -107,6 +107,8 @@ public class AccountRequestService {
             String hash = new String(md.digest());
             if (hash.equals(accountRequest.getRequestID())) {
                 String userID = accountRequest.getRequestdBy().getID();
+                //as the requestBy in accountRequest only contain its id, need to
+                //extract the id to get the full user
                 UserService us = new UserService();
                 User user = us.get(userID);
                 //requestDB.delete(accountRequest);
