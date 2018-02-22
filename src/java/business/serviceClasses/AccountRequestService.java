@@ -106,7 +106,9 @@ public class AccountRequestService {
             md.update((token + salt).getBytes());
             String hash = new String(md.digest());
             if (hash.equals(accountRequest.getRequestID())) {
-                User user = accountRequest.getRequestdBy();
+                String userID = accountRequest.getRequestdBy().getID();
+                UserService us = new UserService();
+                User user = us.get(userID);
                 //requestDB.delete(accountRequest);
                 return user;
             }
