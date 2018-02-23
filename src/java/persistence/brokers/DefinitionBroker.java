@@ -60,7 +60,7 @@ public class DefinitionBroker extends Broker {
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
-                newDate = rs.getDate("date_created");
+                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
                 course_name = rs.getString("course_name");
@@ -117,7 +117,7 @@ public class DefinitionBroker extends Broker {
                 definition= new Definition();
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
-                newDate = rs.getDate("date_created");
+                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 name = rs.getString("name");
                 userid=rs.getString("user_id");
@@ -178,7 +178,7 @@ public class DefinitionBroker extends Broker {
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
-                newDate = rs.getDate("date_created");
+                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 
                 name = rs.getString("name");
@@ -238,7 +238,7 @@ public class DefinitionBroker extends Broker {
 //                definition= new Definition();
 //                term = rs.getString("glossary_entry");
 //                content = rs.getString("definition");
-//                newDate = rs.getDate("date_created");
+//                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
 //                citation = rs.getString("citation");
 //                name = rs.getString("name");
 //                userid=rs.getString("user_id");

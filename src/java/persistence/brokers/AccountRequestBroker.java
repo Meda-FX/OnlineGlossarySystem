@@ -4,7 +4,10 @@ import business.domainClasses.AccountRequest;
 import business.domainClasses.User;
 import java.util.List;
 import persistence.ConnectionPool;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,7 +66,7 @@ public class AccountRequestBroker extends Broker {
         AccountRequest accountRequest = null;
 
         String requestID = null;
-        Date requestDate = null;
+        java.util.Date requestDate = null;
         String salt = null;
         String requestBy = null;
         User user = new User();
@@ -73,7 +76,7 @@ public class AccountRequestBroker extends Broker {
             rs = ps.executeQuery();
             while (rs.next()) {
                 requestID = rs.getString("request_id");
-                requestDate = rs.getDate("request_date");
+                requestDate = new java.util.Date(rs.getTimestamp("request_date").getTime());
                 salt = rs.getString("salt");
                 requestBy = rs.getString("request_by");
 

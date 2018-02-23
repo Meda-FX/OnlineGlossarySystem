@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[user_role] (
 
 CREATE TABLE [dbo].[glossary_entry](
 	glossary_entry varchar (40) NOT NULL PRIMARY KEY,  
-	date_added date NOT NULL,
+	date_added datetime NOT NULL,
 	made_by Varchar(20) NOT NULL,
 	CONSTRAINT FK_glossary_entry_user_id FOREIGN KEY (made_by)
 	REFERENCES [user](user_id)
@@ -48,7 +48,7 @@ CREATE TABLE [dbo].[glossary_entry](
 
     CREATE TABLE [dbo].[glossary_entry_log](
 	glossary_entry varchar (40) NOT NULL,
-	accessed date NOT NULL,
+	accessed datetime NOT NULL,
 	accessed_by Varchar(20) NOT NULL,
 	CONSTRAINT FK_glossary_entry_log_glossary_entry FOREIGN KEY (glossary_entry)
 	REFERENCES glossary_entry(glossary_entry),
@@ -61,7 +61,7 @@ CREATE TABLE [dbo].[definition](
 	definition_uid int IDENTITY(1,1) PRIMARY KEY, 
 	glossary_entry varchar (40) NOT NULL,   
         definition varchar (500) NOT NULL,
-	date_created date NOT NULL,
+	date_created datetime NOT NULL,
 	citation varchar(100) ,
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20),
@@ -92,7 +92,7 @@ CREATE TABLE [dbo].[user_course](
 
 CREATE TABLE [dbo].[account_request_log](
 	request_id int IDENTITY(1,1) PRIMARY KEY,
-	request_date date NOT NULL,
+	request_date datetime NOT NULL,
 	request_by Varchar(20) NOT NULL,
         request_log_type Varchar(30) NOT NULL,
         CONSTRAINT FK_account_request_log_request_id FOREIGN KEY (request_by)
@@ -101,7 +101,7 @@ CREATE TABLE [dbo].[account_request_log](
 
 CREATE TABLE [dbo].[account_request](
 	request_id Int NOT NULL,
-	request_date date NOT NULL,
+	request_date datetime NOT NULL,
 	salt varchar (256) NOT NULL,
  	request_by Varchar(20) NOT NULL,
         request_type int NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE [dbo].[account_request](
 CREATE TABLE [dbo].[definition_activity_log](
 	definition_uid Int NOT NULL,
 	accessed_by Varchar(20) NOT NULL,
-	date_accessed date NOT NULL ,
+	date_accessed datetime NOT NULL ,
 	CONSTRAINT FK_definition_activity_log_definition_uid FOREIGN KEY (definition_uid)
 	REFERENCES definition(definition_uid),
 	CONSTRAINT FK_definition_activity_log_accessed_by FOREIGN KEY (accessed_by)
@@ -120,7 +120,7 @@ CREATE TABLE [dbo].[definition_activity_log](
         PRIMARY KEY(definition_uid,accessed_by,date_accessed)
 	) 
 CREATE TABLE [dbo].[definition_edit_log](
-	edit_date date NOT NULL,
+	edit_date datetime NOT NULL,
 	definition_uid Int NOT NULL,
 	edit_by Varchar(20) NOT NULL,
 	CONSTRAINT FK_definition_edit_log_definition_uid FOREIGN KEY (definition_uid)

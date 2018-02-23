@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -76,7 +77,7 @@ public class GlossaryEntryBroker extends Broker {
             
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, ge.getTerm());
-            ps.setDate(2, (java.sql.Date)ge.getDateCreated());
+            ps.setTimestamp(2, new Timestamp(ge.getDateCreated().getTime()));
             ps.setString(3, ge.getCreatedBy().getName());
             rs = ps.executeQuery();
             
