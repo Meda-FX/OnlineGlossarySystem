@@ -283,11 +283,11 @@ public class UserBroker extends Broker {
                 + " (user_id, password, department_id, name, email, activated)"
                 + " VALUES (?,?,?,?,?,?);";
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
 
         try {
-            ps = connection.prepareStatement(selectSQL);
-            rs = ps.executeQuery();
+            //ps = connection.prepareStatement(selectSQL);
+            //rs = ps.executeQuery();
 
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
@@ -296,14 +296,14 @@ public class UserBroker extends Broker {
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
             ps.setInt(6, '1');
-            rs = ps.executeQuery();
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
-                rs.close();
+                //rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
@@ -333,56 +333,65 @@ public class UserBroker extends Broker {
                 + "=[GlossaryDataBase].[dbo].[user_course].user_id"
                 + " where [GlossaryDataBase].[dbo].[user].user_id = ?;";
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
         
         String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
                 + " WHERE user_id = ?;";
         PreparedStatement ps2 = null;
-        ResultSet rs2 = null;
+        //ResultSet rs2 = null;
         
         String selectSQL3 = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
                 + " WHERE user_id = ?;";
         PreparedStatement ps3 = null;
-        ResultSet rs3 = null;
+        //ResultSet rs3 = null;
         
         String selectSQL4 = "DELETE FROM [GlossaryDataBase].[dbo].[definition]"
                 + " WHERE made_by = ?;";
         PreparedStatement ps4 = null;
-        ResultSet rs4 = null;
+        //ResultSet rs4 = null;
         
         String selectSQL5 = "DELETE FROM [GlossaryDataBase].[dbo].[glossary_entry]"
                 + " WHERE made_by = ?;";
         PreparedStatement ps5 = null;
-        ResultSet rs5 = null;
+        //ResultSet rs5 = null;
         
         try {            
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
-            rs = ps.executeQuery();
+            //rs = ps.executeQuery();
+            ps.executeUpdate();
             
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
-            rs2 = ps2.executeQuery();
+            //rs2 = ps2.executeQuery();
+            ps2.executeUpdate();
             
             ps3 = connection.prepareStatement(selectSQL3);
             ps3.setString(1, user.getID());
-            rs3 = ps3.executeQuery();
+            //rs3 = ps3.executeQuery();
+            ps3.executeUpdate();
             
             ps4 = connection.prepareStatement(selectSQL4);
             ps4.setString(1, user.getID());
-            rs4 = ps4.executeQuery();
+            //rs4 = ps4.executeQuery();
+            ps4.executeUpdate();
             
             ps5 = connection.prepareStatement(selectSQL5);
             ps5.setString(1, user.getID());
-            rs5 = ps5.executeQuery();
+            //rs5 = ps5.executeQuery();
+            ps5.executeUpdate();
             
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
-                rs.close();
+                //rs.close();
                 ps.close();
+                ps2.close();
+                ps3.close();
+                ps4.close();
+                ps5.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -400,17 +409,17 @@ public class UserBroker extends Broker {
         
         String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) join [GlossaryDataBase].[dbo].[user_course] on [GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_course].user_id where [GlossaryDataBase].[dbo].[user].user_id = ?;";
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
         
         
         String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? WHERE name = ?;";
         PreparedStatement ps2 = null;
-        ResultSet rs2 = null;
+        //ResultSet rs2 = null;
         
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
-            rs = ps2.executeQuery();
+            ps.executeUpdate();
             
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
@@ -419,16 +428,17 @@ public class UserBroker extends Broker {
             ps2.setString(4, user.getName());
             ps2.setString(5, user.getEmail());
             ps2.setInt(6, '1');
-            ps2.setString(7, rs.getString("user_id"));
-            rs2 = ps2.executeQuery();
+            ps2.setString(7, user.getID());
+            ps2.executeUpdate();
             
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
-                rs.close();
+                //rs.close();
                 ps.close();
+                ps2.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
