@@ -5,7 +5,6 @@ import business.domainClasses.DefinitionList;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,12 +139,13 @@ public class GlossaryEntryBroker extends Broker {
 
         String username = null;
         String glossaryTerm = "";
-        Date sqlDate = null;
         String content = null;
         int definition_id;
         String citation;
         String user_id;
         User user;
+        java.util.Date definitionDateCreated;
+        Timestamp definitionDateCreatedDB;
         
         String comparedTerm="";
 
@@ -155,7 +155,7 @@ public class GlossaryEntryBroker extends Broker {
             rs = ps.executeQuery();
             DefinitionList definitionList=null;
             while (rs.next()) {
-                glossaryTerm = (rs.getString("glossary_entry"));
+                glossaryTerm = rs.getString("glossary_entry");
                 if(!comparedTerm.equals(glossaryTerm))
                 {
                     if(!comparedTerm.equals("")) {terms.add(ge);}
@@ -172,11 +172,14 @@ public class GlossaryEntryBroker extends Broker {
                 user_id=rs.getString("user_id");
                 user.setID(user_id);
                 user.setName(username);
+                definitionDateCreatedDB = rs.getTimestamp("date_created");
+                definitionDateCreated = new java.util.Date(definitionDateCreatedDB.getTime());
                 
                 definition.setCitation(citation);
                 definition.setContent(content);
                 definition.setTerm(glossaryTerm);
                 definition.setWrittenBy(user);
+                definition.setDateCreated(definitionDateCreated);
                 definitionList.add(definition);
             }
             terms.add(ge);

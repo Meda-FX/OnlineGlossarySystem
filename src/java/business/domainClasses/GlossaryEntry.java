@@ -74,4 +74,14 @@ public class GlossaryEntry {
     public User getCreatedBy() {
         return createdBy;
     }    
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+    
+    
 }
