@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,12 +29,89 @@ public class AccountRequestBroker extends Broker {
      * @return a AccountRequest object with the specified ID.
      */
     public AccountRequest getRequest(String id) {
-        return null;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        String selectSQL = "SELECT *"
+                            + "FROM [GlossaryDataBase].[dbo].[account_request]"
+                            + "WHERE [GlossaryDataBase].[dbo].[account_request].request_id = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        AccountRequest accountRequest = null;
+
+        int requestType;
+        java.util.Date requestDate = null;
+        String salt = null;
+        String requestBy = null;
+        User user = new User();
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                requestType = rs.getInt("request_type");
+                requestDate = new java.util.Date(rs.getTimestamp("request_date").getTime());
+                salt = rs.getString("salt");
+                requestBy = rs.getString("request_by");
+
+                accountRequest.setRequestDate(requestDate);
+                accountRequest.setRequestID(id);
+                accountRequest.setRequestType(requestType);
+                //the user is not fully construct but only hold its id to avoid 
+                //large amount of reading from database
+                user.setID(requestBy);
+                accountRequest.setRequestdBy(user);
+                accountRequest.setSalt(salt);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot read account requests", e);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+            }
+            pool.freeConnection(connection);
+        }
+        return accountRequest;
     }
 
     @Override
     public int insert(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        AccountRequest accountRequest = (AccountRequest)object;
+        String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_request]"
+                            + "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(insertSQL);
+            ps.setString(1, accountRequest.getRequestID());
+            ps.setTimestamp(2, new Timestamp(accountRequest.getRequestDate().getTime()));
+            ps.setString(3, accountRequest.getSalt());
+            
+            //this method should not involve inserting new user, codes if calling this method should
+            //also ensure the user already exist. (no active use of this method so far)
+            ps.setString(4, accountRequest.getRequestdBy().getID());
+            ps.setInt(5, accountRequest.getRequestType());
+            int result = ps.executeUpdate();
+            if (result >0)
+                return 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountRequest", ex);
+            
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex){
+                
+            }
+            pool.freeConnection(connection);
+        }
+        return 0;
     }
 
     @Override
@@ -82,6 +160,7 @@ public class AccountRequestBroker extends Broker {
 
                 accountRequest.setRequestDate(requestDate);
                 accountRequest.setRequestID(requestID);
+                accountRequest.setRequestType(requestType);
                 //the user is not fully construct but only hold its id to avoid 
                 //large amount of reading from database
                 user.setID(requestBy);

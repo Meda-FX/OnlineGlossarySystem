@@ -42,7 +42,7 @@ public class GlossaryEntryBroker extends Broker {
         Connection connection = pool.getConnection();
         
         GlossaryEntry ge = (GlossaryEntry)object;
-        boolean check = true;
+//        boolean check = true;
         
 //        String user_id = null;
 //        String password = null;
@@ -68,31 +68,33 @@ public class GlossaryEntryBroker extends Broker {
         
         String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[glossary_entry] (glossary_entry, date_added, made_by) VALUES (?,?,?);";
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
         
         try {
-            ps = connection.prepareStatement(selectSQL);
-            rs = ps.executeQuery();
+            //ps = connection.prepareStatement(selectSQL);
+            //rs = ps.executeQuery();
             
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, ge.getTerm());
             ps.setTimestamp(2, new Timestamp(ge.getDateCreated().getTime()));
             ps.setString(3, ge.getCreatedBy().getName());
-            rs = ps.executeQuery();
+            int result = ps.executeUpdate();
+            if (result > 0)
+                return 1;
             
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-            return 0;
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot insert users", ex);
+
         } finally {
             try {
-                rs.close();
+                //rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
-        
-        return 1;
+        return 0;
+        //return 1;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
