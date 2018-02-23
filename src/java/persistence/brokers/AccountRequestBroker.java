@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,7 +79,36 @@ public class AccountRequestBroker extends Broker {
 
     @Override
     public int insert(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        AccountRequest accountRequest = (AccountRequest)object;
+        String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_request]"
+                            + "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(insertSQL);
+            ps.setString(1, accountRequest.getRequestID());
+            ps.setTimestamp(2, new Timestamp(accountRequest.getRequestDate().getTime()));
+            ps.setString(3, accountRequest.getSalt());
+            ps.setString(4, accountRequest.getRequestdBy().getID());
+            ps.setInt(5, accountRequest.getRequestType());
+            int result = ps.executeUpdate();
+            if (result >0)
+                return 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountRequest", ex);
+            
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex){
+                
+            }
+            pool.freeConnection(connection);
+        }
+        return 0;
     }
 
     @Override
