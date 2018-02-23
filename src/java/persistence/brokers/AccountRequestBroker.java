@@ -92,6 +92,9 @@ public class AccountRequestBroker extends Broker {
             ps.setString(1, accountRequest.getRequestID());
             ps.setTimestamp(2, new Timestamp(accountRequest.getRequestDate().getTime()));
             ps.setString(3, accountRequest.getSalt());
+            
+            //this method should not involve inserting new user, codes if calling this method should
+            //also ensure the user already exist. (no active use of this method so far)
             ps.setString(4, accountRequest.getRequestdBy().getID());
             ps.setInt(5, accountRequest.getRequestType());
             int result = ps.executeUpdate();
