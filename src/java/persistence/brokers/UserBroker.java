@@ -283,11 +283,11 @@ public class UserBroker extends Broker {
                 + " (user_id, password, department_id, name, email, activated)"
                 + " VALUES (?,?,?,?,?,?);";
         PreparedStatement ps = null;
-        //ResultSet rs = null;
+        ResultSet rs = null;
 
         try {
-            //ps = connection.prepareStatement(selectSQL);
-            //rs = ps.executeQuery();
+            ps = connection.prepareStatement(selectSQL);
+            rs = ps.executeQuery();
 
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
@@ -296,7 +296,7 @@ public class UserBroker extends Broker {
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
             ps.setInt(6, '1');
-            ps.executeUpdate();
+            rs = ps.executeQuery();
 
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
