@@ -5,7 +5,6 @@ import business.domainClasses.DefinitionList;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +42,7 @@ public class GlossaryEntryBroker extends Broker {
         Connection connection = pool.getConnection();
         
         GlossaryEntry ge = (GlossaryEntry)object;
-        boolean check = true;
+//        boolean check = true;
         
 //        String user_id = null;
 //        String password = null;
