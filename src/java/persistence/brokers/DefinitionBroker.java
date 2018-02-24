@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -209,7 +208,7 @@ public class DefinitionBroker extends Broker {
      * @param glossary represents an entry in the glossary.
      * @return a list of definitions by glossary entry.
      */
-
+<<<<<<< HEAD
     public DefinitionList getByGlossaryEntry(GlossaryEntry glossary) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
