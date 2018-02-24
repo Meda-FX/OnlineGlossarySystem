@@ -208,6 +208,62 @@ public class DefinitionBroker extends Broker {
      * @param glossary represents an entry in the glossary.
      * @return a list of definitions by glossary entry.
      */
+    public List<Definition> getByGlossaryEntry(GlossaryEntry glossary) {
+//       ConnectionPool pool = ConnectionPool.getInstance();
+//        Connection connection = pool.getConnection();
+//        ArrayList<Definition> delist = new ArrayList<>();
+//        Definition definition = null;
+//        Course course;
+//        User user;
+//        
+//        String term;
+//        String name;
+//        String userid;
+//        String courseId;
+//        String course_name;
+//        String content;
+//        String citation;
+//        String definitionID;
+//        java.util.Date newDate;
+//        char type;
+//
+//        String selectSQL = "?";
+//
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            ps = connection.prepareStatement(selectSQL);
+//            ps.setString(1, term);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                definition= new Definition();
+//                term = rs.getString("glossary_entry");
+//                content = rs.getString("definition");
+//                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
+//                citation = rs.getString("citation");
+//                name = rs.getString("name");
+//                userid=rs.getString("user_id");
+//                user = new User();
+//                user.setID(userid);
+//                user.setName(name);
+//                courseId = rs.getString("course_code"); // need to get course info
+//                course_name = rs.getString("course_name");
+//                course = new Course();
+//                course.setCourseCode(courseId);
+//                course.setCourseName(course_name);
+//                type = rs.getString("type").charAt(0);
+//                // definition = new definition(user,)
+//                definition = new Definition(user, newDate, citation, course, content);
+//                delist.add(definition);
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return delist;
+return null;
+    }
 
 import business.domainClasses.Course;
 import business.domainClasses.Definition;
@@ -260,9 +316,15 @@ public class DefinitionBroker extends Broker {
         char type;
 
         String selectSQL = "SELECT * from [dbo].[definition] join [dbo].[course] on (definition.course_code=course.course_code) where made_by =?";
+        Definition definition = (Definition) object;
+        String sql = "INSERT INTO definition \n"
+                + "(glossary_entry,definition, date_created,citation,made_by,course_code,[type])\n"
+                + "VALUES (?,?,?,?,?,?,?)";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
+
+        int affectRows = 0;
 
         try {
             ps = connection.prepareStatement(selectSQL);
@@ -284,6 +346,16 @@ public class DefinitionBroker extends Broker {
                 delist.add(definition);
             }
 
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, definition.getTerm());
+            ps.setString(2, definition.getContent());
+            ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setString(4, definition.getCitation());
+            ps.setString(5, definition.getWrittenBy().getID());
+            ps.setString(6, definition.getDefinitionType() + "");
+
+            affectRows = ps.executeUpdate();
+            // may need to update the definition edit log
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -455,77 +527,16 @@ public class DefinitionBroker extends Broker {
         }
 
         return list;
-=======
-    public List<Definition> getByGlossaryEntry(GlossaryEntry glossary) {
-//       ConnectionPool pool = ConnectionPool.getInstance();
-//        Connection connection = pool.getConnection();
-//        ArrayList<Definition> delist = new ArrayList<>();
-//        Definition definition = null;
-//        Course course;
-//        User user;
-//        
-//        String term;
-//        String name;
-//        String userid;
-//        String courseId;
-//        String course_name;
-//        String content;
-//        String citation;
-//        String definitionID;
-//        java.util.Date newDate;
-//        char type;
-//
-//        String selectSQL = "?";
-//
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        try {
-//            ps = connection.prepareStatement(selectSQL);
-//            ps.setString(1, term);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                definition= new Definition();
-//                term = rs.getString("glossary_entry");
-//                content = rs.getString("definition");
-//                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
-//                citation = rs.getString("citation");
-//                name = rs.getString("name");
-//                userid=rs.getString("user_id");
-//                user = new User();
-//                user.setID(userid);
-//                user.setName(name);
-//                courseId = rs.getString("course_code"); // need to get course info
-//                course_name = rs.getString("course_name");
-//                course = new Course();
-//                course.setCourseCode(courseId);
-//                course.setCourseName(course_name);
-//                type = rs.getString("type").charAt(0);
-//                // definition = new definition(user,)
-//                definition = new Definition(user, newDate, citation, course, content);
-//                delist.add(definition);
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return delist;
-return null;
+    @Override
+    public int delete(Object object) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
 
-        int affectRows = 0;
+        Definition definition = (Definition) object;
+        String sql = "DELETE FROM definition WHERE definition_uid=?";
+               
 
-
-            ps.setString(1, definition.getTerm());
-            ps.setString(2, definition.getContent());
-            ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
-            ps.setString(4, definition.getCitation());
-            ps.setString(5, definition.getWrittenBy().getID());
-            ps.setString(6, definition.getDefinitionType() + "");
-
-            affectRows = ps.executeUpdate();
-            // may need to update the definition edit log
-
-        return affectRows;
         PreparedStatement ps = null;
 
         int affectRows = 0;
