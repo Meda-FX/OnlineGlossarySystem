@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -68,31 +69,33 @@ public class GlossaryEntryBroker extends Broker {
         
         String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[glossary_entry] (glossary_entry, date_added, made_by) VALUES (?,?,?);";
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        //ResultSet rs = null;
         
         try {
-            ps = connection.prepareStatement(selectSQL);
-            rs = ps.executeQuery();
+            //ps = connection.prepareStatement(selectSQL);
+            //rs = ps.executeQuery();
             
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, ge.getTerm());
-            ps.setDate(2, (java.sql.Date)ge.getDateCreated());
+            ps.setTimestamp(2, new Timestamp(ge.getDateCreated().getTime()));
             ps.setString(3, ge.getCreatedBy().getName());
-            rs = ps.executeQuery();
+            int result = ps.executeUpdate();
+            if (result > 0)
+                return 1;
             
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-            return 0;
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot insert users", ex);
+
         } finally {
             try {
-                rs.close();
+                //rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
-        
-        return 1;
+        return 0;
+        //return 1;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -108,32 +111,7 @@ public class GlossaryEntryBroker extends Broker {
 
     @Override
     public List<Object> getAll() {
-        ConnectionPool pool = ConnectionPool.getInstance();
-        Connection connection = pool.getConnection();
-        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[glossary_entry];";
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        ArrayList<Object> list = new ArrayList<>(); 
-        DefinitionList dList = null;
-        DefinitionBroker defBroker = new DefinitionBroker();
-        UserBroker uBroker = new UserBroker();
-        String glossaryEntry;
-        Date date;
-        String madeBy;
-        
-        
-        try{
-            ps = connection.prepareStatement(selectSQL);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                glossaryEntry = rs.getString("glossary_entry");
-                date = rs.getDate("date_added");
-                madeBy = rs.getString("made_by");
-                dList = defBroker.getByGlossaryEntry(glossaryEntry);
-                uBroker = new UserBroker
-                GlossaryEntry newGE = new GlossaryEntry(date,list,glossaryEntry,madeBy);
-                list.add(newGE);
-            }
+
 
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
@@ -153,10 +131,16 @@ public class GlossaryEntryBroker extends Broker {
     public List<GlossaryEntry> getMatched(String term) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-
+        String searchPattern = ("%" + term + "%").toUpperCase();
        // String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
         // String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where [GlossaryDataBase].[dbo].[definition].glossary_entry = ?;";
+        String selectSQL = "SELECT * "
+                         + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
+                         + "JOIN [GlossaryDataBase].[dbo].[definition] "
+                         + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
+                         + "JOIN [GlossaryDataBase].[dbo].[user] "
+                         + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                         + "WHERE UPPER([GlossaryDataBase].[dbo].[definition].glossary_entry) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -172,22 +156,23 @@ public class GlossaryEntryBroker extends Broker {
 
         String username = null;
         String glossaryTerm = "";
-        Date sqlDate = null;
         String content = null;
         int definition_id;
         String citation;
         String user_id;
         User user;
+        java.util.Date definitionDateCreated;
+        Timestamp definitionDateCreatedDB;
         
         String comparedTerm="";
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, term);
+            ps.setString(1, searchPattern);
             rs = ps.executeQuery();
             DefinitionList definitionList=null;
             while (rs.next()) {
-                glossaryTerm = (rs.getString("glossary_entry"));
+                glossaryTerm = rs.getString("glossary_entry");
                 if(!comparedTerm.equals(glossaryTerm))
                 {
                     if(!comparedTerm.equals("")) {terms.add(ge);}
@@ -204,11 +189,14 @@ public class GlossaryEntryBroker extends Broker {
                 user_id=rs.getString("user_id");
                 user.setID(user_id);
                 user.setName(username);
+                definitionDateCreatedDB = rs.getTimestamp("date_created");
+                definitionDateCreated = new java.util.Date(definitionDateCreatedDB.getTime());
                 
                 definition.setCitation(citation);
                 definition.setContent(content);
                 definition.setTerm(glossaryTerm);
                 definition.setWrittenBy(user);
+                definition.setDateCreated(definitionDateCreated);
                 definitionList.add(definition);
             }
             terms.add(ge);

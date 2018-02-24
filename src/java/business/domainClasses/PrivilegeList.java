@@ -32,9 +32,7 @@ public class PrivilegeList {
      * privilege id that is passed as a parameter
      * @param privilegeID privilegeID the parameter that is passed to add a user privilege
      */
-    public void add(int privilegeID) {
-        PrivilegeService ps = new PrivilegeService();
-        Privilege newPrivilege = ps.get(privilegeID);
+    public void add(Privilege newPrivilege) {
         privileges.add(newPrivilege);
     }
     

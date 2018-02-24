@@ -3,6 +3,8 @@ package business.serviceClasses;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistence.brokers.UserBroker;
 
 /**
@@ -29,6 +31,13 @@ public class UserService {
      * @return returns a user object
      */
     public User checkLogin(String email, String password) {
+        UserBroker udb = new UserBroker();
+        
+            User u = udb.getByEmail(email);
+            if (u != null && password.equals(u.getPassword())) {
+                return u;
+            }
+        
         return null;
     }
     
@@ -38,7 +47,7 @@ public class UserService {
      * @return the user that is get by the search
      */
     public User get(String id) {
-        return null;
+        return userDB.getByID(id);
     }
     
     /**
@@ -46,7 +55,12 @@ public class UserService {
      * @return a list of all users upon request
      */
     public List<User> getAll(){
-        return new ArrayList<User>();
+        List<Object> objectList = userDB.getAll();
+        List<User> userList = new ArrayList<User>();
+        for (Object o: objectList) {
+            userList.add((User)o);
+        }
+        return userList;
     }
     
     /**
@@ -56,7 +70,7 @@ public class UserService {
      * 1 and if the update is un successful the return type will be a 0.
      */
     public int update(User user){
-        return 1;
+        return userDB.update(user);
     }
     
     /**
@@ -66,7 +80,7 @@ public class UserService {
      * 1 and if the deletion is un successful the return type will be a 0. 
      */
     public int delete(String id){
-        return 1;
+        return userDB.delete(id);
     }
     
     /**
@@ -76,7 +90,7 @@ public class UserService {
      * 1 and if the insertion is un successful the return type will be a 0. 
      */
     public int insert(User user){
-        return 1;
+        return userDB.insert(user);
     }
     
     /**
@@ -86,7 +100,7 @@ public class UserService {
      * @return returns a user if the user with the email exists and returns null if it does not exist
      */
     public User getByEmail(String email){
-        return null;
+        return userDB.getByEmail(email);
     }
     
     /**
@@ -96,6 +110,6 @@ public class UserService {
      * @return returns a List of type user on account that they exist in the database
      */
     public List<User> getByName(String name) {
-        return null;
+        return userDB.getByName(name);
     }
 }
