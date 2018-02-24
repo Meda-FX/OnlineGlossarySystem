@@ -20,6 +20,10 @@ INSERT INTO role
     (description)
 VALUES 
     ('editor');
+INSERT INTO ROLE
+    (description)
+VALUES
+    ('instructor');
 
 
 INSERT INTO department 
@@ -96,6 +100,10 @@ VALUES
     ('BNBH-201-B','3','Bed and Breakfast Hospitality');
 
 
+INSERT INTO user_role
+    (priviledge_id,user_id)
+VALUES
+    (4,'0');
 
 INSERT INTO user_course
     (course_code,user_id,year)

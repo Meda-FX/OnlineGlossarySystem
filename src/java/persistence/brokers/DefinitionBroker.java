@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,8 +99,43 @@ public class DefinitionBroker extends Broker {
      * @param glossary represents an entry in the glossary.
      * @return a list of definitions by glossary entry.
      */
-    public List<Definition> getByGlossaryEntry(GlossaryEntry glossary) {
-        return null;
+    public DefinitionList getByGlossaryEntry(GlossaryEntry glossary) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        DefinitionList list = new DefinitionList();
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[definition] where glossary_entry = ?;";
+        String definitionUid;
+        String glossaryEntry;
+        String definition;
+        Date dateCreated;
+        String citation;
+        String madeBy;
+        String courseId;
+        UserBroker ub = new UserBroker();
+        CourseBroker cb = new CourseBroker();
+        
+        try {
+            ps = connection.prepareCall(selectSQL);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                definitionUid = rs.getString("definition_uid");
+                glossaryEntry = rs.getString("glossary_entry");
+                definition = rs.getString("definition");
+                dateCreated = new Date(rs.getTimestamp("date_created").getTime());
+                citation = rs.getString("citation");
+                madeBy = rs.getString("made_by");
+                courseId = rs.getString("course_id");                
+                Definition newD = new Definition(ub.getByID(madeBy),dateCreated,citation,cb.getByID(courseId), definition);
+                list.add(newD);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+
+        return list;
     }
 
     @Override
@@ -110,18 +148,18 @@ public class DefinitionBroker extends Broker {
         String sql = "INSERT INTO [dbo].[definition] VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = null;
-        
+
         try {
             ps = connection.prepareStatement(sql);
-          //   ps.setString(1, user.getID());
-          
-          //need to set definition id increment automatically 
-          //syntax
-          //ID_column INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+            //   ps.setString(1, user.getID());
+
+            //need to set definition id increment automatically 
+            //syntax
+            //ID_column INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
+
         return 1;
     }
 

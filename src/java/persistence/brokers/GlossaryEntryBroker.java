@@ -108,7 +108,46 @@ public class GlossaryEntryBroker extends Broker {
 
     @Override
     public List<Object> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[glossary_entry];";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Object> list = new ArrayList<>(); 
+        DefinitionList dList = null;
+        DefinitionBroker defBroker = new DefinitionBroker();
+        UserBroker uBroker = new UserBroker();
+        String glossaryEntry;
+        Date date;
+        String madeBy;
+        
+        
+        try{
+            ps = connection.prepareStatement(selectSQL);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                glossaryEntry = rs.getString("glossary_entry");
+                date = rs.getDate("date_added");
+                madeBy = rs.getString("made_by");
+                dList = defBroker.getByGlossaryEntry(glossaryEntry);
+                uBroker = new UserBroker
+                GlossaryEntry newGE = new GlossaryEntry(date,list,glossaryEntry,madeBy);
+                list.add(newGE);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        
+        
+        return (List<Object>) list;
     }
     
     public List<GlossaryEntry> getMatched(String term) {
