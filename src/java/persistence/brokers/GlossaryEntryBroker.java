@@ -111,7 +111,8 @@ public class GlossaryEntryBroker extends Broker {
     @Override
     public List<Object> getAll() {
 
-
+        try{ 
+            
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
