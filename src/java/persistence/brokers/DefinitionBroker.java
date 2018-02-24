@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.Timestamp;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -208,7 +209,7 @@ public class DefinitionBroker extends Broker {
      * @param glossary represents an entry in the glossary.
      * @return a list of definitions by glossary entry.
      */
-<<<<<<< HEAD
+
     public DefinitionList getByGlossaryEntry(GlossaryEntry glossary) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -246,63 +247,6 @@ public class DefinitionBroker extends Broker {
         }
 
         return list;
-=======
-    public List<Definition> getByGlossaryEntry(GlossaryEntry glossary) {
-//       ConnectionPool pool = ConnectionPool.getInstance();
-//        Connection connection = pool.getConnection();
-//        ArrayList<Definition> delist = new ArrayList<>();
-//        Definition definition = null;
-//        Course course;
-//        User user;
-//        
-//        String term;
-//        String name;
-//        String userid;
-//        String courseId;
-//        String course_name;
-//        String content;
-//        String citation;
-//        String definitionID;
-//        java.util.Date newDate;
-//        char type;
-//
-//        String selectSQL = "?";
-//
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        try {
-//            ps = connection.prepareStatement(selectSQL);
-//            ps.setString(1, term);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                definition= new Definition();
-//                term = rs.getString("glossary_entry");
-//                content = rs.getString("definition");
-//                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
-//                citation = rs.getString("citation");
-//                name = rs.getString("name");
-//                userid=rs.getString("user_id");
-//                user = new User();
-//                user.setID(userid);
-//                user.setName(name);
-//                courseId = rs.getString("course_code"); // need to get course info
-//                course_name = rs.getString("course_name");
-//                course = new Course();
-//                course.setCourseCode(courseId);
-//                course.setCourseName(course_name);
-//                type = rs.getString("type").charAt(0);
-//                // definition = new definition(user,)
-//                definition = new Definition(user, newDate, citation, course, content);
-//                delist.add(definition);
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return delist;
-return null;
->>>>>>> origin/master
     }
 
     @Override
@@ -318,11 +262,29 @@ return null;
 
         PreparedStatement ps = null;
 
+
+        int affectRows = 0;
+
+
         try {
             ps = connection.prepareStatement(sql);
+
+            ps.setString(1, definition.getTerm());
+            ps.setString(2, definition.getContent());
+            ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setString(4, definition.getCitation());
+            ps.setString(5, definition.getWrittenBy().getID());
+            ps.setString(6, definition.getDefinitionType() + "");
+
+            affectRows = ps.executeUpdate();
+            // may need to update the definition edit log
+
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
+        return affectRows;
 
     }
 
@@ -393,8 +355,4 @@ return null;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-<<<<<<< HEAD
-=======
-        int affectRows = 0;
 
->>>>>>> origin/master
