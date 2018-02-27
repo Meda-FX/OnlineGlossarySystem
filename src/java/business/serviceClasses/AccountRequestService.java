@@ -63,12 +63,16 @@ public class AccountRequestService {
         sr.nextBytes(salt);
         String saltStr = salt.toString();
         accountRequest.setSalt(saltStr);
+        String token;
+        String hash;
         
-        String token = UUID.randomUUID().toString();
+        do {
+        token = UUID.randomUUID().toString();
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update((token + saltStr).getBytes());
+        hash = new String(md.digest());
+        } while(requestDB.getRequest(hash) != null) ;
         
-        String hash = new String(md.digest());
         accountRequest.setRequestID(hash);
         
         accountRequest.setRequestDate(new Date());

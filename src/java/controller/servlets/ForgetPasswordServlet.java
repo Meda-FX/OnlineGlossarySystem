@@ -47,8 +47,8 @@ public class ForgetPasswordServlet extends HttpServlet {
                 return;
             }
             
-            AccountRequestService prs = new AccountRequestService();
-            String token = prs.insert(user, 2);
+            AccountRequestService ars = new AccountRequestService();
+            String token = ars.insert(user, 2);
             
             HashMap<String, String> contents = new HashMap<>();
             StringBuffer url = request.getRequestURL();
