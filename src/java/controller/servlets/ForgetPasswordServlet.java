@@ -59,8 +59,8 @@ public class ForgetPasswordServlet extends HttpServlet {
             
             WebMailService.sendMail(email, "OnlineGlossarySystem Reset Password", 
                     getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/resetpassword.html", contents);
-            session.setAttribute("message", "Please check your email");
-            response.sendRedirect("login");
+            request.setAttribute("message", "Please check your email");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (Exception ex) {
             request.setAttribute("message", "No active account with this email");
             getServletContext().getRequestDispatcher("/WEB-INF/forgetPassword.jsp").forward(request, response);
