@@ -5,12 +5,18 @@
  */
 package controller.servlets;
 
+import business.domainClasses.User;
+import business.serviceClasses.AccountRequestService;
+import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -18,69 +24,53 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NewPasswordServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewPasswordServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewPasswordServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        try {
+            String id = request.getParameter("id");
+            AccountRequestService ars = new AccountRequestService();
+            User user = ars.verifyID(id, 2);
+            if (user != null) {
+                session.setAttribute("user", user);
+                getServletContext().getRequestDispatcher("/WEB-INF/newPassword.jsp").forward(request, response);
+                return;
+            } else {
+
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("loginMessage", "Unable to reset password, please send another request");
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        //response.sendRedirect("login");
+        return;
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        User user = (User) session.getAttribute("user");
+        String password = request.getParameter("password");
+        user.setPassword(password);
+        UserService us = new UserService();
+        try {
+            us.update(user);
+            //session.invalidate();
+            request.setAttribute("loginMessage", "password reset, please log in again");
+            //response.sendRedirect("login");
+            return;
+        } catch (Exception ex) {
+            Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("loginMessage", "Unable to reset password, please send another request");
+        }
+        session.invalidate();
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        //response.sendRedirect("login");
+        return;
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

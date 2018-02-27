@@ -99,7 +99,8 @@ public class AccountRequestService {
     /**
      * Method to verify user identity with the supplied string
      * @param token token the token that is passed to verify the user
-     * @param requestType the request type of the current call for verify ID
+     * @param requestType the request type of the current call for verify ID, 
+     * 1 is a request for creating new account, 2 is a forget password request
      * @return the verified user when verified and returns null when failed
      */
     public User verifyID(String token, int requestType) throws NoSuchAlgorithmException {
@@ -123,7 +124,7 @@ public class AccountRequestService {
     }
     
     
-    /**
+    /*
      * Removes a old password request with its requested user
      * @param requestUser requestUser the requester who's password request to be removed
      */
