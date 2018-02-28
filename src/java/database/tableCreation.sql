@@ -67,7 +67,6 @@ CREATE TABLE [dbo].[definition](
         dictionary_definition varchar(100),
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20),
-	[type] char(1) NOT NULL,
         CONSTRAINT FK_definition_made_by FOREIGN KEY (made_by)
 	REFERENCES [user](user_id),
         CONSTRAINT FK_definition_glossary_entry FOREIGN KEY (glossary_entry)
