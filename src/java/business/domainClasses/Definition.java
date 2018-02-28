@@ -30,12 +30,14 @@ public class Definition {
      * @param course course the course in which the definition is written
      * @param content content the content of the definition written by the user
      */
-    public Definition(User writtenBy, Date dateCreated, String citation, Course course, String content) {
+    public Definition(User writtenBy, Date dateCreated, String citation, String dictionaryCitation, Course course, String content, String dictionaryContent) {
         this.writtenBy = writtenBy;
         this.dateCreated = dateCreated;
         this.citation = citation;
+        this.dictionaryCitation = dictionaryCitation;
         this.course = course;
         this.content = content;
+        this.dictionaryContent = dictionaryContent;
     }
 
     /**
@@ -181,14 +183,5 @@ public class Definition {
     public void setDictionaryContent(String dictionaryContent){
         this.dictionaryContent = dictionaryContent;
     }
-
-    public String getTerm() {
-        return term;
-    }
-
-    public void setTerm(String term) {
-        this.term = term;
-    }
-    
     
 }
