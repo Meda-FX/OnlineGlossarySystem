@@ -52,6 +52,25 @@ INSERT INTO [user]
 VALUES
     ('1','password',1,'Bob Bobson','bobBobson@gmail.com', 1);
 
+INSERT INTO [user]
+    (user_id, password, department_id, [name], email, activated)
+VALUES
+    ('2','password',1,'Aron Alice','aronAlice@gmail.com', 1);
+
+INSERT INTO [user] 
+    (user_id, password, department_id, [name], email, activated)
+VALUES
+    ('3','password',1,'Strphon Curry','stephonCurry@gmail.com', 1);
+
+INSERT INTO [user_role]
+    (user_id, privilege_id)
+VALUES
+    ('0',1);
+
+INSERT INTO [user_role]
+    (user_id, privilege_id)
+VALUES
+    ('1',2);
 INSERT INTO [user_role]
     (user_id, privilege_id)
 VALUES
@@ -65,12 +84,12 @@ VALUES
 INSERT INTO [user_role]
     (user_id, privilege_id)
 VALUES
-    ('0',1);
+    ('2',3);
 
 INSERT INTO [user_role]
     (user_id, privilege_id)
 VALUES
-    ('1',2);
+    ('3',4);
 
 INSERT INTO [user_role]
     (user_id, privilege_id)

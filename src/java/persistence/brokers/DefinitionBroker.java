@@ -32,7 +32,7 @@ public class DefinitionBroker extends Broker {
      * @param id represents the course in the course table in the database.
      * @return a definition of a term
      */
-    public Definition getByID(String did) {
+    public Definition getByID(int did) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
@@ -58,7 +58,7 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, did);
+            ps.setInt(1, did);
             rs = ps.executeQuery();
             while (rs.next()) {
                 definition= new Definition();

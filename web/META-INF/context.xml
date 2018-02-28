@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/OnlineGlossarySystem">
-  <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" name="jdbc/OnlineGlossarySystem" password="password123" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:61501" username="sa"/>
+  <Resource auth="Container" 
+            driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+            name="jdbc/OnlineGlossarySystem" 
+            password="password123" 
+            type="javax.sql.DataSource" 
+            url="jdbc:sqlserver://localhost:61501" 
+            username="sa"/>
 </Context>
