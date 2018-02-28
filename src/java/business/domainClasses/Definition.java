@@ -11,11 +11,12 @@ public class Definition {
     private User writtenBy;
     private Date dateCreated;
     private String citation;
+    private String dictionaryCitation;
     private Course course;
     private String content;
+    private String dictionaryContent;
     private Date dateLastModified;
     private String definitionID;
-    private Character definitionType;
     private String term;
 
     public Definition() {
@@ -150,20 +151,36 @@ public class Definition {
     }
 
     /**
-     * Returns the type of the definition
-     * @return the definition type 
+     * Returns the dictionary definition citation
+     * @return the dictionary definition citation
      */
-    public Character getDefinitionType() {
-        return definitionType;
+    public String getDictionaryCitation() {
+        return dictionaryCitation;
     }
 
     /**
-     * Changes the type of the definition
-     * @param definitionType definitionType the definition type to be set
+     * Changes the dictionary definition citation
+     * @param dictionaryCitation is the new value of dictionaryCitation
      */
-    public void setDefinitionType(Character definitionType) {
-        this.definitionType = definitionType;
+    public void setDictionaryCitation(String dictionaryCitation) {
+        this.dictionaryCitation = dictionaryCitation;
     }    
+    
+    
+    /**
+     * Returns the diction content in string format
+     * @return dictionary Content
+     */
+    public String getDictionContent(){
+        return dictionaryContent;
+    }
+    /**
+     * Gives dictionaryContent a new value
+     * @param dictionaryContent is the new  value for dictionaryContent
+     */
+    public void setDictionaryContent(String dictionaryContent){
+        this.dictionaryContent = dictionaryContent;
+    }
 
     public String getTerm() {
         return term;
