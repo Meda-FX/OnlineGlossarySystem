@@ -48,10 +48,17 @@ public class DefinitionBroker extends Broker {
         String content;
         String citation;
         String definitionID;
+        String dictionaryContent;
+        String dictionaryCitation;
         java.util.Date newDate;
-        char type;
 
-        String selectSQL = "SELECT * from [dbo].[definition] join [dbo].[course] on (definition.course_code=course.course_code) join [dbo].[user] on (definition.made_by=[dbo].[user].user_id) where definition_uid = ?";
+        String selectSQL = "SELECT * "
+                            + "from [dbo].[definition] "
+                            + "join [dbo].[course] "
+                            + "on (definition.course_code=course.course_code) "
+                            + "join [dbo].[user] "
+                            + "on (definition.made_by=[dbo].[user].user_id) "
+                            + "where definition_uid = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -68,6 +75,8 @@ public class DefinitionBroker extends Broker {
                 citation = rs.getString("citation");
                 name = rs.getString("name");
                 userid=rs.getString("user_id");
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);
@@ -76,7 +85,6 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                type = rs.getString("type").charAt(0);
                 // definition = new definition(user,)
                 definition = new Definition(user, newDate, citation, course, content);
             }

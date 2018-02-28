@@ -64,7 +64,7 @@ CREATE TABLE [dbo].[definition](
         dictionary_definition varchar(500) NOT NULL,
 	date_created datetime NOT NULL,
 	citation varchar(100) ,
-        dictionary_definition varchar(100),
+        dictionary_citation varchar(100),
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20),
         CONSTRAINT FK_definition_made_by FOREIGN KEY (made_by)
