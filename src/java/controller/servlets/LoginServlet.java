@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {        
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        String url = "/WEB-INF/login.jsp";
+        String url = "/WEB-INF/index.jsp";
         if(action != null && action.equals("logout"))
         {
             url = "/WEB-INF/index.jsp";
