@@ -48,7 +48,7 @@ public class SearchServlet extends HttpServlet {
                 //TODO 
                 //should return a list of entries based on the searching term
                 termlist = (ArrayList<GlossaryEntry>) ges.getMatched(searchedEntry);
-                if(termlist != null)
+                if(termlist.size()!=0)
                 {
                     request.setAttribute("termlist", termlist);
                 }
