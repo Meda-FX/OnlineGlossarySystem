@@ -128,7 +128,7 @@ public class GlossaryEntryBroker extends Broker {
         return (List<Object>) list;
     }
     
-    public List<GlossaryEntry> getMatched(String term) {
+        public List<GlossaryEntry> getMatched(String term) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         String searchPattern = ("%" + term + "%").toUpperCase();
@@ -199,7 +199,7 @@ public class GlossaryEntryBroker extends Broker {
                 definition.setDateCreated(definitionDateCreated);
                 definitionList.add(definition);
             }
-            terms.add(ge);
+            if(ge!=null) terms.add(ge);
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {

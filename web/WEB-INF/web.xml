@@ -18,19 +18,23 @@
     </filter>
     <filter-mapping>
         <filter-name>EditorFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>EditorServlet</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>AdminServlet</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>InstructorFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>InstructorServlet</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>InstructorServlet</servlet-name>
+        <servlet-name>GlossaryEntryServlet</servlet-name>
+        <servlet-name>EditorServlet</servlet-name>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-name>AdminServlet</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

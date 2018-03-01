@@ -29,6 +29,7 @@ public class ConnectionPool {
             source = (DataSource) ic.lookup("java:/comp/env/jdbc/OnlineGlossarySystem");
         } catch (NamingException e) {
             System.out.println(e);
+            e.printStackTrace();
         }
     }
     
