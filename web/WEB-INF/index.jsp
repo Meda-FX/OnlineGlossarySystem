@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="includes/home-header.jsp" %>      
+<%@ include file="includes/header.jsp" %>      
 
 <div class="customContainerLandingPage">
 <!--Alphabet search starts here-->

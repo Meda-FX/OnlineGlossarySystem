@@ -1,5 +1,6 @@
 package controller.filters;
 
+import business.domainClasses.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -27,7 +28,25 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+                        // this code executes before the servlet
+        // ...
+        
+        // ensure user is authenticated
+        HttpSession session = ((HttpServletRequest)request).getSession();
+        User user  = (User) session.getAttribute("user");
+      
+  
+     
+        if (user != null ) {
+            // yes, go onwards to the servlet or next filter
             chain.doFilter(request, response);
+        } else {
+            // get out of here!
+            ((HttpServletResponse)response).sendRedirect("search");
+        }
+        
+       // this code executes after the servlet
+       // ...
     }
 
     @Override

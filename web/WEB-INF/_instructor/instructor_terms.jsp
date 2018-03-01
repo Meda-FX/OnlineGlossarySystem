@@ -1,4 +1,4 @@
-<%@ include file="../includes/instructor-header.jsp" %>   
+<%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms">
 
@@ -27,9 +27,15 @@
                         <label for="pwd">Citation:</label>
                         <input type="text" class="form-control" id="pwd">
                     </div>
-
+                     <div class="form-group">
+                        <label for="comment">Dictionary Definition:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    
                     <button type="button" class="btn">SAVE TERM</button>
-                    <button type="button" class="btn">PUBLISH TERM</button>
+                        <c:if test="${user.getPrivileges().contains(3) == true}"> 
+                            <button type="button" class="btn">PUBLISH TERM</button>
+                        </c:if>                    
                 </ul>
 
             </div>

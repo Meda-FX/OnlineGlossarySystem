@@ -33,8 +33,7 @@ CREATE TABLE [dbo].[user_role] (
 	CONSTRAINT FK_user_role_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id),
 	CONSTRAINT FK_user_role_privilege_id FOREIGN KEY (privilege_id)
-	REFERENCES role(privilege_id),
-        PRIMARY KEY (privilege_id,user_id)
+	REFERENCES role(privilege_id)
 	)
 
 
@@ -64,7 +63,7 @@ CREATE TABLE [dbo].[definition](
         dictionary_definition varchar(500) NOT NULL,
 	date_created datetime NOT NULL,
 	citation varchar(100) ,
-        dictionary_citation varchar(100),
+        dictionary_citation varchar(100)NOT NULL,
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20),
         CONSTRAINT FK_definition_made_by FOREIGN KEY (made_by)

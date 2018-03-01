@@ -60,7 +60,7 @@ VALUES
 INSERT INTO [user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('3','password',1,'Strphon Curry','stephonCurry@gmail.com', 1);
+    ('3','password',1,'Stephon Curry','stephonCurry@gmail.com', 1);
 
 INSERT INTO [user_role]
     (user_id, privilege_id)
@@ -130,6 +130,10 @@ INSERT INTO [user_role]
     (user_id, privilege_id)
 VALUES
     ('1',2);
+INSERT INTO user_role
+    (user_id,privilege_id)
+VALUES
+    ('0',3);
 
 INSERT INTO course
     (course_code,department_id,course_name)
@@ -179,10 +183,7 @@ VALUES
     ('BNBH-201-B','3','Bed and Breakfast Hospitality');
 
 
-INSERT INTO user_role
-    (priviledge_id,user_id)
-VALUES
-    (4,'0');
+
 
 INSERT INTO user_course
     (course_code,user_id,year)
@@ -227,36 +228,26 @@ VALUES
 
 
 INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
-    ('Java','A cup of coffee','2017-10-02',null,'0','HH-201-B','I');
+    ('Java','A cup of coffee','COFFEE','2017-10-02',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','HH-201-B');
 INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
-    ('Java','A drink you dunk biscuits in','2017-08-01',null,'0','PNB-101-B','I');
-INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    ('JavaScript','A programming language','2017-06-03',null,'0','CMPS-352-A', 'I');
-INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    ('Java','Coffee','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
+    ('Java','A drink you dunk biscuits in','COFFEE','2017-08-01',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B');
+
 
 
 INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','Put out beside coffee','2017-12-01',null,'0','HH-201-B','I');
+    ('Cookie','Put out beside coffee',' a small flat or slightly raised cake ','2017-12-01',null,'https://www.merriam-webster.com/dictionary/cookie','0','HH-201-B');
 INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','A dessert disk','2017-08-01',null,'0','PNB-101-B','I');
+    ('Cookie','A dessert disk','a small flat or slightly raised cake ','2017-08-01',null,'https://www.merriam-webster.com/dictionary/cookie','0','PNB-101-B');
 INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','A way for browsers to store information','2017-06-03',null,'0','CMPS-352-A', 'I');
-INSERT INTO definition 
-    (glossary_entry,definition, date_created,citation,made_by,course_code,[type])
-VALUES
-    ('Cookie','A round sweet treat','2016-06-03','https://www.merriam-webster.com/dictionary/java','0',null, 'D');
+    ('Cookie','A way for browsers to store information','a small flat or slightly raised cake ','2017-06-03',null,'https://www.merriam-webster.com/dictionary/cookie','0','CMPS-352-A');
+
