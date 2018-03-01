@@ -1,4 +1,4 @@
-<%@ include file="../includes/admin-header.jsp" %>   
+<%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms">
 
