@@ -67,14 +67,12 @@ public class LoginServlet extends HttpServlet {
                url = "/WEB-INF/_admin/admin.jsp";
             }
             else if(user.getPrivileges().contains(2)) //editor
-            {
-                
+            {                
                 url = "/WEB-INF/_student/student.jsp";
             }
             else if(user.getPrivileges().contains(3)) //instructor
             {
-                url = "/WEB-INF/_editor/editor.jsp";
-                
+                url = "/WEB-INF/_editor/editor.jsp";                
             }
             else if(user.getPrivileges().contains(4)) //student
             {

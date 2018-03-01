@@ -5,18 +5,20 @@
 <html lang="en">
     <head>
         <title>
-            SAIT Glossary System
+             <c:if test="${user == null}">
+               SAIT Glossary System
+            </c:if>
             <c:if test="${user.getPrivileges().contains(1) == true}">
-                - Administrator
+               Administrator - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(2) == true}">
-                - Student
+               Student - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(3) == true}">
-                - Editor
+               Editor - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(4) == true}">
-                - Instructor
+               Instructor - SAIT Glossary System
             </c:if>
         </title>
         <meta charset="utf-8">
@@ -48,10 +50,9 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">                 
                         
-                         <c:if test="${ user.getPrivileges().contains(1) == true || user.getPrivileges().contains(2) == true || 
-                                        user.getPrivileges().contains(3) == true || user.getPrivileges().contains(4) == true}">
+                         <c:if test="${user != null}">
                             <li><a href="#">ACCOUNT</a></li>
-                            <li><a href="user">SEARCH</a></li>
+                            <li><a href="search">SEARCH</a></li>
                         </c:if>
                         
                         <!--------------------- Admin nav ---------------------->
@@ -77,22 +78,13 @@
                             
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        
-                        <c:if test="${ user.getPrivileges().contains(1) == true || user.getPrivileges().contains(2) == true || 
-                                        user.getPrivileges().contains(3) == true || user.getPrivileges().contains(4) == true}">
-                            <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
-                        </c:if>
-                        
-                        <c:if test="${ user.getPrivileges().contains(1) == false && user.getPrivileges().contains(2) == false && 
-                                   user.getPrivileges().contains(3) == false && user.getPrivileges().contains(4) == false}">
+                         <c:if test="${ user != null}">
+                           <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
+                        </c:if>                                  
+                         <c:if test="${ user == null}">
                             <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
                             <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
-                        </c:if>                            
-                                                    
-                        <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
-                        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
-                        
-                        
+                        </c:if>                           
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
