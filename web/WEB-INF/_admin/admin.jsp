@@ -1,4 +1,4 @@
-<%@ include file="../includes/admin-header.jsp" %>   
+<%@ include file="../includes/header.jsp" %>   
 
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
