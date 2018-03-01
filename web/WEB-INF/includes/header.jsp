@@ -48,8 +48,7 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">                 
-                        
+                    <ul class="nav navbar-nav"> 
                          <c:if test="${user != null}">
                             <li><a href="#">ACCOUNT</a></li>
                             <li><a href="search">SEARCH</a></li>
@@ -75,7 +74,6 @@
                         <c:if test="${user.getPrivileges().contains(4) == true}">
                             <li><a href="#">YOUR TERM</a></li>
                         </c:if>
-                            
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                          <c:if test="${ user != null}">
