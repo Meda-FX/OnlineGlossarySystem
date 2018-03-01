@@ -35,6 +35,7 @@ public class UserService {
         
             User u = udb.getByEmail(email);
             if (u != null && password.equals(u.getPassword())) {
+                u.setPassword("");
                 return u;
             }
         

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Receive and response to requests from web client for instructor page 
@@ -23,7 +24,14 @@ public class InstructorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        String action = request.getParameter("action");
+        String url = "/WEB-INF/_instructor/instructor.jsp";
+        if(action != null && action.equals("yourterm"))
+        {
+            url = "/WEB-INF/_instructor/instructor_terms.jsp";
+        }
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     @Override

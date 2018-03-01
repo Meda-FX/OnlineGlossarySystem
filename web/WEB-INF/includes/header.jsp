@@ -43,7 +43,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">SAIT GLOSSARY</a>
+                    <a class="navbar-brand" href="search">SAIT GLOSSARY</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,30 +56,31 @@
                         
                         <!--------------------- Admin nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(1) == true}">
-                            <li><a href="/admin">MANAGE USERS</a></li>
-                            <li><a href="#">REPORT</a></li>                        
+                            <li><a href="admin?action=manageUsers">MANAGE USERS</a></li>
+                            <li><a href="admin?action=report">REPORT</a></li>                        
                         </c:if>
                         
                         <!--------------------- Student nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(2) == true}">
-                            <li><a href="#">MY SAIT</a></li>
+                            <li><a href="https://www.mysait.ca/cp/home/displaylogin" target="_blank">MY SAIT</a></li>
+                             <li><a href="http://www.sait.ca/" target="_blank">SAIT</a></li>
                         </c:if>
                         
                         <!--------------------- Editor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(3) == true}"> 
-                            <li><a href="#">PENDING TERMS</a></li> 
+                            <li><a href="edit?action=pendingTerms">PENDING TERMS</a></li> 
                         </c:if>
                         
                         <!--------------------- Instructor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(4) == true}">
-                            <li><a href="#">YOUR TERM</a></li>
+                            <li><a href="instructor?action=yourterm">YOUR TERM</a></li>
                         </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <c:if test="${ user != null}">
+                         <c:if test="${user != null}">
                            <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
                         </c:if>                                  
-                         <c:if test="${ user == null}">
+                         <c:if test="${user == null}">
                             <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
                             <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
                         </c:if>                           

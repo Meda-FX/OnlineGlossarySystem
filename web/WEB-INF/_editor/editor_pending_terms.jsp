@@ -15,17 +15,24 @@
                 <ul class="list-group">
 
                     <div class="form-group">
-                        <label for="usr">Term:</label>
-                        <input type="text" class="form-control" id="usr">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="comment">Definition:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <label for="terms">Term:</label>
+                        <input type="text" class="form-control" id="terms" name="terms">
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Citation:</label>
-                        <input type="text" class="form-control" id="pwd">
+                        <label for="definition">Definition:</label>
+                        <textarea class="form-control" rows="5" id="definition" name="definition"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="citation">Citation:</label>
+                        <input type="text" class="form-control" id="citation" name="citation">
+                    </div>
+                    <div class="form-group">
+                        <label for="defDict">Dictionary Definition:</label>
+                        <textarea class="form-control" rows="3" id="defDict" name="defDict"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dictCita">Dictionary Citation:</label>
+                        <input type="text" class="form-control" id="dictCita" name="dictCita">
                     </div>
 
                     <button type="button" class="btn">SAVE TERM</button>
