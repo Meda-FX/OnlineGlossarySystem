@@ -51,7 +51,7 @@ public class DefinitionBroker extends Broker {
         String dictionaryContent;
         String dictionaryCitation;
         java.util.Date newDate;
-
+        
         String selectSQL = "SELECT * "
                             + "from [dbo].[definition] "
                             + "join [dbo].[course] "
@@ -86,7 +86,8 @@ public class DefinitionBroker extends Broker {
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, dictionaryCitation, course, content, dictionaryContent);
+                definition = new Definition(user, newDate, citation, dictionaryCitation, 
+                        course, content, dictionaryContent, term);
             }
 
         } catch (SQLException ex) {
@@ -150,7 +151,9 @@ public class DefinitionBroker extends Broker {
                 user.setID(userid);
                 user.setName(name);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, dictionaryCitation, course, content, dictionaryContent);
+                definition = new Definition(user, newDate, citation, 
+                        dictionaryCitation, course, content, 
+                        dictionaryContent, term);
                 delist.add(definition);
             }
 
@@ -213,7 +216,9 @@ public class DefinitionBroker extends Broker {
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, dictionaryCitation, course, content, dictionaryContent);
+                definition = new Definition(user, newDate, citation, 
+                        dictionaryCitation, course, content, 
+                        dictionaryContent, term);
                 delist.add(definition);
             }
 
@@ -250,7 +255,6 @@ public class DefinitionBroker extends Broker {
         CourseBroker cb = new CourseBroker();
         String dictionaryContent;
         String dictionaryCitation;
-        
         try {
             ps = connection.prepareCall(selectSQL);
             ps.setString(1, glossary.getTerm());
