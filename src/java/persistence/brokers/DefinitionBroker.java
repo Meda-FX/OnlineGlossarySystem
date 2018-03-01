@@ -48,10 +48,17 @@ public class DefinitionBroker extends Broker {
         String content;
         String citation;
         String definitionID;
+        String dictionaryContent;
+        String dictionaryCitation;
         java.util.Date newDate;
-        char type;
-
-        String selectSQL = "SELECT * from [dbo].[definition] join [dbo].[course] on (definition.course_code=course.course_code) join [dbo].[user] on (definition.made_by=[dbo].[user].user_id) where definition_uid = ?";
+        
+        String selectSQL = "SELECT * "
+                            + "from [dbo].[definition] "
+                            + "join [dbo].[course] "
+                            + "on (definition.course_code=course.course_code) "
+                            + "join [dbo].[user] "
+                            + "on (definition.made_by=[dbo].[user].user_id) "
+                            + "where definition_uid = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -68,6 +75,8 @@ public class DefinitionBroker extends Broker {
                 citation = rs.getString("citation");
                 name = rs.getString("name");
                 userid=rs.getString("user_id");
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);
@@ -76,9 +85,9 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                type = rs.getString("type").charAt(0);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, course, content);
+                definition = new Definition(user, newDate, citation, dictionaryCitation, 
+                        course, content, dictionaryContent, term);
             }
 
         } catch (SQLException ex) {
@@ -111,9 +120,14 @@ public class DefinitionBroker extends Broker {
         String citation;
         String definitionID;
         java.util.Date newDate;
-        char type;
+        String dictionaryContent;
+        String dictionaryCitation;
 
-        String selectSQL = "SELECT * from [dbo].[definition] join [dbo].[course] on (definition.course_code=course.course_code) join [dbo].[user] on (definition.made_by=[dbo].[user].user_id) where [dbo].[definition].course_code = ?";
+        String selectSQL = "SELECT * "
+                            + "from [dbo].[definition] "
+                            + "join [dbo].[user] "
+                            + "on (definition.made_by=[dbo].[user].user_id) "
+                            + "where [dbo].[definition].course_code = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -127,16 +141,17 @@ public class DefinitionBroker extends Broker {
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
-                
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
                 name = rs.getString("name");
                 userid=rs.getString("user_id");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);
-   
-                type = rs.getString("type").charAt(0);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, course, content);
+                definition = new Definition(user, newDate, citation, 
+                        dictionaryCitation, course, content, 
+                        dictionaryContent, term);
                 delist.add(definition);
             }
 
@@ -168,9 +183,14 @@ public class DefinitionBroker extends Broker {
         String citation;
         String definitionID;
         java.util.Date newDate;
-        char type;
+        String dictionaryContent;
+        String dictionaryCitation;
 
-        String selectSQL = "SELECT * from [dbo].[definition] join [dbo].[course] on (definition.course_code=course.course_code) where made_by =?";
+        String selectSQL = "SELECT * "
+                            + "from [dbo].[definition] "
+                            + "join [dbo].[course] "
+                            + "on (definition.course_code=course.course_code) "
+                            + "where made_by =?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -191,9 +211,12 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                type = rs.getString("type").charAt(0);
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, course, content);
+                definition = new Definition(user, newDate, citation, 
+                        dictionaryCitation, course, content, 
+                        dictionaryContent, term);
                 delist.add(definition);
             }
 
@@ -218,30 +241,53 @@ public class DefinitionBroker extends Broker {
         PreparedStatement ps = null;
         ResultSet rs = null;
         DefinitionList list = new DefinitionList();
-        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[definition] where glossary_entry = ?;";
+        String selectSQL = "SELECT * "
+                            + "FROM [GlossaryDataBase].[dbo].[definition] "
+                            + "join [dbo].[course] "
+                            + "on (definition.course_code=course.course_code) "
+                            + "join [dbo].[user] "
+                            + "on (definition.made_by=[dbo].[user].user_id) "
+                            + "where glossary_entry = ?;";
+        Definition definition;
+        Course course;
+        User user;
         String definitionUid;
         String glossaryEntry;
-        String definition;
+        String content;
         Date dateCreated;
         String citation;
         String madeBy;
         String courseId;
-        UserBroker ub = new UserBroker();
-        CourseBroker cb = new CourseBroker();
-        
+        String dictionaryContent;
+        String dictionaryCitation;
+        String name;
+        String course_name;
         try {
             ps = connection.prepareCall(selectSQL);
+            ps.setString(1, glossary.getTerm());
             rs = ps.executeQuery();
             while(rs.next()){
                 definitionUid = rs.getString("definition_uid");
                 glossaryEntry = rs.getString("glossary_entry");
-                definition = rs.getString("definition");
+                content = rs.getString("definition");
                 dateCreated = new Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 madeBy = rs.getString("made_by");
-                courseId = rs.getString("course_id");                
-                Definition newD = new Definition(ub.getByID(madeBy),dateCreated,citation,cb.getByID(courseId), definition);
-                list.add(newD);
+                courseId = rs.getString("course_id");       
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                name = rs.getString("name");
+                user = new User();
+                user.setID(madeBy);
+                user.setName(name);
+                courseId = rs.getString("course_code"); // need to get course info
+                course_name = rs.getString("course_name");
+                course = new Course();
+                course.setCourseCode(courseId);
+                course.setCourseName(course_name);
+                definition = new Definition(user, dateCreated, citation, dictionaryCitation, 
+                        course, content, dictionaryContent, glossary.getTerm());
+                list.add(definition);
             }
         } catch (SQLException e) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, null, e);
@@ -286,7 +332,8 @@ public class DefinitionBroker extends Broker {
 
         Definition definition = (Definition) object;
         String sql = "UPDATE definition \n"
-                + "SET (glossary_entry=?,definition=?,citation=?,made_by=?,course_code=?,[type]=?)\n"
+                + "SET (definition=?,dictionary_definition=?,"
+                + "citation=?,dictionary_citation=?,made_by=?,course_code=?)\n"
                 + "WHERE definition_uid=?";
 
         PreparedStatement ps = null;
@@ -295,13 +342,14 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(sql);
-            ps.setString(1, definition.getTerm());
-            ps.setString(2, definition.getContent());
+            //ps.setString(1, definition.getTerm());
+            ps.setString(1, definition.getContent());
+            ps.setString(2, definition.getDictionContent());
          //   ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
             ps.setString(3, definition.getCitation());
-            ps.setString(4, definition.getWrittenBy().getID());
-            ps.setString(5, definition.getDefinitionType() + "");
-            ps.setString(6, definition.getDefinitionID());
+            ps.setString(4, definition.getDictionaryCitation());
+            ps.setString(5, definition.getWrittenBy().getID());
+            ps.setString(6, definition.getCourse().getCourseCode());
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log
