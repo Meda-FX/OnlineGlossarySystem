@@ -47,7 +47,6 @@ public class DefinitionBroker extends Broker {
         String course_name;
         String content;
         String citation;
-        String definitionID;
         String dictionaryContent;
         String dictionaryCitation;
         java.util.Date newDate;
@@ -406,7 +405,69 @@ public class DefinitionBroker extends Broker {
 
     @Override
     public List<Object> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        ArrayList<Object> delist = new ArrayList<Object>();
+        Definition definition = null;
+        Course course;
+        User user;
+
+        String term;
+        String name;
+        String userid;
+        String courseId;
+        String course_name;
+        String content;
+        String citation;
+        //String definitionID;
+        String dictionaryContent;
+        String dictionaryCitation;
+        java.util.Date newDate;
+
+        String selectSQL = "SELECT * "
+                + "from [dbo].[definition] ";
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                definition = new Definition();
+                //definitionID = rs.getString("definition_uid");
+                term = rs.getString("glossary_entry");
+                content = rs.getString("definition");
+                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
+                citation = rs.getString("citation");
+                name = rs.getString("name");
+                userid = rs.getString("user_id");
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                user = new User();
+                user.setID(userid);
+                user.setName(name);
+                courseId = rs.getString("course_code"); // need to get course info
+                course_name = rs.getString("course_name");
+                course = new Course();
+                course.setCourseCode(courseId);
+                course.setCourseName(course_name);
+                definition = new Definition(user, newDate, citation, dictionaryCitation,
+                        course, content, dictionaryContent, term);
+                delist.add(definition);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to read definition", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+            }
+            pool.freeConnection(connection);
+        }
+        return delist;
     }
 
     @Override
