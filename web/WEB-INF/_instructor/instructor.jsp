@@ -92,7 +92,7 @@
 
 <div class="container list-terms">
    
-    <table class="table table-hover">
+  <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">ID</th>
