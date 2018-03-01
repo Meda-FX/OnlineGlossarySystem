@@ -38,7 +38,7 @@ public class InstructorFilter implements Filter {
       
   
      
-        if (user != null && user.getPrivileges().contains(1)==true) {
+        if (user != null && user.getPrivileges().contains(4)==true) {
             // yes, go onwards to the servlet or next filter
             chain.doFilter(request, response);
         } else {

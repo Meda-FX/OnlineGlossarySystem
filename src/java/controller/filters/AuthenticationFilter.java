@@ -37,7 +37,7 @@ public class AuthenticationFilter implements Filter {
       
   
      
-        if (user != null && user.getPrivileges().contains(1)==true) {
+        if (user != null ) {
             // yes, go onwards to the servlet or next filter
             chain.doFilter(request, response);
         } else {
