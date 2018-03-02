@@ -176,7 +176,7 @@ public class Definition {
      * Returns the diction content in string format
      * @return dictionary Content
      */
-    public String getDictionContent(){
+    public String getDictionaryContent(){
         return dictionaryContent;
     }
     /**

@@ -23,6 +23,18 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String action = request.getParameter("action");
+        String url = "/WEB-INF/_admin/admin.jsp";
+        if(action != null && action.equals("manageUsers"))
+        {
+            url = "/WEB-INF/_admin/admin_manage_users.jsp";
+        }
+        if(action != null && action.equals("report"))
+        {
+            url = "/WEB-INF/_admin/admin_report.jsp";
+        }
+        getServletContext().getRequestDispatcher(url).forward(request, response);    
+        
     }
 
     @Override
