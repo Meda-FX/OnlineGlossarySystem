@@ -22,6 +22,8 @@ public class GlossaryEntryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url="/WEB-INF/index.jsp";
+        getServletContext().getRequestDispatcher(url).forward(request, response);
 
     }
 
