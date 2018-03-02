@@ -251,3 +251,4 @@ INSERT INTO definition
 VALUES
     ('Cookie','A way for browsers to store information','a small flat or slightly raised cake ','2017-06-03',null,'https://www.merriam-webster.com/dictionary/cookie','0','CMPS-352-A');
 
+
