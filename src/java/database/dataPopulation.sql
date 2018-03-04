@@ -71,15 +71,7 @@ INSERT INTO [user_role]
     (user_id, privilege_id)
 VALUES
     ('1',2);
-INSERT INTO [user_role]
-    (user_id, privilege_id)
-VALUES
-    ('0',1);
 
-INSERT INTO [user_role]
-    (user_id, privilege_id)
-VALUES
-    ('1',2);
 
 INSERT INTO [user_role]
     (user_id, privilege_id)
@@ -250,4 +242,5 @@ INSERT INTO definition
     (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
 VALUES
     ('Cookie','A way for browsers to store information','a small flat or slightly raised cake ','2017-06-03',null,'https://www.merriam-webster.com/dictionary/cookie','0','CMPS-352-A');
+
 

@@ -8,7 +8,7 @@
  * Created: Mar 1, 2018
  */
 
-CREATE TRIGGER TR_acc_req_insert_after
+CREATE TRIGGER TR_acc_req_insert_log
 ON account_request
 AFTER INSERT AS
 BEGIN
@@ -16,13 +16,7 @@ SET IDENTITY_INSERT dbo.account_request_log ON
 INSERT INTO account_request_log(request_id,request_date,request_by,request_log_type)
 select request_id,request_date,request_by,request_type from INSERTED
 SET IDENTITY_INSERT dbo.account_request_log OFF
-
 END
 
-CREATE TRIGGER TR_acc_req_insert_before
-ON account_request
-BEFORE INSERT AS
-BEGIN
-DELETE FROM account_request
-where 
-END
+
+
