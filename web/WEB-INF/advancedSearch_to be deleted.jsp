@@ -1,4 +1,4 @@
-<%@ include file="includes/header.jsp" %>   
+<%@ include file="../includes/header.jsp" %>   
 
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
@@ -39,10 +39,9 @@
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-        <form action="search" method="GET">    
+        <form action="#" method="GET">    
             <div class="input-group">
-                <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch" value="${searchedEntry}" />
-                <input type="text" name="action" value="searchTerm" hidden/>
+                <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" />
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -56,38 +55,12 @@
     </div>
 </div><!--Search ends here-->
 
-<c:if test="${user == null}">
 <!--Search filter starts here-->
-<div class="search-filter">
-    <div class="row">
-        <div class="col-xs-8 col-md-4 col-md-offset-4 col-xs-offset-2">
-            <!-- Small button group -->
-            <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter By School <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Business, Accounting and Management</a></li>
-                <li><a href="#">Construction and Trades</a></li>
-                <li><a href="#">Culinary, Hospitality and Travel</a></li>
-                <li><a href="#">Energy, Oil and Gas</a></li>
-                <li><a href="#">Engineering Technologies</a></li>
-                <li><a href="#">Health and Medical</a></li>
-                <li><a href="#">Information Technology</a></li>
-                <li><a href="#">Manufacturing</a></li>
-                <li><a href="#">Media and Communications</a></li>
-                <li><a href="#">Transportation</a></li>
-                
-                <c:forEach var="school" items="${user}"> 
-                    <li><a href="#">${school.course_name}</a></li>
-                </c:forEach>
-                
-            </ul>
-        </div>
-</c:if>
-
-<c:if test="${user != null}">
-    <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-<!-- Filter by instructor starts here -->
+<div class="row search-filter"> <!-- main filter container -->    
+     <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    
+    
+    <!-- Filter by instructor starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
             <!-- Small button group -->
             <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,52 +86,53 @@
                 <li><a href="#">Instructor Two</a></li>
                 <li><a href="#">Instructor Three</a></li>
         </div><!--Filter by course ends here-->
-    </div>
-</c:if>
-    </div> 
-</div> <!--Search filter ends here-->
+   
+</div>     
+</div> <!-- main filter container -->
+<!--Search filter ends here-->
 
 <div class="container list-terms">
     <div>
     <h4>Term List</h4>
     <hr class="line">
     </div>
-
+    
     <!-- Term definitions starts here -->
-    <c:if test="${noSuchEntry != true}">
-        <c:forEach var="term" items="${termlist}"> 
-            <c:forEach var="definition" items="${term.definitionList.definitionList}"> 
-            <div class="row">
-                <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
-                <div class="col-xs-12 col-md-3">
-                    <h4>${term.term}</h4>
-                    <p>Instructor: ${definition.writtenBy.name} </p>
-                    <p>Citation: ${definition.citation}</p>
-                    <p>Date: ${definition.dateCreated}</p>
-                </div><!--Left side of the search ends here-->
+    <c:forEach var="definition" items="${definitions}"> 
+        <div class="row">
+            <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
+            <div class="col-xs-12 col-md-3">
+                <h4>${definition.glossary_entry}</h4>
+                <p>Instructor: $definition.made_by} </p>
+                <p>Citation: ${definition.citation}</p>
+                <p>Date: ${definition.date_created}</p>
+            </div><!--Left side of the search ends here-->
 
-                <!--Right side of the search result starts here: term definition-->
-                <div class="col-xs-12 col-md-9">
-                    <h4>Term Definition</h4>
-                    <p>${definition.content}</p>
-                    <span><a href="#">Read</a></span>
-                    <hr>
-                </div><!--Right side of the search ends here-->      
-            </div><!-- Term definitions end here -->
-        </c:forEach>
-            </c:forEach>
-    </c:if>
+            <!--Right side of the search result starts here: term definition-->
+            <div class="col-xs-12 col-md-9">
+                <h4>Term Definition</h4>
+                <p>${definition.definition}</p>
+                <span><a href="#">Read</a></span>
+                <hr>
+            </div><!--Right side of the search ends here-->      
+        </div><!-- Term definitions end here -->
+    </c:forEach>
 
-    <c:if test="${emptyInput == true}">
-        <p class="message">You have to type a term.</p>   
-    </c:if>
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <h4>JAVA</h4>
+            <p>Instructor: Maryam Mossavi <br>
+                Citation: Citation... <br>
+                Date: January 25/2013</p>
+        </div>
 
-    <c:if test="${noSuchEntry == true}">
-        <p class="message">The term does not exist.</p>   
-    </c:if>
-        
-    <br>
+        <div class="col-xs-12 col-md-9">
+            <h4>Term Definition</h4>
+            <p>Citations are included in research projects anytime you use another individual?s work in your own assignment. When including a quote, paraphrased information, images, or any other piece of information from another?s work, you need to show where you found it by including a citation. This APA format guide explains how to make citations in APA style.</p>
+            <span><a href="#">Read</a></span>            
+        </div>       
+    </div> <!-- Term definitions end here -->
     <hr class="line">
 </div> <!-- list items  -->
 
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
