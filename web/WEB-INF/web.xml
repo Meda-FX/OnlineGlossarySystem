@@ -108,7 +108,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminManageUsersServlet</servlet-name>
-        <url-pattern>/ManageUsers</url-pattern>
+        <url-pattern>/manageusers</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>search</welcome-file>
@@ -119,7 +119,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportServlet</servlet-name>
-        <url-pattern>/Report</url-pattern>
+        <url-pattern>/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
