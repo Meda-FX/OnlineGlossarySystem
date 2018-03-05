@@ -62,6 +62,8 @@ public class LoginServlet extends HttpServlet {
         {
             //user.setPassword("");
             session.setAttribute("user", user);
+            url = "/WEB-INF/index.jsp";
+        /*
             if(user.getPrivileges().contains(1)) // admin
             {
                url = "/WEB-INF/_admin/admin.jsp";
@@ -78,6 +80,7 @@ public class LoginServlet extends HttpServlet {
             {
                 url = "/WEB-INF/_instructor/instructor.jsp";
             }
+        */
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
         
