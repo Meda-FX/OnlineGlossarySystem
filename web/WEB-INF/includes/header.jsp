@@ -56,8 +56,8 @@
                         
                         <!--------------------- Admin nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(1) == true}">
-                            <li><a href="ManageUsers">MANAGE USERS</a></li>
-                            <li><a href="Report">REPORT</a></li>                        
+                            <li><a href="manageusers">MANAGE USERS</a></li>
+                            <li><a href="report">REPORT</a></li>                        
                         </c:if>
                         
                         <!--------------------- Student nav ---------------------->
