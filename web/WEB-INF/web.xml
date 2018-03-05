@@ -66,11 +66,15 @@
     </servlet>
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>controller.servlets.AdminServlet</servlet-class>
+        <servlet-class>controller.servlets.AdminManageUsersServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewPasswordServlet</servlet-name>
         <servlet-class>controller.servlets.NewPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportServlet</servlet-name>
+        <servlet-class>controller.servlets.AdminReportServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -102,7 +106,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/ManageUsers</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>search</welcome-file>
@@ -110,6 +114,10 @@
     <servlet-mapping>
         <servlet-name>NewPasswordServlet</servlet-name>
         <url-pattern>/newpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportServlet</servlet-name>
+        <url-pattern>/Report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
