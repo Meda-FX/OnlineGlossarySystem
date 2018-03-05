@@ -23,13 +23,14 @@ public class EditorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String action = request.getParameter("action");
-        String url = "/WEB-INF/_editor/editor.jsp";
-      
-        if(action != null && action.equals("pendingTerms"))
-        {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-        }
+//        String action = request.getParameter("action");
+//        String url = "/WEB-INF/_editor/editor.jsp";
+//      
+//        if(action != null && action.equals("pendingTerms"))
+//        {
+//            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+//        }
+        
         
         getServletContext().getRequestDispatcher(url).forward(request, response);  
     }
