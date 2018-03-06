@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Receive and response to requests from web client for administrator page 
- * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ *
+ * @author 727153
  */
-public class AdminServlet extends HttpServlet {
+public class AdminReportServlet extends HttpServlet {
 
-    @Override
+   @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

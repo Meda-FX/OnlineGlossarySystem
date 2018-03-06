@@ -68,6 +68,12 @@ public class UserBroker extends Broker {
 
         PreparedStatement ps = null;
         ResultSet rs = null;
+        
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+        
+        PreparedStatement ps3 = null;
+        ResultSet rs3 = null;
 
         String user_id = null;
         String password = null;
@@ -110,13 +116,13 @@ public class UserBroker extends Broker {
             PrivilegeList privileges = user.getPrivileges();
             String privilegeDescription = null;
 
-            ps = connection.prepareStatement(sql_priv);
-            ps.setString(1, user_id);
-            rs = ps.executeQuery();
+            ps2 = connection.prepareStatement(sql_priv);
+            ps2.setString(1, user_id);
+            rs2 = ps2.executeQuery();
 
-            while (rs.next()) {
-                privID = rs.getInt("privilege_id");
-                privilegeDescription = rs.getString("description");
+            while (rs2.next()) {
+                privID = rs2.getInt("privilege_id");
+                privilegeDescription = rs2.getString("description");
                 privileges.add(new Privilege(privID, privilegeDescription));
             }
 
@@ -125,15 +131,15 @@ public class UserBroker extends Broker {
             String courseDepartmentName;
             Department courseDepartment;
 
-            ps = connection.prepareStatement(sql_course);
-            ps.setString(1, user_id);
-            rs = ps.executeQuery();
+            ps3 = connection.prepareStatement(sql_course);
+            ps3.setString(1, user_id);
+            rs3 = ps3.executeQuery();
 
-            while (rs.next()) {
-                courseCode = rs.getString("course_code");
-                courseName = rs.getString("course_name");
-                courseDepartmentID = rs.getInt("department_id");
-                courseDepartmentName = rs.getString("name");
+            while (rs3.next()) {
+                courseCode = rs3.getString("course_code");
+                courseName = rs3.getString("course_name");
+                courseDepartmentID = rs3.getInt("department_id");
+                courseDepartmentName = rs3.getString("name");
                 courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
                 courses.add(new Course(courseCode, courseName, courseDepartment));
             }
@@ -144,6 +150,12 @@ public class UserBroker extends Broker {
             try {
                 rs.close();
                 ps.close();
+                
+                rs2.close();
+                ps2.close();
+                
+                rs3.close();
+                ps3.close();
 
             } catch (SQLException ex) {
             }
