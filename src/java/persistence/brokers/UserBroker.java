@@ -158,6 +158,117 @@ public class UserBroker extends Broker {
      * @param name represents the name of the user
      * @return a User list
      */
+    public List<User> getByDepartment(Department department) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user] "
+                + "JOIN [GlossaryDataBase].[dbo].[user_role] "
+                + "ON ([GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_role].user_id) "
+                + "JOIN [GlossaryDataBase].[dbo].[role] "
+                + "ON ([GlossaryDataBase].[dbo].[role].privilege_id=[GlossaryDataBase].[dbo].[user_role].privilege_id) "
+                + "WHERE [GlossaryDataBase].[dbo].[user].department_id = ?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        ArrayList<User> users = new ArrayList<>();
+
+        //String compareName = "";
+        User user = null;
+
+        String user_id = null;
+        String password = null;
+        String userName = null;
+        String userEmail = null;
+        int department_id=0;
+        boolean activated;
+
+        //for privilege list
+        int privID;
+        String description;
+        //for course list
+        String courseCode = null;
+        String courseName = null;
+        String year = null;
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setInt(1, department.getDepartmentID());
+            rs = ps.executeQuery();
+            PrivilegeList privilegeList = null;
+            CourseList courseList = null;
+            user_id = null;
+
+            while (rs.next()) {
+
+                if (user_id != null && !user_id.equals(rs.getString(1))) {
+                    user_id = (rs.getString(1));
+                    user = new User();
+                    user.setID(user_id);
+                    privilegeList = user.getPrivileges();
+                    courseList = user.getCourses();
+                }
+
+//                //DEPARTMENT
+//                department = new Department();
+//                deptID = rs.getInt("departmentID");
+//                deptName = rs.getString("name");
+//
+//                department.setDepartmentID(deptID);
+//                department.setName(deptName);
+                //PRIVILEGE
+                Privilege priv = new Privilege();
+                privID = rs.getInt("privilegeID");
+                description = rs.getString("description");
+                priv.setPrivilegeID(privID);
+                priv.setDescription(description);
+                privilegeList.add(new Privilege(privID, description));
+
+                //USER
+                password = (rs.getString("password"));
+                department_id = (rs.getInt("department_id"));
+                userName = (rs.getString("name"));
+                userEmail = (rs.getString("email"));
+                activated = (rs.getBoolean("activated"));
+
+                //user.setID(user_id);
+                user.setPassword(password);
+                user.setDepartment(department);
+                user.setName(userName);
+                user.setEmail(userEmail);
+
+                //COURSE
+                Course course = new Course();
+                courseCode = rs.getString("courseCode");
+                courseName = rs.getString("courseName");
+                year = rs.getString("year");
+
+                //LISTS
+                //privilegeList.add(priv);
+                courseList.add(new Course(courseCode, courseName, department));
+                users.add(user);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return users;
+    }
+
+    /**
+     * The getByName method returns the user by their name
+     *
+     * @param name represents the name of the user
+     * @return a User list
+     */
     public List<User> getByName(String name) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -318,9 +429,8 @@ public class UserBroker extends Broker {
     public int delete(Object object) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        User user = (User)object;
-        
-        
+        User user = (User) object;
+
         String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry]"
                 + " join [GlossaryDataBase].[dbo].[definition]"
                 + " on ([GlossaryDataBase].[dbo].[definition].glossary_entry"
@@ -334,53 +444,53 @@ public class UserBroker extends Broker {
                 + " where [GlossaryDataBase].[dbo].[user].user_id = ?;";
         PreparedStatement ps = null;
         //ResultSet rs = null;
-        
+
         String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
                 + " WHERE user_id = ?;";
         PreparedStatement ps2 = null;
         //ResultSet rs2 = null;
-        
+
         String selectSQL3 = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
                 + " WHERE user_id = ?;";
         PreparedStatement ps3 = null;
         //ResultSet rs3 = null;
-        
+
         String selectSQL4 = "DELETE FROM [GlossaryDataBase].[dbo].[definition]"
                 + " WHERE made_by = ?;";
         PreparedStatement ps4 = null;
         //ResultSet rs4 = null;
-        
+
         String selectSQL5 = "DELETE FROM [GlossaryDataBase].[dbo].[glossary_entry]"
                 + " WHERE made_by = ?;";
         PreparedStatement ps5 = null;
         //ResultSet rs5 = null;
-        
-        try {            
+
+        try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
             //rs = ps.executeQuery();
             ps.executeUpdate();
-            
+
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
             //rs2 = ps2.executeQuery();
             ps2.executeUpdate();
-            
+
             ps3 = connection.prepareStatement(selectSQL3);
             ps3.setString(1, user.getID());
             //rs3 = ps3.executeQuery();
             ps3.executeUpdate();
-            
+
             ps4 = connection.prepareStatement(selectSQL4);
             ps4.setString(1, user.getID());
             //rs4 = ps4.executeQuery();
             ps4.executeUpdate();
-            
+
             ps5 = connection.prepareStatement(selectSQL5);
             ps5.setString(1, user.getID());
             //rs5 = ps5.executeQuery();
             ps5.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
@@ -396,7 +506,7 @@ public class UserBroker extends Broker {
             }
             pool.freeConnection(connection);
         }
-        
+
         return 1;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -405,22 +515,21 @@ public class UserBroker extends Broker {
     public int update(Object object) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        User user = (User)object;
-        
+        User user = (User) object;
+
         String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) join [GlossaryDataBase].[dbo].[user_course] on [GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_course].user_id where [GlossaryDataBase].[dbo].[user].user_id = ?;";
         PreparedStatement ps = null;
         //ResultSet rs = null;
-        
-        
+
         String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? WHERE name = ?;";
         PreparedStatement ps2 = null;
         //ResultSet rs2 = null;
-        
+
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
             ps.executeUpdate();
-            
+
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
             ps2.setString(2, user.getPassword());
@@ -430,7 +539,7 @@ public class UserBroker extends Broker {
             ps2.setInt(6, '1');
             ps2.setString(7, user.getID());
             ps2.executeUpdate();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
@@ -443,7 +552,7 @@ public class UserBroker extends Broker {
             }
             pool.freeConnection(connection);
         }
-        
+
         return 1;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -453,33 +562,33 @@ public class UserBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         List<Object> users = new ArrayList<>();
-        
+
         String user_id = null;
-	String password = null;
-	int department_id = 0;
-	String name = null;
-	String userEmail = null;
-	boolean activated;
+        String password = null;
+        int department_id = 0;
+        String name = null;
+        String userEmail = null;
+        boolean activated;
         int deptID = 0;
         String deptName = null;
         int privID;
         String description;
-        String courseCode =null;
+        String courseCode = null;
         String courseName = null;
         String year = null;
-        
+
         Department department = null;
-        
+
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user];";
         PreparedStatement ps = null;
         ResultSet rs = null;
         User user = null;
-        
+
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, name);
             rs = ps.executeQuery();
-            PrivilegeList privilegeList=null;
+            PrivilegeList privilegeList = null;
             CourseList courseList = null;
             privilegeList = user.getPrivileges();
             courseList = user.getCourses();
@@ -488,10 +597,10 @@ public class UserBroker extends Broker {
                 department = new Department();
                 deptID = rs.getInt("departmentID");
                 deptName = rs.getString("name");
-                
+
                 department.setDepartmentID(deptID);
                 department.setName(deptName);
-                
+
                 //PRIVILEGE
                 Privilege priv = new Privilege();
                 privID = rs.getInt("privilegeID");
@@ -499,34 +608,34 @@ public class UserBroker extends Broker {
                 priv.setPrivilegeID(privID);
                 priv.setDescription(description);
                 privilegeList.add(new Privilege(privID, description));
-                
+
                 //USER
                 password = (rs.getString("password"));
                 department_id = (rs.getInt("department_id"));
                 name = (rs.getString("name"));
                 userEmail = (rs.getString("email"));
                 activated = (rs.getBoolean("activated"));
-                
+
                 user.setID(user_id);
                 user.setPassword(password);
                 user.setDepartment(department);
                 user.setName(name);
                 user.setEmail(userEmail);
                 user.setIsActivated(activated);
-                
+
                 //COURSE
                 Course course = new Course();
                 courseCode = rs.getString("courseCode");
                 courseName = rs.getString("courseName");
                 year = rs.getString("year");
-                
+
                 //LISTS
                 //privilegeList.add(privID);
                 courseList.add(new Course(courseCode, courseName, department));
-                
+
                 users.add(user);
             }
-            
+
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
