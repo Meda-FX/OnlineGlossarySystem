@@ -28,7 +28,7 @@ public class CourseBroker extends Broker{
      * @param departmentID represents the ID for a certain department.
      * @return a list of Course objects representing courses from the database.
      */
-    public List<Course> getByDepartmentID(String departmentID) {
+    public List<Course> getByDepartmentID(int departmentID) {
         return null;
 
     }

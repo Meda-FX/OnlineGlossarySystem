@@ -5,8 +5,10 @@
  */
 package controller.servlets;
 
+import business.domainClasses.Course;
 import business.domainClasses.Department;
 import business.domainClasses.User;
+import business.serviceClasses.CourseService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,7 +33,17 @@ public class AdminManageUsersServlet extends HttpServlet {
         User user = (User)session.getAttribute("user");
         Department department = user.getDepartment();
         UserService us = new UserService();
-        
+        String action = request.getParameter("action");
+        if  (action != null && action.equals("view")) {
+            String selectedUserID = request.getParameter("selectedID");
+            User selectedUser = us.get(selectedUserID);
+            request.setAttribute("selectedUser", selectedUser);
+        } 
+        if (action != null && action.equals("add")) {
+            CourseService cs = new CourseService();
+            List<Course> courseList = cs.getByDepartment(department);
+            request.setAttribute("courseList", courseList);
+        }
         List<User> userList = us.getByDepartment(department);
         request.setAttribute("userList", userList);
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin.jsp").forward(request, response);
