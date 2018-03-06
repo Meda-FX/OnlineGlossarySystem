@@ -60,4 +60,8 @@ public class CourseList {
        }
        return false;
     }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 }

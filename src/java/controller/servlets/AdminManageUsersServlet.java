@@ -39,6 +39,7 @@ public class AdminManageUsersServlet extends HttpServlet {
         if  (action != null && action.equals("view")) {
             String selectedUserID = request.getParameter("selectedID");
             User selectedUser = us.get(selectedUserID);
+            selectedUser.setPassword("");
             request.setAttribute("selectedUser", selectedUser);
         } 
         if (action != null && action.equals("add")) {
@@ -51,12 +52,50 @@ public class AdminManageUsersServlet extends HttpServlet {
         }
         List<User> userList = us.getByDepartment(department);
         request.setAttribute("userList", userList);
-        getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        Department department = user.getDepartment();
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String id = request.getParameter("id");
+        String password = request.getParameter("password");
+        List<Privilege> privilegeList = null; //TODO
+        List<Course> courseList = null; //TODO
+        boolean active = request.getParameter("active") != null;
+        UserService us = new UserService();
+        String action = request.getParameter("action");
+        if (action.equals("delete")) {
+            String selectedUserID = request.getParameter("selectedID");
+            us.delete(selectedUserID);
+        } else if (action.equals("edit")) {
+            User userEdit = us.get(id);
+            userEdit.setDepartment(department);
+            userEdit.setEmail(email);
+            userEdit.setIsActivated(active);
+            userEdit.setName(name);
+            userEdit.getPrivileges().setPrivileges(privilegeList);
+            userEdit.getCourses().setCourses(courseList);
+            if (password!=null & !password.isEmpty())
+                userEdit.setPassword(password);
+            us.update(user);
+        } else if (action.equals("register")) {
+            User userRegister = new User();
+            userRegister.setDepartment(department);
+            userRegister.setEmail(email);
+            userRegister.setIsActivated(active);
+            userRegister.setName(name);
+            userRegister.getPrivileges().setPrivileges(privilegeList);
+            userRegister.getCourses().setCourses(courseList);
+            userRegister.setID(id);
+            userRegister.setPassword(password);
+            us.insert(user);
+        }
+        response.sendRedirect("managerusers");
     }
 }
