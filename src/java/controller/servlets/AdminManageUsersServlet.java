@@ -7,8 +7,10 @@ package controller.servlets;
 
 import business.domainClasses.Course;
 import business.domainClasses.Department;
+import business.domainClasses.Privilege;
 import business.domainClasses.User;
 import business.serviceClasses.CourseService;
+import business.serviceClasses.PrivilegeService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,6 +45,9 @@ public class AdminManageUsersServlet extends HttpServlet {
             CourseService cs = new CourseService();
             List<Course> courseList = cs.getByDepartment(department);
             request.setAttribute("courseList", courseList);
+            PrivilegeService ps = new PrivilegeService();
+            List<Privilege> privilegeList = ps.getAll();
+            request.setAttribute("privilegeList", privilegeList);
         }
         List<User> userList = us.getByDepartment(department);
         request.setAttribute("userList", userList);
