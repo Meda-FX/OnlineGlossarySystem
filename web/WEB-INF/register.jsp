@@ -22,11 +22,17 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="lname" id="lastname" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
                         </div>
+                         <div class="form-group">
+                            <input type="password" class="form-control" name="pass" id="exampleInputEmail1" aria-describedby="password" placeholder="Enter Your Password">
+                        </div>
+                         <div class="form-group">
+                            <input type="password" class="form-control" name="confirmPass" id="exampleInputEmail1" aria-describedby="confirmPassword" placeholder="Confirm Your Email">
+                        </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" id="studentid" placeholder="Student ID">
+                            <input type="password" name="studentId" class="form-control" id="studentid" placeholder="Student ID">
                         </div>
 
                         <div>
@@ -35,7 +41,7 @@
                         <hr>
                         <label>
                             <p id="regis-reset_login">
-                                <a id="login-footer-link" href="new_home_page.html"><span class="glyphicon glyphicon-home"></span> HOME</a>
+                                <a id="login-footer-link" href="search"><span class="glyphicon glyphicon-home"></span> HOME</a>
                             </p>
                         </label>
                     </form>  

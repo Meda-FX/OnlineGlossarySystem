@@ -13,31 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Receive and response to requests from web client for editor page 
- * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
- * @version 0.1
+ *
+ * @author 608964
  */
-public class EditorServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String action = request.getParameter("action");
-        String url = "/WEB-INF/_editor/editor.jsp";
-      
-        if(action != null && action.equals("pendingTerms"))
-        {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-        }
-        
-        
-        getServletContext().getRequestDispatcher(url).forward(request, response);  
+        String url = "/WEB-INF/register.jsp";
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
+  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 }
