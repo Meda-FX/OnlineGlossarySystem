@@ -1,7 +1,20 @@
 package persistence.brokers;
 
 import business.domainClasses.Course;
+import business.domainClasses.CourseList;
+import business.domainClasses.Department;
+import business.domainClasses.Privilege;
+import business.domainClasses.PrivilegeList;
+import business.domainClasses.User;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import persistence.ConnectionPool;
 
 /**
  * The CourseBroker provide connectivity to the database and allow insertion,
@@ -28,8 +41,93 @@ public class CourseBroker extends Broker{
      * @param departmentID represents the ID for a certain department.
      * @return a list of Course objects representing courses from the database.
      */
-    public List<Course> getByDepartmentID(String departmentID) {
-        return null;
+    public List<Course> getByDepartmentID(int departmentID) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[course] "
+                + "JOIN [GlossaryDataBase].[dbo].[department] "
+                + "ON ([GlossaryDataBase].[dbo].[course].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
+                + "WHERE [GlossaryDataBase].[dbo].[course].department_id = ?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        ArrayList<Course> courseList = new ArrayList<>();
+
+       
+        //for course list
+        String courseCode = null;
+        String courseName = null;
+        String year = null;
+        
+       // int department_id=0;
+        String deptName=null;
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setInt(1, departmentID);
+            rs = ps.executeQuery();
+            //PrivilegeList privilegeList = null;
+            Course course = null;
+            Department department = null;
+            
+            while (rs.next()) {
+
+   
+
+                //DEPARTMENT
+                department = new Department();
+              
+                deptName = rs.getString("name");
+
+                department.setDepartmentID(departmentID);
+                department.setName(deptName);
+//                //PRIVILEGE
+//                Privilege priv = new Privilege();
+//                privID = rs.getInt("privilegeID");
+//                description = rs.getString("description");
+//                priv.setPrivilegeID(privID);
+//                priv.setDescription(description);
+//                privilegeList.add(new Privilege(privID, description));
+//
+//                //USER
+//                password = (rs.getString("password"));
+//                department_id = (rs.getInt("department_id"));
+//                userName = (rs.getString("name"));
+//                userEmail = (rs.getString("email"));
+//                activated = (rs.getBoolean("activated"));
+//
+//                //user.setID(user_id);
+//                user.setPassword(password);
+//                user.setDepartment(department);
+//                user.setName(userName);
+//                user.setEmail(userEmail);
+
+                //COURSE
+               course = new Course();
+                courseCode = rs.getString("courseCode");
+                courseName = rs.getString("courseName");
+               
+               // year = rs.getString("year");
+
+                //LISTS
+                //privilegeList.add(priv);
+                courseList.add(new Course(courseCode, courseName, department));
+               
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return courseList;
 
     }
 

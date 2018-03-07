@@ -111,21 +111,22 @@ public class GlossaryEntryBroker extends Broker {
     @Override
     public List<Object> getAll() {
 
-        try{ 
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-        } finally {
-            try {
-                rs.close();
-                ps.close();
-            } catch (SQLException ex) {
-            }
-            pool.freeConnection(connection);
-        }
-        
-        
-        return (List<Object>) list;
+//        try{ 
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+//        } finally {
+//            try {
+//                rs.close();
+//                ps.close();
+//            } catch (SQLException ex) {
+//            }
+//            pool.freeConnection(connection);
+//        }
+//        
+//        
+//        return (List<Object>) list;
+return null;
     }
     
         public List<GlossaryEntry> getMatched(String term) {

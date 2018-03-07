@@ -1,5 +1,6 @@
 package business.serviceClasses;
 
+import business.domainClasses.Department;
 import business.domainClasses.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,5 +113,9 @@ public class UserService {
      */
     public List<User> getByName(String name) {
         return userDB.getByName(name);
+    }
+    
+    public List<User> getByDepartment(Department department) {
+        return userDB.getByDepartment(department);
     }
 }

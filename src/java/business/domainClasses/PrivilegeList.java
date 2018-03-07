@@ -63,5 +63,9 @@ public class PrivilegeList {
         }
         return false;
     }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
+    }
     
 }
