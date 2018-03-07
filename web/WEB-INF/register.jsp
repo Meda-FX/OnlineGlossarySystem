@@ -35,7 +35,7 @@
                         <hr>
                         <label>
                             <p id="regis-reset_login">
-                                <a id="login-footer-link" href="new_home_page.html"><span class="glyphicon glyphicon-home"></span> HOME</a>
+                                <a id="login-footer-link" href="login"><span class="glyphicon glyphicon-home"></span> HOME</a>
                             </p>
                         </label>
                     </form>  

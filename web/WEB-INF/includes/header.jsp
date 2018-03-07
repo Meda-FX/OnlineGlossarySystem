@@ -81,7 +81,7 @@
                            <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
                         </c:if>                                  
                          <c:if test="${user == null}">
-                            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
+                            <li><a href="register"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
                             <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
                         </c:if>                           
                     </ul>
