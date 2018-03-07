@@ -41,6 +41,54 @@
 </div>
 </c:if>
 
+<c:if test="${user.getPrivileges().contains(3) == true}">
+
+    <!-- CRUD -->
+    <br>
+    <div id="panel-group" class="panel-group">
+        <div id="panel" class="panel">
+            <div class="panel-heading">
+                <h4  class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1"><h3>Manage Terms</h3></a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <div class="form-group">
+                        <label for="terms">Term:</label>
+                        <input type="text" class="form-control" id="terms" name="terms">
+                    </div>
+                    <div class="form-group">
+                        <label for="definition">Definition:</label>
+                        <textarea class="form-control" rows="5" id="definition" name="definition"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="citation">Citation:</label>
+                        <input type="text" class="form-control" id="citation" name="citation">
+                    </div>
+                    <div class="form-group">
+                        <label for="defDict">Dictionary Definition:</label>
+                        <textarea class="form-control" rows="3" id="defDict" name="defDict"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dictCita">Dictionary Citation:</label>
+                        <input type="text" class="form-control" id="dictCita" name="dictCita">
+                    </div>
+                    <button type="button" class="btn">SAVE TERM</button>
+
+                    <c:if test="${user.getPrivileges().contains(3) == true}"> 
+                        <button type="button" class="btn">PUBLISH TERM</button>
+                    </c:if>                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <!-- CRUD ends -->
+
+</c:if>
+
+
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
         <!-- Alphabet buttons -->
