@@ -220,27 +220,27 @@ VALUES
 
 
 INSERT INTO definition 
-    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+    (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Java','Java is a widely used programming language expressly designed for use in the distributed environment of the internet. It is the most popular programming language for Android smartphone applications and is among the most favored for edge device and internet of things development.','COFFEE','2017-10-02',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','HH-201-B');
+    ('Java','Java is a widely used programming language expressly designed for use in the distributed environment of the internet. It is the most popular programming language for Android smartphone applications and is among the most favored for edge device and internet of things development.','COFFEE','2017-10-02',null,1,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','HH-201-B');
 INSERT INTO definition 
-    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+    (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Java','Java was designed to have the look and feel of the C++ language, but it is simpler to use than C++ and enforces an object-oriented programming model. Java can be used to create complete applications that may run on a single computer or be distributed among servers and clients in a network. It can also be used to build a small application module or applet for use as part of a webpage.','COFFEE','2017-08-01',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B');
+    ('Java','Java was designed to have the look and feel of the C++ language, but it is simpler to use than C++ and enforces an object-oriented programming model. Java can be used to create complete applications that may run on a single computer or be distributed among servers and clients in a network. It can also be used to build a small application module or applet for use as part of a webpage.','COFFEE','2017-08-01',null,1,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B');
 
 
 
 INSERT INTO definition 
-    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+    (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','Put out beside coffee',' a small flat or slightly raised cake ','2017-12-01',null,'https://www.merriam-webster.com/dictionary/cookie','0','HH-201-B');
+    ('Cookie','Put out beside coffee',' a small flat or slightly raised cake ','2017-12-01',null,1,'https://www.merriam-webster.com/dictionary/cookie','0','HH-201-B');
 INSERT INTO definition 
-    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+    (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','A dessert disk','a small flat or slightly raised cake ','2017-08-01',null,'https://www.merriam-webster.com/dictionary/cookie','0','PNB-101-B');
+    ('Cookie','A dessert disk','a small flat or slightly raised cake ','2017-08-01',null,1,'https://www.merriam-webster.com/dictionary/cookie','0','PNB-101-B');
 INSERT INTO definition 
-    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+    (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Cookie','A way for browsers to store information','a small flat or slightly raised cake ','2017-06-03',null,'https://www.merriam-webster.com/dictionary/cookie','0','CMPS-352-A');
+    ('Cookie','A way for browsers to store information','a small flat or slightly raised cake ','2017-06-03',null,1,'https://www.merriam-webster.com/dictionary/cookie','0','CMPS-352-A');
 
 
