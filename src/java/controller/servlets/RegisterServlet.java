@@ -21,14 +21,20 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String url = "/WEB-INF/register.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
-  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String email = request.getParameter("email");
+        String student_id = request.getParameter("#"); //need to confirm the attribute name
+        String password = request.getParameter("password");
+        String password_confirm =request.getParameter("#"); //need to confirm the attribute name
+
     }
 }
