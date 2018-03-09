@@ -130,6 +130,11 @@ public class UserService {
         if(ub.getByID(student_id) != null) return false;
         
         
-                
+        //create account in DB
+        //sending email 
+        
+        
+        
+        return true;        
     }
 }
