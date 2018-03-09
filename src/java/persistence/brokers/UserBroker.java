@@ -262,7 +262,7 @@ public class UserBroker extends Broker {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
                 rs.close();
@@ -372,7 +372,7 @@ public class UserBroker extends Broker {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
                 rs.close();
@@ -422,7 +422,7 @@ public class UserBroker extends Broker {
             ps.executeQuery();
 
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
@@ -504,7 +504,7 @@ public class UserBroker extends Broker {
             ps5.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
@@ -553,7 +553,7 @@ public class UserBroker extends Broker {
             ps2.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
