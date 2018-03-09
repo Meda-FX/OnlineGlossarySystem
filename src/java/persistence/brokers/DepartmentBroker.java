@@ -38,7 +38,7 @@ public class DepartmentBroker extends Broker{
                 + " [GlossaryDataBase].[dbo].[department].department_id, "
                 + " [GlossaryDataBase].[dbo].[department].name"
                 + " FROM [GlossaryDataBase].[dbo].[department]"
-                + " WHERE [GlossaryDataBase].[dbo].[department].department_id = ?";
+                + " WHERE [GlossaryDataBase].[dbo].[department].department_id = ?;";
         
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -107,7 +107,7 @@ public class DepartmentBroker extends Broker{
         Connection connection = pool.getConnection();
         Department dept = (Department) object;
         
-        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[department] WHERE [GlossaryDataBase].[dbo].[department].name = ?";
+        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[department] WHERE [GlossaryDataBase].[dbo].[department].name = ?;";
         
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -138,7 +138,7 @@ public class DepartmentBroker extends Broker{
         Connection connection = pool.getConnection();
         Department dept = (Department) object;
         
-        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[department] SET name=? WHERE department_id=?";
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[department] SET name=? WHERE department_id=?;";
         
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -166,6 +166,13 @@ public class DepartmentBroker extends Broker{
 
     @Override
     public List<Object> getAll() {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[department];";
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
