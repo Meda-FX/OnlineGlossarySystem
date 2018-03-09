@@ -26,7 +26,7 @@
                             <input type="password" class="form-control" name="pass" id="exampleInputEmail1" aria-describedby="password" placeholder="Enter Your Password">
                         </div>
                          <div class="form-group">
-                            <input type="password" class="form-control" name="confirmPass" id="exampleInputEmail1" aria-describedby="confirmPassword" placeholder="Confirm Your Email">
+                            <input type="password" class="form-control" name="confirmPass" id="exampleInputEmail1" aria-describedby="confirmPassword" placeholder="Confirm Your Password">
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
