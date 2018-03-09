@@ -598,7 +598,6 @@ public class UserBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, name);
             rs = ps.executeQuery();
             PrivilegeList privilegeList = null;
             CourseList courseList = null;

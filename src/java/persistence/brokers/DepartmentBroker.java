@@ -1,9 +1,13 @@
 package persistence.brokers;
 
+import business.domainClasses.Course;
+import business.domainClasses.CourseList;
 import business.domainClasses.Definition;
 import business.domainClasses.DefinitionList;
 import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
+import business.domainClasses.Privilege;
+import business.domainClasses.PrivilegeList;
 import business.domainClasses.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -169,10 +173,29 @@ public class DepartmentBroker extends Broker{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
+        List<Object> dept = new ArrayList<>();
+        Department deptObject = null;
+        
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[department];";
         
         PreparedStatement ps = null;
         ResultSet rs = null;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String dept_NAME = null;
+        int dept_ID = 0;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dept_ID = rs.getInt("department_id");
+                dept_NAME = rs.getString("name");
+                deptObject = new Department(dept_ID, dept_NAME);
+                dept.add(deptObject);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dept;
     }
 }
