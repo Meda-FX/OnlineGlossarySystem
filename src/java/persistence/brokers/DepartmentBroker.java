@@ -138,7 +138,7 @@ public class DepartmentBroker extends Broker{
         Connection connection = pool.getConnection();
         Department dept = (Department) object;
         
-        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[department] SET name=? WHERE name=?";
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[department] SET name=? WHERE department_id=?";
         
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -146,6 +146,7 @@ public class DepartmentBroker extends Broker{
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, dept.getName());
+            ps.setInt(2, dept.getDepartmentID());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
