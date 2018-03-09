@@ -419,7 +419,7 @@ public class UserBroker extends Broker {
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
             ps.setInt(6, '1');
-            rs = ps.executeQuery();
+            ps.executeQuery();
 
         } catch (SQLException ex) {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);

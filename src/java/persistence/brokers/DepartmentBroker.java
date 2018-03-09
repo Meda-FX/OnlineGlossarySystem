@@ -84,7 +84,7 @@ public class DepartmentBroker extends Broker{
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, dept.getName());
-            rs = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
@@ -115,7 +115,7 @@ public class DepartmentBroker extends Broker{
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, dept.getName());
-            rs = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
@@ -134,7 +134,33 @@ public class DepartmentBroker extends Broker{
 
     @Override
     public int update(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        Department dept = (Department) object;
+        
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[department] SET name=? WHERE name=?";
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, dept.getName());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        return 1;
+
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
