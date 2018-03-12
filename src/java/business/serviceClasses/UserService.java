@@ -118,23 +118,4 @@ public class UserService {
     public List<User> getByDepartment(Department department) {
         return userDB.getByDepartment(department);
     }
-
-    public Boolean registerUser(String name, String email, String student_id, String password, String password_confirm) {
-        if(!password.equals(password_confirm)) return false;
-        
-        UserBroker ub = new UserBroker();
-        User user = null; 
-        
-        if(ub.getByEmail(email)!=null) return false;
-        
-        if(ub.getByID(student_id) != null) return false;
-        
-        
-        //create account in DB
-        //sending email 
-        
-        
-        
-        return true;        
-    }
 }
