@@ -5,6 +5,8 @@
  */
 package controller.servlets;
 
+import business.domainClasses.User;
+import business.serviceClasses.GlossaryEntryService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -25,13 +27,20 @@ public class InstructorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String action = request.getParameter("action");
-        String url = "/WEB-INF/_instructor/instructor.jsp";
-        if(action != null && action.equals("yourterm"))
-        {
-            url = "/WEB-INF/_instructor/instructor_terms.jsp";
-        }
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+//        String action = request.getParameter("action");
+//        String url = "/WEB-INF/_instructor/instructor.jsp";
+//        if(action != null && action.equals("yourterm"))
+//        {
+//            url = "/WEB-INF/_instructor/instructor_terms.jsp";
+//        }
+//        getServletContext().getRequestDispatcher(url).forward(request, response);
+
+        HttpSession session = request.getSession();
+        GlossaryEntryService ges = new GlossaryEntryService();
+        
+        User user = (User)session.getAttribute("user");
+        ArrayList<GlossaryEntry> termList = ges.
+
     }
 
     @Override
