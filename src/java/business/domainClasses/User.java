@@ -21,7 +21,6 @@ public class User {
     }
     
     
-    
     /**
      * Constructs a User object for the online glossary system.   
      * 
