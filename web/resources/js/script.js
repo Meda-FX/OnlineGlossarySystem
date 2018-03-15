@@ -5,5 +5,12 @@ $(document).ready(function(){
   $("#glossary").on("hide.bs.collapse", function(){
     $(".glossary-collapse").html('Manage Terms <span class="glyphicon glyphicon-chevron-down"></span>');
   });
+  
+  $("#hhhhhh").click(function() {
+//       document.getElementById("#hhhhhh").style.color = "red";
+        alert( "Handler for .click() called." );
+  });
+  
+    
 });
 

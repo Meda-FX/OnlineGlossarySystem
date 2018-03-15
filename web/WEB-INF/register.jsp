@@ -40,7 +40,7 @@
                         </div>
                         <hr>
                         <label>
-                            <p id="regis-reset_login">
+                            <p id="regis-reset-login">
                                 <a id="login-footer-link" href="search"><span class="glyphicon glyphicon-home"></span> HOME</a>
                             </p>
                         </label>

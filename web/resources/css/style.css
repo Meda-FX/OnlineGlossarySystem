@@ -209,8 +209,15 @@ text-align: center;
     font-weight: bold;
 }
 
-.regis-reset_login {
+.regis-reset-login {
     text-align: center;
+}
+
+
+#hhhhhh {
+    background-color: #005eb8;
+    width: 200px;
+    height: 200px;
 }
 
 /** term definition mediaquiery */

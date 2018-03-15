@@ -8,7 +8,7 @@
         <div id="panel" class="panel">
             <div class="panel-heading">
                 <h4  class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1"><h3>Manage Terms</h3></a>
+                    <a data-toggle="collapse" href="#collapse1"><h3>Add Terms</h3></a>
                 </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
