@@ -175,7 +175,34 @@ public class CourseBroker extends Broker{
 
     @Override
     public int delete(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Course course = (Course) object;
+        
+        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].course_name = ?;";
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, course.getCourseName());
+            rs = ps.executeQuery();            
+            ps.executeUpdate();            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
