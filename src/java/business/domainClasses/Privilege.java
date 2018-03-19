@@ -12,7 +12,9 @@ public class Privilege {
     public Privilege() {
     }
 
-    
+    public Privilege(int privilegeID) {
+        this.setPrivilegeID(privilegeID);
+    }
     
     /**
      * Constructs a privilege object consist of id and description of the privilege type.

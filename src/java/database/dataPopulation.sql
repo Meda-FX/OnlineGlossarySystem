@@ -226,7 +226,11 @@ VALUES
 INSERT INTO definition 
     (glossary_entry,definition,dictionary_definition, date_created,citation, activated,dictionary_citation,made_by,course_code)
 VALUES
-    ('Java','Java was designed to have the look and feel of the C++ language, but it is simpler to use than C++ and enforces an object-oriented programming model. Java can be used to create complete applications that may run on a single computer or be distributed among servers and clients in a network. It can also be used to build a small application module or applet for use as part of a webpage.','COFFEE','2017-08-01',null,1,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B');
+    ('Java','Java was designed to have the look and feel of the C++ language, but it is simpler to use than C++ and enforces an object-oriented programming model. Java can be used to create complete applications that may run on a single computer or be distributed among servers and clients in a network. It can also be used to build a small application module or applet for use as part of a webpage.','COFFEE','2017-08-01',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B')
+INSERT INTO definition 
+    (glossary_entry,definition,dictionary_definition, date_created,citation, dictionary_citation,made_by,course_code)
+VALUES
+    ('JavaScript','JavaScript, often abbreviated as JS, is a high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm','COFFEE','2017-08-01',null,'https://www.merriam-webster.com/dictionary/java?src=search-dict-box','0','PNB-101-B');
 
 
 
