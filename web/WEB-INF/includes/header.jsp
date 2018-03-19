@@ -50,7 +50,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> 
                          <c:if test="${user != null}">
-                            <li><a href="#">ACCOUNT</a></li>
+                            <li><a href="user">ACCOUNT</a></li>
                             <li><a href="search">SEARCH</a></li>
                         </c:if>
                         
