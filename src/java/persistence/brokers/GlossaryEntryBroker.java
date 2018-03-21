@@ -221,7 +221,7 @@ public class GlossaryEntryBroker extends Broker {
                 + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
                 + "JOIN [GlossaryDataBase].[dbo].[definition] "
                 + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
-                + "WHERE ([GlossaryDataBase].[dbo].[definition].made_by = ?;";
+                + "WHERE [GlossaryDataBase].[dbo].[definition].made_by = ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
         
