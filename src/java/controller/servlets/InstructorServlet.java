@@ -30,20 +30,15 @@ public class InstructorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-//        String action = request.getParameter("action");
-//        String url = "/WEB-INF/_instructor/instructor.jsp";
-//        if(action != null && action.equals("yourterm"))
-//        {
-//            url = "/WEB-INF/_instructor/instructor_terms.jsp";
-//        }
-//        getServletContext().getRequestDispatcher(url).forward(request, response);
+        String url = "/WEB-INF/_instructor/instructor.jsp";
+
 
         HttpSession session = request.getSession();
         GlossaryEntryService ges = new GlossaryEntryService();
         
         User user = (User)session.getAttribute("user");
         List<GlossaryEntry> termList = ges.getByUser(user.getID());
-
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
@@ -56,14 +51,15 @@ public class InstructorServlet extends HttpServlet {
         String citation = request.getParameter("citation");
         String defDict = request.getParameter("defDict");
         String defCita = request.getParameter("defCita");
-        GlossaryEntryBroker geb = new GlossaryEntryBroker();
+
         
         if (action.compareTo("newTerm") == 1) {
+            
             
         } else if (action.compareTo("save") == 1) {
             
         } else if (action.compareTo("cancel") == 1) {
-
+            
         }
 
     }
