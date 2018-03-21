@@ -133,12 +133,76 @@ public class CourseBroker extends Broker{
 
     @Override
     public int insert(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Course course = (Course) object;
+        //int dept_id = 0;
+        
+        //String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].department_id = ?;";
+        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[course] (course_code, department_id, course_name) VALUES (?,?,?);";
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setInt(1, course.getDepartment().getDepartmentID());
+            ps.setInt(2, course.getDepartment().getDepartmentID());
+            ps.setString(3, course.getCourseName());
+            rs = ps.executeQuery();
+//            while(rs.next()){
+//                dept_id = rs.getInt("department_id");
+//            }
+            
+            
+            ps.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int delete(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Course course = (Course) object;
+        
+        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].course_name = ?;";
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, course.getCourseName());
+            rs = ps.executeQuery();            
+            ps.executeUpdate();            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+            return 0;
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return 1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

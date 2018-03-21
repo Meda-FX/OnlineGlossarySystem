@@ -33,7 +33,7 @@
                         <label for="dictCita">Dictionary Citation:</label>
                         <input type="text" class="form-control" id="dictCita" name="dictCita">
                     </div>
-                    <button type="button" class="btn">SAVE TERM</button>
+                    <button type="button" id="saveButton" class="btn">SAVE TERM</button>
                     
                     <c:if test="${user.getPrivileges().contains(3) == true}"> 
                         <button type="button" class="btn">PUBLISH TERM</button>
