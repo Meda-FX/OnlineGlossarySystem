@@ -1,16 +1,13 @@
-$(document).ready(function(){
-  $("#glossary").on("show.bs.collapse", function(){
-    $(".glossary-collapse").html('Manage Terms <span class="glyphicon glyphicon-chevron-up"></span>');
-  });
-  $("#glossary").on("hide.bs.collapse", function(){
-    $(".glossary-collapse").html('Manage Terms <span class="glyphicon glyphicon-chevron-down"></span>');
-  });
-  
-  $("#hhhhhh").click(function() {
-//       document.getElementById("#hhhhhh").style.color = "red";
-        alert( "Handler for .click() called." );
-  });
-  
-    
-});
+$(document).ready(function(){ 
+ 
+  $("#crud").hide();
+ 
+ $("#hideFormTerm").click(function(){
+        $("#crud").hide(1000);
+    });
+ 
+ $("#addTerms").click(function(){
+        $("#crud").show(1000);
+    });
 
+ });
