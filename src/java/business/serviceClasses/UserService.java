@@ -115,13 +115,6 @@ public class UserService {
     }
     
     public List<User> getByDepartment(Department department) {
-        List<User> test;
-        try {
-            test = userDB.getByDepartment(department);
-        } catch (Exception e) {
-            System.out.println("error");
-        }
-        
         return userDB.getByDepartment(department);
     }
 }
