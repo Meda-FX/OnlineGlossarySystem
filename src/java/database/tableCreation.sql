@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[user_course](
 	)
 
 CREATE TABLE [dbo].[account_request_log](
-	request_id int IDENTITY(1,1) PRIMARY KEY,
+	request_log_id int IDENTITY(1,1) PRIMARY KEY,
 	request_date datetime NOT NULL,
 	request_by Varchar(20) NOT NULL,
         request_log_type Varchar(30) NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE [dbo].[account_request_log](
 	)
 
 CREATE TABLE [dbo].[account_request](
-	request_log_id Int NOT NULL,
+	request_id Int NOT NULL,
 	request_date datetime NOT NULL,
 	salt varchar (256) NOT NULL,
  	request_by Varchar(20) NOT NULL,
