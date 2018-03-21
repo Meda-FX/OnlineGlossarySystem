@@ -31,27 +31,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        DepartmentBroker db = new DepartmentBroker();
-
         
-        String userId = user.getID();
-        String name = user.getName();
-        String email = user.getEmail();
-        Department department = user.getDepartment();
-        boolean activated = user.getIsActivated();
-        PrivilegeList privilegeList = user.getPrivileges();
-        CourseList courseList = user.getCourses();
-        
-        
-        request.setAttribute("userId", userId);
-        request.setAttribute("name", name);
-        request.setAttribute("email", email);
-        request.setAttribute("department", department);
-        request.setAttribute("privilegeList", privilegeList);
-        request.setAttribute("activated", activated);
-        request.setAttribute("courseList", courseList);
         getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
         
     }

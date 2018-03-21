@@ -20,7 +20,7 @@ public class UserService {
      * Constructs a user service object 
      */
     public UserService() {
-        this.userDB = userDB;
+        this.userDB = new UserBroker();
     }
     
     /**
@@ -32,9 +32,8 @@ public class UserService {
      * @return returns a user object
      */
     public User checkLogin(String email, String password) {
-        UserBroker udb = new UserBroker();
         
-            User u = udb.getByEmail(email);
+            User u = userDB.getByEmail(email);
             if (u != null && password.equals(u.getPassword())) {
                 u.setPassword("");
                 return u;
@@ -116,6 +115,7 @@ public class UserService {
     }
     
     public List<User> getByDepartment(Department department) {
-        return userDB.getByDepartment(department);
+        List<User> userlist = userDB.getByDepartment(department);
+        return userlist;
     }
 }

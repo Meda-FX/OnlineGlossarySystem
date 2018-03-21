@@ -167,7 +167,7 @@ public class UserBroker extends Broker {
     /**
      * The getByName method returns the user by their name
      *
-     * @param name represents the name of the user
+     * @param department represents the department of the user
      * @return a User list
      */
     public List<User> getByDepartment(Department department) {
@@ -650,6 +650,14 @@ public class UserBroker extends Broker {
             //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
         }
         return users;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

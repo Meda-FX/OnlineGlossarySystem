@@ -16,8 +16,21 @@ public class Definition {
     private String content;
     private String dictionaryContent;
     private Date dateLastModified;
-    private String definitionID;
+    private int definitionID; //need to change to int
     private String term;
+    private String status;
+    /*
+    definition_uid int IDENTITY(1,1) PRIMARY KEY, 
+	glossary_entry varchar (40) NOT NULL,   
+        definition varchar (500) NOT NULL,
+        dictionary_definition varchar(500) NOT NULL,
+	date_created datetime NOT NULL,
+	citation varchar(100) ,
+	activated bit NOT NULL,
+        dictionary_citation varchar(100)NOT NULL,
+	made_by Varchar(20) NOT NULL,
+	course_code varchar (20
+    */
 
     public Definition() {
     }
@@ -32,7 +45,7 @@ public class Definition {
      */
     public Definition(User writtenBy, Date dateCreated, String citation, 
             String dictionaryCitation, Course course, String content, 
-            String dictionaryContent, String term) {
+            String dictionaryContent, String term, String status) {
         this.writtenBy = writtenBy;
         this.dateCreated = dateCreated;
         this.citation = citation;
@@ -41,6 +54,7 @@ public class Definition {
         this.content = content;
         this.dictionaryContent = dictionaryContent;
         this.term = term;
+        this.status=status;
     }
 
     /**
@@ -143,7 +157,7 @@ public class Definition {
      * Returns the id of the definition
      * @return the definition id
      */
-    public String getDefinitionID() {
+    public int getDefinitionID() {
         return definitionID;
     }
 
@@ -151,7 +165,7 @@ public class Definition {
      * Changes the definition id of the term
      * @param definitionID definitionID the definition id to be set
      */
-    public void setDefinitionID(String definitionID) {
+    public void setDefinitionID(int definitionID) {
         this.definitionID = definitionID;
     }
 
@@ -193,5 +207,13 @@ public class Definition {
 
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
