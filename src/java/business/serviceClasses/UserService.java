@@ -32,9 +32,8 @@ public class UserService {
      * @return returns a user object
      */
     public User checkLogin(String email, String password) {
-        UserBroker udb = new UserBroker();
         
-            User u = udb.getByEmail(email);
+            User u = userDB.getByEmail(email);
             if (u != null && password.equals(u.getPassword())) {
                 u.setPassword("");
                 return u;
