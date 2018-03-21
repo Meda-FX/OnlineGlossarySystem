@@ -62,7 +62,7 @@ public class DefinitionBroker extends Broker {
         String citation;
         String dictionaryContent;
         String dictionaryCitation;
-        int status;
+        String status;
         java.util.Date newDate;
 
         String selectSQL = "SELECT * "
@@ -86,7 +86,7 @@ public class DefinitionBroker extends Broker {
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
-                status=rs.getInt("status");
+                status=rs.getString("status");
                 name = rs.getString("name");
                 userid = rs.getString("user_id");
                 dictionaryContent = rs.getString("dictionary_definition");
@@ -140,7 +140,7 @@ public class DefinitionBroker extends Broker {
         String content;
         String citation;
         String definitionID;
-        int status;
+        String status;
         java.util.Date newDate;
         String dictionaryContent;
         String dictionaryCitation;
@@ -165,7 +165,7 @@ public class DefinitionBroker extends Broker {
                 citation = rs.getString("citation");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
-                status=rs.getInt("status");
+                status=rs.getString("status");
                 name = rs.getString("name");
                 userid = rs.getString("user_id");
                 user = new User();
@@ -213,7 +213,7 @@ public class DefinitionBroker extends Broker {
         java.util.Date newDate;
         String dictionaryContent;
         String dictionaryCitation;
-        int status;
+        String status;
 
         String selectSQL = "SELECT * "
                 + "from [dbo].[definition] "
@@ -233,7 +233,7 @@ public class DefinitionBroker extends Broker {
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
-                status=rs.getInt("status");
+                status=rs.getString("status");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
@@ -293,7 +293,7 @@ public class DefinitionBroker extends Broker {
         String citation;
         String madeBy;
         String courseId;
-        int status;
+        String status;
         String dictionaryContent;
         String dictionaryCitation;
         String name;
@@ -312,7 +312,7 @@ public class DefinitionBroker extends Broker {
                 courseId = rs.getString("course_id");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");     
-                status=rs.getInt("status");
+                status=rs.getString("status");
                 name = rs.getString("name");
                 user = new User();
                 user.setID(madeBy);
@@ -442,7 +442,7 @@ public class DefinitionBroker extends Broker {
         String citation;
         //String definitionID;
         String dictionaryContent;
-        int status;
+        String status;
         String dictionaryCitation;
         java.util.Date newDate;
 
@@ -466,7 +466,7 @@ public class DefinitionBroker extends Broker {
                 userid = rs.getString("user_id");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");       
-                status=rs.getInt("status");
+                status=rs.getString("status");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);
@@ -520,7 +520,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(7, definition.getDictionaryCitation());
             ps.setString(8, definition.getWrittenBy().getID());
             ps.setString(9, definition.getCourse().getCourseCode());
-            ps.setInt(10, definition.getStatus());
+            ps.setString(10, definition.getStatus());
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log

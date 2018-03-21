@@ -18,7 +18,7 @@ public class Definition {
     private Date dateLastModified;
     private int definitionID; //need to change to int
     private String term;
-    private int status;
+    private String status;
     /*
     definition_uid int IDENTITY(1,1) PRIMARY KEY, 
 	glossary_entry varchar (40) NOT NULL,   
@@ -45,7 +45,7 @@ public class Definition {
      */
     public Definition(User writtenBy, Date dateCreated, String citation, 
             String dictionaryCitation, Course course, String content, 
-            String dictionaryContent, String term, int status) {
+            String dictionaryContent, String term, String status) {
         this.writtenBy = writtenBy;
         this.dateCreated = dateCreated;
         this.citation = citation;
@@ -209,11 +209,11 @@ public class Definition {
         this.term = term;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
