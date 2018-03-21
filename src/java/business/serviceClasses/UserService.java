@@ -115,6 +115,7 @@ public class UserService {
     }
     
     public List<User> getByDepartment(Department department) {
-        return userDB.getByDepartment(department);
+        List<User> userlist = userDB.getByDepartment(department);
+        return userlist;
     }
 }

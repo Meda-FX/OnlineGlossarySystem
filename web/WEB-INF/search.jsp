@@ -1,46 +1,5 @@
 <%@ include file="includes/header.jsp" %>   
 
-<c:if test="${user.getPrivileges().contains(3) == true}">
-<div class="row">    
-    <div class="col-md-2 col-md-offset-5">
-        <button type="button" class="btn btn-primary btn-lg glossary-collapse" data-toggle="collapse" data-target="#glossary">Manage Terms <span class="glyphicon glyphicon-chevron-down"></span></button>
-    </div>
-
-    <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
-        <div id="glossary" class="collapse">
-            <ul class="list-group">
-                <br>
-                <div class="form-group">
-                    <label for="terms">Term:</label>
-                    <input type="text" class="form-control" id="terms" name="terms">
-                </div>
-                <div class="form-group">
-                    <label for="definition">Definition:</label>
-                    <textarea class="form-control" rows="5" id="definition" name="definition"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="citation">Citation:</label>
-                    <input type="text" class="form-control" id="citation" name="citation">
-                </div>
-                <div class="form-group">
-                    <label for="defDict">Dictionary Definition:</label>
-                    <textarea class="form-control" rows="3" id="defDict" name="defDict"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dictCita">Dictionary Citation:</label>
-                    <input type="text" class="form-control" id="dictCita" name="dictCita">
-                </div>
-                <button type="button" class="btn">SAVE TERM</button>
-
-                <c:if test="${user.getPrivileges().contains(3) == true}"> 
-                    <button type="button" class="btn">PUBLISH TERM</button>
-                </c:if>                    
-            </ul>
-        </div>
-    </div>
-</div>
-</c:if>
-
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
         <!-- Alphabet buttons -->
@@ -117,10 +76,12 @@
                     <li><a href="#">Manufacturing</a></li>
                     <li><a href="#">Media and Communications</a></li>
                     <li><a href="#">Transportation</a></li>
-
+                    
+                    <!--
                     <c:forEach var="school" items="${user}"> 
                         <li><a href="#">${school.course_name}</a></li>
                         </c:forEach>
+                    -->
 
                 </ul>
             </div>
@@ -191,19 +152,6 @@
                             <span><a href="#">Read</a></span>
 
                         </div><!--Right side of the search ends here-->  
-
-                        <c:if test="${user.getPrivileges().contains(3) == true}">
-
-                            <div class="col-xs-1 col-md-1">
-                                <span id="icons" class="glyphicon glyphicon-trash"></span>
-                            </div>
-
-                            <div class="col-xs-1 col-md-1">
-                                <span id="icons" class="glyphicon  glyphicon-pencil"></span>  
-                            </div>
-
-                        </c:if>
-
                     </div><!-- Term definitions end here -->
                     <hr class="line">
                 </c:forEach>
