@@ -1,11 +1,12 @@
 <%@ include file="../includes/header.jsp" %>   
 
-<div id="hhhhhh">
+
+<!--<div id="hhhhhh">
     test
     kkkeee
     kkkfff
     kkttt
-</div>
+</div>-->
 
 <div class="container list-terms">     
     

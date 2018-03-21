@@ -76,10 +76,12 @@
                     <li><a href="#">Manufacturing</a></li>
                     <li><a href="#">Media and Communications</a></li>
                     <li><a href="#">Transportation</a></li>
-
+                    
+                    <!--
                     <c:forEach var="school" items="${user}"> 
                         <li><a href="#">${school.course_name}</a></li>
                         </c:forEach>
+                    -->
 
                 </ul>
             </div>
