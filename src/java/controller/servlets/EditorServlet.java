@@ -30,7 +30,10 @@ public class EditorServlet extends HttpServlet {
         {
             url = "/WEB-INF/_editor/editor_pending_terms.jsp";
         }
-        
+        if(action != null && action.equals("manageTerms"))
+        {
+            url = "/WEB-INF/_editor/editor.jsp";
+        }       
         
         getServletContext().getRequestDispatcher(url).forward(request, response);  
     }

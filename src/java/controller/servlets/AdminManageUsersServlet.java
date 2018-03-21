@@ -33,6 +33,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        
         Department department = user.getDepartment();
         UserService us = new UserService();
         String action = request.getParameter("action");

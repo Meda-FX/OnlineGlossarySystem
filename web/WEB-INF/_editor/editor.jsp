@@ -1,41 +1,5 @@
 <%@ include file="../includes/header.jsp" %>   
 
-<div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
-        <!-- Alphabet buttons -->
-        <div class="alphabets">
-            <div class="btn-group btn-group-xs">
-                <button class="btn btn-default">A</button>
-                <button class="btn btn-default">B</button>
-                <button class="btn btn-default">C</button>
-                <button class="btn btn-default">D</button>
-                <button class="btn btn-default">E</button>
-                <button class="btn btn-default">F</button>
-                <button class="btn btn-default">G</button>
-                <button class="btn btn-default">H</button>
-                <button class="btn btn-default">I</button>
-                <button class="btn btn-default">J</button>
-                <button class="btn btn-default">K</button>
-                <button class="btn btn-default">L</button>
-                <button class="btn btn-default">M</button>
-                <button class="btn btn-default">N</button>
-                <button class="btn btn-default">O</button>
-                <button class="btn btn-default">P</button>
-                <button class="btn btn-default">Q</button>
-                <button class="btn btn-default">R</button>
-                <button class="btn btn-default">S</button>
-                <button class="btn btn-default">T</button>
-                <button class="btn btn-default">U</button>
-                <button class="btn btn-default">V</button>
-                <button class="btn btn-default">W</button>
-                <button class="btn btn-default">X</button>
-                <button class="btn btn-default">Y</button>
-                <button class="btn btn-default">Z</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
@@ -69,7 +33,6 @@
                 <li><a href="#">Corse One</a></li>
                 <li><a href="#">Course Two</a></li>
                 <li><a href="#">Course Three</a></li>
-               
             </ul>
         </div> <!-- Filter by instructor ends here-->    
     
@@ -95,7 +58,6 @@
     <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Term</th>
       <th scope="col">Definition</th>
       <th scope="col">Date</th>
@@ -106,83 +68,17 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
       <td>JAVA</td>
       <td>
         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
       </td>     
       <td>JAN 25-2017</td>
-      <td>Maryam Mossavi</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Search Trees</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-  
-    </tr>
-     <tr>
-      <th scope="row">3</th>
-      <td>Sockets</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-      
-    </tr>
-
-     <tr>
-      <th scope="row">4</th>
-      <td>Sorting</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-      
-    </tr>
-
-     <tr>
-      <th scope="row">5</th>
-      <td>Java Bean</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-       
-    </tr>
-
-    <tr>
-      <th scope="row">6</th>
-      <td>Testing</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-      
-    </tr>
-
-    <tr>
-      <th scope="row">7</th>
-      <td>Balance</td>
-      <td>
-           It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-      </td>
-      <td>FEB 25-2017</td>
-      <td>Maryam Mossavi</td>
-       
+      <td>Maryam Mossavi</td> 
+      <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
+      <td><span id="icons" class="glyphicon  glyphicon-pencil"></span> </td>
     </tr>
   </tbody>
 </table>
-
-    
 </div> <!-- list items  -->
 
 <%@ include file="../includes/footer.jsp" %>

@@ -28,10 +28,17 @@
                         </div>
                         <hr>
                         <label>
-                            <p id="regis-reset_login">			        
-                                <a id="login-footer-link" href="#">Reset Password</a>
+                            <p id="regis-home_login">
+                                <a id="login-footer-link" href="search"><span class="glyphicon glyphicon-home"></span>   Home</a>
                             </p>
-                        </label>
+                        </label>  
+                        <label>|</label>  
+                        <label>
+                            <p id="regis-reset-login">			        
+                                <a id="login-footer-link" href="#">   Reset Password</a>
+                            </p>
+                        </label>                       
+                       
                     </form>  
                 </div>
             </div>

@@ -1,49 +1,47 @@
 <%@ include file="../includes/header.jsp" %>   
 
-<div class="container list-terms">
+<div class="container list-terms"> 
+    
+<div id="crud">
+    <h1>Add Terms</h1>
+    <form>
+  <div class="form-group">
+    <label for="term">Term</label>
+    <input type="text" class="form-control" id="term" name="term" placeholder="Term">
+  </div>
+  <div class="form-group">
+    <label for="definition">Definition</label>
+    <input type="text" rows="5" class="form-control" id="definition" name="definition" placeholder="Definition">
+  </div>
+   <div class="form-group">
+    <label for="sitation">Citation</label>
+    <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
+  </div>
+        
+        <div class="form-group">
+    <label for="defDefinition">Dictionary Definition</label>
+    <input type="text" class="form-control" id="defDefinition" name="defDefinition" placeholder="Dictionary Definition">
+  </div>
+        
+        <div class="form-group">
+    <label for="dicCitation">Dictionary Citation</label>
+    <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
+  </div>
+ 
+  <button type="button" class="btn">SAVE TERM</button>
+    <button type="button" class="btn">PUBLISH TERM</button>
+    <button id="hideFormTerm" type="button" class="btn">Hide Form</button>
+</form>
+</div>
+</div>
+<br>
 
-    <!-- CRUD -->
+<!--to be deleted-->
+<div class="container list-terms">         
+
+<!--to be deleted-->
     <br>
-    <div id="panel-group" class="panel-group">
-        <div id="panel" class="panel">
-            <div class="panel-heading">
-                <h4  class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1"><h3>Manage Terms</h3></a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <ul class="list-group">
-
-                    <div class="form-group">
-                        <label for="terms">Term:</label>
-                        <input type="text" class="form-control" id="terms" name="terms">
-                    </div>
-                    <div class="form-group">
-                        <label for="definition">Definition:</label>
-                        <textarea class="form-control" rows="5" id="definition" name="definition"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="citation">Citation:</label>
-                        <input type="text" class="form-control" id="citation" name="citation">
-                    </div>
-                    <div class="form-group">
-                        <label for="defDict">Dictionary Definition:</label>
-                        <textarea class="form-control" rows="3" id="defDict" name="defDict"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="dictCita">Dictionary Citation:</label>
-                        <input type="text" class="form-control" id="dictCita" name="dictCita">
-                    </div>
-
-                    <button type="button" class="btn">SAVE TERM</button>
-                    <button type="button" class="btn">PUBLISH TERM</button>
-                </ul>
-
-            </div>
-        </div>
-    </div>
-    <!-- CRUD ends -->
-    <br>
+    
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
@@ -62,7 +60,13 @@
             </div>
         </div>
     </div><!--Search ends here-->
-
+    
+     <div class="row">
+        <div id="addTerms" class="col-md-12">
+             <button type="button" class="btn navbar-right">Add Term</button>
+        </div>
+    </div>
+    
     <!--table begins here-->
     <table class="table table-hover"> 
         <thead>
@@ -188,7 +192,7 @@
             </tr>
         </tbody>
     </table> <!--Table ends here-->
-
+    </div>
 </div> <!-- list items  -->
 
 <%@ include file="../includes/footer.jsp" %>
