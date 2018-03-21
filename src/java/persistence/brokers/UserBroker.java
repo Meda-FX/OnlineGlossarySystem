@@ -167,7 +167,7 @@ public class UserBroker extends Broker {
     /**
      * The getByName method returns the user by their name
      *
-     * @param name represents the name of the user
+     * @param department represents the department of the user
      * @return a User list
      */
     public List<User> getByDepartment(Department department) {

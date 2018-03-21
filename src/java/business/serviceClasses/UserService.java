@@ -20,7 +20,7 @@ public class UserService {
      * Constructs a user service object 
      */
     public UserService() {
-        this.userDB = userDB;
+        this.userDB = new UserBroker();
     }
     
     /**
@@ -116,6 +116,7 @@ public class UserService {
     }
     
     public List<User> getByDepartment(Department department) {
-        return userDB.getByDepartment(department);
+        List<User> userlist = userDB.getByDepartment(department);
+        return userlist;
     }
 }
