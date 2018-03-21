@@ -42,6 +42,10 @@ public class GlossaryEntryService {
         return glossaryEntryList;
     }
     
+    public List<GlossaryEntry> getByUser(String userID) {
+        return glossaryEntryDB.getByUser(userID);
+    }
+    
     /**
      * Method used to update the glossary entry. If the entry is updated successfully the return type will be 1 or 
      * if the entry is not a success it will return 0.

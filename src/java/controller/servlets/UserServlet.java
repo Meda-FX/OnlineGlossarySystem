@@ -5,12 +5,21 @@
  */
 package controller.servlets;
 
+import business.domainClasses.CourseList;
+import business.domainClasses.Department;
+import business.domainClasses.Privilege;
+import business.domainClasses.PrivilegeList;
+import business.domainClasses.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import persistence.brokers.CourseBroker;
+import persistence.brokers.DepartmentBroker;
+import persistence.brokers.PrivilegeBroker;
 
 /**
  * Receive and response to requests from web client for user account page 
@@ -22,6 +31,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
+        
     }
 
     @Override
