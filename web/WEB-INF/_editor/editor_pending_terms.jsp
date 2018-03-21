@@ -11,16 +11,16 @@
   </div>
   <div class="form-group">
     <label for="definition">Definition</label>
-    <input type="text" rows="5" class="form-control" id="definition" name="definition" placeholder="Definition">
+    <textarea class="form-control" rows="5" name="definition" id="definition"></textarea>
   </div>
    <div class="form-group">
     <label for="sitation">Citation</label>
     <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
   </div>
         
-        <div class="form-group">
+   <div class="form-group">
     <label for="defDefinition">Dictionary Definition</label>
-    <input type="text" class="form-control" id="defDefinition" name="defDefinition" placeholder="Dictionary Definition">
+    <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
   </div>
         
         <div class="form-group">
