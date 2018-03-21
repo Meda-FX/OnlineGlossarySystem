@@ -5,10 +5,12 @@
  */
 package controller.servlets;
 
+import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import business.serviceClasses.GlossaryEntryService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +42,7 @@ public class InstructorServlet extends HttpServlet {
         GlossaryEntryService ges = new GlossaryEntryService();
         
         User user = (User)session.getAttribute("user");
-        ArrayList<GlossaryEntry> termList = ges.
+        List<GlossaryEntry> termList = ges.getByUser(user.getID());
 
     }
 
