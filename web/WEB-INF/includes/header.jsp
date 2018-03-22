@@ -68,8 +68,8 @@
                         
                         <!--------------------- Editor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(3) == true}"> 
-                            <li><a href="edit?action=manageTerms">MANAGE TERMS</a></li> 
-                            <li><a href="edit?action=pendingTerms">PENDING TERMS</a></li> 
+                            <li><a href="edit">MANAGE TERMS</a></li> 
+                            <li><a href="editorpending">PENDING TERMS</a></li> 
                         </c:if>
                         
                         <!--------------------- Instructor nav ---------------------->

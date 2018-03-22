@@ -27,10 +27,15 @@
     <label for="dicCitation">Dictionary Citation</label>
     <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
   </div>
- 
-  <button type="button" class="btn">Save Term</button>
-    <button type="button" class="btn">Publish Term</button>
-    <button type="button" class="btn hideFormTerm">Hide Form</button>
+        <form action="editor" method="post">
+            <button type="button" class="btn">Save Term</button>
+            <input type="text" hidden name="action" value="SavePending">
+        </form>
+        <form action="editor" method="post">
+              <button type="button" class="btn">Publish Term</button>
+              <input type="text" hidden name="action" value="SavePublish">
+        </form>
+            <button type="button" class="btn hideFormTerm">Hide Form</button>
 </form>
 </div>
 </div>

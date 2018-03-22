@@ -1,7 +1,10 @@
 package business.serviceClasses;
 
+import business.domainClasses.Course;
+import business.domainClasses.Definition;
 import business.domainClasses.GlossaryEntry;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import persistence.brokers.GlossaryEntryBroker;
 
@@ -79,4 +82,5 @@ public class GlossaryEntryService {
     public List<GlossaryEntry> getMatched(String term) {
         return glossaryEntryDB.getMatched(term);
     }
+
 }
