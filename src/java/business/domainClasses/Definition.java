@@ -18,7 +18,7 @@ public class Definition {
     private Date dateLastModified;
     private int definitionID; //need to change to int
     private String term;
-    private String status;
+    private String status; //status: "Under Review", "Published", "In Progress";
     /*
     definition_uid int IDENTITY(1,1) PRIMARY KEY, 
 	glossary_entry varchar (40) NOT NULL,   
