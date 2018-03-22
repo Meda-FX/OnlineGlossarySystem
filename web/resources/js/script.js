@@ -2,11 +2,11 @@ $(document).ready(function(){
  
   $("#crud").hide();
  
- $("#hideFormTerm").click(function(){
+ $(".hideFormTerm").click(function(){
         $("#crud").hide(1000);
     });
  
- $("#addTerms").click(function(){
+ $(".addTerms").click(function(){
         $("#crud").show(1000);
     });
 

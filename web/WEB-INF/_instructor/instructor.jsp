@@ -29,7 +29,7 @@
   </div>
  
   <button type="button" class="btn">Save Term</button>
-    <button type="button" class="btn">Publish Term</button>
+    <button type="button" class="btn">Submit Term</button>
     <button type="button" class="btn hideFormTerm">Hide Form</button>
 </form>
 </div>
@@ -59,7 +59,13 @@
                 <p class="message">${message}</p>   
             </div>
         </div>
-    </div><!--Search ends here-->    
+    </div><!--Search ends here-->
+    
+     <div class="row">
+        <div class="addTerms" class="col-md-12">
+             <button type="button" class="btn navbar-right">Add Term</button>
+        </div>
+    </div>
     
     <!--table begins here-->
     <table class="table table-hover"> 
@@ -67,27 +73,27 @@
             <tr>                
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
-                <th scope="col">Date</th>
-                <th scope="col">Owner</th>
                 <th scope="col">Course</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr>               
                 <td>JAVA</td>
                 <td>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
                 </td>     
+                <td>PROJ-354</td>
                 <td>JAN 25-2017</td>
-                <td>Maryam Mossavi</td>
-                <td>HJRA-556</td>
+                <td>Published</td>
                 <td>
                     <span id="icons" class="glyphicon glyphicon-trash"></span>
                 </td>
-                <td>                    
-                    <span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>                      
+                <td>
+                    <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
                 </td>
             </tr>
             <tr>
@@ -95,47 +101,16 @@
                 <td>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
                 </td>
+                <td>CPMH-211</td>
                 <td>FEB 25-2017</td>
-                <td>Erron Bob</td>
-                <td>CMPA-256</td>
+                <td>Pending</td>
                 <td>
                     <span id="icons" class="glyphicon glyphicon-trash"></span>
                 </td>
                 <td>
-                    <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
+                    <span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>        
                 </td>
-            </tr>
-            <tr>
-                <td>Sockets</td>
-                <td>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                </td>
-                <td>FEB 25-2017</td>
-                <td>Javen Feng</td>
-                <td>CCRT-526</td>
-                <td>
-                    <span id="icons" class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>
-                    <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-                </td>
-            </tr>
-
-            <tr>
-                <td>Sorting</td>
-                <td>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                </td>
-                <td>FEB 25-2017</td>
-                <td>Oli Kyle</td>
-                <td>UIPA-897</td>
-                <td>
-                    <span id="icons" class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>
-                    <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-                </td>
-            </tr>
+            </tr>            
         </tbody>
     </table> <!--Table ends here-->
     </div>

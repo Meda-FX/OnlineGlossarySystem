@@ -74,7 +74,7 @@
                         
                         <!--------------------- Instructor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(4) == true}">
-                            <li><a href="instructor?action=yourterm">YOUR TERM</a></li>
+                            <li><a href="instructor?action=yourterm">MANAGE TERMS</a></li> 
                         </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
