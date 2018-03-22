@@ -104,10 +104,10 @@ public class CourseBroker extends Broker{
 //                user.setEmail(userEmail);
 
                 //COURSE
-               course = new Course();
-                courseCode = rs.getString("courseCode");
-                courseName = rs.getString("courseName");
-               
+//               course = new Course();
+//                courseCode = rs.getString("courseCode");
+//                courseName = rs.getString("courseName");
+//               
                // year = rs.getString("year");
 
                 //LISTS
