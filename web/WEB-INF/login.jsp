@@ -21,8 +21,15 @@
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>      
+                          <div class="message">  
+                            <c:if test="${isEmpty != null && isEmpty == false}">
+                                You need to enter your email and password.
+                            </c:if>
+                            <c:if test="${isValid != null && isValid == false}">
+                                Invalid email or password!
+                            </c:if>
                         </div>
-
                         <div>
                             <button class="login-button" type="submit" >Login</button>
                         </div>

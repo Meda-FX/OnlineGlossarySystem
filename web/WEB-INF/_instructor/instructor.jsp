@@ -7,7 +7,7 @@
     <form>
   <div class="form-group">
     <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" name="term" placeholder="Term">
+    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
   </div>
   <div class="form-group">
     <label for="definition">Definition</label>

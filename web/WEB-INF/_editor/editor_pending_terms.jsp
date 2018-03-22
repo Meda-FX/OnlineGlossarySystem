@@ -3,11 +3,11 @@
 <div class="container list-terms"> 
     
 <div id="crud">
-    <h1>Add Terms</h1>
+    <h1>Edit Terms</h1>
     <form>
   <div class="form-group">
     <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" name="term" placeholder="Term">
+    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
   </div>
   <div class="form-group">
     <label for="definition">Definition</label>
