@@ -124,6 +124,7 @@ public class DefinitionBroker extends Broker {
      * @return a list of definitions by course.
      */
     public List<Definition> getByCourse(Course course) {
+        //need to rewrite
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();

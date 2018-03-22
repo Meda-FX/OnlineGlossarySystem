@@ -75,7 +75,7 @@
       <td>JAN 25-2017</td>
       <td>Maryam Mossavi</td> 
       <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
-      <td><span id="icons" class="glyphicon  glyphicon-pencil"></span> </td>
+      <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
     </tr>
   </tbody>
 </table>

@@ -83,8 +83,4 @@ public class GlossaryEntryService {
         return glossaryEntryDB.getMatched(term);
     }
 
-    public List<Definition> getByCourse(Course course) {
-        //need to use definition broker somewhere
-       return null;
-    }
 }
