@@ -92,6 +92,8 @@ CREATE TABLE [dbo].[user_course](
         PRIMARY KEY(course_code,user_id,[year])
 	)
 
+--new account: 1
+--forget password: 2
 CREATE TABLE [dbo].[account_request_log](
 	request_log_id int IDENTITY(1,1) PRIMARY KEY,
 	request_date datetime NOT NULL,

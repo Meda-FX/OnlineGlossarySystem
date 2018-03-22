@@ -62,8 +62,10 @@ public class NewPasswordServlet extends HttpServlet {
             us.update(user);
             //session.invalidate();
             request.setAttribute("message", "password reset successful, please log in again");
+            AccountRequestService ars = new AccountRequestService();
+            ars.removeOldPasswordRequest(user);
             //response.sendRedirect("login");
-            return;
+            //return;
         } catch (Exception ex) {
             Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", "Unable to reset password, please send another request");

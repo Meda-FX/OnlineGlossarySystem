@@ -291,4 +291,35 @@ public class AccountRequestBroker extends Broker {
         }
         return accountRequestList;
     }
+
+    public int removeOldPasswordRequest(String id) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request]"
+                            + "WHERE request_by = ?"
+                            + "AND request_type = 2";
+        PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(deleteSQL);
+            
+            ps.setString(1, id);
+            
+            int result = ps.executeUpdate();
+            if (result >0)
+                return 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountRequest", ex);
+            
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException ex){
+                
+            }
+            pool.freeConnection(connection);
+        }
+        return 0;
+    }
 }
