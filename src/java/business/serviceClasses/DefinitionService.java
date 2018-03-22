@@ -7,6 +7,7 @@ package business.serviceClasses;
 
 import business.domainClasses.Course;
 import business.domainClasses.Definition;
+import business.domainClasses.Department;
 import java.util.List;
 import persistence.brokers.DefinitionBroker;
 
@@ -15,15 +16,20 @@ import persistence.brokers.DefinitionBroker;
  * @author 715583
  */
 public class DefinitionService {
+
     private DefinitionBroker db;
-    
-    public DefinitionService()
-    {
+
+    public DefinitionService() {
         db = new DefinitionBroker();
     }
-    
+
     public List<Definition> getByCourse(Course course) {
         //need to use definition broker somewhere
-       return db.getByCourse(course);
+        return db.getByCourse(course);
+    }
+
+    public List<Definition> getByDepartment(Department department) {
+        //need to use definition broker somewhere
+        return db.getByDepartment(department);
     }
 }
