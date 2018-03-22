@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,8 +22,15 @@
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>      
+                        <div class="message">  
+                            <c:if test="${isEmpty == true}">
+                                You need to enter your email and password.
+                            </c:if>
+                            <c:if test="${isInvalid == true}">
+                                Invalid email or password!
+                            </c:if>
                         </div>
-
                         <div>
                             <button class="login-button" type="submit" >Login</button>
                         </div>

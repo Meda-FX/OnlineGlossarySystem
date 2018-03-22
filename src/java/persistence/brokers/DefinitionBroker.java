@@ -3,6 +3,7 @@ package persistence.brokers;
 import business.domainClasses.Course;
 import business.domainClasses.Definition;
 import business.domainClasses.DefinitionList;
+import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import persistence.ConnectionPool;
@@ -44,8 +45,8 @@ public class DefinitionBroker extends Broker {
         dictionary_citation varchar(100)NOT NULL,
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20
-        */
-        
+         */
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
@@ -86,7 +87,7 @@ public class DefinitionBroker extends Broker {
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
-                status=rs.getString("status");
+                status = rs.getString("status");
                 name = rs.getString("name");
                 userid = rs.getString("user_id");
                 dictionaryContent = rs.getString("dictionary_definition");
@@ -108,8 +109,8 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to read definition", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null ) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
@@ -136,8 +137,7 @@ public class DefinitionBroker extends Broker {
         String term;
         String name;
         String userid;
-        String courseId;
-        String course_name;
+
         String content;
         String citation;
         String definitionID;
@@ -147,10 +147,10 @@ public class DefinitionBroker extends Broker {
         String dictionaryCitation;
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[definition] "
-                + "join [dbo].[user] "
-                + "on (definition.made_by=[dbo].[user].user_id) "
-                + "where [dbo].[definition].course_code = ?";
+                + "from [GlossaryDataBase].[dbo].[definition] "
+                + "join [GlossaryDataBase].[dbo].[user] "
+                + "on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                + "where [GlossaryDataBase].[dbo].[definition].course_code = ?;";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -166,12 +166,14 @@ public class DefinitionBroker extends Broker {
                 citation = rs.getString("citation");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
-                status=rs.getString("status");
+                status = rs.getString("status");
+                
                 name = rs.getString("name");
                 userid = rs.getString("user_id");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);
+
                 // definition = new definition(user,)
                 definition = new Definition(user, newDate, citation,
                         dictionaryCitation, course, content,
@@ -185,6 +187,96 @@ public class DefinitionBroker extends Broker {
             try {
                 rs.close();
                 ps.close();
+            } catch (SQLException e) {
+            }
+            pool.freeConnection(connection);
+        }
+        return delist;
+    }
+    
+    /**
+     * The getByCourse method returns a list of definitions related to the user.
+     *
+     * @param course represents the course in the course table in the database.
+     * @return a list of definitions by course.
+     */
+    public List<Definition> getByDepartment(Department department) {
+        //need to rewrite
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        ArrayList<Definition> delist = new ArrayList<>();
+
+        Definition definition = null;
+        //  Course course;
+        User user = null;
+        Course course = null;
+
+        String term;
+        String name;
+        String userid;
+
+        String course_code;
+        String course_name;
+            
+        String content;
+        String citation;
+        String definitionID;
+        String status;
+        java.util.Date newDate;
+        String dictionaryContent;
+        String dictionaryCitation;
+
+        String selectSQL = "SELECT * "
+                + "from [GlossaryDataBase].[dbo].[definition] "
+                + "join [GlossaryDataBase].[dbo].[user] "
+                + "on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                + "join [GlossaryDataBase].[dbo].[course] "
+                + "on ([GlossaryDataBase].[dbo].[course].course_code=[GlossaryDataBase].[dbo].[definition].course_code) "           
+                + "join [GlossaryDataBase].[dbo].[department] "
+                + "on ([GlossaryDataBase].[dbo].[department].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
+                + "where [GlossaryDataBase].[dbo].[department].department_id = ?;";
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setInt(1, department.getDepartmentID());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                term = rs.getString("glossary_entry");
+                content = rs.getString("definition");
+                newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
+                citation = rs.getString("citation");
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                status = rs.getString("status");
+                
+                name = rs.getString("name");
+                userid = rs.getString("user_id");
+                user = new User();
+                user.setID(userid);
+                user.setName(name);
+                
+                course = new Course();
+                course_code=rs.getString("course_code");
+                course_name=rs.getString("course_name");
+                course.setCourseCode(course_code);
+                course.setCourseName(course_name);
+
+                // definition = new definition(user,)
+                definition = new Definition(user, newDate, citation,
+                        dictionaryCitation, course, content,
+                        dictionaryContent, term, status);
+                delist.add(definition);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to read definition", ex);
+        } finally {
+            try {
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
@@ -234,7 +326,7 @@ public class DefinitionBroker extends Broker {
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
-                status=rs.getString("status");
+                status = rs.getString("status");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
@@ -312,8 +404,8 @@ public class DefinitionBroker extends Broker {
                 madeBy = rs.getString("made_by");
                 courseId = rs.getString("course_id");
                 dictionaryContent = rs.getString("dictionary_definition");
-                dictionaryCitation = rs.getString("dictionary_citation");     
-                status=rs.getString("status");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                status = rs.getString("status");
                 name = rs.getString("name");
                 user = new User();
                 user.setID(madeBy);
@@ -324,7 +416,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
                 definition = new Definition(user, dateCreated, citation, dictionaryCitation,
-                        course, content, dictionaryContent, glossary.getTerm(),status);
+                        course, content, dictionaryContent, glossary.getTerm(), status);
                 list.add(definition);
             }
         } catch (SQLException e) {
@@ -466,8 +558,8 @@ public class DefinitionBroker extends Broker {
                 name = rs.getString("name");
                 userid = rs.getString("user_id");
                 dictionaryContent = rs.getString("dictionary_definition");
-                dictionaryCitation = rs.getString("dictionary_citation");       
-                status=rs.getString("status");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                status = rs.getString("status");
                 user = new User();
                 user.setID(userid);
                 user.setName(name);

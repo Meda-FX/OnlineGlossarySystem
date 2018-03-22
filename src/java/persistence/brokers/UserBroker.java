@@ -68,10 +68,10 @@ public class UserBroker extends Broker {
 
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         PreparedStatement ps2 = null;
         ResultSet rs2 = null;
-        
+
         PreparedStatement ps3 = null;
         ResultSet rs3 = null;
 
@@ -91,9 +91,9 @@ public class UserBroker extends Broker {
             ps = connection.prepareStatement(sql_user);
             ps.setString(1, email);
             rs = ps.executeQuery();
-
+            user = new User();
             while (rs.next()) {
-                user = new User();
+
                 department = new Department();
                 user_id = rs.getString(1);
                 password = rs.getString(2);
@@ -143,19 +143,30 @@ public class UserBroker extends Broker {
                 courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
                 courses.add(new Course(courseCode, courseName, courseDepartment));
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
-                
-                rs2.close();
-                ps2.close();
-                
-                rs3.close();
-                ps3.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+
+                if (rs3 != null) {
+                    rs3.close();
+                }
+                if (ps3 != null) {
+                    ps3.close();
+                }
 
             } catch (SQLException ex) {
             }
@@ -192,7 +203,7 @@ public class UserBroker extends Broker {
         String password = null;
         String userName = null;
         String userEmail = null;
-        int department_id=0;
+        int department_id = 0;
         boolean activated;
 
         //for privilege list

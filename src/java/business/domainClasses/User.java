@@ -128,8 +128,7 @@ public class User {
      * The privilege refers to the users access in the system
      * @return returns the PrivilegeList
      */
-    public PrivilegeList getPrivileges() {
-        
+    public PrivilegeList getPrivileges() {        
         return privileges;
     }
     
