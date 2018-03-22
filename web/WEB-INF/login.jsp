@@ -24,7 +24,12 @@
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>      
                         <div class="message">  
-                            ${message}
+                            <c:if test="${isEmpty == true}">
+                                You need to enter your email and password.
+                            </c:if>
+                            <c:if test="${isInvalid == true}">
+                                Invalid email or password!
+                            </c:if>
                         </div>
                         <div>
                             <button class="login-button" type="submit" >Login</button>

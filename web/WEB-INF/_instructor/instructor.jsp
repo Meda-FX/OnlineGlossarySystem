@@ -39,12 +39,7 @@
     </div>   
        
     <div class="message">  
-        <c:if test="${isEmpty == true}">
-            You need to enter your email and password.
-        </c:if>
-        <c:if test="${isInvalid == true}">
-            Invalid email or password!
-        </c:if>
+        ${message}      
     </div>
         
   <button type="button" class="btn">Save Term</button>
