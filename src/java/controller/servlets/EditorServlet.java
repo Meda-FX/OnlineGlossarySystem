@@ -52,6 +52,9 @@ public class EditorServlet extends HttpServlet {
             }
         }
         request.setAttribute("definitionlist", deflist);
+        
+        
+        
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
