@@ -3,8 +3,8 @@
 <div class="container list-terms"> 
     
 <div id="crud">
-    <h1>Add Terms</h1>
-    <form>
+    <form action="" method="post">
+    <h1>Add Terms</h1>    
   <div class="form-group">
     <label for="term">Term</label>
     <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
@@ -40,12 +40,22 @@
        
     <div class="message">  
         ${message}      
-    </div>
-        
-  <button type="button" class="btn">Save Term</button>
-    <button type="button" class="btn">Submit Term</button>
-    <button type="button" class="btn hideFormTerm">Hide Form</button>
-</form>
+    </div>  
+    
+  <!--<button type="button" class="btn">Save Term</button>-->
+    <!--<button type="button" class="btn">Submit Term</button>-->
+    <!--<button type="button" class="btn hideFormTerm">Hide Form</button>-->
+    
+    
+    <input type="submit" value="Save Term">
+    <input type="hidden" name="action" value="save">
+    
+    <input type="hidden" name="action" value="submit">
+    <input type="submit" value="Submit Term">
+    
+    <input class="hideFormTerm" type="button" value="Hide Form">
+    
+   </form>
 </div>
 </div>
 <br>
