@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <form id="form-login" action="#" method="post">
+                    <form id="form-login" action="login" method="post">
                         <div class="form-header">
                             <h2>SAIT GLOSSARY</h2>
                         </div>
@@ -46,7 +46,7 @@
                         <label>|</label>  
                         <label>
                             <p id="regis-reset-login">			        
-                                <a id="login-footer-link" href="#">   Reset Password</a>
+                                <a id="login-footer-link" href="forgetpassword">   Reset Password</a>
                             </p>
                         </label>                       
                        
