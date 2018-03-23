@@ -1,4 +1,46 @@
 <%@ include file="../includes/header.jsp" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<div class="container list-terms"> 
+    
+<div id="crud">
+    <form action="" method="post">
+   <h1>Edit Terms</h1>
+  <div class="form-group">
+    <label for="term">Term</label>
+    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
+  </div>
+  <div class="form-group">
+    <label for="definition">Definition</label>
+    <textarea class="form-control" rows="5" name="definition" id="definition"></textarea>
+  </div>
+   <div class="form-group">
+    <label for="sitation">Citation</label>
+    <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
+  </div>
+        
+   <div class="form-group">
+    <label for="defDefinition">Dictionary Definition</label>
+    <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
+  </div>
+        
+  <div class="form-group">
+    <label for="dicCitation">Dictionary Citation</label>
+    <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
+  </div>
+   
+    <input type="hidden" name="saveTerm" value="save">
+    <input type="submit" value="Save Term">
+    
+    <input type="hidden" name="submitTerm" value="submit">
+    <input type="submit" value="Submit Term">
+    
+    <input class="hideFormTerm" type="button" value="Hide Form">
+</form>
+</div>
+</div>
+<br>
+
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
@@ -48,6 +90,7 @@
                 <li><a href="#"><c:out value="${user.name}"/></a></li>
                 </c:forEach>
             </ul>
+
         </div><!--Filter by course ends here-->
 
     </div>     
@@ -67,6 +110,9 @@
                 <th></th>
                 <th></th>
             </tr>
+            <c:forEach items="${definitionlist}" var="def">
+
+            </c:forEach>
         </thead>
         <tbody>
             <!--    <tr>
@@ -78,18 +124,21 @@
                   <td>Maryam Mossavi</td> 
                   <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
                   <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
-                </tr>-->
+                </tr>-->            
+
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
-
                     <td><c:out value = "${def.term}"/></td>
                     <td>
                         <c:out value = "${def.content}"/>
-                    </td>     
-                    <td><c:out value = "${def.dateCreated}"/></td>
+                    </td> 
+                    <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                    <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
-                    <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
+                    <td>                    
+                    <span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>                      
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -45,11 +45,13 @@ CREATE TABLE [dbo].[glossary_entry](
 	REFERENCES [user](user_id)
 	)
 
-    CREATE TABLE [dbo].[glossary_entry_log](
+--activity_type:
+--new entry: 1
+CREATE TABLE [dbo].[glossary_entry_log](
 	glossary_entry varchar (40) NOT NULL,
 	accessed datetime NOT NULL,
 	accessed_by Varchar(20) NOT NULL,
-        activity_type varchar(30) NOT NULL,
+        activity_type int NOT NULL,
 	CONSTRAINT FK_glossary_entry_log_glossary_entry FOREIGN KEY (glossary_entry)
 	REFERENCES glossary_entry(glossary_entry),
 	CONSTRAINT FK_glossary_entry_accessed_by FOREIGN KEY (accessed_by)
@@ -92,17 +94,21 @@ CREATE TABLE [dbo].[user_course](
         PRIMARY KEY(course_code,user_id,[year])
 	)
 
+--request_log_type:
 --new account: 1
---forget password: 2
+--login: 2
 CREATE TABLE [dbo].[account_request_log](
 	request_log_id int IDENTITY(1,1) PRIMARY KEY,
 	request_date datetime NOT NULL,
 	request_by Varchar(20) NOT NULL,
-        request_log_type Varchar(30) NOT NULL,
+        request_log_type int NOT NULL,
         CONSTRAINT FK_account_request_log_request_id FOREIGN KEY (request_by)
         REFERENCES [user](user_id)
 	)
 
+--request_type:
+--new account: 1
+--forget password: 2
 CREATE TABLE [dbo].[account_request](
 	request_id Int NOT NULL,
 	request_date datetime NOT NULL,
@@ -113,17 +119,20 @@ CREATE TABLE [dbo].[account_request](
         REFERENCES [user](user_id)
 	)
 	
+--activity_type:
+--create new definition: 1
 CREATE TABLE [dbo].[definition_activity_log](
 	definition_uid Int NOT NULL,
 	accessed_by Varchar(20) NOT NULL,
 	date_accessed datetime NOT NULL ,
-        activity_type varchar(30) NOT NULL,
+        activity_type int NOT NULL,
 	CONSTRAINT FK_definition_activity_log_definition_uid FOREIGN KEY (definition_uid)
 	REFERENCES definition(definition_uid),
 	CONSTRAINT FK_definition_activity_log_accessed_by FOREIGN KEY (accessed_by)
 	REFERENCES [user](user_id),
         PRIMARY KEY(definition_uid,accessed_by,date_accessed)
 	) 
+
 -- CREATE TABLE [dbo].[definition_edit_log](
 -- 	edit_date datetime NOT NULL,
 -- 	definition_uid Int NOT NULL,

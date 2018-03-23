@@ -3,8 +3,8 @@
 <div class="container list-terms"> 
     
 <div id="crud">
-    <h1>Edit Terms</h1>
-    <form>
+    <form action="" method="post">
+   <h1>Edit Terms</h1>
   <div class="form-group">
     <label for="term">Term</label>
     <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
@@ -23,19 +23,18 @@
     <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
   </div>
         
-        <div class="form-group">
+  <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
     <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
   </div>
-        <form action="editor" method="post">
-            <button type="button" class="btn">Save Term</button>
-            <input type="text" hidden name="action" value="SavePending">
-        </form>
-        <form action="editor" method="post">
-              <button type="button" class="btn">Publish Term</button>
-              <input type="text" hidden name="action" value="SavePublish">
-        </form>
-            <button type="button" class="btn hideFormTerm">Hide Form</button>
+   
+    <input type="hidden" name="saveTerm" value="save">
+    <input type="submit" value="Save Term">
+    
+    <input type="hidden" name="submitTerm" value="submit">
+    <input type="submit" value="Submit Term">
+    
+    <input class="hideFormTerm" type="button" value="Hide Form">
 </form>
 </div>
 </div>
