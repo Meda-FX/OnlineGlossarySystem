@@ -12,6 +12,7 @@ import business.serviceClasses.CourseService;
 import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
 import business.serviceClasses.GlossaryRequestService;
+import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,8 +39,11 @@ public class EditorServlet extends HttpServlet {
         GlossaryEntryService ges = new GlossaryEntryService();
         DefinitionService ds = new DefinitionService();
         CourseService cs = new CourseService();
+        UserService us = new UserService();
         //useless, there no table in the database
         GlossaryRequestService grs = new GlossaryRequestService();
+        ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
+        ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
 
         for (Definition d : deflist) {
