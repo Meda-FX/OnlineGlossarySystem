@@ -29,9 +29,7 @@
                 Filter By Course <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Corse One</a></li>
-
-                <c:forEach items="${user.getCourses().courses}" var="course">
+                <c:forEach items="${courselist}" var="course">
                 <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
 
                 </c:forEach>
@@ -46,9 +44,10 @@
                 Filter By Instructor <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Instructor One</a></li>
-                <li><a href="#">Instructor Two</a></li>
-                <li><a href="#">Instructor Three</a></li>
+                <c:forEach items="${userlist}" var="user">
+                <li><a href="#"><c:out value="${user.name}"/></a></li>
+                </c:forEach>
+            </ul>
         </div><!--Filter by course ends here-->
 
     </div>     
