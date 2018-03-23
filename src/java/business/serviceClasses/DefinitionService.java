@@ -26,4 +26,8 @@ public class DefinitionService {
         //need to use definition broker somewhere
        return db.getByCourse(course);
     }
+    
+    public int insert (Definition definition){
+        return db.insert(definition);
+    }
 }
