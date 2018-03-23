@@ -45,12 +45,12 @@
   <!--<button type="button" class="btn">Save Term</button>-->
     <!--<button type="button" class="btn">Submit Term</button>-->
     <!--<button type="button" class="btn hideFormTerm">Hide Form</button>-->
+        
     
-    
+    <input type="hidden" name="saveTerm" value="save">
     <input type="submit" value="Save Term">
-    <input type="hidden" name="action" value="save">
     
-    <input type="hidden" name="action" value="submit">
+    <input type="hidden" name="submitTerm" value="submit">
     <input type="submit" value="Submit Term">
     
     <input class="hideFormTerm" type="button" value="Hide Form">
