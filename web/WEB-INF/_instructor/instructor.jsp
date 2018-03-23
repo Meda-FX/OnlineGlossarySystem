@@ -25,7 +25,7 @@
         
         <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
+    <input type="text" class="form-control" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
   </div>
  
   <button type="button" class="btn">Save Term</button>
