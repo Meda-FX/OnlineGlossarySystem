@@ -7,7 +7,7 @@
     <form>
   <div class="form-group">
     <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" name="term" placeholder="Term">
+    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
   </div>
   <div class="form-group">
     <label for="definition">Definition</label>
@@ -23,11 +23,25 @@
     <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
   </div>
         
-        <div class="form-group">
+  <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
     <input type="text" class="form-control" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
   </div>
- 
+        
+   <div class="form-group selectpicker">
+        <label for="course-code">Course Code:</label>
+        <select id="course-code" name="courseCode">
+            <option value="-1" >Please select course</option>
+            <option value="2" >CMPP-869</option>
+            <option value="3" >QTTI-7769</option>
+            <option value="4" >QTTI-221</option>
+        </select>
+    </div>   
+       
+    <div class="message">  
+        ${message}      
+    </div>
+        
   <button type="button" class="btn">Save Term</button>
     <button type="button" class="btn">Submit Term</button>
     <button type="button" class="btn hideFormTerm">Hide Form</button>

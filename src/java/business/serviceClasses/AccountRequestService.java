@@ -63,6 +63,7 @@ public class AccountRequestService {
      */
     public String insert(User requestUser, int requestType) throws Exception {
         AccountRequest accountRequest = new AccountRequest();
+        
         accountRequest.setRequestType(requestType);
         accountRequest.setRequestdBy(requestUser);
 
@@ -85,7 +86,7 @@ public class AccountRequestService {
 
         accountRequest.setRequestDate(new Date());
 
-        //removeOld(requestUser);
+        removeOldPasswordRequest(requestUser);
         requestDB.insert(accountRequest);
         return token;
     }
@@ -125,7 +126,6 @@ public class AccountRequestService {
                 //extract the id to get the full user
                 UserService us = new UserService();
                 User user = us.get(userID);
-                //requestDB.delete(accountRequest);
                 return user;
             }
         }
@@ -136,7 +136,7 @@ public class AccountRequestService {
      * Removes a old password request with its requested user
      * @param requestUser requestUser the requester who's password request to be removed
      */
-    //public void removeOld(User requestUser) {
-    //    
-    //}
+    public int removeOldPasswordRequest(User requestUser) {
+        return requestDB.removeOldPasswordRequest(requestUser.getID());
+    }
 }
