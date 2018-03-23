@@ -6,29 +6,34 @@
 <div id="crud">
     <form action="" method="post">
    <h1>Edit Terms</h1>
+   <div class="form-group">
+    <label for="term">Term ID</label>
+    <input type="hidden" class="form-control" id="termId" name="${selectedTerm.definitionID}" readonly="">
+  </div>
+  
   <div class="form-group">
     <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
+    <input type="text" class="form-control" id="term" placeholder="Term" name="${selectedTerm.term}" readonly="">
   </div>
   <div class="form-group">
     <label for="definition">Definition</label>
-    <textarea class="form-control" rows="5" name="definition" id="definition"></textarea>
+    <textarea class="form-control" rows="5" id="definition" name="${selectedTerm.content}"></textarea>
   </div>
    <div class="form-group">
     <label for="sitation">Citation</label>
-    <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
+    <input type="text" class="form-control" id="citation" placeholder="Citation" name="${selectedTerm.citation}">
   </div>
         
    <div class="form-group">
     <label for="defDefinition">Dictionary Definition</label>
-    <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
+    <textarea class="form-control" rows="5" id="defDefinition" name="${selectedTerm.dictionaryContent}"></textarea>
   </div>
         
   <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
+    <input type="text" class="form-control" id="citation" placeholder="Dectionary Citation" name="${selectedTerm.dictionaryCitation}">
   </div>
-   
+  
     <input type="hidden" name="saveTerm" value="save">
     <input type="submit" value="Save Term">
     
@@ -136,8 +141,12 @@
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
-                    <td>                    
-                    <span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>                      
+                    <td>     
+                        <form action="edit" method="GET">
+                            <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
+                            <input type="hidden" name="action" value="edit">
+                            <input type="submit" value="Edit">
+                        </form>
                     </td>
                 </tr>
             </c:forEach>
