@@ -2,47 +2,47 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container list-terms"> 
-    
-<div id="crud">
-    <form id="form" action="" method="post">
-   <h1>Edit Terms</h1>
-   <div class="form-group">
-    <label for="term">Term ID</label>
-    <input type="hidden" class="form-control" id="termId" name="${selectedTerm.definitionID}" readonly="">
-  </div>
-  
-  <div class="form-group">
-    <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" placeholder="Term" name="${selectedTerm.term}" readonly="">
-  </div>
-  <div class="form-group">
-    <label for="definition">Definition</label>
-    <textarea class="form-control" rows="5" id="definition" name="${selectedTerm.content}"></textarea>
-  </div>
-   <div class="form-group">
-    <label for="sitation">Citation</label>
-    <input type="text" class="form-control" id="citation" placeholder="Citation" name="${selectedTerm.citation}">
-  </div>
-        
-   <div class="form-group">
-    <label for="defDefinition">Dictionary Definition</label>
-    <textarea class="form-control" rows="5" id="defDefinition" name="${selectedTerm.dictionaryContent}"></textarea>
-  </div>
-        
-  <div class="form-group">
-    <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="dicCitation" placeholder="Dectionary Citation" name="${selectedTerm.dictionaryCitation}">
-  </div>
-  
-    <input type="hidden" name="saveTerm" value="save">
-    <input type="submit" value="Save Term">
-    
-    <input type="hidden" name="submitTerm" value="submit">
-    <input type="submit" value="Submit Term">
-    
-    <input class="hideFormTerm" type="button" value="Hide Form">
-</form>
-</div>
+
+    <div id="crud">
+        <h1>Edit Terms</h1>
+        <form action="edit" method="POST" id="form" >
+            <div class="form-group">
+                <label for="term">Term ID</label>
+                <input type="text"  class="form-control" id="termId" name="defId" value="${selectedTerm.definitionID}" readonly="">
+            </div>
+
+            <div class="form-group">
+                <label for="term">Term</label>
+                <input type="text" class="form-control" id="term" placeholder="Term" name="term" value="${selectedTerm.term}" readonly="">
+            </div>
+            <div class="form-group">
+                <label for="definition">Definition</label>
+                <textarea class="form-control" rows="5" id="definition" name="definition" value="${selectedTerm.content}"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="sitation">Citation</label>
+                <input type="text" class="form-control" id="citation" placeholder="Citation" name="citation" value="${selectedTerm.citation}">
+            </div>
+
+            <div class="form-group">
+                <label for="defDefinition">Dictionary Definition</label>
+                <textarea class="form-control" rows="5" id="defDefinition" name="defDefinition" value="${selectedTerm.dictionaryContent}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="dicCitation">Dictionary Citation</label>
+                <input type="text" class="form-control" id="dicCitation" name="dicCitation" placeholder="Dectionary Citation" value="${selectedTerm.dictionaryCitation}">
+            </div>
+
+            <!--<input type="hidden" name="saveTerm" value="save">-->
+            <input type="submit" name="action" value="Save Term">
+
+            <!--<input type="hidden" name="submitTerm" value="submit">-->
+            <input type="submit" value="Submit Term">
+
+            <input class="hideFormTerm" type="button" value="Hide Form">
+        </form>
+    </div>
 </div>
 <br>
 
@@ -77,7 +77,7 @@
             </button>
             <ul class="dropdown-menu">
                 <c:forEach items="${courselist}" var="course">
-                <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
+                    <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
 
                 </c:forEach>
             </ul>
@@ -92,8 +92,8 @@
             </button>
             <ul class="dropdown-menu">
                 <c:forEach items="${userlist}" var="user">
-                <li><a href="#"><c:out value="${user.name}"/></a></li>
-                </c:forEach>
+                    <li><a href="#"><c:out value="${user.name}"/></a></li>
+                    </c:forEach>
             </ul>
 
         </div><!--Filter by course ends here-->
@@ -139,11 +139,11 @@
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
                     <td>     
-                        <form action="edit" method="GET">
+                        <form id="editform" action="edit" method="GET">
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input type="submit" value="Edit">
+                            <input id="editform" class="addTerms" type="submit" value="Edit">
                         </form>
                     </td>
                 </tr>

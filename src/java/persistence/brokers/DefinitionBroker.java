@@ -220,7 +220,7 @@ public class DefinitionBroker extends Broker {
             
         String content;
         String citation;
-        String definitionID;
+        int definitionID;
         String status;
         java.util.Date newDate;
         String dictionaryContent;
@@ -248,6 +248,7 @@ public class DefinitionBroker extends Broker {
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
+                definitionID=rs.getInt("definition_uid");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 status = rs.getString("status");
@@ -265,9 +266,11 @@ public class DefinitionBroker extends Broker {
                 course.setCourseName(course_name);
 
                 // definition = new definition(user,)
+                
                 definition = new Definition(user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
+                definition.setDefinitionID(definitionID);
                 delist.add(definition);
             }
 
@@ -478,9 +481,9 @@ public class DefinitionBroker extends Broker {
         Connection connection = pool.getConnection();
 
         Definition definition = (Definition) object;
-        String sql = "UPDATE definition "
-                + "SET (definition=?,dictionary_definition=?,"
-                + "citation=?,dictionary_citation=?,made_by=?,course_code=?) "
+        String sql = "UPDATE [GlossaryDataBase].[dbo].[definition] "
+                + "SET definition=?,dictionary_definition=?,"
+                + "citation=?,dictionary_citation=?,status=? "
                 + "WHERE definition_uid=?";
 
         PreparedStatement ps = null;
@@ -495,8 +498,8 @@ public class DefinitionBroker extends Broker {
             //   ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
             ps.setString(3, definition.getCitation());
             ps.setString(4, definition.getDictionaryCitation());
-            ps.setString(5, definition.getWrittenBy().getID());
-            ps.setString(6, definition.getCourse().getCourseCode());
+            ps.setString(5, definition.getStatus());
+            ps.setInt(6, definition.getDefinitionID());
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log
@@ -593,7 +596,7 @@ public class DefinitionBroker extends Broker {
         Connection connection = pool.getConnection();
 
         Definition definition = (Definition) object;
-        String sql = "INSERT INTO definition \n"
+        String sql = "INSERT INTO [GlossaryDataBase].[dbo].[definition] "
                 + "(definition_uid, glossary_entry, definition, dictionary_definition,"
                 + "date_created, citation, dictionary_citation, made_by,course_code,status) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";

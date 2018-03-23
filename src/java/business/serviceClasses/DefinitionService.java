@@ -36,4 +36,11 @@ public class DefinitionService {
     public int insert (Definition definition){
         return db.insert(definition);
     }
+    
+    public int update(Definition definition)
+    {
+        // need to update the date first
+       // definition.setDateLastModified();
+        return db.update(definition);
+    }
 }

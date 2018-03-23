@@ -297,8 +297,8 @@ public class UserBroker extends Broker {
                 while (rs1.next()) {
                     //PRIVILEGE
                     Privilege priv = new Privilege();
-                    privID = rs.getInt("privilege_id");
-                    description = rs.getString("description");
+                    privID = rs1.getInt("privilege_id");
+                    description = rs1.getString("description");
                     priv.setPrivilegeID(privID);
                     priv.setDescription(description);
                     privilegeList.add(priv);
@@ -318,8 +318,8 @@ public class UserBroker extends Broker {
                 while (rs2.next()) {
                     //COURSE
                     Course course = new Course();
-                    courseCode = rs.getString("course_code");
-                    courseName = rs.getString("course_name");
+                    courseCode = rs2.getString("course_code");
+                    courseName = rs2.getString("course_name");
                     course.setCourseCode(courseCode);
                     course.setCourseName(courseName);
                     courseList.add(course);

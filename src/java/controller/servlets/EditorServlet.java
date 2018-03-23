@@ -46,33 +46,39 @@ public class EditorServlet extends HttpServlet {
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
-
+        
+ArrayList<Definition> definitionlist=new ArrayList<>();
         String action = request.getParameter("action");
         String defId = request.getParameter("defId");
         Definition def = new Definition();
-        for (Definition d : deflist) {
-            if (d.getStatus().equals("Under Review") || d.getStatus().equals("In Progress")) {
-                deflist.remove(d);
+        if (deflist.isEmpty()) {
+            request.setAttribute("message", "There are no terms!");
+        } else {
+            for (Definition d : deflist) {
+                if (d.getStatus().equals("Published")) {
+                    definitionlist.add(d);
+                }
+                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID())) {
+                    def = d;
+                }
             }
-            if(defId!=null && !defId.equals("")) def = d;
         }
-
         if (action != null && action.equals("edit")) {
             url = "/WEB-INF/_editor/editor.jsp";
-                            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
-                
-                if (ajax) {
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    Gson gson = new Gson();
-                    
-                    String str = gson.toJson(def);
-                    
-                    response.getWriter().write(str);
-                    return;
-                }
-           // request.setAttribute("selectedTerm", def);
-            
+            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+            if (ajax) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                Gson gson = new Gson();
+
+                String str = gson.toJson(def);
+
+                response.getWriter().write(str);
+                return;
+            }
+            // request.setAttribute("selectedTerm", def);
+
         }
         request.setAttribute("definitionlist", deflist);
         request.setAttribute("courselist", courlist);
@@ -87,34 +93,53 @@ public class EditorServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         String url = "/WEB-INF/_editor/editor.jsp";
-
+        DefinitionService ds = new DefinitionService();
         String action = request.getParameter("action");
         //for the buttons in different pages
-        int dId = Integer.parseInt(request.getParameter("definitionId"));
+
         //only these fields need to update.
         String contents = request.getParameter("definition");
         String ciation = request.getParameter("citation");
         String dicDef = request.getParameter("defDefinition");
         String dicCitation = request.getParameter("dicCitation");
+        String definitionId = request.getParameter("defId");
+        int defId;
+        //Integer.parseInt(request.getParameter("defId"));
         String status; //status of the term
+        Definition definition = new Definition();
+        if (contents != null && !contents.equals("")
+                && ciation != null && !ciation.equals("")
+                && dicDef != null && !dicDef.equals("")
+                && dicCitation != null && !dicCitation.equals("")
+                && definitionId != null && !definitionId.equals("")) {
+            defId = Integer.parseInt(definitionId);
+            definition.setDefinitionID(defId);
+            definition.setContent(contents);
+            definition.setCitation(ciation);
+            definition.setDictionaryContent(dicDef);
+            definition.setDictionaryCitation(dicCitation);
+        } else {
+            request.setAttribute("message", "cannot be empty");
 
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+        }
         if (action != null && action.equals("delete")) {
             url = "/WEB-INF/_editor/editor.jsp";
             status = "Inactive";
         }
-        if (action != null && action.equals("SavePending")) {
+        if (action != null && action.equals("Save Term")) {
             url = "/WEB-INF/_editor/editor.jsp";
             status = "Under Review";
+
+            ds.update(definition);
         }
         if (action != null && action.equals("SavePublish")) {
             url = "/WEB-INF/_editor/editor.jsp";
             status = "Published";
         }
-        if (action != null && action.equals("EditDefinition")) {
-            url = "/WEB-INF/_editor/editor.jsp";
-        }
 
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        doGet(request, response);
+        //getServletContext().getRequestDispatcher(url).forward(request, response);
 
     }
 }

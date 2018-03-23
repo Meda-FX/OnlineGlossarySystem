@@ -2,9 +2,10 @@ $(document).ready(function(){
  
   
     
-    $("#form").submit(function(event) {
+    $("#editform").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#term").val(responseJson.term);
+            $("#termId").val(responseJson.definitionID);
             $("#definition").val(responseJson.content);
             $("#citation").val(responseJson.citation);
             $("#defDefinition").val(responseJson.dictionaryContent);
@@ -13,7 +14,7 @@ $(document).ready(function(){
         event.preventDefault();
     });
     
-    $("#crud").hide();
+   $("#crud").hide();
  
  $(".hideFormTerm").click(function(){
         $("#crud").hide(1000);
