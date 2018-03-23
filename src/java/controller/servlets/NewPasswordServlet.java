@@ -43,7 +43,7 @@ public class NewPasswordServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("message", "Unable to reset password, please send another request");
+        request.setAttribute("loginMessage", "Unable to reset password. Please contact your department office.");
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         //response.sendRedirect("login");
         return;
@@ -56,19 +56,27 @@ public class NewPasswordServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("message", "Password does not match");
+            getServletContext().getRequestDispatcher("/WEB-INF/newPassword.jsp").forward(request, response);
+            return;
+        }
+        
         user.setPassword(password);
         UserService us = new UserService();
         try {
             us.update(user);
             //session.invalidate();
-            request.setAttribute("message", "password reset successful, please log in again");
+            request.setAttribute("loginMessage", "Password reset successful, please log in again");
             AccountRequestService ars = new AccountRequestService();
             ars.removeOldPasswordRequest(user);
             //response.sendRedirect("login");
             //return;
         } catch (Exception ex) {
             Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("message", "Unable to reset password, please send another request");
+            request.setAttribute("loginMessage", "Unable to reset password. Please contact your department office");
         }
         session.invalidate();
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);

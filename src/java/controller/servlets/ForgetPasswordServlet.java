@@ -42,7 +42,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             UserService us = new UserService();
             User user = us.getByEmail(email);
             if (!user.getIsActivated()) {
-                request.setAttribute("message", "no active account with this email");
+                request.setAttribute("message", "Unable to find email. Please contact your department office");
                 getServletContext().getRequestDispatcher("/WEB-INF/forgetPassword.jsp").forward(request, response);
                 return;
             }
@@ -63,7 +63,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             request.setAttribute("message", "Please check your email");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (Exception ex) {
-            request.setAttribute("message", "No active account with this email");
+            request.setAttribute("message", "Unable to find email. Please contact your department office");
             getServletContext().getRequestDispatcher("/WEB-INF/forgetPassword.jsp").forward(request, response);
             return;
         }
