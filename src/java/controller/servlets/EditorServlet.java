@@ -52,9 +52,8 @@ public class EditorServlet extends HttpServlet {
             }
         }
         request.setAttribute("definitionlist", deflist);
-        
-        
-        
+        request.setAttribute("courselist", courlist);
+        request.setAttribute("userlist", userlist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
