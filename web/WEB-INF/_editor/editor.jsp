@@ -2,9 +2,9 @@
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-        <form action="#" method="GET">    
+        <form action="editor?action=search" method="GET">    
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" />
+                <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" />
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -30,8 +30,11 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#">Corse One</a></li>
-                <li><a href="#">Course Two</a></li>
-                <li><a href="#">Course Three</a></li>
+
+                <c:forEach items="${user.getCourses().courses}" var="course">
+                <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
+
+                </c:forEach>
             </ul>
         </div> <!-- Filter by instructor ends here-->    
 
