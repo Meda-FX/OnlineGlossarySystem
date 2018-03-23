@@ -1,4 +1,51 @@
 <%@ include file="../includes/header.jsp" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<div class="container list-terms"> 
+    
+<div id="crud">
+    <form id="form" action="" method="post">
+   <h1>Edit Terms</h1>
+   <div class="form-group">
+    <label for="term">Term ID</label>
+    <input type="hidden" class="form-control" id="termId" name="${selectedTerm.definitionID}" readonly="">
+  </div>
+  
+  <div class="form-group">
+    <label for="term">Term</label>
+    <input type="text" class="form-control" id="term" placeholder="Term" name="${selectedTerm.term}" readonly="">
+  </div>
+  <div class="form-group">
+    <label for="definition">Definition</label>
+    <textarea class="form-control" rows="5" id="definition" name="${selectedTerm.content}"></textarea>
+  </div>
+   <div class="form-group">
+    <label for="sitation">Citation</label>
+    <input type="text" class="form-control" id="citation" placeholder="Citation" name="${selectedTerm.citation}">
+  </div>
+        
+   <div class="form-group">
+    <label for="defDefinition">Dictionary Definition</label>
+    <textarea class="form-control" rows="5" id="defDefinition" name="${selectedTerm.dictionaryContent}"></textarea>
+  </div>
+        
+  <div class="form-group">
+    <label for="dicCitation">Dictionary Citation</label>
+    <input type="text" class="form-control" id="dicCitation" placeholder="Dectionary Citation" name="${selectedTerm.dictionaryCitation}">
+  </div>
+  
+    <input type="hidden" name="saveTerm" value="save">
+    <input type="submit" value="Save Term">
+    
+    <input type="hidden" name="submitTerm" value="submit">
+    <input type="submit" value="Submit Term">
+    
+    <input class="hideFormTerm" type="button" value="Hide Form">
+</form>
+</div>
+</div>
+<br>
+
 <!--Search starts here-->
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
@@ -29,9 +76,7 @@
                 Filter By Course <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Corse One</a></li>
-
-                <c:forEach items="${user.getCourses().courses}" var="course">
+                <c:forEach items="${courselist}" var="course">
                 <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
 
                 </c:forEach>
@@ -46,9 +91,11 @@
                 Filter By Instructor <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Instructor One</a></li>
-                <li><a href="#">Instructor Two</a></li>
-                <li><a href="#">Instructor Three</a></li>
+                <c:forEach items="${userlist}" var="user">
+                <li><a href="#"><c:out value="${user.name}"/></a></li>
+                </c:forEach>
+            </ul>
+
         </div><!--Filter by course ends here-->
 
     </div>     
@@ -79,18 +126,26 @@
                   <td>Maryam Mossavi</td> 
                   <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
                   <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
-                </tr>-->
+                </tr>-->            
+
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
-
                     <td><c:out value = "${def.term}"/></td>
                     <td>
                         <c:out value = "${def.content}"/>
-                    </td>     
-                    <td><c:out value = "${def.dateCreated}"/></td>
+                    </td> 
+                    <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                    <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
-                    <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
+                    <td>     
+                        <form action="edit" method="GET">
+                            <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="defId" value="${def.definitionID}">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -13,6 +13,7 @@ import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
 import business.serviceClasses.GlossaryRequestService;
 import business.serviceClasses.UserService;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -46,12 +47,36 @@ public class EditorServlet extends HttpServlet {
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
 
+        String action = request.getParameter("action");
+        String defId = request.getParameter("defId");
+        Definition def = new Definition();
         for (Definition d : deflist) {
             if (d.getStatus().equals("Under Review") || d.getStatus().equals("In Progress")) {
                 deflist.remove(d);
             }
+            if(defId!=null && !defId.equals("")) def = d;
+        }
+
+        if (action != null && action.equals("edit")) {
+            url = "/WEB-INF/_editor/editor.jsp";
+                            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+                
+                if (ajax) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new Gson();
+                    
+                    String str = gson.toJson(def);
+                    
+                    response.getWriter().write(str);
+                    return;
+                }
+           // request.setAttribute("selectedTerm", def);
+            
         }
         request.setAttribute("definitionlist", deflist);
+        request.setAttribute("courselist", courlist);
+        request.setAttribute("userlist", userlist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -75,7 +100,7 @@ public class EditorServlet extends HttpServlet {
 
         if (action != null && action.equals("delete")) {
             url = "/WEB-INF/_editor/editor.jsp";
-            status="Inactive";
+            status = "Inactive";
         }
         if (action != null && action.equals("SavePending")) {
             url = "/WEB-INF/_editor/editor.jsp";

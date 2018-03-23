@@ -3,8 +3,8 @@
 <div class="container list-terms"> 
     
 <div id="crud">
-    <h1>Add Terms</h1>
-    <form>
+    <form action="" method="post">
+    <h1>Add Terms</h1>    
   <div class="form-group">
     <label for="term">Term</label>
     <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
@@ -25,7 +25,7 @@
         
   <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="citation" name="dicCitation" placeholder="Dectionary Citation">
+    <input type="text" class="form-control" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
   </div>
         
    <div class="form-group selectpicker">
@@ -40,12 +40,22 @@
        
     <div class="message">  
         ${message}      
-    </div>
+    </div>  
+    
+  <!--<button type="button" class="btn">Save Term</button>-->
+    <!--<button type="button" class="btn">Submit Term</button>-->
+    <!--<button type="button" class="btn hideFormTerm">Hide Form</button>-->
         
-  <button type="button" class="btn">Save Term</button>
-    <button type="button" class="btn">Submit Term</button>
-    <button type="button" class="btn hideFormTerm">Hide Form</button>
-</form>
+    
+    <input type="hidden" name="saveTerm" value="save">
+    <input type="submit" value="Save Term">
+    
+    <input type="hidden" name="submitTerm" value="submit">
+    <input type="submit" value="Submit Term">
+    
+    <input class="hideFormTerm" type="button" value="Hide Form">
+    
+   </form>
 </div>
 </div>
 <br>

@@ -184,26 +184,48 @@ public class UserBroker extends Broker {
     public List<User> getByDepartment(Department department) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        String selectSQL = "SELECT * "
+//        String selectSQL = "SELECT * "
+//                + "FROM [GlossaryDataBase].[dbo].[user] "
+//                + "JOIN [GlossaryDataBase].[dbo].[user_role] "
+//                + "ON ([GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_role].user_id) "
+//                + "JOIN [GlossaryDataBase].[dbo].[role] "
+//                + "ON ([GlossaryDataBase].[dbo].[role].privilege_id=[GlossaryDataBase].[dbo].[user_role].privilege_id) "
+//                + "WHERE [GlossaryDataBase].[dbo].[user].department_id = ?;";
+
+        String sql_user = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[user] "
-                + "JOIN [GlossaryDataBase].[dbo].[user_role] "
-                + "ON ([GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_role].user_id) "
+                + "WHERE department_id = ?;";
+
+        String sql_priv = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user_role] "
                 + "JOIN [GlossaryDataBase].[dbo].[role] "
-                + "ON ([GlossaryDataBase].[dbo].[role].privilege_id=[GlossaryDataBase].[dbo].[user_role].privilege_id) "
-                + "WHERE [GlossaryDataBase].[dbo].[user].department_id = ?;";
+                + "ON([GlossaryDataBase].[dbo].[user_role].privilege_id = [GlossaryDataBase].[dbo].[role].privilege_id) "
+                + "WHERE user_id =?;";
+
+        String sql_course = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user_course] "
+                + "JOIN [GlossaryDataBase].[dbo].[course] "
+                + "ON ([GlossaryDataBase].[dbo].[user_course].course_code = [GlossaryDataBase].[dbo].[course].course_code) "
+                + "WHERE user_id = ? ";
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
+
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+
         ArrayList<User> users = new ArrayList<>();
 
-        //String compareName = "";
         User user = null;
 
         String user_id = null;
         String password = null;
         String userName = null;
         String userEmail = null;
-        int department_id = 0;
+        // int department_id = 0;
         boolean activated;
 
         //for privilege list
@@ -215,7 +237,7 @@ public class UserBroker extends Broker {
         String year = null;
 
         try {
-            ps = connection.prepareStatement(selectSQL);
+            ps = connection.prepareStatement(sql_user);
             ps.setInt(1, department.getDepartmentID());
             rs = ps.executeQuery();
             PrivilegeList privilegeList = null;
@@ -223,61 +245,103 @@ public class UserBroker extends Broker {
             user_id = null;
 
             while (rs.next()) {
-
-                if (user_id != null && !user_id.equals(rs.getString(1))) {
-                    user_id = (rs.getString(1));
-                    user = new User();
-                    user.setID(user_id);
-                    privilegeList = user.getPrivileges();
-                    courseList = user.getCourses();
-                }
-
-//                //DEPARTMENT
-//                department = new Department();
-//                deptID = rs.getInt("departmentID");
-//                deptName = rs.getString("name");
-//
-//                department.setDepartmentID(deptID);
-//                department.setName(deptName);
-                //PRIVILEGE
-                Privilege priv = new Privilege();
-                privID = rs.getInt("privilegeID");
-                description = rs.getString("description");
-                priv.setPrivilegeID(privID);
-                priv.setDescription(description);
-                privilegeList.add(new Privilege(privID, description));
-
                 //USER
-                password = (rs.getString("password"));
-                department_id = (rs.getInt("department_id"));
-                userName = (rs.getString("name"));
-                userEmail = (rs.getString("email"));
-                activated = (rs.getBoolean("activated"));
-
-                //user.setID(user_id);
-                user.setPassword(password);
+                user = new User();
+                user_id = rs.getString("user_id");
+                userName = rs.getString("name");
+                userEmail = rs.getString("email");
+                activated = rs.getBoolean("activated");
+                user.setID(user_id);
                 user.setDepartment(department);
                 user.setName(userName);
                 user.setEmail(userEmail);
+//                privilegeList = user.getPrivileges();
+//                courseList = user.getCourses();
+//                //PRIVILEGE
+//                Privilege priv = new Privilege();
+//                privID = rs.getInt("privilege_id");
+//                description = rs.getString("description");
+//                priv.setPrivilegeID(privID);
+//                priv.setDescription(description);
+//                privilegeList.add(new Privilege(privID, description));
+//
+//                //USER
+//                password = (rs.getString("password"));
+//                department_id = (rs.getInt("department_id"));
+//                userName = (rs.getString("name"));
+//                userEmail = (rs.getString("email"));
+//                activated = (rs.getBoolean("activated"));
+//
+//                //user.setID(user_id);
+//                user.setPassword(password);
+//                user.setDepartment(department);
+//                user.setName(userName);
+//                user.setEmail(userEmail);
 
-                //COURSE
-                Course course = new Course();
-                courseCode = rs.getString("courseCode");
-                courseName = rs.getString("courseName");
-                year = rs.getString("year");
-
-                //LISTS
-                //privilegeList.add(priv);
-                courseList.add(new Course(courseCode, courseName, department));
+//                //COURSE
+//                Course course = new Course();
+//                courseCode = rs.getString("course_code");
+//                courseName = rs.getString("course_name");
+//             //   year = rs.getString("year");
+//
+//                //LISTS
+//                //privilegeList.add(priv);
+//                courseList.add(new Course(courseCode, courseName, department));
                 users.add(user);
+            }
+            for (User u : users) {
+                ps1 = connection.prepareStatement(sql_priv);
+                ps1.setString(1, u.getID());
+                rs1 = ps.executeQuery();
+                privilegeList = u.getPrivileges();
+                while (rs1.next()) {
+                    //PRIVILEGE
+                    Privilege priv = new Privilege();
+                    privID = rs.getInt("privilege_id");
+                    description = rs.getString("description");
+                    priv.setPrivilegeID(privID);
+                    priv.setDescription(description);
+                    privilegeList.add(priv);
+                }
+                if (rs1 != null) {
+                    rs1.close();
+                }
+                if (ps1 != null) {
+                    ps1.close();
+                }
+            }
+            for (User u : users) {
+                ps2 = connection.prepareStatement(sql_course);
+                ps2.setString(1, u.getID());
+                rs2 = ps.executeQuery();
+                courseList = u.getCourses();
+                while (rs2.next()) {
+                    //COURSE
+                    Course course = new Course();
+                    courseCode = rs.getString("course_code");
+                    courseName = rs.getString("course_name");
+                    course.setCourseCode(courseCode);
+                    course.setCourseName(courseName);
+                    courseList.add(course);
+                }
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);

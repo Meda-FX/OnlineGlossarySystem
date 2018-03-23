@@ -1,6 +1,19 @@
 $(document).ready(function(){ 
  
-  $("#crud").hide();
+  
+    
+    $("#form").submit(function(event) {
+        $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
+            $("#term").val(responseJson.term);
+            $("#definition").val(responseJson.content);
+            $("#citation").val(responseJson.citation);
+            $("#defDefinition").val(responseJson.dictionaryContent);
+            $("#dicCitation").val(responseJson.dictionaryCitation);           
+        });
+        event.preventDefault();
+    });
+    
+    $("#crud").hide();
  
  $(".hideFormTerm").click(function(){
         $("#crud").hide(1000);
@@ -9,5 +22,6 @@ $(document).ready(function(){
  $(".addTerms").click(function(){
         $("#crud").show(1000);
     });
+    
 
  });

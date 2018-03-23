@@ -32,4 +32,8 @@ public class DefinitionService {
         //need to use definition broker somewhere
         return db.getByDepartment(department);
     }
+    
+    public int insert (Definition definition){
+        return db.insert(definition);
+    }
 }
