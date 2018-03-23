@@ -46,8 +46,8 @@ public class EditorServlet extends HttpServlet {
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
-        
-ArrayList<Definition> definitionlist=new ArrayList<>();
+
+        ArrayList<Definition> definitionlist = new ArrayList<>();
         String action = request.getParameter("action");
         String defId = request.getParameter("defId");
         Definition def = new Definition();
@@ -58,7 +58,7 @@ ArrayList<Definition> definitionlist=new ArrayList<>();
                 if (d.getStatus().equals("Published")) {
                     definitionlist.add(d);
                 }
-                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID())) {
+                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID()+"")) {
                     def = d;
                 }
             }
@@ -80,7 +80,7 @@ ArrayList<Definition> definitionlist=new ArrayList<>();
             // request.setAttribute("selectedTerm", def);
 
         }
-        request.setAttribute("definitionlist", deflist);
+        request.setAttribute("definitionlist", definitionlist);
         request.setAttribute("courselist", courlist);
         request.setAttribute("userlist", userlist);
 
@@ -121,7 +121,7 @@ ArrayList<Definition> definitionlist=new ArrayList<>();
         } else {
             request.setAttribute("message", "cannot be empty");
 
-            getServletContext().getRequestDispatcher(url).forward(request, response);
+            //getServletContext().getRequestDispatcher(url).forward(request, response);
         }
         if (action != null && action.equals("delete")) {
             url = "/WEB-INF/_editor/editor.jsp";

@@ -1,7 +1,5 @@
-$(document).ready(function(){ 
- 
-  
-    
+$(document).ready(function(){
+
     $(".editForm").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#term").val(responseJson.term);
