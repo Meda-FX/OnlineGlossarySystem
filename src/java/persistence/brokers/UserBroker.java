@@ -196,7 +196,7 @@ public class UserBroker extends Broker {
                 + "FROM [GlossaryDataBase].[dbo].[user] "
                 + "WHERE department_id = ?;";
 
-        String sql_priv = "SELECT * "
+        String sql_priv = "SELECT [GlossaryDataBase].[dbo].[user_role].privilege_id privilege_id, [GlossaryDataBase].[dbo].[user_role].description description"
                 + "FROM [GlossaryDataBase].[dbo].[user_role] "
                 + "JOIN [GlossaryDataBase].[dbo].[role] "
                 + "ON([GlossaryDataBase].[dbo].[user_role].privilege_id = [GlossaryDataBase].[dbo].[role].privilege_id) "
@@ -299,7 +299,7 @@ public class UserBroker extends Broker {
                     Privilege priv = new Privilege();
                     privID = rs1.getInt("privilege_id");
                     description = rs1.getString("description");
-                    priv.setPrivilegeID(privID);
+                   // priv.setPrivilegeID(privID);
                     priv.setDescription(description);
                     privilegeList.add(priv);
                 }

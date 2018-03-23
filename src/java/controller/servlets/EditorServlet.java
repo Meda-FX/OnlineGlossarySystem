@@ -130,12 +130,14 @@ public class EditorServlet extends HttpServlet {
         if (action != null && action.equals("Save Term")) {
             url = "/WEB-INF/_editor/editor.jsp";
             status = "Under Review";
-
+            definition.setStatus(status);
             ds.update(definition);
         }
-        if (action != null && action.equals("SavePublish")) {
+        if (action != null && action.equals("Submit Term")) {
             url = "/WEB-INF/_editor/editor.jsp";
             status = "Published";
+            definition.setStatus(status);
+            ds.update(definition);
         }
 
         doGet(request, response);

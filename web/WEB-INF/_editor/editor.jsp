@@ -38,7 +38,7 @@
             <input type="submit" name="action" value="Save Term">
 
             <!--<input type="hidden" name="submitTerm" value="submit">-->
-            <input type="submit" value="Submit Term">
+            <input type="submit" name="action" value="Submit Term">
 
             <input class="hideFormTerm" type="button" value="Hide Form">
         </form>
