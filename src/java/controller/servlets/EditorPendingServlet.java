@@ -74,22 +74,7 @@ public class EditorPendingServlet extends HttpServlet {
         //useless, there no table in the database
         GlossaryRequestService grs = new GlossaryRequestService();
         ArrayList<Definition> deflist = new ArrayList<>();
-        ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
 
-        if (courlist.size() == 0) {
-            //need to discuss
-            request.setAttribute("message", true);
-        } else {
-            for (Course c : courlist) {
-                deflist.addAll(ds.getByCourse(c));
-            }
-        }
-        for (Definition d : deflist) {
-            if (d.getStatus().equals("Published") || d.getStatus().equals("In Progress")) {
-                deflist.remove(d);
-            }
-        }
-        //  request.setAttribute("definitionlist", deflist);
         request.setAttribute("definitionlist", deflist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

@@ -34,6 +34,19 @@ public class GlossaryEntry {
         this.term = term;
         this.createdBy = createdBy;
     }
+
+    /**
+     * constructs a glossary entry object  
+     * @param dateCreated dateCreated the date in which the glossary created
+     * @param term term the term of the glossary
+     * @param createdBy createdBy the creator of the term
+     */
+    public GlossaryEntry(Date dateCreated, String term, User createdBy) {
+        this.dateCreated = dateCreated;
+        this.term = term;
+        this.createdBy = createdBy;
+    }
+    
     
     /**
      * Returns the date of the creation of the term

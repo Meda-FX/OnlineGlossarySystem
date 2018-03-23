@@ -6,6 +6,7 @@
 package controller.servlets;
 
 import business.domainClasses.User;
+import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,25 @@ public class LoginServlet extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         String url = "/WEB-INF/login.jsp";
+        String id = request.getParameter("id");
+        if (id != null && !id.isEmpty()) {
+            AccountRequestService ars = new AccountRequestService();
+            try {
+                User user = ars.verifyID(id, 1);
+                if (user != null) {
+                    user.setIsActivated(true);
+                    UserService us = new UserService();
+                    us.update(user);
+                    ars.removeOldPasswordRequest(user);
+                    request.setAttribute("loginMessage", "Account activated, please log in again");
+                } else {
+                    request.setAttribute("loginMessage", "Unable to activate account, plese contact your department admin office");
+                }
+            } catch (Exception ex) {
+                request.setAttribute("loginMessage", "Unable to activate account, plese contact your department admin office");
+            }
+        }
+        
         if(action != null && action.equals("logout"))
         {
             url = "/WEB-INF/index.jsp";
@@ -45,7 +65,8 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(username==null ||username.isEmpty() || password==null ||password.isEmpty())
         {
-            request.setAttribute("isEmpty", true);
+            //request.setAttribute("isEmpty", true);
+            request.setAttribute("loginMessage", "You need to enter your email and password.");
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return ;
         }
@@ -54,7 +75,8 @@ public class LoginServlet extends HttpServlet {
         User user = us.checkLogin(username,password);
         if(user == null)
         {
-            request.setAttribute("isInvalid", true);
+            //request.setAttribute("isInvalid", true);
+            request.setAttribute("loginMessage", "Invalid email or password!");
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return ;
         }
@@ -63,24 +85,6 @@ public class LoginServlet extends HttpServlet {
             //user.setPassword("");
             session.setAttribute("user", user);
             url = "/WEB-INF/index.jsp";
-        /*
-            if(user.getPrivileges().contains(1)) // admin
-            {
-               url = "/WEB-INF/_admin/admin.jsp";
-            }
-            else if(user.getPrivileges().contains(2)) //editor
-            {                
-                url = "/WEB-INF/_student/student.jsp";
-            }
-            else if(user.getPrivileges().contains(3)) //instructor
-            {
-                url = "/WEB-INF/_editor/editor.jsp";                
-            }
-            else if(user.getPrivileges().contains(4)) //student
-            {
-                url = "/WEB-INF/_instructor/instructor.jsp";
-            }
-        */
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
         
