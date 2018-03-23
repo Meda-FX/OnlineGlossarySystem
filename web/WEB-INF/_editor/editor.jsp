@@ -4,7 +4,7 @@
 <div class="container list-terms"> 
     
 <div id="crud">
-    <form action="" method="post">
+    <form id="form" action="" method="post">
    <h1>Edit Terms</h1>
    <div class="form-group">
     <label for="term">Term ID</label>
@@ -31,7 +31,7 @@
         
   <div class="form-group">
     <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="citation" placeholder="Dectionary Citation" name="${selectedTerm.dictionaryCitation}">
+    <input type="text" class="form-control" id="dicCitation" placeholder="Dectionary Citation" name="${selectedTerm.dictionaryCitation}">
   </div>
   
     <input type="hidden" name="saveTerm" value="save">
