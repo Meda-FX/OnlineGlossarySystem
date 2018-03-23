@@ -46,10 +46,19 @@ public class EditorServlet extends HttpServlet {
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
 
+        String action = request.getParameter("action");
+
         for (Definition d : deflist) {
             if (d.getStatus().equals("Under Review") || d.getStatus().equals("In Progress")) {
                 deflist.remove(d);
             }
+        }
+
+        if (action != null && action.equals("EditDefinition")) {
+            url = "/WEB-INF/_editor/editor.jsp";
+            Definition def = new Definition();
+            String def_id = request.getParameter("");
+
         }
         request.setAttribute("definitionlist", deflist);
         request.setAttribute("courselist", courlist);
@@ -77,7 +86,7 @@ public class EditorServlet extends HttpServlet {
 
         if (action != null && action.equals("delete")) {
             url = "/WEB-INF/_editor/editor.jsp";
-            status="Inactive";
+            status = "Inactive";
         }
         if (action != null && action.equals("SavePending")) {
             url = "/WEB-INF/_editor/editor.jsp";
