@@ -2,7 +2,7 @@ $(document).ready(function(){
  
   
     
-    $("#editform").submit(function(event) {
+    $(".editForm").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#term").val(responseJson.term);
             $("#termId").val(responseJson.definitionID);

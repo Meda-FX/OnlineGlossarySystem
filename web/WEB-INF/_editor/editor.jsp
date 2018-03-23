@@ -139,11 +139,11 @@
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
                     <td>     
-                        <form id="editform" action="edit" method="GET">
+                        <form class="editForm" action="edit" method="GET">
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input id="editform" class="addTerms" type="submit" value="Edit">
+                            <input class="addTerms" type="submit" value="Edit">
                         </form>
                     </td>
                 </tr>
