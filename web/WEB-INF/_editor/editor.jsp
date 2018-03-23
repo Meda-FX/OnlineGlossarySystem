@@ -115,9 +115,6 @@
                 <th></th>
                 <th></th>
             </tr>
-            <c:forEach items="${definitionlist}" var="def">
-
-            </c:forEach>
         </thead>
         <tbody>
             <!--    <tr>
@@ -145,6 +142,7 @@
                         <form action="edit" method="GET">
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="defId" value="${def.definitionID}">
                             <input type="submit" value="Edit">
                         </form>
                     </td>
