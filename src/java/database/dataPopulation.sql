@@ -61,6 +61,9 @@ INSERT INTO [user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
     ('3','password',1,'Stephon Curry','stephonCurry@gmail.com', 1);
+INSERT INTO [user]
+VALUES ('4', 'password', 1, 'Javen Liang', 'javenliang.sait@gmail.com', 1);
+
 
 INSERT INTO [user_role]
     (user_id, privilege_id)
@@ -126,6 +129,8 @@ INSERT INTO user_role
     (user_id,privilege_id)
 VALUES
     ('0',3);
+INSERT INTO user_role
+VALUES ('4', 1);
 
 INSERT INTO course
     (course_code,department_id,course_name)
