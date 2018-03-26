@@ -17,7 +17,7 @@ public class GlossaryRequestService {
      * Constructs a glossary request object 
      */
     public GlossaryRequestService() {
-        this.requestDB = requestDB;
+        this.requestDB = new GlossaryEntryBroker();
     }
     
     /**

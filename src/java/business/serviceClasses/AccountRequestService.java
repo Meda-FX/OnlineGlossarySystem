@@ -26,7 +26,7 @@ public class AccountRequestService {
      * Constructs an object for the password request service
      */
     public AccountRequestService() {
-        this.requestDB = requestDB;
+        this.requestDB = new AccountRequestBroker();
     }
 
     /**
