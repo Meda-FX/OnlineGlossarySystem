@@ -135,8 +135,8 @@
                     <div class="col-xs-12 col-md-3">
                         <h4>${term.term}</h4>
                         <p>Instructor: ${definition.writtenBy.name} </p>
-                        <p>Citation: ${definition.citation}</p>
-                        <p>Date: ${definition.dateCreated}</p>
+                        <p>Citation: ${definition.citation}</p>                     
+                        <p>Date: <fmt:formatDate value="${definition.dateCreated}" pattern="yyyy-MM-dd" /></p>
                     </div><!--Left side of the search ends here-->
 
                     <!--Right side of the search result starts here: term definition-->
@@ -146,9 +146,12 @@
 
                         <c:if test="${user.getPrivileges().contains(3) != true}">
                             <div class="col-xs-12 col-md-9">
-                            </c:if>
+                        </c:if>
                             <h4>Term Definition</h4>
-                            <p>${definition.content}</p>
+                            <p>${definition.content}</p>  
+                            <p>${definition.dictionaryCitation}</p>
+                            <p>${definition.dictionaryContent}</p>
+                            <p>${definition.dateLastModified}</p>
                             <span><a href="#">Read</a></span>
 
                         </div><!--Right side of the search ends here-->  

@@ -1,5 +1,4 @@
 <%@ include file="../includes/header.jsp" %>   
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container list-terms"> 
 
