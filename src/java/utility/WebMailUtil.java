@@ -1,4 +1,4 @@
-package business.serviceClasses;
+package utility;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,13 +19,13 @@ import javax.naming.NamingException;
 import javax.naming.Context;
 
 /**
- * WebMailService class uses to send mail to the users. The class sends mail
+ * WebMailUtil class uses to send mail to the users. The class sends mail
  * using a given email address and uses an html type email template.
  *
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1
  */
-public class WebMailService {
+public class WebMailUtil {
 
     /**
      * A method that send an email to the client. The mail will have a the

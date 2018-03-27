@@ -9,12 +9,9 @@ import business.domainClasses.Privilege;
 import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
-import business.serviceClasses.WebMailService;
+import utility.WebMailUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -95,7 +92,7 @@ public class RegisterServlet extends HttpServlet {
             String base = emailURL.substring(0, emailURL.length() - uri.length() + ctx.length());
             contents.put("link", base + "/login?id=" + token);
             
-            WebMailService.sendMail(email, "Online Glossary System New Registration", 
+            WebMailUtil.sendMail(email, "Online Glossary System New Registration", 
                     getServletContext().getRealPath("/WEB-INF") + "/emailstemplates/newregistration.html", contents);
             
             //display message about checking the email
