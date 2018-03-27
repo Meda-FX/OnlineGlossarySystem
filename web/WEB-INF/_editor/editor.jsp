@@ -136,7 +136,14 @@
                     <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td>
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
-                    <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
+                    <td>
+                        <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
+                        <form action="edit" method="POST">
+                            <input type="hidden" name="action" value="Delete Term">
+                            <input type="hidden" name="defId" value="${def.definitionID}">
+                            <input type="submit"  value="Delete">
+                        </form>
+                    </td>
                     <td>     
                         <form class="editForm" action="edit" method="GET">
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      

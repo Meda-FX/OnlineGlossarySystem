@@ -444,7 +444,7 @@ public class DefinitionBroker extends Broker {
         Connection connection = pool.getConnection();
 
         Definition definition = (Definition) object;
-        String sql = "DELETE FROM definition WHERE definition_uid=?";
+        String sql = "DELETE [GlossaryDataBase].[dbo].[definition] WHERE definition_uid = ?";
 
         PreparedStatement ps = null;
 
@@ -464,7 +464,7 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to delete definition", ex);
         } finally {
             try {
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
 
             }

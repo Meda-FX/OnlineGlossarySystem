@@ -32,15 +32,20 @@ public class DefinitionService {
         //need to use definition broker somewhere
         return db.getByDepartment(department);
     }
-    
-    public int insert (Definition definition){
+
+    public int insert(Definition definition) {
         return db.insert(definition);
     }
-    
-    public int update(Definition definition)
-    {
+
+    public int update(Definition definition) {
         // need to update the date first
-       // definition.setDateLastModified();
+        // definition.setDateLastModified();
         return db.update(definition);
+    }
+
+    public int delete(Definition definition) {
+        // need to update the date first
+        // definition.setDateLastModified();
+        return db.delete(definition);
     }
 }
