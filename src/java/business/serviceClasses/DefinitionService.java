@@ -33,6 +33,11 @@ public class DefinitionService {
         return db.getByDepartment(department);
     }
 
+    public List<Definition> getByDepartmentFilterByTCU(Department department, String txtSearch, String courseCode, String userId) {
+        
+        return db.getByDepartmentFilterByTCU(department,txtSearch,courseCode,userId);
+    }
+
     public int insert(Definition definition) {
         return db.insert(definition);
     }

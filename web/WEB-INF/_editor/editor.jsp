@@ -47,9 +47,10 @@
 <br>
 
 <!--Search starts here-->
+<form action="edit?action=search" method="GET"> 
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-        <form action="editor?action=search" method="GET">    
+           
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" />
                 <div class="input-group-btn">
@@ -58,7 +59,7 @@
                     </button>
                 </div>
             </div>   
-        </form>
+        
         <div>
             <p class="message">${message}</p>   
         </div>
@@ -71,35 +72,48 @@
 
         <!-- Filter by instructor starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <!-- Small button group -->
+<!--             Small button group 
             <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter By Course <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <c:forEach items="${courselist}" var="course">
-                    <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
+                    <li><a href="#" name="courseCode" value="${course.courseCode}"><c:out value="${course.courseCode}"/></a></li>
                 </c:forEach>
-            </ul>
+            </ul>-->
+            <select name="courseCode">
+                <option value="">Filter By Course</option>
+                <c:forEach items="${courselist}" var="course">
+                    <option  value="${course.courseCode}"><c:out value="${course.courseCode}"/></option>
+                </c:forEach>
+            </select>
         </div> <!-- Filter by instructor ends here-->    
 
 
         <!-- Filter by course starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
             <!-- Small button group -->
-            <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<!--            <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter By Instructor <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <c:forEach items="${userlist}" var="user">
-                    <li><a href="#"><c:out value="${user.name}"/></a></li>
+                    <li><a href="#" name="userId" value="${user.email}"><c:out value="${user.name}"/></a></li>
                 </c:forEach>
-            </ul>
+            </ul>-->
+            <select name="userId">
+                <option value="">Filter By Instructor</option>
+                <c:forEach items="${userlist}" var="user">
+                    <option  value="${user.getID()}"><c:out value="${user.name}"/></option>
+                </c:forEach>
+            </select>
 
         </div><!--Filter by course ends here-->
 
     </div>     
 </div> <!-- main filter container -->
 <!--Search filter ends here-->
+</form>
 
 <div class="container list-terms">
 
