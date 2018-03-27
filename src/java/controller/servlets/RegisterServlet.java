@@ -56,18 +56,50 @@ public class RegisterServlet extends HttpServlet {
                 password_confirm==null || password_confirm.equals(""))
         {
             //display error message about fields empty
+            request.setAttribute("message", "All fields must be completed");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            request.setAttribute("email",email);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
         }
         
         if (!password.equals(password_confirm)) {
             //display error message about password not matching
+            request.setAttribute("message", "Entered passwords not matching");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            request.setAttribute("email",email);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
         }
         
         if (!email.endsWith("@edu.sait.ca") && !email.endsWith("@sait.ca")) {
             //display error message about email not from sait
+            request.setAttribute("message", "Please use your SAIT email for registration");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+        
+        if (!student_id.matches("\\d{9}")) {
+            request.setAttribute("message", "Please enter valid 9 digit student ID");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+        
+        if ((us.get(student_id)!=null) || (us.getByEmail(email)!=null)) {
+            request.setAttribute("message", "Account already exist.");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
         }
@@ -96,10 +128,20 @@ public class RegisterServlet extends HttpServlet {
                     getServletContext().getRealPath("/WEB-INF") + "/emailstemplates/newregistration.html", contents);
             
             //display message about checking the email
+            request.setAttribute("message", "Please check your email for account activation");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            request.setAttribute("email",email);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
         } catch (Exception ex) {
             //display message about failing registration
+            request.setAttribute("message", "Unable to register account, please contact your department office.");
+            request.setAttribute("fname", fname);
+            request.setAttribute("lname",lname);
+            request.setAttribute("studentId", student_id);
+            request.setAttribute("email",email);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
         }

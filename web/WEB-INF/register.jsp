@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +13,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <form id="form-login" action="#" method="post">
+                    <form id="form-login" action="register" method="post">
                         <div class="form-header">
                             <h2>REGISTRATION</h2>
                         </div>
@@ -34,7 +35,11 @@
                         <div class="form-group">
                             <input type="password" name="studentId" class="form-control" id="studentid" placeholder="Student ID">
                         </div>
-
+                        <div class="message">
+                            <c:if test="${not empty message}">
+                                <c:out value="${message}"></c:out>
+                            </c:if>
+                        </div>
                         <div>
                             <button class="login-button" type="submit">Register</button>
                         </div>
