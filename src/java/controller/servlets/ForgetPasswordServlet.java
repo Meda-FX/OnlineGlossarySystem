@@ -8,9 +8,8 @@ package controller.servlets;
 import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
-import business.serviceClasses.WebMailService;
+import utility.WebMailUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +57,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             String base = url.substring(0, url.length() - uri.length() + ctx.length());
             contents.put("link", base + "/newpassword?id=" + token);
             
-            WebMailService.sendMail(email, "OnlineGlossarySystem Reset Password", 
+            WebMailUtil.sendMail(email, "OnlineGlossarySystem Reset Password", 
                     getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/resetpassword.html", contents);
             request.setAttribute("message", "Please check your email");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);

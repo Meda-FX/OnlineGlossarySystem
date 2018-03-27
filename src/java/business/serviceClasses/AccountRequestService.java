@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import persistence.brokers.AccountRequestBroker;
+import utility.HashingUtil;
 
 /**
  * AccountRequestService class uses to access data from the database by
@@ -66,20 +67,14 @@ public class AccountRequestService {
         
         accountRequest.setRequestType(requestType);
         accountRequest.setRequestdBy(requestUser);
-
-        SecureRandom sr = new SecureRandom();
-        byte salt[] = new byte[32];
-        sr.nextBytes(salt);
-        String saltStr = salt.toString();
-        accountRequest.setSalt(saltStr);
+        String salt = HashingUtil.getSalt();
+        accountRequest.setSalt(salt);
         String token;
         String hash;
 
         do {
             token = UUID.randomUUID().toString();
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update((token + saltStr).getBytes());
-            hash = new String(md.digest());
+            hash = HashingUtil.hash(token + salt);
         } while (requestDB.getRequest(hash) != null);
 
         accountRequest.setRequestID(hash);
@@ -117,9 +112,7 @@ public class AccountRequestService {
         List<AccountRequest> accountRequestList = requestDB.getToVerify(requestType);
         for (AccountRequest accountRequest : accountRequestList) {
             String salt = accountRequest.getSalt();
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update((token + salt).getBytes());
-            String hash = new String(md.digest());
+            String hash = HashingUtil.hash(token + salt);
             if (hash.equals(accountRequest.getRequestID())) {
                 String userID = accountRequest.getRequestdBy().getID();
                 //as the requestBy in accountRequest only contain its id, need to
