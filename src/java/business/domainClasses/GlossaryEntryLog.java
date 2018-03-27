@@ -8,31 +8,39 @@ import java.util.Date;
  * @version 1.0 
  */
 public class GlossaryEntryLog {
+    private int logID;
     private String glossaryEntryTerm;
-    private Definition definition;
-    private Integer requestType;
-    private Integer requestID;
-    private User requestedBy;
-    private Date dateCreated;
+    private int activityType;
+    private User activityBy;
+    private Date activityDate;
 
+    public GlossaryEntryLog() {
+        
+    }
+    
     /**
      * Constructs a glossary request
      * @param glossaryEntryTerm glossaryEntryTerm the glossary term that is requested
-     * @param definition definition the definition of the glossary that is requested
-     * @param requestType requestType the type of the requested glossary
-     * @param requestID requestedID the id that is requested
+     * @param requestType activityType the type of the requested glossary
      * @param requestedBy requestBy the glossary request 
-     * @param dateCreated dateCreated the date in which the glossary is created
+     * @param dateCreated activityDate the date in which the glossary is created
      */
-    public GlossaryEntryLog(String glossaryEntryTerm, Definition definition, Integer requestType, Integer requestID, User requestedBy, Date dateCreated) {
+    public GlossaryEntryLog(int logID, String glossaryEntryTerm, int requestType, User requestedBy, Date dateCreated) {
+        this.logID = logID;
         this.glossaryEntryTerm = glossaryEntryTerm;
-        this.definition = definition;
-        this.requestType = requestType;
-        this.requestID = requestID;
-        this.requestedBy = requestedBy;
-        this.dateCreated = dateCreated;
+        this.activityType = requestType;
+        this.activityBy = requestedBy;
+        this.activityDate = dateCreated;
     }
 
+    public int getLogID() {
+        return logID;
+    }
+
+    public void setLogID(int logID) {
+        this.logID = logID;
+    }
+    
     /**
      * returns the glossary entry term
      * @return the glossary term
@@ -50,74 +58,46 @@ public class GlossaryEntryLog {
     }
 
     /**
-     * Returns the definition of the glossary request
-     * @return the definition of the term
-     */
-    public Definition getDefinition() {
-        return definition;
-    }
-
-    /**
-     * Changes the definition of the request
-     * @param definition definition the definition to be set
-     */
-    public void setDefinition(Definition definition) {
-        this.definition = definition;
-    }
-
-    /**
      * Returns the type of the request
      * @return the type of the request
      */
-    public Integer getRequestType() {
-        return requestType;
+    public int getActivityType() {
+        return activityType;
     }
 
     /**
      * Changes the request type of the glossary request
-     * @param requestType requestType the request type to be set
+     * @param activityType activityType the request type to be set
      */
-    public void setRequestType(Integer requestType) {
-        this.requestType = requestType;
-    }
-
-    /**
-     * Returns the request id for the glossary request
-     * @return the request id
-     */
-    public Integer getRequestedID() {
-        return requestID;
-    }
-
-    /**
-     * Changes the request id of for the glossary request
-     * @param requestedID requestedID the id if the request to be set
-     */
-    public void setRequestedID(Integer requestedID) {
-        this.requestID = requestedID;
+    public void setActivityType(int activityType) {
+        this.activityType = activityType;
     }
 
     /**
      * Returns the instructor that requested the term
      * @return the user of the requester 
      */
-    public User getRequestedBy() {
-        return requestedBy;
+    public User getActivityBy() {
+        return activityBy;
     }
 
     /**
      * Changes the requester 
-     * @param requestedBy requestedBy the user to be set
+     * @param activityBy activityBy the user to be set
      */
-    public void setRequestedBy(User requestedBy) {
-        this.requestedBy = requestedBy;
+    public void setActivityBy(User activityBy) {
+        this.activityBy = activityBy;
     }
 
     /**
      * Returns the date of the term created
      * @return the date in which the term is created
      */
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getActivityDate() {
+        return activityDate;
+    }
+
+    public void setActivityDate(Date activityDate) {
+        this.activityDate = activityDate;
     }
 }
