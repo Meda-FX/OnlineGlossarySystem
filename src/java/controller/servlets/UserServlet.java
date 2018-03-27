@@ -5,13 +5,18 @@
  */
 package controller.servlets;
 
+import business.domainClasses.Course;
 import business.domainClasses.CourseList;
 import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.PrivilegeList;
 import business.domainClasses.User;
+import business.serviceClasses.CourseService;
+import business.serviceClasses.PrivilegeService;
+import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +37,7 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
-        
+        getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
 
     @Override

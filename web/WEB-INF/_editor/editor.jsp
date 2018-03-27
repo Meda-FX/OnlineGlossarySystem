@@ -78,7 +78,6 @@
             <ul class="dropdown-menu">
                 <c:forEach items="${courselist}" var="course">
                     <li><a href="#"><c:out value="${course.courseCode}"/></a></li>
-
                 </c:forEach>
             </ul>
         </div> <!-- Filter by instructor ends here-->    
@@ -93,7 +92,7 @@
             <ul class="dropdown-menu">
                 <c:forEach items="${userlist}" var="user">
                     <li><a href="#"><c:out value="${user.name}"/></a></li>
-                    </c:forEach>
+                </c:forEach>
             </ul>
 
         </div><!--Filter by course ends here-->
@@ -137,9 +136,16 @@
                     <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td>
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
-                    <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
+                    <td>
+                        <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
+                        <form action="edit" method="POST">
+                            <input type="hidden" name="action" value="Delete Term">
+                            <input type="hidden" name="defId" value="${def.definitionID}">
+                            <input type="submit"  value="Delete">
+                        </form>
+                    </td>
                     <td>     
-                        <form class="editform" action="edit" method="GET">
+                        <form class="editForm" action="edit" method="GET">
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">

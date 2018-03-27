@@ -58,7 +58,7 @@ public class EditorServlet extends HttpServlet {
                 if (d.getStatus().equals("Published")) {
                     definitionlist.add(d);
                 }
-                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID()+"")) {
+                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID() + "")) {
                     def = d;
                 }
             }
@@ -107,37 +107,55 @@ public class EditorServlet extends HttpServlet {
         //Integer.parseInt(request.getParameter("defId"));
         String status; //status of the term
         Definition definition = new Definition();
-        if (contents != null && !contents.equals("")
-                && ciation != null && !ciation.equals("")
-                && dicDef != null && !dicDef.equals("")
-                && dicCitation != null && !dicCitation.equals("")
-                && definitionId != null && !definitionId.equals("")) {
+//                if (contents != null && !contents.equals("")
+//                && ciation != null && !ciation.equals("")
+//                && dicDef != null && !dicDef.equals("")
+//                && dicCitation != null && !dicCitation.equals("")
+//                && definitionId != null && !definitionId.equals("")) {
+//            defId = Integer.parseInt(definitionId);
+//            definition.setDefinitionID(defId);
+//            definition.setContent(contents);
+//            definition.setCitation(ciation);
+//            definition.setDictionaryContent(dicDef);
+//            definition.setDictionaryCitation(dicCitation);
+//        } else {
+//            request.setAttribute("message", "cannot be empty");
+//
+//            //getServletContext().getRequestDispatcher(url).forward(request, response);
+//        }
+        try {
             defId = Integer.parseInt(definitionId);
             definition.setDefinitionID(defId);
-            definition.setContent(contents);
-            definition.setCitation(ciation);
-            definition.setDictionaryContent(dicDef);
-            definition.setDictionaryCitation(dicCitation);
-        } else {
-            request.setAttribute("message", "cannot be empty");
 
-            //getServletContext().getRequestDispatcher(url).forward(request, response);
-        }
-        if (action != null && action.equals("delete")) {
-            url = "/WEB-INF/_editor/editor.jsp";
-            status = "Inactive";
-        }
-        if (action != null && action.equals("Save Term")) {
-            url = "/WEB-INF/_editor/editor.jsp";
-            status = "Under Review";
-            definition.setStatus(status);
-            ds.update(definition);
-        }
-        if (action != null && action.equals("Submit Term")) {
-            url = "/WEB-INF/_editor/editor.jsp";
-            status = "Published";
-            definition.setStatus(status);
-            ds.update(definition);
+            if (action != null && action.equals("Delete Term")) {
+                url = "/WEB-INF/_editor/editor.jsp";
+                status = "Inactive";
+                ds.delete(definition);
+            }
+
+            if (action != null && action.equals("Save Term")) {
+                definition.setContent(contents);
+                definition.setCitation(ciation);
+                definition.setDictionaryContent(dicDef);
+                definition.setDictionaryCitation(dicCitation);
+                url = "/WEB-INF/_editor/editor.jsp";
+                status = "Under Review";
+                definition.setStatus(status);
+                ds.update(definition);
+            }
+            if (action != null && action.equals("Submit Term")) {
+                definition.setContent(contents);
+                definition.setCitation(ciation);
+                definition.setDictionaryContent(dicDef);
+                definition.setDictionaryCitation(dicCitation);
+                url = "/WEB-INF/_editor/editor.jsp";
+                status = "Published";
+                definition.setStatus(status);
+                ds.update(definition);
+            }
+
+        } catch (Exception e) {
+            request.setAttribute("message", "cannot be empty");
         }
 
         doGet(request, response);
