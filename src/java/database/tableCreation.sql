@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[glossary_entry](
 --new entry: 1
 CREATE TABLE [dbo].[glossary_entry_log](
 	glossary_entry varchar (40) NOT NULL,
-	activity_by NOT NULL,
+	activity_by VARCHAR (20) NOT NULL,
 	activity_date Varchar(20) NOT NULL,
         activity_type int NOT NULL,
 	CONSTRAINT FK_glossary_entry_log_glossary_entry FOREIGN KEY (glossary_entry)
@@ -128,19 +128,8 @@ CREATE TABLE [dbo].[definition_log](
         activity_type int NOT NULL,
 	CONSTRAINT FK_definition_log_definition_uid FOREIGN KEY (definition_uid)
 	REFERENCES definition(definition_uid),
-	CONSTRAINT FK_definition]_log_activity_by FOREIGN KEY (activity_by)
+	CONSTRAINT FK_definition_log_activity_by FOREIGN KEY (activity_by)
 	REFERENCES [user](user_id),
         PRIMARY KEY(definition_uid,activity_by,activity_date)
 	) 
-
--- CREATE TABLE [dbo].[definition_edit_log](
--- 	edit_date datetime NOT NULL,
--- 	definition_uid Int NOT NULL,
--- 	edit_by Varchar(20) NOT NULL,
--- 	CONSTRAINT FK_definition_edit_log_definition_uid FOREIGN KEY (definition_uid)
--- 	REFERENCES definition(definition_uid),
--- 	CONSTRAINT FK_definition_edit_log_edit_by FOREIGN KEY (edit_by)
--- 	REFERENCES [user](user_id),
---         PRIMARY KEY(edit_Date,definition_uid,edit_by)
--- 	)
 	
