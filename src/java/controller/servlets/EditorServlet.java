@@ -45,12 +45,22 @@ public class EditorServlet extends HttpServlet {
         //GlossaryEntryLogService grs = new GlossaryEntryLogService();
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
-        ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
+        ArrayList<Definition> deflist = new ArrayList<>();
 
         ArrayList<Definition> definitionlist = new ArrayList<>();
         String action = request.getParameter("action");
         String defId = request.getParameter("defId");
+        String txtSearch = request.getParameter("txtSearch");
         Definition def = new Definition();
+
+        if (txtSearch != null && !txtSearch.equals("")) {
+            String courseCode = request.getParameter("courseCode") + "";
+            String userId = request.getParameter("userId") + "";
+            deflist = (ArrayList<Definition>) ds.getByDepartmentFilterByTCU(user.getDepartment(), txtSearch, courseCode, userId);
+
+        } else {
+            deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
+        }
         if (deflist.isEmpty()) {
             request.setAttribute("message", "There are no terms!");
         } else {
@@ -80,6 +90,7 @@ public class EditorServlet extends HttpServlet {
             // request.setAttribute("selectedTerm", def);
 
         }
+
         request.setAttribute("definitionlist", definitionlist);
         request.setAttribute("courselist", courlist);
         request.setAttribute("userlist", userlist);
