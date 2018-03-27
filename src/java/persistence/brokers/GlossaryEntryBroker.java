@@ -161,7 +161,9 @@ public class GlossaryEntryBroker extends Broker {
         User user;
         java.util.Date definitionDateCreated;
         Timestamp definitionDateCreatedDB;
-
+        String dictionaryContent;
+        String dictionaryCitation;
+        String definitionStatus;
         String comparedTerm = "";
 
         try {
@@ -186,16 +188,23 @@ public class GlossaryEntryBroker extends Broker {
                 user = new User();
                 username = rs.getString("name");
                 user_id = rs.getString("user_id");
+                
                 user.setID(user_id);
                 user.setName(username);
                 definitionDateCreatedDB = rs.getTimestamp("date_created");
                 definitionDateCreated = new java.util.Date(definitionDateCreatedDB.getTime());
-
+                
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                definitionStatus = rs.getString("status");
+                definition.setDictionaryContent(dictionaryContent);
+                definition.setDictionaryCitation(dictionaryCitation);
                 definition.setCitation(citation);
                 definition.setContent(content);
                 definition.setTerm(glossaryTerm);
                 definition.setWrittenBy(user);
                 definition.setDateCreated(definitionDateCreated);
+                definition.setStatus(definitionStatus);
                 definitionList.add(definition);
             }
             if (ge != null) {
@@ -235,6 +244,7 @@ public class GlossaryEntryBroker extends Broker {
         String citation;
         String dictionaryContent;
         String dictionaryCitation;
+        String definitionStatus;
         User user;
 
         String comparedTerm = "";
@@ -255,7 +265,7 @@ public class GlossaryEntryBroker extends Broker {
                 citation = rs.getString("citation");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
-                
+                definitionStatus = rs.getString("status");
                 user = new User();
                 user.setID(userID);
 
@@ -263,6 +273,7 @@ public class GlossaryEntryBroker extends Broker {
                 definition.setContent(content);
                 definition.setDictionaryContent(dictionaryContent);
                 definition.setDictionaryCitation(dictionaryCitation);
+                definition.setStatus(definitionStatus);
                 definition.setTerm(glossaryTerm);
                 definition.setWrittenBy(user);
                 definitionList.add(definition);
