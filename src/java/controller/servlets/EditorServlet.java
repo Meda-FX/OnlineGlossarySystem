@@ -11,7 +11,7 @@ import business.domainClasses.User;
 import business.serviceClasses.CourseService;
 import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
-import business.serviceClasses.GlossaryRequestService;
+import business.serviceClasses.GlossaryEntryLogService;
 import business.serviceClasses.UserService;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class EditorServlet extends HttpServlet {
         CourseService cs = new CourseService();
         UserService us = new UserService();
         //useless, there no table in the database
-        GlossaryRequestService grs = new GlossaryRequestService();
+        //GlossaryEntryLogService grs = new GlossaryEntryLogService();
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());

@@ -49,14 +49,14 @@ CREATE TABLE [dbo].[glossary_entry](
 --new entry: 1
 CREATE TABLE [dbo].[glossary_entry_log](
 	glossary_entry varchar (40) NOT NULL,
-	accessed datetime NOT NULL,
-	accessed_by Varchar(20) NOT NULL,
+	activity_by NOT NULL,
+	activity_date Varchar(20) NOT NULL,
         activity_type int NOT NULL,
 	CONSTRAINT FK_glossary_entry_log_glossary_entry FOREIGN KEY (glossary_entry)
 	REFERENCES glossary_entry(glossary_entry),
-	CONSTRAINT FK_glossary_entry_accessed_by FOREIGN KEY (accessed_by)
+	CONSTRAINT FK_glossary_entry_activity_by FOREIGN KEY (activity_by)
 	REFERENCES [user](user_id),
-        PRIMARY KEY(glossary_entry,accessed,accessed_by)
+        PRIMARY KEY(glossary_entry,activity_by, activity_date)
 	)
 
 CREATE TABLE [dbo].[definition](
@@ -97,12 +97,12 @@ CREATE TABLE [dbo].[user_course](
 --request_log_type:
 --new account: 1
 --login: 2
-CREATE TABLE [dbo].[account_request_log](
-	request_log_id int IDENTITY(1,1) PRIMARY KEY,
-	request_date datetime NOT NULL,
-	request_by Varchar(20) NOT NULL,
-        request_log_type int NOT NULL,
-        CONSTRAINT FK_account_request_log_request_id FOREIGN KEY (request_by)
+CREATE TABLE [dbo].[account_log](
+	account_log_id int IDENTITY(1,1) PRIMARY KEY,
+	activity_by Varchar(20) NOT NULL,
+	activity_date datetime NOT NULL,
+        activity_type int NOT NULL,
+        CONSTRAINT FK_account_log_request_id FOREIGN KEY (activity_by)
         REFERENCES [user](user_id)
 	)
 
@@ -121,16 +121,16 @@ CREATE TABLE [dbo].[account_request](
 	
 --activity_type:
 --create new definition: 1
-CREATE TABLE [dbo].[definition_activity_log](
+CREATE TABLE [dbo].[definition_log](
 	definition_uid Int NOT NULL,
-	accessed_by Varchar(20) NOT NULL,
-	date_accessed datetime NOT NULL ,
+	activity_by Varchar(20) NOT NULL,
+	activity_date datetime NOT NULL ,
         activity_type int NOT NULL,
-	CONSTRAINT FK_definition_activity_log_definition_uid FOREIGN KEY (definition_uid)
+	CONSTRAINT FK_definition_log_definition_uid FOREIGN KEY (definition_uid)
 	REFERENCES definition(definition_uid),
-	CONSTRAINT FK_definition_activity_log_accessed_by FOREIGN KEY (accessed_by)
+	CONSTRAINT FK_definition]_log_activity_by FOREIGN KEY (activity_by)
 	REFERENCES [user](user_id),
-        PRIMARY KEY(definition_uid,accessed_by,date_accessed)
+        PRIMARY KEY(definition_uid,activity_by,activity_date)
 	) 
 
 -- CREATE TABLE [dbo].[definition_edit_log](

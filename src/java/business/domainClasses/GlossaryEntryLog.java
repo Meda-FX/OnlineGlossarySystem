@@ -3,11 +3,11 @@ package business.domainClasses;
 import java.util.Date;
 
 /**
- * GlossaryRequest class constructs the glossary request object it allowed mutation and accessing of the attributes of the glossary request.
+ * GlossaryEntryLog class constructs the glossary request object it allowed mutation and accessing of the attributes of the glossary request.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 1.0 
  */
-public class GlossaryRequest {
+public class GlossaryEntryLog {
     private String glossaryEntryTerm;
     private Definition definition;
     private Integer requestType;
@@ -24,7 +24,7 @@ public class GlossaryRequest {
      * @param requestedBy requestBy the glossary request 
      * @param dateCreated dateCreated the date in which the glossary is created
      */
-    public GlossaryRequest(String glossaryEntryTerm, Definition definition, Integer requestType, Integer requestID, User requestedBy, Date dateCreated) {
+    public GlossaryEntryLog(String glossaryEntryTerm, Definition definition, Integer requestType, Integer requestID, User requestedBy, Date dateCreated) {
         this.glossaryEntryTerm = glossaryEntryTerm;
         this.definition = definition;
         this.requestType = requestType;

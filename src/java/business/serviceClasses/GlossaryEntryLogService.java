@@ -1,22 +1,22 @@
 package business.serviceClasses;
 
-import business.domainClasses.GlossaryRequest;
+import business.domainClasses.GlossaryEntryLog;
 import java.util.ArrayList;
 import java.util.List;
 import persistence.brokers.GlossaryEntryBroker;
 
 /**
- * GlossaryRequestService class uses to access data from the database by utilizing the GlossaryEntryBroker.
+ * GlossaryEntryLogService class uses to access data from the database by utilizing the GlossaryEntryBroker.
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1.1 
  */
-public class GlossaryRequestService {
+public class GlossaryEntryLogService {
     private GlossaryEntryBroker requestDB;
 
     /**
      * Constructs a glossary request object 
      */
-    public GlossaryRequestService() {
+    public GlossaryEntryLogService() {
         this.requestDB = new GlossaryEntryBroker();
     }
     
@@ -27,7 +27,7 @@ public class GlossaryRequestService {
      * @param id id the id that is passed to find a specific glossary request
      * @return returns a glossary request object if the request exists and null if it does not
      */
-    public GlossaryRequest get(int id) {
+    public GlossaryEntryLog get(int id) {
         return null;
     }
     
@@ -35,8 +35,8 @@ public class GlossaryRequestService {
      * Method that returns all list of glossary request objects
      * @return returns a list of all glossary requests made by the users
      */
-    public List<GlossaryRequest> getAll() {
-        return new ArrayList<GlossaryRequest>();
+    public List<GlossaryEntryLog> getAll() {
+        return new ArrayList<GlossaryEntryLog>();
     }
     
     /**
@@ -55,7 +55,7 @@ public class GlossaryRequestService {
      * @param glossaryRequest glossaryRequest the glossary request object used to insert in  to
      * @return returns 1 if the insertion is successful and 0 if the insertion is not a success
      */
-    public int insert(GlossaryRequest glossaryRequest) {
+    public int insert(GlossaryEntryLog glossaryRequest) {
         return 1;
     }
     
@@ -66,7 +66,7 @@ public class GlossaryRequestService {
      * @return returns 1 and 0 depending the condition. If the return is 1 the update is a success
      * and if the return is 0 the update is unsuccessful. 
      */
-     public int update(GlossaryRequest glossaryRequest) {
+     public int update(GlossaryEntryLog glossaryRequest) {
         return 1;
     }    
 }

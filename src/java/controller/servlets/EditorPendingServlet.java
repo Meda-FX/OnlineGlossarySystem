@@ -11,7 +11,7 @@ import business.domainClasses.User;
 import business.serviceClasses.CourseService;
 import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
-import business.serviceClasses.GlossaryRequestService;
+import business.serviceClasses.GlossaryEntryLogService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class EditorPendingServlet extends HttpServlet {
         DefinitionService ds = new DefinitionService();
         CourseService cs = new CourseService();
         //useless, there no table in the database
-        GlossaryRequestService grs = new GlossaryRequestService();
+        //GlossaryEntryLogService grs = new GlossaryEntryLogService();
         ArrayList<Definition> deflist = new ArrayList<>();
 
         request.setAttribute("definitionlist", deflist);
