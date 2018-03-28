@@ -1,19 +1,10 @@
 package persistence.brokers;
 
-import business.domainClasses.Course;
-import business.domainClasses.CourseList;
-import business.domainClasses.Definition;
-import business.domainClasses.DefinitionList;
 import business.domainClasses.Department;
-import business.domainClasses.GlossaryEntry;
-import business.domainClasses.Privilege;
-import business.domainClasses.PrivilegeList;
-import business.domainClasses.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

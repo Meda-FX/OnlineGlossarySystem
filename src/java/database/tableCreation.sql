@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[account_log](
 --new account: 1
 --forget password: 2
 CREATE TABLE [dbo].[account_request](
-	request_id Int NOT NULL,
+	request_id varchar(256) NOT NULL,
 	request_date datetime NOT NULL,
 	salt varchar (256) NOT NULL,
  	request_by Varchar(20) NOT NULL,

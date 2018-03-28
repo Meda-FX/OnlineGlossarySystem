@@ -32,9 +32,9 @@ public class AccountRequestBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
-        String selectSQL = "SELECT *"
-                            + "FROM [GlossaryDataBase].[dbo].[account_request]"
-                            + "WHERE [GlossaryDataBase].[dbo].[account_request].request_id = ?";
+        String selectSQL = "SELECT * "
+                            + "FROM [GlossaryDataBase].[dbo].[account_request] "
+                            + "WHERE [GlossaryDataBase].[dbo].[account_request].request_id = ? ";
         PreparedStatement ps = null;
         ResultSet rs = null;
         
@@ -83,7 +83,7 @@ public class AccountRequestBroker extends Broker {
         Connection connection = pool.getConnection();
         
         AccountRequest accountRequest = (AccountRequest)object;
-        String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_request]"
+        String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_request] "
                             + "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
         
@@ -120,7 +120,7 @@ public class AccountRequestBroker extends Broker {
         Connection connection = pool.getConnection();
         
         AccountRequest accountRequest = (AccountRequest)object;
-        String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request]"
+        String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request] "
                             + "WHERE request_id = ?";
         PreparedStatement ps = null;
         
@@ -152,11 +152,11 @@ public class AccountRequestBroker extends Broker {
         Connection connection = pool.getConnection();
         
         AccountRequest accountRequest = (AccountRequest)object;
-        String updateSQL = "UPDATE [GlossaryDataBase].[dbo].[account_request]"
-                            + "SET request_date = ?,"
-                            + "SET salt = ?,"
-                            + "SET request_by = ?,"
-                            + "SET request_type = ?,"
+        String updateSQL = "UPDATE [GlossaryDataBase].[dbo].[account_request] "
+                            + "SET request_date = ?, "
+                            + "SET salt = ?, "
+                            + "SET request_by = ?, "
+                            + "SET request_type = ?, "
                             + "WHERE request_id = ?";
         PreparedStatement ps = null;
         
@@ -193,7 +193,7 @@ public class AccountRequestBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
-        String selectSQL = "SELECT *"
+        String selectSQL = "SELECT * "
                             + "FROM [GlossaryDataBase].[dbo].[account_request]";
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -244,10 +244,10 @@ public class AccountRequestBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
-        String selectSQL = "SELECT *"
-                + "FROM [GlossaryDataBase].[dbo].[account_request]"
-                + "WHERE [GlossaryDataBase].[dbo].[account_request].[request_type] = ?"
-                + "AND DATEDIFF(hour, [GlossaryDataBase].[dbo].[account_request].[request_date], GETDATE()) < 24";
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[account_request] "
+                + "WHERE [GlossaryDataBase].[dbo].[account_request].request_type = ? "
+                + "AND DATEDIFF(hour, [GlossaryDataBase].[dbo].[account_request].request_date, GETDATE()) < 24";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -268,7 +268,7 @@ public class AccountRequestBroker extends Broker {
                 requestDate = new java.util.Date(rs.getTimestamp("request_date").getTime());
                 salt = rs.getString("salt");
                 requestBy = rs.getString("request_by");
-
+                accountRequest = new AccountRequest();
                 accountRequest.setRequestDate(requestDate);
                 accountRequest.setRequestID(requestID);
                 accountRequest.setRequestType(requestType);
@@ -296,8 +296,8 @@ public class AccountRequestBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
-        String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request]"
-                            + "WHERE request_by = ?"
+        String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request] "
+                            + "WHERE request_by = ? "
                             + "AND request_type = 2";
         PreparedStatement ps = null;
         

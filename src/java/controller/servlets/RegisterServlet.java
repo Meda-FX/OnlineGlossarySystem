@@ -5,13 +5,16 @@
  */
 package controller.servlets;
 
+import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
+import business.serviceClasses.DepartmentService;
 import business.serviceClasses.UserService;
 import utility.WebMailUtil;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +30,12 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         
         String url = "/WEB-INF/register.jsp";
+        DepartmentService ds = new DepartmentService();
+        List<Department> departments = ds.getAll();
+        request.setAttribute("departments", departments);
+        
         //ajax to check the field
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -43,10 +49,15 @@ public class RegisterServlet extends HttpServlet {
         String student_id = request.getParameter("studentId"); 
         String password = request.getParameter("pass");
         String password_confirm =request.getParameter("confirmPass"); 
-        //Boolean confirm_regis=false; //false means not registered
+        int departmentID = Integer.parseInt(request.getParameter("department"));
         UserService us = new UserService();
         AccountRequestService ars = new AccountRequestService();
         String url = "/WEB-INF/register.jsp";
+        
+        //for dropdown menu
+        DepartmentService ds = new DepartmentService();
+        List<Department> departments = ds.getAll();
+        request.setAttribute("departments", departments);
         
         if(fname==null || fname.equals("") || 
                 lname==null || lname.equals("") ||
@@ -87,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if (!student_id.matches("\\d{9}")) {
-            request.setAttribute("message", "Please enter valid 9 digit student ID");
+            request.setAttribute("message", "Please enter valid 9-digit student ID");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);
@@ -96,7 +107,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if ((us.get(student_id)!=null) || (us.getByEmail(email)!=null)) {
-            request.setAttribute("message", "Account already exist.");
+            request.setAttribute("message", "Account already exist");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);
@@ -111,11 +122,12 @@ public class RegisterServlet extends HttpServlet {
         newUser.setPassword(password);
         newUser.setIsActivated(false);
         newUser.getPrivileges().add(new Privilege(1));
-        
+        newUser.setDepartment(new Department(departmentID));
         
         try {
-            String token = ars.insert(newUser, 1);
             us.insert(newUser);
+            String token = ars.insert(newUser, 1);
+            
             
             HashMap<String, String> contents = new HashMap<>();
             StringBuffer emailURL = request.getRequestURL();
@@ -125,7 +137,7 @@ public class RegisterServlet extends HttpServlet {
             contents.put("link", base + "/login?id=" + token);
             
             WebMailUtil.sendMail(email, "Online Glossary System New Registration", 
-                    getServletContext().getRealPath("/WEB-INF") + "/emailstemplates/newregistration.html", contents);
+                    getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
             
             //display message about checking the email
             request.setAttribute("message", "Please check your email for account activation");

@@ -12,6 +12,10 @@ public class Department {
     public Department() {
     }
     
+    public Department(int departmentID) {
+        this.departmentID = departmentID;
+    }
+    
     /**
      * Constructs the department of the users 
      * @param departmentID departmentID the department id of the school departments

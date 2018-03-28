@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
                     UserService us = new UserService();
                     us.update(user);
                     ars.removeOldPasswordRequest(user);
-                    request.setAttribute("loginMessage", "Account activated, please log in again");
+                    request.setAttribute("loginMessage", "Account activated, now you can log in");
                 } else {
                     request.setAttribute("loginMessage", "Unable to activate account. Plese contact your department office.");
                 }
