@@ -30,7 +30,6 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         
         String url = "/WEB-INF/register.jsp";
         DepartmentService ds = new DepartmentService();
@@ -51,10 +50,14 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("pass");
         String password_confirm =request.getParameter("confirmPass"); 
         int departmentID = Integer.parseInt(request.getParameter("department"));
-        //Boolean confirm_regis=false; //false means not registered
         UserService us = new UserService();
         AccountRequestService ars = new AccountRequestService();
         String url = "/WEB-INF/register.jsp";
+        
+        //for dropdown menu
+        DepartmentService ds = new DepartmentService();
+        List<Department> departments = ds.getAll();
+        request.setAttribute("departments", departments);
         
         if(fname==null || fname.equals("") || 
                 lname==null || lname.equals("") ||
