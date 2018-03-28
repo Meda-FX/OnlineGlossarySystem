@@ -12,6 +12,8 @@ import business.serviceClasses.CourseService;
 import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
 import business.serviceClasses.GlossaryEntryLogService;
+import business.serviceClasses.UserService;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,50 +34,122 @@ public class EditorPendingServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         String url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-
+        DefinitionService ds = new DefinitionService();
         String action = request.getParameter("action");
         //for the buttons in different pages
-        int dId = Integer.parseInt(request.getParameter("definitionId"));
+
         //only these fields need to update.
         String contents = request.getParameter("definition");
         String ciation = request.getParameter("citation");
         String dicDef = request.getParameter("defDefinition");
         String dicCitation = request.getParameter("dicCitation");
+        String definitionId = request.getParameter("defId");
+        int defId;
+        //Integer.parseInt(request.getParameter("defId"));
         String status; //status of the term
+        Definition definition = new Definition();
+        try {
+            defId = Integer.parseInt(definitionId);
+            definition.setDefinitionID(defId);
 
-        if (action != null && action.equals("delete")) {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-            status = "Inactive";
-        }
-        if (action != null && action.equals("SavePending")) {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-            status = "Under Review";
-        }
-        if (action != null && action.equals("SavePublish")) {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-            status = "Published";
-        }
-        if (action != null && action.equals("EditDefinition")) {
-            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
-            //get from the page or database.
+            if (action != null && action.equals("Delete Term")) {
+                url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+                status = "Inactive";
+                ds.delete(definition);
+            }
+
+            if (action != null && action.equals("Save Term")) {
+                definition.setContent(contents);
+                definition.setCitation(ciation);
+                definition.setDictionaryContent(dicDef);
+                definition.setDictionaryCitation(dicCitation);
+                url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+                status = "Under Review";
+                definition.setStatus(status);
+                ds.update(definition);
+            }
+            if (action != null && action.equals("Submit Term")) {
+                definition.setContent(contents);
+                definition.setCitation(ciation);
+                definition.setDictionaryContent(dicDef);
+                definition.setDictionaryCitation(dicCitation);
+                url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+                status = "Published";
+                definition.setStatus(status);
+                ds.update(definition);
+            }
+
+        } catch (Exception e) {
+            request.setAttribute("message", "cannot be empty");
         }
 
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        doGet(request, response);
 
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+             String url = "/WEB-INF/_editor/editor_pending_terms.jsp";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        GlossaryEntryService ges = new GlossaryEntryService();
         DefinitionService ds = new DefinitionService();
         CourseService cs = new CourseService();
+        UserService us = new UserService();
         //useless, there no table in the database
         //GlossaryEntryLogService grs = new GlossaryEntryLogService();
+        ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
+        ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = new ArrayList<>();
 
-        request.setAttribute("definitionlist", deflist);
+        ArrayList<Definition> definitionlist = new ArrayList<>();
+        String action = request.getParameter("action");
+        String defId = request.getParameter("defId");
+        String txtSearch = request.getParameter("txtSearch");
+        Definition def = new Definition();
+
+        if (txtSearch != null && !txtSearch.equals("")) {
+            request.setAttribute("txtSearch", txtSearch);
+            String courseCode = request.getParameter("courseCode") + "";
+            String userId = request.getParameter("userId") + "";
+            deflist = (ArrayList<Definition>) ds.getByDepartmentFilterByTCU(user.getDepartment(), txtSearch, courseCode, userId);
+
+        } else {
+            deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
+        }
+        if (deflist.isEmpty()) {
+            request.setAttribute("message", "There are no terms!");
+        } else {
+            for (Definition d : deflist) {
+                if (d.getStatus().equals("Under Review")) {
+                    definitionlist.add(d);
+                }
+                if (defId != null && !defId.equals("") && defId.equals(d.getDefinitionID() + "")) {
+                    def = d;
+                }
+            }
+        }
+        if (action != null && action.equals("edit")) {
+            url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+            if (ajax) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                Gson gson = new Gson();
+
+                String str = gson.toJson(def);
+
+                response.getWriter().write(str);
+                return;
+            }
+            // request.setAttribute("selectedTerm", def);
+
+        }
+
+        request.setAttribute("definitionlist", definitionlist);
+        request.setAttribute("courselist", courlist);
+        request.setAttribute("userlist", userlist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

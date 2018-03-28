@@ -18,7 +18,7 @@ public class CourseService {
     }
     
     public Course get(String courseCode) {
-        return courseDB.getByID(courseCode);
+        return courseDB.getByCourseCode(courseCode);
     }
 
     public List<Course> getByDepartment(Department department) {

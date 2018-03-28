@@ -40,10 +40,11 @@ public class InstructorServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         GlossaryEntryService ges = new GlossaryEntryService();
-
+        
         User user = (User) session.getAttribute("user");
         List<GlossaryEntry> termList = ges.getByUser(user.getID());
-
+        request.setAttribute("termList", termList);
+        
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -51,13 +52,13 @@ public class InstructorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String action = request.getParameter("action");
+        String action = request.getParameter("submitButton");
         String term = request.getParameter("term");
         String definition = request.getParameter("definition");
         String citation = request.getParameter("citation");
         String defDict = request.getParameter("defDefinition");
-        String defCita = request.getParameter("defCita");
-        String course = request.getParameter("course");
+        String defCita = request.getParameter("defCitation");
+        String course = request.getParameter("courseCode");
         String errorMessage = "The following fields are blank / invalid";
         String url = "/WEB-INF/_instructor/instructor.jsp";
         Timestamp date = new Timestamp(new Date().getTime());
@@ -101,14 +102,14 @@ public class InstructorServlet extends HttpServlet {
                 errorMessage = "Error something went wrong with the glossary entry!";
             }
         }
-        if (action.compareTo("newTerm") == 1) {
+        if (action.equals("Submit Term") == true) {
             // checking to see if any of the required terms are null
             if (term != null && definition != null && defDict != null
                     && defCita != null && course != null) {
                 request.setAttribute("message", errorMessage);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
             }
-            newEntry.setStatus("pending review");
+            newEntry.setStatus("Under Review");
             //Remove all of the something went wrongs!!!!
             if (ds.insert(newEntry) == 1) {
                 errorMessage = "Your term is now pending review!";
@@ -117,13 +118,14 @@ public class InstructorServlet extends HttpServlet {
             }
             request.setAttribute("message", errorMessage);
 
-        } else if (action.compareTo("save") == 1) {
-            newEntry.setStatus("In progress");
+        } else if (action.equals("Save Term") == true) {
+            newEntry.setStatus("In Progress");
             if (ds.insert(newEntry) == 1) {
-                errorMessage = "Your term is now pending review!";
-            } 
+                errorMessage = "Your term is now saved!";
+            }
         }
-
+        request.setAttribute("message", errorMessage);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     public boolean checkGlossaryEntry(Definition definition) {
