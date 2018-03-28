@@ -31,8 +31,51 @@ public class CourseBroker extends Broker {
      * @param courseID represents the ID for a certain course.
      * @return a Course object representing a course from the database.
      */
-    public Course getByID(String courseID) {
-        return null;
+    public Course getByCourseCode(String courseCode) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[course] "
+                + "WHERE [GlossaryDataBase].[dbo].[course].course_code=?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        
+
+        //for course list
+        int department;
+        String courseName = null;
+        String year = null;
+        DepartmentBroker ds = new DepartmentBroker();
+        Course course = null;
+        
+
+        try {
+            
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, "CMPS-307-A");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                
+                courseName = rs.getString("course_code");
+                department = rs.getInt("department_id");
+                course = new Course(courseCode, courseName, ds.getByID(department));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return course;
+
     }
 
     /**
@@ -68,7 +111,7 @@ public class CourseBroker extends Broker {
                 //COURSE
                 courseCode = rs.getString("course_code");
                 courseName = rs.getString("course_name");
-                
+
                 courseList.add(new Course(courseCode, courseName, department));
 
             }
