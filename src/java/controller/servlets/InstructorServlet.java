@@ -51,7 +51,7 @@ public class InstructorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String action = request.getParameter("newTerm");
+        String action = request.getParameter("action");
         String term = request.getParameter("term");
         String definition = request.getParameter("definition");
         String citation = request.getParameter("citation");
@@ -91,6 +91,16 @@ public class InstructorServlet extends HttpServlet {
         newEntry.setTerm(term);
         newEntry.setWrittenBy((User) session.getAttribute("user"));
 
+        //This is checking to see if the term already exists on the 
+        //GlossaryEntry table. If it doesn't already exit the program will
+        //Create the entry
+        if (checkGlossaryEntry(newEntry) == false) {
+            GlossaryEntryBroker ges = new GlossaryEntryBroker();
+            GlossaryEntry newGlossaryEntry = new GlossaryEntry(date, term, user);
+            if (ges.insert(newGlossaryEntry) == 0) {
+                errorMessage = "Error something went wrong with the glossary entry!";
+            }
+        }
         if (action.compareTo("newTerm") == 1) {
             // checking to see if any of the required terms are null
             if (term != null && definition != null && defDict != null
@@ -99,25 +109,19 @@ public class InstructorServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher(url).forward(request, response);
             }
             newEntry.setStatus("pending review");
-            //This is checking to see if the term already exists on the 
-            //GlossaryEntry table. If it doesn't already exit the program will
-            //Create the entry
-            if (checkGlossaryEntry(newEntry) == false) {
-                GlossaryEntryBroker ges = new GlossaryEntryBroker();
-                GlossaryEntry newGlossaryEntry = new GlossaryEntry(date, term, user);
-                if (ges.insert(newGlossaryEntry) == 0) 
-                    errorMessage = "Error something went wrong with the glossary entry!";
-            } 
             //Remove all of the something went wrongs!!!!
-            if(ds.insert(newEntry) == 1){
+            if (ds.insert(newEntry) == 1) {
                 errorMessage = "Your term is now pending review!";
-            }else {
+            } else {
                 errorMessage = "Something went wrong with the term Entry";
             }
-            request.setAttribute("message",errorMessage);
-            
+            request.setAttribute("message", errorMessage);
+
         } else if (action.compareTo("save") == 1) {
             newEntry.setStatus("In progress");
+            if (ds.insert(newEntry) == 1) {
+                errorMessage = "Your term is now pending review!";
+            } 
         }
 
     }
