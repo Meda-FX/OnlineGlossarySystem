@@ -12,30 +12,43 @@
             <th>Email</th>            
             <th>Course Name</th>
             <th>Privilege</th>
-            <c:if test="${user.getPrivileges().contains(3) == true}">
-            <th>Privilege</th>
-            </c:if>
+            
         </tr>
         <tr>
             <td><c:out value="${user.getID()}"/></td>
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.name}"/></td>
+            <td>
              <c:if test="${user.getPrivileges().contains(1) == true}">
-               <td>Administrator</td>
-            </c:if>
+               Administrator
+            </c:if>                
             <c:if test="${user.getPrivileges().contains(2) == true}">
-               <td>Student</td>
+              Student
             </c:if>
             <c:if test="${user.getPrivileges().contains(3) == true}">
-                <td>Editor</td>
+                Editor
             </c:if>
             <c:if test="${user.getPrivileges().contains(4) == true}">
-                <td>Instructor</td>
+                Instructor
             </c:if>            
+                </td>
         </tr>
         </c:if>
     </table> <!--Table ends here-->
+    <br>
+    <h3>Select Department</h3>
+     ${user.department.name};
+    
+    <h3>Select Course</h3>
+    <c:forEach items="${courseList}" var="course">
+        <div class="checkbox">
+        <label><input type="checkbox" <c:out value="${course.courseCode}"/>>${course.courseCode}</label>
+        </div>
+    </c:forEach>
+        
+      
+    
 
 </div> <!-- list items  -->
 

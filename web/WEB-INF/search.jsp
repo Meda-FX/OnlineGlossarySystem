@@ -76,13 +76,6 @@
                     <li><a href="#">Manufacturing</a></li>
                     <li><a href="#">Media and Communications</a></li>
                     <li><a href="#">Transportation</a></li>
-                    
-                    <!--
-                    <c:forEach var="school" items="${user}"> 
-                        <li><a href="#">${school.course_name}</a></li>
-                        </c:forEach>
-                    -->
-
                 </ul>
             </div>
         </c:if>
@@ -115,17 +108,17 @@
                         <li><a href="#">Instructor Two</a></li>
                         <li><a href="#">Instructor Three</a></li>
                 </div><!--Filter by course ends here-->
-            </div>
-        </c:if>
+            </div>        
+        
     </div> 
 </div> <!--Search filter ends here-->
-
+</c:if>
+<br><br>
 <div class="container list-terms">
     <div>
         <h4>Term List</h4>
         <hr class="line">
     </div>
-
     <!-- Term definitions starts here -->
     <c:if test="${noSuchEntry != true}">
         <c:forEach var="term" items="${termlist}"> 
@@ -145,15 +138,21 @@
                         </c:if>
 
                         <c:if test="${user.getPrivileges().contains(3) != true}">
-                            <div class="col-xs-12 col-md-9">
+                        <div class="col-xs-12 col-md-9">
                         </c:if>
                             <h4>Term Definition</h4>
-                            <p>${definition.content}</p>  
-                            <p>${definition.dictionaryCitation}</p>
-                            <p>${definition.dictionaryContent}</p>
-                            <p>${definition.dateLastModified}</p>
-                            <span><a href="#">Read</a></span>
-
+                            <div> 
+                                ${definition.content} <a class="readMore hide" href="#"> Read More </a>
+                                <span class="readMoreContent">
+                                    <div><h5>Citation</h5></div>
+                                    <div>${definition.citation}</div>
+                                    <div><h5>Dictionary Definition</h5></div>
+                                    <div>${definition.dictionaryContent}</div>
+                                    <div><h5>Citation</h5></div>
+                                    <div>${definition.dictionaryCitation}</div> 
+                                    <div><a class="readLess hide" href="#">Read Less</a></div>                                    
+                                </span>
+                            </div>
                         </div><!--Right side of the search ends here-->  
                     </div><!-- Term definitions end here -->
                     <hr class="line">
@@ -169,8 +168,8 @@
             <p class="message">The term does not exist.</p>   
         </c:if>
 
-        <br>
-        <!--<hr class="line">-->
+            <br>
+                </div>
     </div> <!-- list items  -->
 
     <%@ include file="includes/footer.jsp" %>
