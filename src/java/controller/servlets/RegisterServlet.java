@@ -98,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if (!student_id.matches("\\d{9}")) {
-            request.setAttribute("message", "Please enter valid 9 digit student ID");
+            request.setAttribute("message", "Please enter valid 9-digit student ID");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);
@@ -107,7 +107,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if ((us.get(student_id)!=null) || (us.getByEmail(email)!=null)) {
-            request.setAttribute("message", "Account already exist.");
+            request.setAttribute("message", "Account already exist");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);
