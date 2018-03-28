@@ -606,9 +606,9 @@ public class DefinitionBroker extends Broker {
 
         Definition definition = (Definition) object;
         String sql = "INSERT INTO [GlossaryDataBase].[dbo].[definition] "
-                + "(definition_uid, glossary_entry, definition, dictionary_definition,"
-                + "date_created, citation, dictionary_citation, made_by,course_code,status) "
-                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+                + "(glossary_entry,definition, dictionary_definition, date_created,"
+                + "citation, status,dictionary_citation,made_by, course_code) "
+                + "VALUES (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = null;
 
@@ -616,16 +616,16 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, definition.getDefinitionID());
-            ps.setString(2, definition.getTerm());
-            ps.setString(3, definition.getContent());
-            ps.setString(4, definition.getDictionaryContent());
-            ps.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
-            ps.setString(6, definition.getCitation());
+            ps.setString(1, definition.getTerm());
+            ps.setString(2, definition.getContent());
+            ps.setString(3, definition.getDictionaryContent());
+            ps.setDate(4, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setString(5, definition.getCitation());
+            ps.setString(6, definition.getStatus());
             ps.setString(7, definition.getDictionaryCitation());
             ps.setString(8, definition.getWrittenBy().getID());
             ps.setString(9, definition.getCourse().getCourseCode());
-            ps.setString(10, definition.getStatus());
+            
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log

@@ -74,7 +74,7 @@ public class GlossaryEntryBroker extends Broker {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, ge.getTerm());
             ps.setTimestamp(2, new Timestamp(ge.getDateCreated().getTime()));
-            ps.setString(3, ge.getCreatedBy().getName());
+            ps.setString(3, ge.getCreatedBy().getID());
             int result = ps.executeUpdate();
             if (result > 0) {
                 return 1;
