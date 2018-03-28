@@ -114,8 +114,9 @@ public class RegisterServlet extends HttpServlet {
         
         
         try {
-            String token = ars.insert(newUser, 1);
             us.insert(newUser);
+            String token = ars.insert(newUser, 1);
+            
             
             HashMap<String, String> contents = new HashMap<>();
             StringBuffer emailURL = request.getRequestURL();
@@ -125,7 +126,7 @@ public class RegisterServlet extends HttpServlet {
             contents.put("link", base + "/login?id=" + token);
             
             WebMailUtil.sendMail(email, "Online Glossary System New Registration", 
-                    getServletContext().getRealPath("/WEB-INF") + "/emailstemplates/newregistration.html", contents);
+                    getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
             
             //display message about checking the email
             request.setAttribute("message", "Please check your email for account activation");

@@ -82,7 +82,9 @@ public class AccountRequestService {
         accountRequest.setRequestDate(new Date());
 
         removeOldPasswordRequest(requestUser);
-        requestDB.insert(accountRequest);
+        if (requestDB.insert(accountRequest) ==0)
+            throw new Exception("fail to insert request");
+        
         return token;
     }
 

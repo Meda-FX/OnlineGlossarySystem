@@ -112,7 +112,10 @@ public class UserBroker extends Broker {
                 user.setDepartment(department);
                 user.setIsActivated(activated);
             }
-
+            
+            if (user.getID()==null)
+                return null;
+            
             PrivilegeList privileges = user.getPrivileges();
             String privilegeDescription = null;
 
@@ -468,7 +471,146 @@ public class UserBroker extends Broker {
      * @return a User object with a specified users ID.
      */
     public User getByID(String ID) {
-        return null;
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        String sql_user = "SELECT email,"
+                + "password,"
+                + "[GlossaryDataBase].[dbo].[user].department_id,"
+                + "[GlossaryDataBase].[dbo].[user].name,"
+                + "activated,"
+                + "[GlossaryDataBase].[dbo].[department].name "
+                + "FROM [GlossaryDataBase].[dbo].[user] "
+                + "JOIN [GlossaryDataBase].[dbo].[department] "
+                + "ON ([GlossaryDataBase].[dbo].[user].department_id = [GlossaryDataBase].[dbo].[department].department_id) "
+                + "WHERE user_id =?";
+
+        String sql_priv = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user_role] "
+                + "JOIN [GlossaryDataBase].[dbo].[role] "
+                + "ON([GlossaryDataBase].[dbo].[user_role].privilege_id = [GlossaryDataBase].[dbo].[role].privilege_id) "
+                + "WHERE user_id =?";
+
+        String sql_course = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[user_course] "
+                + "JOIN [GlossaryDataBase].[dbo].[course] "
+                + "ON ([GlossaryDataBase].[dbo].[user_course].course_code = [GlossaryDataBase].[dbo].[course].course_code) "
+                + "JOIN [GlossaryDataBase].[dbo].[department] "
+                + "ON ([GlossaryDataBase].[dbo].[course].department_id = [GlossaryDataBase].[dbo].[department].department_id) "
+                + "WHERE user_id = ?";
+        User user = null;
+        Department department = null;
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        PreparedStatement ps2 = null;
+        ResultSet rs2 = null;
+
+        PreparedStatement ps3 = null;
+        ResultSet rs3 = null;
+
+        String email = null;
+        String password = null;
+        int department_id;
+        String userName = null;
+        boolean activated;
+        String deptName = null;
+        int privID;
+        String description;
+        String courseCode = null;
+        String courseName = null;
+        String year = null;
+
+        try {
+            ps = connection.prepareStatement(sql_user);
+            ps.setString(1, ID);
+            rs = ps.executeQuery();
+            user = new User();
+            while (rs.next()) {
+
+                department = new Department();
+                email = rs.getString(1);
+                password = rs.getString(2);
+                department_id = rs.getInt(3);
+                userName = rs.getString(4);
+                activated = rs.getBoolean(5);
+                deptName = rs.getString(6);
+
+                department.setDepartmentID(department_id);
+                department.setName(deptName);
+
+                user.setEmail(email);
+                user.setID(ID);
+                user.setName(userName);
+                user.setPassword(password);
+                user.setDepartment(department);
+                user.setIsActivated(activated);
+            }
+            
+            if (user.getID()==null)
+                return null;
+            
+            PrivilegeList privileges = user.getPrivileges();
+            String privilegeDescription = null;
+
+            ps2 = connection.prepareStatement(sql_priv);
+            ps2.setString(1, ID);
+            rs2 = ps2.executeQuery();
+
+            while (rs2.next()) {
+                privID = rs2.getInt("privilege_id");
+                privilegeDescription = rs2.getString("description");
+                privileges.add(new Privilege(privID, privilegeDescription));
+            }
+
+            CourseList courses = user.getCourses();
+            int courseDepartmentID;
+            String courseDepartmentName;
+            Department courseDepartment;
+
+            ps3 = connection.prepareStatement(sql_course);
+            ps3.setString(1, ID);
+            rs3 = ps3.executeQuery();
+
+            while (rs3.next()) {
+                courseCode = rs3.getString("course_code");
+                courseName = rs3.getString("course_name");
+                courseDepartmentID = rs3.getInt("department_id");
+                courseDepartmentName = rs3.getString("name");
+                courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
+                courses.add(new Course(courseCode, courseName, courseDepartment));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+
+                if (rs3 != null) {
+                    rs3.close();
+                }
+                if (ps3 != null) {
+                    ps3.close();
+                }
+
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        return user;
     }
 
     @Override
@@ -481,19 +623,15 @@ public class UserBroker extends Broker {
                 + " (user_id, password, department_id, name, email, activated)"
                 + " VALUES (?,?,?,?,?,?);";
         PreparedStatement ps = null;
-        ResultSet rs = null;
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            rs = ps.executeQuery();
-
-            ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
             ps.setString(2, user.getPassword());
-            ps.setInt(3, '1');
+            ps.setInt(3, user.getDepartment().getDepartmentID());
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
-            ps.setInt(6, '1');
+            ps.setInt(6, user.getIsActivated()? 1:0);
             ps.executeQuery();
 
         } catch (SQLException ex) {
