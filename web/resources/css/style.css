@@ -161,7 +161,7 @@ text-align: center;
     padding: 15px;
     margin: 0 auto;
     background-color: #303138;
-    color: #ffffff;
+    /*color: #ffffff;*/
     height: 100%;
     margin-top: 80px;
 }
@@ -221,6 +221,7 @@ text-align: center;
 .hide {
     display: none;
 }
+
 
 
 

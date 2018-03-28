@@ -10,10 +10,6 @@ import business.domainClasses.Department;
 import java.util.List;
 import persistence.brokers.CourseBroker;
 
-/**
- *
- * @author 727153
- */
 public class CourseService {
     private CourseBroker courseDB;
     
@@ -28,6 +24,4 @@ public class CourseService {
     public List<Course> getByDepartment(Department department) {
         return courseDB.getByDepartmentID(department);
     }
-
-
 }
