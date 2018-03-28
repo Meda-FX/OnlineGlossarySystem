@@ -5,13 +5,16 @@
  */
 package controller.servlets;
 
+import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
+import business.serviceClasses.DepartmentService;
 import business.serviceClasses.UserService;
 import utility.WebMailUtil;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +33,10 @@ public class RegisterServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         String url = "/WEB-INF/register.jsp";
+        DepartmentService ds = new DepartmentService();
+        List<Department> departments = ds.getAll();
+        request.setAttribute("departments", departments);
+        
         //ajax to check the field
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -43,6 +50,7 @@ public class RegisterServlet extends HttpServlet {
         String student_id = request.getParameter("studentId"); 
         String password = request.getParameter("pass");
         String password_confirm =request.getParameter("confirmPass"); 
+        int departmentID = Integer.parseInt(request.getParameter("department"));
         //Boolean confirm_regis=false; //false means not registered
         UserService us = new UserService();
         AccountRequestService ars = new AccountRequestService();
@@ -111,7 +119,7 @@ public class RegisterServlet extends HttpServlet {
         newUser.setPassword(password);
         newUser.setIsActivated(false);
         newUser.getPrivileges().add(new Privilege(1));
-        
+        newUser.setDepartment(new Department(departmentID));
         
         try {
             us.insert(newUser);

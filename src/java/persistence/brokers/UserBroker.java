@@ -751,17 +751,17 @@ public class UserBroker extends Broker {
         //ResultSet rs2 = null;
 
         try {
-            ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, user.getID());
-            ps.executeUpdate();
+//            ps = connection.prepareStatement(selectSQL);
+//            ps.setString(1, user.getID());
+//            ps.executeUpdate();
 
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
             ps2.setString(2, user.getPassword());
-            ps2.setInt(3, '1');
+            ps2.setInt(3, user.getDepartment().getDepartmentID());
             ps2.setString(4, user.getName());
             ps2.setString(5, user.getEmail());
-            ps2.setInt(6, '1');
+            ps2.setInt(6, user.getIsActivated()?1:0);
             ps2.setString(7, user.getID());
             ps2.executeUpdate();
 
@@ -770,8 +770,8 @@ public class UserBroker extends Broker {
             return 0;
         } finally {
             try {
-                //rs.close();
-                ps.close();
+//                rs.close();
+//                ps.close();
                 ps2.close();
             } catch (SQLException ex) {
             }

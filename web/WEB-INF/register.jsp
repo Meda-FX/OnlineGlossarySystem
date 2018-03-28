@@ -35,6 +35,13 @@
                         <div class="form-group">
                             <input type="password" name="studentId" class="form-control" id="studentid" placeholder="Student ID">
                         </div>
+                        <div class="form-group">
+                            <select name="department">
+                                <c:forEach var="school" items="${departments}">
+                                    <option value="${school.departmentID}"><c:out value="${school.name}"></c:out></option>
+                                </c:forEach>
+                            </select>
+                        </div>
                         <div class="message">
                             <c:if test="${not empty message}">
                                 <c:out value="${message}"></c:out>
