@@ -12,15 +12,30 @@ $(document).ready(function(){
         event.preventDefault();
     });
     
-   $("#crud").hide();
- 
- $(".hideFormTerm").click(function(){
-        $("#crud").hide(1000);
+    //CRUD hide and show script
+    $("#crud").hide(); 
+    $(".hideFormTerm").click(function(){
+           $("#crud").hide(1000);
+       }); 
+    $(".addTerms").click(function(){
+           $("#crud").show(1000);
+       });
+  
+    //Read More and Read Less script
+     $('.readMoreContent').addClass('hide');
+     $('.readMore, .readLess').removeClass('hide');
+
+     $('.readMore').on('click', function(e) {
+       $(this).next('.readMoreContent').removeClass('hide');
+       $(this).addClass('hide');
+       e.preventDefault();
+     });
+
+    $('.readLess').on('click', function(e) {
+      var p = $(this).parents('.readMoreContent');
+      p.addClass('hide');
+      p.prev('.readMore').removeClass('hide'); // Hide only the preceding "Read More"
+      e.preventDefault();
     });
- 
- $(".addTerms").click(function(){
-        $("#crud").show(1000);
-    });
-    
 
  });

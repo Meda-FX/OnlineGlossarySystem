@@ -5,15 +5,21 @@
  */
 package controller.servlets;
 
+import business.domainClasses.Course;
+import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
+import business.domainClasses.User;
+import business.serviceClasses.CourseService;
 import business.serviceClasses.GlossaryEntryService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Receive and response to requests from web client for search page 
@@ -24,12 +30,13 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String action=request.getParameter("action");
         GlossaryEntryService ges = new GlossaryEntryService();
         ArrayList<GlossaryEntry> termlist;
         String url="/WEB-INF/index.jsp";
         String searchedEntry;
-        
+    
         //get searching key word from field
         if(action!=null && action.equals("searchTerm"))
         {
