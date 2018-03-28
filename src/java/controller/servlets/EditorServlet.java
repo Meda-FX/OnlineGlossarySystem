@@ -53,14 +53,16 @@ public class EditorServlet extends HttpServlet {
         String txtSearch = request.getParameter("txtSearch");
         Definition def = new Definition();
 
-        if (txtSearch != null && !txtSearch.equals("")) {
-            String courseCode = request.getParameter("courseCode") + "";
-            String userId = request.getParameter("userId") + "";
+       if (txtSearch != null && !txtSearch.equals("")) {
+            request.setAttribute("txtSearch", txtSearch);
+            String courseCode = request.getParameter("courseCode") ;
+            //request.setAttribute("courseCode", courseCode);
+            String userId = request.getParameter("userId") ;
             deflist = (ArrayList<Definition>) ds.getByDepartmentFilterByTCU(user.getDepartment(), txtSearch, courseCode, userId);
 
-        } else {
+       } else {
             deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
-        }
+       }
         if (deflist.isEmpty()) {
             request.setAttribute("message", "There are no terms!");
         } else {

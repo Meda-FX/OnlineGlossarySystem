@@ -1,5 +1,4 @@
 <%@ include file="../includes/header.jsp" %>   
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container list-terms"> 
 
@@ -52,7 +51,7 @@
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
            
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" />
+                <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" value="${txtSearch}"/>
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>

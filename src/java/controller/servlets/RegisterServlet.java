@@ -30,7 +30,6 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         
         String url = "/WEB-INF/register.jsp";
         DepartmentService ds = new DepartmentService();
@@ -51,10 +50,14 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("pass");
         String password_confirm =request.getParameter("confirmPass"); 
         int departmentID = Integer.parseInt(request.getParameter("department"));
-        //Boolean confirm_regis=false; //false means not registered
         UserService us = new UserService();
         AccountRequestService ars = new AccountRequestService();
         String url = "/WEB-INF/register.jsp";
+        
+        //for dropdown menu
+        DepartmentService ds = new DepartmentService();
+        List<Department> departments = ds.getAll();
+        request.setAttribute("departments", departments);
         
         if(fname==null || fname.equals("") || 
                 lname==null || lname.equals("") ||
@@ -95,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if (!student_id.matches("\\d{9}")) {
-            request.setAttribute("message", "Please enter valid 9 digit student ID");
+            request.setAttribute("message", "Please enter valid 9-digit student ID");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);
@@ -104,7 +107,7 @@ public class RegisterServlet extends HttpServlet {
         }
         
         if ((us.get(student_id)!=null) || (us.getByEmail(email)!=null)) {
-            request.setAttribute("message", "Account already exist.");
+            request.setAttribute("message", "Account already exist");
             request.setAttribute("fname", fname);
             request.setAttribute("lname",lname);
             request.setAttribute("studentId", student_id);

@@ -37,6 +37,13 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        Department department = user.getDepartment();
+        CourseService cs = new CourseService();
+        List<Course> courseList = cs.getByDepartment(department);
+        request.setAttribute("courseList", courseList);
+        
         getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
 
