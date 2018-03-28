@@ -59,6 +59,11 @@ CREATE TABLE [dbo].[glossary_entry_log](
 	REFERENCES [user](user_id)
         )
 
+
+--Status:
+--Published
+--Under Review
+--In Progress
 CREATE TABLE [dbo].[definition](
 	definition_uid int IDENTITY(1,1) PRIMARY KEY, 
 	glossary_entry varchar (40) NOT NULL,   
