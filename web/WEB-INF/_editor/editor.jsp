@@ -51,7 +51,7 @@
     <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
            
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" />
+                <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" value="${txtSearch}"/>
                 <div class="input-group-btn">
                     <button class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -129,17 +129,7 @@
             </tr>
         </thead>
         <tbody>
-            <!--    <tr>
-                  <td>JAVA</td>
-                  <td>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                  </td>     
-                  <td>JAN 25-2017</td>
-                  <td>Maryam Mossavi</td> 
-                  <td><span id="icons" class="glyphicon glyphicon-trash"></span></td>
-                  <td><span id="icons" class="glyphicon glyphicon-pencil"></span> </td>
-                </tr>-->            
-
+ 
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
                     <td><c:out value = "${def.term}"/></td>

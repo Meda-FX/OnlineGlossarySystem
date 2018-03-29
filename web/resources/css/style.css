@@ -27,11 +27,14 @@ body {
     color: white;
 }
 
-.navbar li a{
-    color: white;
+.active {
+    background-color: #990000;
+}
+.navbar ul a{
+    color: #ffffff;
 }
 
-.navbar li a:hover{
+.navbar ul a:hover{
     color: #CB2925;
 }
 
@@ -161,7 +164,7 @@ text-align: center;
     padding: 15px;
     margin: 0 auto;
     background-color: #303138;
-    color: #ffffff;
+    /*color: #ffffff;*/
     height: 100%;
     margin-top: 80px;
 }
@@ -221,6 +224,7 @@ text-align: center;
 .hide {
     display: none;
 }
+
 
 
 

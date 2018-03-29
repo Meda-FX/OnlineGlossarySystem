@@ -10,15 +10,15 @@
             <th>Id</th>
             <th>Name</th>
             <th>Email</th>            
-            <th>Course Name</th>
+            <th>Department</th>
             <th>Privilege</th>
-            
+            <th>Change Password</th>
         </tr>
         <tr>
             <td><c:out value="${user.getID()}"/></td>
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.email}"/></td>
-            <td><c:out value="${user.name}"/></td>
+            <td><c:out value="${user.department.name}"/></td>
             <td>
              <c:if test="${user.getPrivileges().contains(1) == true}">
                Administrator
@@ -32,24 +32,25 @@
             <c:if test="${user.getPrivileges().contains(4) == true}">
                 Instructor
             </c:if>            
-                </td>
+            </td>
+            <td> <a href="forgetpassword">Reset Password</a></td>
         </tr>
         </c:if>
     </table> <!--Table ends here-->
-    <br>
-    <h3>Select Department</h3>
-     ${user.department.name};
+    <br>  
     
     <h3>Select Course</h3>
     <c:forEach items="${courseList}" var="course">
         <div class="checkbox">
-        <label><input type="checkbox" <c:out value="${course.courseCode}"/>>${course.courseCode}</label>
+        <label>
+            <input type="checkbox" <c:out value="${course.courseCode}"/>>${course.courseCode}
+        </label>        
         </div>
     </c:forEach>
-        
-      
-    
-
+    <form action="user" method="POST">    
+        <input type="hidden" name="action" value="addcourse">
+        <input type="submit" value="Add Course">
+    </form>
 </div> <!-- list items  -->
 
 <%@ include file="includes/footer.jsp" %>
