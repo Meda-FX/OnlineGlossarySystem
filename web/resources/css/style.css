@@ -27,11 +27,14 @@ body {
     color: white;
 }
 
-.navbar li a{
-    color: white;
+.active {
+    background-color: #990000;
+}
+.navbar ul a{
+    color: #ffffff;
 }
 
-.navbar li a:hover{
+.navbar ul a:hover{
     color: #CB2925;
 }
 

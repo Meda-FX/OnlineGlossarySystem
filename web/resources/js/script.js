@@ -37,5 +37,13 @@ $(document).ready(function(){
       p.prev('.readMore').removeClass('hide'); // Hide only the preceding "Read More"
       e.preventDefault();
     });
-
+   
+   //Navigation active page locator 
+   var path = window.location.href;
+   $('.navbar ul a').each(function(){
+       if (this.href === path) {
+           $(this).addClass('active');
+       }
+   });
+   
  });

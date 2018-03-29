@@ -12,6 +12,7 @@
             <th>Email</th>            
             <th>Department</th>
             <th>Privilege</th>
+            <th>Change Password</th>
         </tr>
         <tr>
             <td><c:out value="${user.getID()}"/></td>
@@ -31,7 +32,8 @@
             <c:if test="${user.getPrivileges().contains(4) == true}">
                 Instructor
             </c:if>            
-                </td>
+            </td>
+            <td> <a href="forgetpassword">Reset Password</a></td>
         </tr>
         </c:if>
     </table> <!--Table ends here-->
