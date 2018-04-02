@@ -11,10 +11,6 @@ import business.domainClasses.User;
 import java.util.List;
 import persistence.brokers.CourseBroker;
 
-/**
- *
- * @author 727153
- */
 public class CourseService {
     private CourseBroker courseDB;
     
