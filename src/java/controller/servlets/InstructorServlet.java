@@ -39,12 +39,14 @@ public class InstructorServlet extends HttpServlet {
         String url = "/WEB-INF/_instructor/instructor.jsp";
 
         HttpSession session = request.getSession();
-        GlossaryEntryService ges = new GlossaryEntryService();
-        
+        DefinitionService ds = new DefinitionService();
+        CourseService cs = new CourseService();
+
         User user = (User) session.getAttribute("user");
-        List<GlossaryEntry> termList = ges.getByUser(user.getID());
-        request.setAttribute("termList", termList);
-        
+        List<Definition> termList = ds.getByMadeBy(user);
+        List<Course> courseList = cs.getByUser(user);
+        request.setAttribute("definitionlist", termList);
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -52,6 +54,7 @@ public class InstructorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
         String action = request.getParameter("submitButton");
         String term = request.getParameter("term");
         String definition = request.getParameter("definition");
@@ -61,6 +64,7 @@ public class InstructorServlet extends HttpServlet {
         String course = request.getParameter("courseCode");
         String errorMessage = "The following fields are blank / invalid";
         String url = "/WEB-INF/_instructor/instructor.jsp";
+
         Timestamp date = new Timestamp(new Date().getTime());
         DefinitionService ds = new DefinitionService();
         CourseService cS = new CourseService();
@@ -124,6 +128,8 @@ public class InstructorServlet extends HttpServlet {
                 errorMessage = "Your term is now saved!";
             }
         }
+        List<Definition> termList = ds.getByMadeBy(user);
+        request.setAttribute("definitionlist", termList);
         request.setAttribute("message", errorMessage);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

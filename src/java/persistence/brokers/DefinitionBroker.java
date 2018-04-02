@@ -296,11 +296,11 @@ public class DefinitionBroker extends Broker {
 
     /**
      * The getByUser method returns a list of definitions related to the user.
-     *
+     *As well as the courses coralated within the 
      * @param user represents the account in the user table in the database.
      * @return a list of definitions by user.
      */
-    public List<Definition> getByUser(User user) {
+    public List<Definition> getByUserAndCourse(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();
@@ -319,10 +319,11 @@ public class DefinitionBroker extends Broker {
         String status;
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[definition] "
-                + "join [dbo].[course] "
-                + "on (definition.course_code=course.course_code) "
-                + "where made_by =?";
+                + "from [GlossaryDataBase].[dbo].[definition] "
+                + "inner join [GlossaryDataBase].[dbo].[course] "
+                + "on definition.course_code=course.course_code "
+                + "where made_by=? "
+                + "ORDER BY date_created DESC";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -331,7 +332,7 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, user.getID());
+            ps.setInt(1, Integer.parseInt(user.getID()));
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -385,7 +386,7 @@ public class DefinitionBroker extends Broker {
                 + "on (definition.course_code=course.course_code) "
                 + "join [dbo].[user] "
                 + "on (definition.made_by=[dbo].[user].user_id) "
-                + "where glossary_entry = ?";
+                + "where glossary_entry = ? ";
         Definition definition;
         Course course;
         User user;
@@ -493,7 +494,7 @@ public class DefinitionBroker extends Broker {
         String sql = "UPDATE [GlossaryDataBase].[dbo].[definition] "
                 + "SET definition=?,dictionary_definition=?,"
                 + "citation=?,dictionary_citation=?,status=? "
-                + "WHERE definition_uid=?";
+                + "WHERE definition_uid=? ";
 
         PreparedStatement ps = null;
 
@@ -613,13 +614,14 @@ public class DefinitionBroker extends Broker {
         PreparedStatement ps = null;
 
         int affectRows = 0;
+        Timestamp date = new Timestamp(new java.util.Date().getTime());
 
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, definition.getTerm());
             ps.setString(2, definition.getContent());
             ps.setString(3, definition.getDictionaryContent());
-            ps.setDate(4, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setTimestamp(4,date);
             ps.setString(5, definition.getCitation());
             ps.setString(6, definition.getStatus());
             ps.setString(7, definition.getDictionaryCitation());

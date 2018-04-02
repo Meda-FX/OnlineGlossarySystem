@@ -7,6 +7,7 @@ package business.serviceClasses;
 
 import business.domainClasses.Course;
 import business.domainClasses.Department;
+import business.domainClasses.User;
 import java.util.List;
 import persistence.brokers.CourseBroker;
 
@@ -27,6 +28,10 @@ public class CourseService {
 
     public List<Course> getByDepartment(Department department) {
         return courseDB.getByDepartmentID(department);
+    }
+
+    public List<Course> getByUser(User user) {
+        return courseDB.getByUser(user);
     }
 
 
