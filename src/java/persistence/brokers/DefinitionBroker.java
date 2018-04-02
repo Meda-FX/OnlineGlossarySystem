@@ -6,6 +6,7 @@ import business.domainClasses.DefinitionList;
 import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
+import business.serviceClasses.CourseService;
 import persistence.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -303,6 +304,7 @@ public class DefinitionBroker extends Broker {
     public List<Definition> getByUserAndCourse(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
+        CourseService cs = new CourseService();
         ArrayList<Definition> delist = new ArrayList<>();
         Definition definition;
 
@@ -320,8 +322,6 @@ public class DefinitionBroker extends Broker {
 
         String selectSQL = "SELECT * "
                 + "from [GlossaryDataBase].[dbo].[definition] "
-                + "inner join [GlossaryDataBase].[dbo].[course] "
-                + "on definition.course_code=course.course_code "
                 + "where made_by=? "
                 + "ORDER BY date_created DESC";
 
@@ -332,7 +332,7 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setInt(1, Integer.parseInt(user.getID()));
+            ps.setString(1,user.getID());
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -341,10 +341,7 @@ public class DefinitionBroker extends Broker {
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
-                course_name = rs.getString("course_name");
-                course = new Course();
-                course.setCourseCode(courseId);
-                course.setCourseName(course_name);
+                course = cs.get(courseId);
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)

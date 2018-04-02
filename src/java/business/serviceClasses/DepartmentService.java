@@ -33,7 +33,7 @@ public class DepartmentService {
     
 
 
-    public Department getByUserID(User user) {
+    public Department  getByUserID(User user) {
         return db.getByUserID(user);
     }
 }

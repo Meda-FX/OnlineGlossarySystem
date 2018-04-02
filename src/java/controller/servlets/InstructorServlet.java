@@ -46,7 +46,7 @@ public class InstructorServlet extends HttpServlet {
         List<Definition> termList = ds.getByMadeBy(user);
         List<Course> courseList = cs.getByUser(user);
         request.setAttribute("definitionlist", termList);
-
+        request.setAttribute("courseList", courseList);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -60,31 +60,35 @@ public class InstructorServlet extends HttpServlet {
         String definition = request.getParameter("definition");
         String citation = request.getParameter("citation");
         String defDict = request.getParameter("defDefinition");
-        String defCita = request.getParameter("defCitation");
+        String defCita = request.getParameter("dicCitation");
         String course = request.getParameter("courseCode");
         String errorMessage = "The following fields are blank / invalid";
         String url = "/WEB-INF/_instructor/instructor.jsp";
 
         Timestamp date = new Timestamp(new Date().getTime());
         DefinitionService ds = new DefinitionService();
-        CourseService cS = new CourseService();
-        Course newCourse = cS.get(course);
+        CourseService cs = new CourseService();
+        Course newCourse = cs.get(course);
         Definition newEntry = new Definition();
         User user = (User) session.getAttribute("user");
 
-        if (term == null) {
+        List<Definition> termList = ds.getByMadeBy(user);
+        List<Course> courseList = cs.getByUser(user);
+        request.setAttribute("definitionlist", termList);
+        request.setAttribute("courseList", courseList);
+        if (term.isEmpty() == true) {
             errorMessage += " Term";
         }
-        if (definition == null) {
+        if (definition.isEmpty() == true) {
             errorMessage += " definition";
         }
-        if (defDict == null) {
+        if (defDict.isEmpty() == true) {
             errorMessage += " dictionary definition";
         }
-        if (defCita == null) {
+        if (defCita.isEmpty() == true) {
             errorMessage += " dictionary citation";
         }
-        if (course == null) {
+        if (course.equalsIgnoreCase("-1") == true) {
             errorMessage += " course";
         }
 
@@ -96,6 +100,20 @@ public class InstructorServlet extends HttpServlet {
         newEntry.setTerm(term);
         newEntry.setWrittenBy((User) session.getAttribute("user"));
 
+        // checking to see if any of the required terms are null
+        if (action.equalsIgnoreCase("Submit Term") == true) {
+            if (term.isEmpty() == true
+                    || definition.isEmpty() == false || defDict.isEmpty() == true
+                    || defCita.isEmpty() == true || course.equalsIgnoreCase("-1") == true) {
+                request.setAttribute("definition", definition);
+                request.setAttribute("citation", citation);
+                request.setAttribute("defDefinition", defDict);
+                request.setAttribute("defCitation", defCita);
+                request.setAttribute("courseCode", course);
+                request.setAttribute("message", errorMessage);
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+            }
+        }
         //This is checking to see if the term already exists on the 
         //GlossaryEntry table. If it doesn't already exit the program will
         //Create the entry
@@ -107,12 +125,7 @@ public class InstructorServlet extends HttpServlet {
             }
         }
         if (action.equals("Submit Term") == true) {
-            // checking to see if any of the required terms are null
-            if (term != null && definition != null && defDict != null
-                    && defCita != null && course != null) {
-                request.setAttribute("message", errorMessage);
-                getServletContext().getRequestDispatcher(url).forward(request, response);
-            }
+
             newEntry.setStatus("Under Review");
             //Remove all of the something went wrongs!!!!
             if (ds.insert(newEntry) == 1) {
@@ -128,7 +141,7 @@ public class InstructorServlet extends HttpServlet {
                 errorMessage = "Your term is now saved!";
             }
         }
-        List<Definition> termList = ds.getByMadeBy(user);
+
         request.setAttribute("definitionlist", termList);
         request.setAttribute("message", errorMessage);
         getServletContext().getRequestDispatcher(url).forward(request, response);

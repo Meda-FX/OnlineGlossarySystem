@@ -281,13 +281,13 @@ public class CourseBroker extends Broker {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<Course> getByUser(User user) {
+    public ArrayList<Course> getByUser(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         DepartmentService ds = new DepartmentService();
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course]  "
-                + "inner join user_course on course.course_code=user_course.course_code "
-                + "inner join [user] on user_course.user_id=[user].user_id "
+                + "inner join [GlossaryDataBase].[dbo].[user_course] on course.course_code=user_course.course_code "
+                + "inner join [GlossaryDataBase].[dbo].[user] on user_course.user_id=[user].user_id "
                 + "WHERE [GlossaryDataBase].[dbo].[course].department_id=?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -332,3 +332,4 @@ public class CourseBroker extends Broker {
 
     }
 }
+

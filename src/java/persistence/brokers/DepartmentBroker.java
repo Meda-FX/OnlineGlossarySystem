@@ -195,12 +195,11 @@ public class DepartmentBroker extends Broker{
         
                 ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-        
-        List<Object> dept = new ArrayList<>();
+
         Department deptObject = null;
         
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[department] "
-                    + "inner join [user] on [user].department_id=department.department_id "
+                    + "inner join [GlossaryDataBase].[dbo].[user] on [user].department_id=department.department_id "
                     + "where user_id=?";
         
         PreparedStatement ps = null;
@@ -217,11 +216,11 @@ public class DepartmentBroker extends Broker{
                 dept_ID = rs.getInt("department_id");
                 dept_NAME = rs.getString("name");
                 deptObject = new Department(dept_ID, dept_NAME);
-                dept.add(deptObject);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  (Department) dept;
+        return deptObject;
     }
 }
