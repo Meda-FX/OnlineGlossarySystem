@@ -6,6 +6,7 @@ import business.domainClasses.DefinitionList;
 import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
+import business.serviceClasses.CourseService;
 import persistence.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -101,7 +102,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, dictionaryCitation,
+                definition = new Definition(did, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
             }
 
@@ -144,7 +145,7 @@ public class DefinitionBroker extends Broker {
 
         String content;
         String citation;
-        String definitionID;
+        int definitionID;
         String status;
         java.util.Date newDate;
         String dictionaryContent;
@@ -164,6 +165,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(1, course.getCourseCode());
             rs = ps.executeQuery();
             while (rs.next()) {
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
@@ -179,7 +181,7 @@ public class DefinitionBroker extends Broker {
                 user.setName(name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 delist.add(definition);
@@ -270,7 +272,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseName(course_name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 definition.setDefinitionID(definitionID);
@@ -296,33 +298,32 @@ public class DefinitionBroker extends Broker {
 
     /**
      * The getByUser method returns a list of definitions related to the user.
-     *
+     *As well as the courses coralated within the 
      * @param user represents the account in the user table in the database.
      * @return a list of definitions by user.
      */
-    public List<Definition> getByUser(User user) {
+    public List<Definition> getByUserAndCourse(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
+        CourseService cs = new CourseService();
         ArrayList<Definition> delist = new ArrayList<>();
         Definition definition;
 
         String term;
         Course course;
         String courseId;
-        String course_name;
         String content;
         String citation;
-        String definitionID;
+        int definitionID;
         java.util.Date newDate;
         String dictionaryContent;
         String dictionaryCitation;
         String status;
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[definition] "
-                + "join [dbo].[course] "
-                + "on (definition.course_code=course.course_code) "
-                + "where made_by =?";
+                + "from [GlossaryDataBase].[dbo].[definition] "
+                + "where made_by=? "
+                + "ORDER BY date_created DESC";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -331,23 +332,21 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, user.getID());
+            ps.setString(1,user.getID());
             rs = ps.executeQuery();
             while (rs.next()) {
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 status = rs.getString("status");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
-                course_name = rs.getString("course_name");
-                course = new Course();
-                course.setCourseCode(courseId);
-                course.setCourseName(course_name);
+                course = cs.get(courseId);
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 delist.add(definition);
@@ -385,11 +384,11 @@ public class DefinitionBroker extends Broker {
                 + "on (definition.course_code=course.course_code) "
                 + "join [dbo].[user] "
                 + "on (definition.made_by=[dbo].[user].user_id) "
-                + "where glossary_entry = ?";
+                + "where glossary_entry = ? ";
         Definition definition;
         Course course;
         User user;
-        String definitionUid;
+        int definitionUid;
         String glossaryEntry;
         String content;
         Date dateCreated;
@@ -406,7 +405,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(1, glossary.getTerm());
             rs = ps.executeQuery();
             while (rs.next()) {
-                definitionUid = rs.getString("definition_uid");
+                definitionUid = rs.getInt("definition_uid");
                 glossaryEntry = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 dateCreated = new Date(rs.getTimestamp("date_created").getTime());
@@ -425,7 +424,7 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                definition = new Definition(user, dateCreated, citation, dictionaryCitation,
+                definition = new Definition(definitionUid, user, dateCreated, citation, dictionaryCitation,
                         course, content, dictionaryContent, glossary.getTerm(), status);
                 list.add(definition);
             }
@@ -493,7 +492,7 @@ public class DefinitionBroker extends Broker {
         String sql = "UPDATE [GlossaryDataBase].[dbo].[definition] "
                 + "SET definition=?,dictionary_definition=?,"
                 + "citation=?,dictionary_citation=?,status=? "
-                + "WHERE definition_uid=?";
+                + "WHERE definition_uid=? ";
 
         PreparedStatement ps = null;
 
@@ -545,7 +544,7 @@ public class DefinitionBroker extends Broker {
         String course_name;
         String content;
         String citation;
-        //String definitionID;
+        int definitionID;
         String dictionaryContent;
         String status;
         String dictionaryCitation;
@@ -562,7 +561,7 @@ public class DefinitionBroker extends Broker {
             rs = ps.executeQuery();
             while (rs.next()) {
                 definition = new Definition();
-                //definitionID = rs.getString("definition_uid");
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
@@ -580,7 +579,7 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                definition = new Definition(user, newDate, citation, dictionaryCitation,
+                definition = new Definition(definitionID, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
                 delist.add(definition);
             }
@@ -613,13 +612,14 @@ public class DefinitionBroker extends Broker {
         PreparedStatement ps = null;
 
         int affectRows = 0;
+        Timestamp date = new Timestamp(new java.util.Date().getTime());
 
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, definition.getTerm());
             ps.setString(2, definition.getContent());
             ps.setString(3, definition.getDictionaryContent());
-            ps.setDate(4, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setTimestamp(4,date);
             ps.setString(5, definition.getCitation());
             ps.setString(6, definition.getStatus());
             ps.setString(7, definition.getDictionaryCitation());
@@ -721,7 +721,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseName(course_name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 definition.setDefinitionID(definitionID);
