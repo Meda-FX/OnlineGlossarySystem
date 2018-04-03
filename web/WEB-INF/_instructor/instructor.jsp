@@ -2,30 +2,30 @@
 
 <div class="container list-terms"> 
 
-    <div id="crud">
+    <div id="">
         <form action="instructor" method="post">
             <h1>Add Terms</h1>    
             <div class="form-group">
                 <label for="term">Term</label>
-                <input type="text" class="form-control" id="term" name="term" placeholder="Term">
+                <input type="text" class="form-control" id="term" value="${term}" name="term" placeholder="Term">
             </div>
             <div class="form-group">
                 <label for="definition">Definition</label>
-                <textarea class="form-control" rows="5" name="definition" id="definition"></textarea>
+                <textarea class="form-control" rows="5" name="definition" id="definition">${definition}</textarea>
             </div>
             <div class="form-group">
                 <label for="sitation">Citation</label>
-                <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
+                <input type="text" class="form-control" value="${citation}" id="citation" name="citation" placeholder="Citation">
             </div>
 
             <div class="form-group">
                 <label for="defDefinition">Dictionary Definition</label>
-                <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
+                <textarea class="form-control" rows="5" value="" name="defDefinition" id="defDefinition">${defDefinition}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="dicCitation">Dictionary Citation</label>
-                <input type="text" class="form-control" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
+                <input type="text" class="form-control" value="${defCitation}" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
             </div>
 
             <div class="form-group selectpicker">
@@ -114,22 +114,22 @@
                     <td><c:out value = "${def.status}"/></td> 
                     <td>
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
-                        <form action="edit" method="POST">
-                            <input type="hidden" name="action" value="Delete Term">
-                            <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input type="submit"  value="Delete">
+                        <form action="instructor" method="POST">
+                        <input type="hidden" name="action" value="Delete Term">
+                        <input type="hidden" name="defId" value="${def.definitionID}">
+                        <input type="submit" name="submitButton" value="Delete">
                         </form>
                     </td>
                     <td>     
-                        <form class="editForm" action="edit" method="GET">
-                            <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input class="addTerms" type="submit" value="Edit">
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>         
+            <form action="instructor" method="POST">
+                        <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="defId" value="${def.definitionID}">
+                        <input class="addTerms" name="submitButton" type="submit" value="Edit">
+            </form>
+            </td>
+            </tr>
+        </c:forEach>         
         </tbody>
     </table> <!--Table ends here-->
 </div>

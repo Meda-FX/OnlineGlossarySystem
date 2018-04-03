@@ -102,7 +102,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation, dictionaryCitation,
+                definition = new Definition(did, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
             }
 
@@ -145,7 +145,7 @@ public class DefinitionBroker extends Broker {
 
         String content;
         String citation;
-        String definitionID;
+        int definitionID;
         String status;
         java.util.Date newDate;
         String dictionaryContent;
@@ -165,6 +165,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(1, course.getCourseCode());
             rs = ps.executeQuery();
             while (rs.next()) {
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
@@ -180,7 +181,7 @@ public class DefinitionBroker extends Broker {
                 user.setName(name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 delist.add(definition);
@@ -271,7 +272,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseName(course_name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 definition.setDefinitionID(definitionID);
@@ -311,10 +312,9 @@ public class DefinitionBroker extends Broker {
         String term;
         Course course;
         String courseId;
-        String course_name;
         String content;
         String citation;
-        String definitionID;
+        int definitionID;
         java.util.Date newDate;
         String dictionaryContent;
         String dictionaryCitation;
@@ -335,6 +335,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(1,user.getID());
             rs = ps.executeQuery();
             while (rs.next()) {
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 status = rs.getString("status");
@@ -345,7 +346,7 @@ public class DefinitionBroker extends Broker {
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 delist.add(definition);
@@ -387,7 +388,7 @@ public class DefinitionBroker extends Broker {
         Definition definition;
         Course course;
         User user;
-        String definitionUid;
+        int definitionUid;
         String glossaryEntry;
         String content;
         Date dateCreated;
@@ -404,7 +405,7 @@ public class DefinitionBroker extends Broker {
             ps.setString(1, glossary.getTerm());
             rs = ps.executeQuery();
             while (rs.next()) {
-                definitionUid = rs.getString("definition_uid");
+                definitionUid = rs.getInt("definition_uid");
                 glossaryEntry = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 dateCreated = new Date(rs.getTimestamp("date_created").getTime());
@@ -423,7 +424,7 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                definition = new Definition(user, dateCreated, citation, dictionaryCitation,
+                definition = new Definition(definitionUid, user, dateCreated, citation, dictionaryCitation,
                         course, content, dictionaryContent, glossary.getTerm(), status);
                 list.add(definition);
             }
@@ -543,7 +544,7 @@ public class DefinitionBroker extends Broker {
         String course_name;
         String content;
         String citation;
-        //String definitionID;
+        int definitionID;
         String dictionaryContent;
         String status;
         String dictionaryCitation;
@@ -560,7 +561,7 @@ public class DefinitionBroker extends Broker {
             rs = ps.executeQuery();
             while (rs.next()) {
                 definition = new Definition();
-                //definitionID = rs.getString("definition_uid");
+                definitionID = rs.getInt("definition_uid");
                 term = rs.getString("glossary_entry");
                 content = rs.getString("definition");
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
@@ -578,7 +579,7 @@ public class DefinitionBroker extends Broker {
                 course = new Course();
                 course.setCourseCode(courseId);
                 course.setCourseName(course_name);
-                definition = new Definition(user, newDate, citation, dictionaryCitation,
+                definition = new Definition(definitionID, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
                 delist.add(definition);
             }
@@ -720,7 +721,7 @@ public class DefinitionBroker extends Broker {
                 course.setCourseName(course_name);
 
                 // definition = new definition(user,)
-                definition = new Definition(user, newDate, citation,
+                definition = new Definition(definitionID, user, newDate, citation,
                         dictionaryCitation, course, content,
                         dictionaryContent, term, status);
                 definition.setDefinitionID(definitionID);
