@@ -1,7 +1,6 @@
 <%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms"> 
-
     <div id="crud">
         <h1>Edit Terms</h1>
         <form action="edit" method="POST" id="form" >
@@ -31,25 +30,23 @@
             <div class="form-group">
                 <label for="dicCitation">Dictionary Citation</label>
                 <input type="text" class="form-control" id="dicCitation" name="dicCitation" placeholder="Dectionary Citation" value="${selectedTerm.dictionaryCitation}">
-            </div>
-
+            </div>  
+            
             <!--<input type="hidden" name="saveTerm" value="save">-->
-            <input type="submit" name="action" value="Save Term">
+            <input class="btn" type="submit" name="action" value="Save Term">
 
             <!--<input type="hidden" name="submitTerm" value="submit">-->
-            <input type="submit" name="action" value="Submit Term">
+            <input class="btn" type="submit" name="action" value="Submit Term">
 
-            <input class="hideFormTerm" type="button" value="Hide Form">
+            <input class=" btn hideFormTerm" type="button" value="Hide Form">
         </form>
     </div>
 </div>
 <br>
-
 <!--Search starts here-->
 <form action="edit?action=search" method="GET"> 
 <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-           
+    <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">           
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search terms" name="txtSearch" id="txtSearch" value="${txtSearch}"/>
                 <div class="input-group-btn">
@@ -57,8 +54,7 @@
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                 </div>
-            </div>   
-        
+            </div>           
         <div>
             <p class="message">${message}</p>   
         </div>
@@ -80,7 +76,7 @@
                     <li><a href="#" name="courseCode" value="${course.courseCode}"><c:out value="${course.courseCode}"/></a></li>
                 </c:forEach>
             </ul>-->
-            <select name="courseCode">
+            <select class="form-control searchFilterDD" name="courseCode">
                 <option value="">Filter By Course</option>
                 <c:forEach items="${courselist}" var="course">
                     <option  value="${course.courseCode}"><c:out value="${course.courseCode}"/></option>
@@ -100,20 +96,18 @@
                     <li><a href="#" name="userId" value="${user.email}"><c:out value="${user.name}"/></a></li>
                 </c:forEach>
             </ul>-->
-            <select name="userId">
+            <select class="form-control" name="userId">
                 <option value="">Filter By Instructor</option>
                 <c:forEach items="${userlist}" var="user">
                     <option  value="${user.getID()}"><c:out value="${user.name}"/></option>
                 </c:forEach>
             </select>
-
         </div><!--Filter by course ends here-->
-
     </div>     
 </div> <!-- main filter container -->
 <!--Search filter ends here-->
 </form>
-
+<br>
 <div class="container list-terms">
 
     <table class="table table-hover">
@@ -128,8 +122,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
- 
+        <tbody> 
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
                     <td><c:out value = "${def.term}"/></td>
@@ -144,15 +137,15 @@
                         <form action="edit" method="POST">
                             <input type="hidden" name="action" value="Delete Term">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input type="submit"  value="Delete">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf014">
                         </form>
                     </td>
                     <td>     
                         <form class="editForm" action="edit" method="GET">
-                            <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
+                            <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->                              
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input class="addTerms" type="submit" value="Edit">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
                         </form>
                     </td>
                 </tr>

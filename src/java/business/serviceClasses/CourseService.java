@@ -24,4 +24,12 @@ public class CourseService {
     public List<Course> getByDepartment(Department department) {
         return courseDB.getByDepartmentID(department);
     }
+    
+    public int insert(Course course) {
+        return courseDB.insert(course);
+    }
+    
+    public int delete(Course course) {
+        return courseDB.delete(course);
+    }
 }

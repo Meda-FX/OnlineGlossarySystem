@@ -189,6 +189,14 @@ VALUES
 INSERT INTO user_course
     (course_code,user_id,year)
 VALUES
+    ('CMPS-307-A','2', '2017-Fall');
+INSERT INTO user_course
+    (course_code,user_id,year)
+VALUES
+    ('CMPS-352-A','2', '2017-Fall');
+INSERT INTO user_course
+    (course_code,user_id,year)
+VALUES
     ('BNBH-201-B','1', '2017-Fall');
 
 INSERT INTO user_course

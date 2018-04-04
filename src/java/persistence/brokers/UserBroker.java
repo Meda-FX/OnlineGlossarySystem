@@ -875,4 +875,29 @@ public class UserBroker extends Broker {
         return users;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public int reloadCourses(User user) {
+       ConnectionPool pool = ConnectionPool.getInstance();
+       Connection connection = pool.getConnection();
+       
+       String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
+     //  String sql_i = "Insert Into [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
+       PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(sql_d);
+            ps.setString(1, user.getID());            
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        return 0;
+        } finally {
+            try {
+                if(ps != null) ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+       return 1;
+    }
 }

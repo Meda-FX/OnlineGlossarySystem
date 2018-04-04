@@ -24,7 +24,11 @@ body {
 }
 
 .navbar-header a {
-    color: white;
+    color: #ffffff;
+}
+
+.navbar-header a:hover {
+    color: #ffffff;
 }
 
 .active {
@@ -56,25 +60,10 @@ body {
     font-weight: 700;
 }
 
-/*
-.navbar-brand>img {
-  height: 100%;
-  width: 50%;
-}*/
-
 /* hamburger color for celphones and Ipad*/
 .icon-bar{
     background-color: white;
 }
-
-/*a:visited {
-    color: #003f7b;
-}*/
-
-/*a:visited 
-{
-    color: #ccc;
-}*/
 
 a {
     color: #005eb8;
@@ -84,13 +73,6 @@ a {
 }
 
 .glossarySearchHeaderStyle {
-/*    width: 100%;
-     position: absolute;
-  top: 50%;
-  left: 50%;
-   bring your own prefixes 
-  transform: translate(-50%, -50%);
-  background-color: blue;*/
 text-align: center;    
 }
 
@@ -98,16 +80,10 @@ text-align: center;
     margin-top: 20%;
 }
 
-/*.meda-style-advsearch{
-    margin: 0 auto;
-}*/
-
 .btn {
     background-color: #da291c;
     color: white;
 }
-
-
 
 .alphabets{
     text-align: center;	
@@ -153,10 +129,6 @@ text-align: center;
 #toogleText{
     font-size: 50px;
 }
-
-/*.panel {
-    background-color: red;
-}*/
 
 /* Login */
 #form-login{
@@ -225,8 +197,19 @@ text-align: center;
     display: none;
 }
 
+.searchFilterDD {
+    font-size: 50px;
+}
 
+.errorPage {
+    margin-top: 15%;
+    text-align: center;
+    font-weight: bold;   
+}
 
+.errorPage h1 {
+    font-size: 80px;
+}
 
 /** term definition mediaquiery */
 /** Medium devices (tablets, 768px and up)*/
@@ -237,4 +220,7 @@ text-align: center;
     }
 }
 
-
+.fa-input {
+  font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 30px;
+}

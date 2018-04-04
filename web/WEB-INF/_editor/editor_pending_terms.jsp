@@ -81,7 +81,7 @@
                     <li><a href="#" name="courseCode" value="${course.courseCode}"><c:out value="${course.courseCode}"/></a></li>
                 </c:forEach>
             </ul>-->
-            <select name="courseCode">
+            <select class="form-control" name="courseCode">
                 <option value="">Filter By Course</option>
                 <c:forEach items="${courselist}" var="course">
                     <option  value="${course.courseCode}"><c:out value="${course.courseCode}"/></option>
@@ -101,7 +101,7 @@
                     <li><a href="#" name="userId" value="${user.email}"><c:out value="${user.name}"/></a></li>
                 </c:forEach>
             </ul>-->
-            <select name="userId">
+            <select class="form-control" name="userId">
                 <option value="">Filter By Instructor</option>
                 <c:forEach items="${userlist}" var="user">
                     <option  value="${user.getID()}"><c:out value="${user.name}"/></option>
@@ -114,7 +114,7 @@
 </div> <!-- main filter container -->
 <!--Search filter ends here-->
 </form>
-
+<br>
 <div class="container list-terms">
 
     <table class="table table-hover">
