@@ -13,7 +13,6 @@ import java.util.Date;
  */
 public class DefinitionLog {
     private int logID;
-    private int definitionID;
     private int activityType;
     private User activityBy;
     private Date activityDate;
@@ -24,14 +23,12 @@ public class DefinitionLog {
     /**
      * Constructs a glossary request
      * @param logID
-     * @param definitionID
      * @param activityType activityType the type of the requested glossary
      * @param activityBy requestBy the glossary request 
      * @param activityDate activityDate the date in which the glossary is created
      */
-    public DefinitionLog(int logID, int definitionID, int activityType, User activityBy, Date activityDate) {
+    public DefinitionLog(int logID, int activityType, User activityBy, Date activityDate) {
         this.logID = logID;
-        this.definitionID = definitionID;
         this.activityType = activityType;
         this.activityBy = activityBy;
         this.activityDate = activityDate;
@@ -43,22 +40,6 @@ public class DefinitionLog {
 
     public void setLogID(int logID) {
         this.logID = logID;
-    }
-    
-    /**
-     * returns the glossary entry term
-     * @return the glossary term
-     */
-    public int getDefinitionID() {
-        return definitionID;
-    }
-
-    /**
-     * Changes the glossary entry term
-     * @param definitionID definitionID the glossary entry term to set
-     */
-    public void setDefinitionID(int definitionID) {
-        this.definitionID = definitionID;
     }
 
     /**

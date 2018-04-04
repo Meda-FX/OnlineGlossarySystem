@@ -46,7 +46,7 @@ public class AccountLogBroker extends Broker {
             if (result >0)
                 return 1;
         } catch (SQLException ex) {
-            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountRequest", ex);
+            Logger.getLogger(AccountLogBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountLog", ex);
             
         } finally {
             try {
