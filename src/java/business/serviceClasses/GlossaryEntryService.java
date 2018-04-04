@@ -83,4 +83,8 @@ public class GlossaryEntryService {
         return glossaryEntryDB.getMatched(term);
     }
 
+    public ArrayList<GlossaryEntry> getByAlpha(String letter) {
+        return glossaryEntryDB.getByAlpha(letter);
+    }
+
 }

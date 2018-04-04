@@ -188,12 +188,12 @@ public class GlossaryEntryBroker extends Broker {
                 user = new User();
                 username = rs.getString("name");
                 user_id = rs.getString("user_id");
-                
+
                 user.setID(user_id);
                 user.setName(username);
                 definitionDateCreatedDB = rs.getTimestamp("date_created");
                 definitionDateCreated = new java.util.Date(definitionDateCreatedDB.getTime());
-                
+
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 definitionStatus = rs.getString("status");
@@ -214,8 +214,12 @@ public class GlossaryEntryBroker extends Broker {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -233,7 +237,7 @@ public class GlossaryEntryBroker extends Broker {
                 + "WHERE [GlossaryDataBase].[dbo].[definition].made_by = ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         ArrayList<GlossaryEntry> terms = new ArrayList<GlossaryEntry>();
         GlossaryEntry ge = null;
         Definition definition;
@@ -259,7 +263,7 @@ public class GlossaryEntryBroker extends Broker {
                 ge = new GlossaryEntry();
                 ge.setTerm(glossaryTerm);
                 definitionList = ge.getDefinitionList();
-                
+
                 definition = new Definition();
                 content = rs.getString("definition");
                 citation = rs.getString("citation");
@@ -287,6 +291,106 @@ public class GlossaryEntryBroker extends Broker {
             try {
                 rs.close();
                 ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        return terms;
+    }
+
+    public ArrayList<GlossaryEntry> getByAlpha(String letter) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String searchPattern = (letter + "%").toUpperCase();
+        // String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
+        // String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] where glossary_entry = ?;";
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[glossary_entry] "
+                + "JOIN [GlossaryDataBase].[dbo].[definition] "
+                + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
+                + "JOIN [GlossaryDataBase].[dbo].[user] "
+                + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                + "WHERE UPPER([GlossaryDataBase].[dbo].[definition].glossary_entry) LIKE ?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+//        String selectSQL2 = "SELECT * from [GlossaryDataBase].[dbo].[definition] join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) where glossary_entry = ?;";
+//
+//        PreparedStatement ps2 = null;
+//        ResultSet rs2 = null;
+        ArrayList<GlossaryEntry> terms = new ArrayList<GlossaryEntry>();
+        GlossaryEntry ge = null;
+        Definition definition;
+        //ArrayList<Definition> definitionlist= new ArrayList<>();
+
+        String username = null;
+        String glossaryTerm ="";
+        String content = null;
+        int definition_id;
+        String citation;
+        String user_id;
+        User user;
+        java.util.Date definitionDateCreated;
+        Timestamp definitionDateCreatedDB;
+        String dictionaryContent;
+        String dictionaryCitation;
+        String definitionStatus;
+        String comparedTerm = "";
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, searchPattern);
+            rs = ps.executeQuery();
+            DefinitionList definitionList = null;
+            while (rs.next()) {
+                glossaryTerm = rs.getString("glossary_entry");
+                if (!comparedTerm.equals(glossaryTerm)) {
+                    if (!comparedTerm.equals("")) {
+                        terms.add(ge);
+                    }
+                    comparedTerm = glossaryTerm;
+                    ge = new GlossaryEntry();
+                    ge.setTerm(glossaryTerm);
+                    definitionList = ge.getDefinitionList();
+                }
+                definition = new Definition();
+                content = rs.getString("definition");
+                citation = rs.getString("citation");
+                user = new User();
+                username = rs.getString("name");
+                user_id = rs.getString("user_id");
+
+                user.setID(user_id);
+                user.setName(username);
+                definitionDateCreatedDB = rs.getTimestamp("date_created");
+                definitionDateCreated = new java.util.Date(definitionDateCreatedDB.getTime());
+
+                dictionaryContent = rs.getString("dictionary_definition");
+                dictionaryCitation = rs.getString("dictionary_citation");
+                definitionStatus = rs.getString("status");
+                definition.setDictionaryContent(dictionaryContent);
+                definition.setDictionaryCitation(dictionaryCitation);
+                definition.setCitation(citation);
+                definition.setContent(content);
+                definition.setTerm(glossaryTerm);
+                definition.setWrittenBy(user);
+                definition.setDateCreated(definitionDateCreated);
+                definition.setStatus(definitionStatus);
+                definitionList.add(definition);
+            }
+            if (ge != null) {
+                terms.add(ge);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
