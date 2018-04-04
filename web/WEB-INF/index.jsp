@@ -55,7 +55,7 @@
         </form>
         <div>
             <p>
-                <a href="search"> Advanced Search </a>
+                <a href="search?action=advancedSearch"> Advanced Search </a>
             </p>
         </div>
 

@@ -5,7 +5,8 @@
         <!-- Alphabet buttons -->
         <div class="alphabets">
             <div class="btn-group btn-group-xs">
-                <button class="btn btn-default">A</button>
+                
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
                 <button class="btn btn-default">B</button>
                 <button class="btn btn-default">C</button>
                 <button class="btn btn-default">D</button>
@@ -31,6 +32,7 @@
                 <button class="btn btn-default">X</button>
                 <button class="btn btn-default">Y</button>
                 <button class="btn btn-default">Z</button>
+                
             </div>
         </div>
     </div>

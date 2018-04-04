@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class GlossaryEntryLog {
     private int logID;
-    private String glossaryEntryTerm;
     private int activityType;
     private User activityBy;
     private Date activityDate;
@@ -20,14 +19,13 @@ public class GlossaryEntryLog {
     
     /**
      * Constructs a glossary request
-     * @param glossaryEntryTerm glossaryEntryTerm the glossary term that is requested
+     * @param logID
      * @param requestType activityType the type of the requested glossary
      * @param requestedBy requestBy the glossary request 
      * @param dateCreated activityDate the date in which the glossary is created
      */
-    public GlossaryEntryLog(int logID, String glossaryEntryTerm, int requestType, User requestedBy, Date dateCreated) {
+    public GlossaryEntryLog(int logID, int requestType, User requestedBy, Date dateCreated) {
         this.logID = logID;
-        this.glossaryEntryTerm = glossaryEntryTerm;
         this.activityType = requestType;
         this.activityBy = requestedBy;
         this.activityDate = dateCreated;
@@ -39,22 +37,6 @@ public class GlossaryEntryLog {
 
     public void setLogID(int logID) {
         this.logID = logID;
-    }
-    
-    /**
-     * returns the glossary entry term
-     * @return the glossary term
-     */
-    public String getGlossaryEntryTerm() {
-        return glossaryEntryTerm;
-    }
-
-    /**
-     * Changes the glossary entry term
-     * @param glossaryEntryTerm glossaryEntryTerm the glossary entry term to set
-     */
-    public void setGlossaryEntryTerm(String glossaryEntryTerm) {
-        this.glossaryEntryTerm = glossaryEntryTerm;
     }
 
     /**

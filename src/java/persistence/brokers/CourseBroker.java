@@ -6,6 +6,7 @@ import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.PrivilegeList;
 import business.domainClasses.User;
+import business.serviceClasses.DepartmentService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,24 +41,20 @@ public class CourseBroker extends Broker {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        
-
         //for course list
         int department;
         String courseName = null;
         String year = null;
         DepartmentBroker ds = new DepartmentBroker();
         Course course = null;
-        
 
         try {
-            
+
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, "CMPS-307-A");
             rs = ps.executeQuery();
             while (rs.next()) {
-                
-                
+
                 courseName = rs.getString("course_code");
                 department = rs.getInt("department_id");
                 course = new Course(courseCode, courseName, ds.getByID(department));
@@ -283,4 +280,56 @@ public class CourseBroker extends Broker {
         return courses;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ArrayList<Course> getByUser(User user) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        DepartmentService ds = new DepartmentService();
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course]  "
+                + "inner join [GlossaryDataBase].[dbo].[user_course] on course.course_code=user_course.course_code "
+                + "inner join [GlossaryDataBase].[dbo].[user] on user_course.user_id=[user].user_id "
+                + "WHERE [GlossaryDataBase].[dbo].[course].department_id=?;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        ArrayList<Course> courseList = new ArrayList<>();
+
+        //for course list
+        String courseCode = null;
+        String courseName = null;
+        String year = null;
+        int department;
+        String userID = user.getID();
+
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, userID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                //COURSE
+                courseCode = rs.getString("course_code");
+                courseName = rs.getString("course_name");
+                department = rs.getInt("department_id");
+                courseList.add(new Course(courseCode, courseName, ds.getByUserID(user)));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return courseList;
+
+    }
 }
+

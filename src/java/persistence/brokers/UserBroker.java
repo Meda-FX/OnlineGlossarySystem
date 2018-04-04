@@ -48,7 +48,7 @@ public class UserBroker extends Broker {
                 + "FROM [GlossaryDataBase].[dbo].[user] "
                 + "JOIN [GlossaryDataBase].[dbo].[department] "
                 + "ON ([GlossaryDataBase].[dbo].[user].department_id = [GlossaryDataBase].[dbo].[department].department_id) "
-                + "WHERE email =?";
+                + "WHERE email =? and activated = 1";
 
         String sql_priv = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[user_role] "
@@ -120,7 +120,7 @@ public class UserBroker extends Broker {
             String privilegeDescription = null;
 
             ps2 = connection.prepareStatement(sql_priv);
-            ps2.setString(1, user_id);
+            ps2.setString(1, user.getID());
             rs2 = ps2.executeQuery();
 
             while (rs2.next()) {
@@ -187,7 +187,7 @@ public class UserBroker extends Broker {
     public List<User> getByDepartment(Department department) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
-//        String selectSQL = "SELECT * "
+//        String userSQL = "SELECT * "
 //                + "FROM [GlossaryDataBase].[dbo].[user] "
 //                + "JOIN [GlossaryDataBase].[dbo].[user_role] "
 //                + "ON ([GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_role].user_id) "
@@ -619,35 +619,45 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         User user = (User) object;
 
-        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user]"
+        String userSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user]"
                 + " (user_id, password, department_id, name, email, activated)"
                 + " VALUES (?,?,?,?,?,?);";
         PreparedStatement ps = null;
 
+        String userRoleSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user_role] "
+                + "VALUES (?, ?);";
+        PreparedStatement ps2 = null;
+        
         try {
-            ps = connection.prepareStatement(selectSQL);
+            ps = connection.prepareStatement(userSQL);
             ps.setString(1, user.getID());
             ps.setString(2, user.getPassword());
             ps.setInt(3, user.getDepartment().getDepartmentID());
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
             ps.setInt(6, user.getIsActivated()? 1:0);
-            ps.executeQuery();
-
+            ps.executeUpdate();
+            
+            ps2 = connection.prepareStatement(userRoleSQL);
+            ps2.setString(1, user.getID());
+            ps2.setInt(2, user.getDepartment().getDepartmentID());
+            ps2.executeUpdate();
+            return 1;
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-            return 0;
         } finally {
             try {
                 //rs.close();
-                ps.close();
+                if (ps!=null)
+                    ps.close();
+                
+                if (ps2!=null)
+                    ps2.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
-
-        return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
 
     @Override
@@ -656,19 +666,19 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         User user = (User) object;
 
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry]"
-                + " join [GlossaryDataBase].[dbo].[definition]"
-                + " on ([GlossaryDataBase].[dbo].[definition].glossary_entry"
-                + "=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry)"
-                + " join [GlossaryDataBase].[dbo].[user]"
-                + " on ([GlossaryDataBase].[dbo].[definition].made_by"
-                + "=[GlossaryDataBase].[dbo].[user].user_id)"
-                + " join [GlossaryDataBase].[dbo].[user_course]"
-                + " on [GlossaryDataBase].[dbo].[user].user_id"
-                + "=[GlossaryDataBase].[dbo].[user_course].user_id"
-                + " where [GlossaryDataBase].[dbo].[user].user_id = ?;";
-        PreparedStatement ps = null;
-        //ResultSet rs = null;
+//        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry]"
+//                + " join [GlossaryDataBase].[dbo].[definition]"
+//                + " on ([GlossaryDataBase].[dbo].[definition].glossary_entry"
+//                + "=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry)"
+//                + " join [GlossaryDataBase].[dbo].[user]"
+//                + " on ([GlossaryDataBase].[dbo].[definition].made_by"
+//                + "=[GlossaryDataBase].[dbo].[user].user_id)"
+//                + " join [GlossaryDataBase].[dbo].[user_course]"
+//                + " on [GlossaryDataBase].[dbo].[user].user_id"
+//                + "=[GlossaryDataBase].[dbo].[user_course].user_id"
+//                + " where [GlossaryDataBase].[dbo].[user].user_id = ?;";
+//        PreparedStatement ps = null;
+//        //ResultSet rs = null;
 
         String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
                 + " WHERE user_id = ?;";
@@ -691,10 +701,10 @@ public class UserBroker extends Broker {
         //ResultSet rs5 = null;
 
         try {
-            ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, user.getID());
-            //rs = ps.executeQuery();
-            ps.executeUpdate();
+//            ps = connection.prepareStatement(selectSQL);
+//            ps.setString(1, user.getID());
+//            //rs = ps.executeQuery();
+//            ps.executeUpdate();
 
             ps2 = connection.prepareStatement(selectSQL2);
             ps2.setString(1, user.getID());
@@ -721,8 +731,8 @@ public class UserBroker extends Broker {
             return 0;
         } finally {
             try {
-                //rs.close();
-                ps.close();
+//                rs.close();
+//                ps.close();
                 ps2.close();
                 ps3.close();
                 ps4.close();
@@ -742,16 +752,14 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         User user = (User) object;
 
-        String selectSQL = "SELECT * from [GlossaryDataBase].[dbo].[glossary_entry] join [GlossaryDataBase].[dbo].[definition] on ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) join [GlossaryDataBase].[dbo].[user] on ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) join [GlossaryDataBase].[dbo].[user_course] on [GlossaryDataBase].[dbo].[user].user_id=[GlossaryDataBase].[dbo].[user_course].user_id where [GlossaryDataBase].[dbo].[user].user_id = ?;";
-        PreparedStatement ps = null;
-        //ResultSet rs = null;
-
-        String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? WHERE name = ?;";
+        String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] "
+                + "SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? "
+                + "WHERE user_id = ?;";
         PreparedStatement ps2 = null;
         //ResultSet rs2 = null;
 
         try {
-//            ps = connection.prepareStatement(selectSQL);
+//            ps = connection.prepareStatement(userSQL);
 //            ps.setString(1, user.getID());
 //            ps.executeUpdate();
 

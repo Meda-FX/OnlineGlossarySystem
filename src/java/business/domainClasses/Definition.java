@@ -37,15 +37,17 @@ public class Definition {
     
     /**
      * Constructs the definition object 
+     * @param definitionID id from database
      * @param writtenBy writtenBy the writer of the definition
      * @param dateCreated dateCreated the date in which the definition is created
      * @param citation citation the original writer of the definition credit
      * @param course course the course in which the definition is written
      * @param content content the content of the definition written by the user
      */
-    public Definition(User writtenBy, Date dateCreated, String citation, 
+    public Definition(int definitionID,User writtenBy, Date dateCreated, String citation, 
             String dictionaryCitation, Course course, String content, 
             String dictionaryContent, String term, String status) {
+        this.definitionID = definitionID;
         this.writtenBy = writtenBy;
         this.dateCreated = dateCreated;
         this.citation = citation;

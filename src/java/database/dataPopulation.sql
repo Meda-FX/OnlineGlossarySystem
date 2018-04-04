@@ -217,6 +217,18 @@ INSERT INTO user_course
 VALUES
     ('PNB-101-B','1', '2017-Fall');
 
+INSERT INTO user_course
+    (course_code,user_id,year)
+VALUES
+    ('SS-181-B','3', '2017-Fall');
+INSERT INTO user_course
+    (course_code,user_id,year)
+VALUES
+    ('MC-101-B','3', '2017-Fall');
+INSERT INTO user_course
+    (course_code,user_id,year)
+VALUES
+    ('PNB-101-B','3', '2017-Fall');
 
 INSERT INTO glossary_entry
     (glossary_entry,date_added,made_by)

@@ -1,6 +1,7 @@
 package persistence.brokers;
 
 import business.domainClasses.Department;
+import business.domainClasses.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -188,5 +189,38 @@ public class DepartmentBroker extends Broker{
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dept;
+    }
+
+    public Department getByUserID(User user) {
+        
+                ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        Department deptObject = null;
+        
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[department] "
+                    + "inner join [GlossaryDataBase].[dbo].[user] on [user].department_id=department.department_id "
+                    + "where user_id=?";
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String dept_NAME = null;
+        int dept_ID = 0;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, user.getID());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dept_ID = rs.getInt("department_id");
+                dept_NAME = rs.getString("name");
+                deptObject = new Department(dept_ID, dept_NAME);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return deptObject;
     }
 }

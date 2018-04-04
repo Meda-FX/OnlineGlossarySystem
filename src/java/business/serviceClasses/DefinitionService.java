@@ -8,6 +8,8 @@ package business.serviceClasses;
 import business.domainClasses.Course;
 import business.domainClasses.Definition;
 import business.domainClasses.Department;
+import business.domainClasses.GlossaryEntry;
+import business.domainClasses.User;
 import java.util.List;
 import persistence.brokers.DefinitionBroker;
 
@@ -52,5 +54,9 @@ public class DefinitionService {
         // need to update the date first
         // definition.setDateLastModified();
         return db.delete(definition);
+    }
+
+    public List<Definition> getByMadeBy(User user) {
+        return db.getByUserAndCourse(user);
     }
 }

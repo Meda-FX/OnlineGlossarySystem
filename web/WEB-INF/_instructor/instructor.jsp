@@ -1,71 +1,69 @@
 <%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms"> 
-    
-<div id="crud">
-    <form action="" method="post">
-    <h1>Add Terms</h1>    
-  <div class="form-group">
-    <label for="term">Term</label>
-    <input type="text" class="form-control" id="term" name="term" placeholder="Term" readonly="">
-  </div>
-  <div class="form-group">
-    <label for="definition">Definition</label>
-    <textarea class="form-control" rows="5" name="definition" id="definition"></textarea>
-  </div>
-   <div class="form-group">
-    <label for="sitation">Citation</label>
-    <input type="text" class="form-control" id="citation" name="citation" placeholder="Citation">
-  </div>
-        
-   <div class="form-group">
-    <label for="defDefinition">Dictionary Definition</label>
-    <textarea class="form-control" rows="5" name="defDefinition" id="defDefinition"></textarea>
-  </div>
-        
-  <div class="form-group">
-    <label for="dicCitation">Dictionary Citation</label>
-    <input type="text" class="form-control" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
-  </div>
-        
-   <div class="form-group selectpicker">
-        <label for="course-code">Course Code:</label>
-        <select id="course-code" name="courseCode">
-            <option value="-1" >Please select course</option>
-            <option value="2" >CMPP-869</option>
-            <option value="3" >QTTI-7769</option>
-            <option value="4" >QTTI-221</option>
-        </select>
-    </div>   
-       
-    <div class="message">  
-        ${message}      
-    </div>  
-    
-  <!--<button type="button" class="btn">Save Term</button>-->
-    <!--<button type="button" class="btn">Submit Term</button>-->
-    <!--<button type="button" class="btn hideFormTerm">Hide Form</button>-->
-        
-    
-    <input type="hidden" name="saveTerm" value="save">
-    <input type="submit" value="Save Term">
-    
-    <input type="hidden" name="submitTerm" value="submit">
-    <input type="submit" value="Submit Term">
-    
-    <input class="hideFormTerm" type="button" value="Hide Form">
-    
-   </form>
-</div>
+
+    <div id="">
+        <form action="instructor" method="post">
+            <h1>Add Terms</h1>    
+            <div class="form-group">
+                <label for="term">Term</label>
+                <input type="text" class="form-control" id="term" value="${term}" name="term" placeholder="Term">
+            </div>
+            <div class="form-group">
+                <label for="definition">Definition</label>
+                <textarea class="form-control" rows="5" name="definition" id="definition">${definition}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="sitation">Citation</label>
+                <input type="text" class="form-control" value="${citation}" id="citation" name="citation" placeholder="Citation">
+            </div>
+
+            <div class="form-group">
+                <label for="defDefinition">Dictionary Definition</label>
+                <textarea class="form-control" rows="5" value="" name="defDefinition" id="defDefinition">${defDefinition}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="dicCitation">Dictionary Citation</label>
+                <input type="text" class="form-control" value="${defCitation}" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
+            </div>
+
+            <div class="form-group selectpicker">
+                <label for="course-code">Course Code:</label>
+                <select id="course-code" name="courseCode">
+                    <option value="-1" >Please select course</option>
+                    <c:forEach items="${courseList}" var="course">
+                        <option value="${course.courseCode}" >${course.courseCode} - ${course.courseName}</option>                        
+                    </c:forEach>
+                </select>
+            </div>   
+
+
+
+            <!--<button type="button" class="btn">Save Term</button>-->
+            <!--<button type="button" class="btn">Submit Term</button>-->
+            <!--<button type="button" class="btn hideFormTerm">Hide Form</button>-->
+
+
+
+            <input type="submit" name="submitButton" value="Save Term">
+
+
+            <input type="submit" name="submitButton" value="Submit Term">
+
+            <input class="hideFormTerm" type="button" value="Hide Form">
+
+        </form>
+    </div>
 </div>
 <br>
 
 <!--to be deleted-->
 <div class="container list-terms">         
 
-<!--to be deleted-->
+    <!--to be deleted-->
     <br>
-    
+
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
@@ -84,13 +82,13 @@
             </div>
         </div>
     </div><!--Search ends here-->
-    
-     <div class="row">
+
+    <div class="row">
         <div class="addTerms" class="col-md-12">
-             <button type="button" class="btn navbar-right">Add Term</button>
+            <button type="button" class="btn navbar-right">Add Term</button>
         </div>
     </div>
-    
+
     <!--table begins here-->
     <table class="table table-hover"> 
         <thead>
@@ -105,39 +103,36 @@
             </tr>
         </thead>
         <tbody>
-            <tr>               
-                <td>JAVA</td>
-                <td>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                </td>     
-                <td>PROJ-354</td>
-                <td>JAN 25-2017</td>
-                <td>Published</td>
-                <td>
-                    <span id="icons" class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>
-                    <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-                </td>
+            <c:forEach items="${definitionlist}" var="def">
+                <tr>
+                    <td><c:out value = "${def.term}"/></td>
+                    <td>
+                        <c:out value = "${def.content}"/>
+                    </td> 
+                    <td><c:out value = "${def.writtenBy.name}"/></td>
+                    <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td> 
+                    <td><c:out value = "${def.status}"/></td> 
+                    <td>
+                        <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
+                        <form action="instructor" method="POST">
+                        <input type="hidden" name="action" value="Delete Term">
+                        <input type="hidden" name="defId" value="${def.definitionID}">
+                        <input type="submit" name="submitButton" value="Delete">
+                        </form>
+                    </td>
+                    <td>     
+            <form action="instructor" method="POST">
+                        <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="defId" value="${def.definitionID}">
+                        <input class="addTerms" name="submitButton" type="submit" value="Edit">
+            </form>
+            </td>
             </tr>
-            <tr>
-                <td>Search Trees</td>
-                <td>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                </td>
-                <td>CPMH-211</td>
-                <td>FEB 25-2017</td>
-                <td>Pending</td>
-                <td>
-                    <span id="icons" class="glyphicon glyphicon-trash"></span>
-                </td>
-                <td>
-                    <span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>        
-                </td>
-            </tr>            
+        </c:forEach>         
         </tbody>
     </table> <!--Table ends here-->
-    </div>
+</div>
 </div> <!-- list items  -->
 
 <%@ include file="../includes/footer.jsp" %>
