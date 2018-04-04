@@ -39,11 +39,14 @@ public class InstructorServlet extends HttpServlet {
         String url = "/WEB-INF/_instructor/instructor.jsp";
 
         HttpSession session = request.getSession();
-        GlossaryEntryService ges = new GlossaryEntryService();
+        DefinitionService ds = new DefinitionService();
+        CourseService cs = new CourseService();
 
         User user = (User) session.getAttribute("user");
-        List<GlossaryEntry> termList = ges.getByUser(user.getID());
-
+        List<Definition> termList = ds.getByMadeBy(user);
+        List<Course> courseList = cs.getByUser(user);
+        request.setAttribute("definitionlist", termList);
+        request.setAttribute("courseList", courseList);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -51,36 +54,28 @@ public class InstructorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String action = request.getParameter("action");
+        String url = "/WEB-INF/_instructor/instructor.jsp";
+        String action = request.getParameter("submitButton");
         String term = request.getParameter("term");
         String definition = request.getParameter("definition");
         String citation = request.getParameter("citation");
         String defDict = request.getParameter("defDefinition");
-        String defCita = request.getParameter("defCita");
-        String course = request.getParameter("course");
+        String defCita = request.getParameter("dicCitation");
+        String course = request.getParameter("courseCode");
         String errorMessage = "The following fields are blank / invalid";
-        String url = "/WEB-INF/_instructor/instructor.jsp";
         Timestamp date = new Timestamp(new Date().getTime());
         DefinitionService ds = new DefinitionService();
-        CourseService cS = new CourseService();
-        Course newCourse = cS.get(course);
+        CourseService cs = new CourseService();
+        Course newCourse = cs.get(course);
         Definition newEntry = new Definition();
         User user = (User) session.getAttribute("user");
 
-        if (term == null) {
-            errorMessage += " Term";
-        }
-        if (definition == null) {
-            errorMessage += " definition";
-        }
-        if (defDict == null) {
-            errorMessage += " dictionary definition";
-        }
-        if (defCita == null) {
-            errorMessage += " dictionary citation";
-        }
-        if (course == null) {
-            errorMessage += " course";
+        if (action.equals("Delete") == true) {
+            Definition toDelete = new Definition();
+            toDelete.setDefinitionID(Integer.parseInt(request.getParameter("defId")));
+            if (ds.delete(toDelete) == 1) {
+                errorMessage = "Your definition has been deleted!";
+            }
         }
 
         newEntry.setCitation(citation);
@@ -91,39 +86,72 @@ public class InstructorServlet extends HttpServlet {
         newEntry.setTerm(term);
         newEntry.setWrittenBy((User) session.getAttribute("user"));
 
+        // checking to see if any of the required terms are null
+        if (action.equalsIgnoreCase("Submit Term") == true) {
+            if (checkGlossaryEntry(newEntry) == false) {
+                GlossaryEntryBroker ges = new GlossaryEntryBroker();
+                GlossaryEntry newGlossaryEntry = new GlossaryEntry(date, term, user);
+                ges.insert(newGlossaryEntry);
+            }
+            if (term.isEmpty() == true) {
+                errorMessage += " Term";
+            }
+            if (definition.isEmpty() == true) {
+                errorMessage += " definition";
+            }
+            if (defDict.isEmpty() == true) {
+                errorMessage += " dictionary definition";
+            }
+            if (defCita.isEmpty() == true) {
+                errorMessage += " dictionary citation";
+            }
+            if (course.equalsIgnoreCase("-1") == true) {
+                errorMessage += " course";
+            }
+            if (term.isEmpty() == true
+                    || definition.isEmpty() == true || defDict.isEmpty() == true
+                    || defCita.isEmpty() == true || course.equalsIgnoreCase("-1") == true) {
+                request.setAttribute("term", term);
+                request.setAttribute("definition", definition);
+                request.setAttribute("citation", citation);
+                request.setAttribute("defDefinition", defDict);
+                request.setAttribute("defCitation", defCita);
+                request.setAttribute("courseCode", course);
+                request.setAttribute("message", errorMessage);
+                action = "";
+            } else {
+                newEntry.setStatus("Under Review");
+                //Remove all of the something went wrongs!!!!
+                if (ds.insert(newEntry) == 1) {
+                    errorMessage = "Your term is now pending review!";
+                } else {
+                    errorMessage = "Something went wrong with the term Entry";
+                }
+
+            }
+        }
         //This is checking to see if the term already exists on the 
         //GlossaryEntry table. If it doesn't already exit the program will
         //Create the entry
-        if (checkGlossaryEntry(newEntry) == false) {
-            GlossaryEntryBroker ges = new GlossaryEntryBroker();
-            GlossaryEntry newGlossaryEntry = new GlossaryEntry(date, term, user);
-            if (ges.insert(newGlossaryEntry) == 0) {
-                errorMessage = "Error something went wrong with the glossary entry!";
+
+        if (action.equals("Save Term") == true) {
+            if (checkGlossaryEntry(newEntry) == false) {
+                GlossaryEntryBroker ges = new GlossaryEntryBroker();
+                GlossaryEntry newGlossaryEntry = new GlossaryEntry(date, term, user);
+                ges.insert(newGlossaryEntry);
+            }
+            newEntry.setStatus("In Progress");
+            if (ds.insert(newEntry) == 1) {
+                errorMessage = "Your term is now saved!";
             }
         }
-        if (action.compareTo("newTerm") == 1) {
-            // checking to see if any of the required terms are null
-            if (term != null && definition != null && defDict != null
-                    && defCita != null && course != null) {
-                request.setAttribute("message", errorMessage);
-                getServletContext().getRequestDispatcher(url).forward(request, response);
-            }
-            newEntry.setStatus("pending review");
-            //Remove all of the something went wrongs!!!!
-            if (ds.insert(newEntry) == 1) {
-                errorMessage = "Your term is now pending review!";
-            } else {
-                errorMessage = "Something went wrong with the term Entry";
-            }
-            request.setAttribute("message", errorMessage);
+        List<Definition> termList = ds.getByMadeBy(user);
+        List<Course> courseList = cs.getByUser(user);
 
-        } else if (action.compareTo("save") == 1) {
-            newEntry.setStatus("In progress");
-            if (ds.insert(newEntry) == 1) {
-                errorMessage = "Your term is now pending review!";
-            } 
-        }
-
+        request.setAttribute("courseList", courseList);
+        request.setAttribute("definitionlist", termList);
+        request.setAttribute("message", errorMessage);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     public boolean checkGlossaryEntry(Definition definition) {

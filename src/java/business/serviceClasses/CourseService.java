@@ -7,13 +7,10 @@ package business.serviceClasses;
 
 import business.domainClasses.Course;
 import business.domainClasses.Department;
+import business.domainClasses.User;
 import java.util.List;
 import persistence.brokers.CourseBroker;
 
-/**
- *
- * @author 727153
- */
 public class CourseService {
     private CourseBroker courseDB;
     
@@ -22,11 +19,15 @@ public class CourseService {
     }
     
     public Course get(String courseCode) {
-        return courseDB.getByID(courseCode);
+        return courseDB.getByCourseCode(courseCode);
     }
 
     public List<Course> getByDepartment(Department department) {
         return courseDB.getByDepartmentID(department);
+    }
+
+    public List<Course> getByUser(User user) {
+        return courseDB.getByUser(user);
     }
 
 

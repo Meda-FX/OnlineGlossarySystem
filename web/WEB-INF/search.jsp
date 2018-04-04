@@ -80,9 +80,13 @@
                     <li><a href="#">Transportation</a></li>
                 </ul>
             </div>
+        </div>
+    </div>
         </c:if>
 
         <c:if test="${user != null}">
+            <div class="search-filter">
+        <div class="row">
             <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <!-- Filter by instructor starts here -->
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -111,8 +115,7 @@
                         <li><a href="#">Instructor Three</a></li>
                 </div><!--Filter by course ends here-->
             </div>        
-        
-    </div> 
+        </div>    
 </div> <!--Search filter ends here-->
 </c:if>
 <br><br>
@@ -136,7 +139,7 @@
 
                     <!--Right side of the search result starts here: term definition-->
                     <c:if test="${user.getPrivileges().contains(3) == true}">
-                        <div class="col-xs-10 col-md-7">
+                        <div class="col-xs-10 col-md-9">
                         </c:if>
 
                         <c:if test="${user.getPrivileges().contains(3) != true}">

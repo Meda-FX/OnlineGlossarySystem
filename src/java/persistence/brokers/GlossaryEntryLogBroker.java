@@ -5,6 +5,8 @@
  */
 package persistence.brokers;
 
+import business.domainClasses.GlossaryEntryLog;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +32,10 @@ public class GlossaryEntryLogBroker extends Broker {
 
     @Override
     public List<Object> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<GlossaryEntryLog> getByDatesAndType(Date start, Date end, int type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
