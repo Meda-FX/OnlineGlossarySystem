@@ -33,7 +33,7 @@ public class AccountLogBroker extends Broker {
         AccountLog accountLog = (AccountLog)object;
         String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_log] "
                 + "(activity_by, activity_date, activity_type) "
-                + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?)";
         PreparedStatement ps = null;
         
         try {

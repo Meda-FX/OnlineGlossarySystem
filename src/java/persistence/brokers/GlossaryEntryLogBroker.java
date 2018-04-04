@@ -34,7 +34,7 @@ public class GlossaryEntryLogBroker extends Broker {
         GlossaryEntryLog glossaryEntryLog = (GlossaryEntryLog)object;
         String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[glossaryEntry_log] "
                 + "(activity_by, activity_date, activity_type) "
-                + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?)";
         PreparedStatement ps = null;
         
         try {

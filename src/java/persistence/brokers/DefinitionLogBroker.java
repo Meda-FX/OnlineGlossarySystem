@@ -33,7 +33,7 @@ public class DefinitionLogBroker extends Broker {
         DefinitionLog definitionLog = (DefinitionLog)object;
         String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[definition_log] "
                 + "(activity_by, activity_date, activity_type) "
-                + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?)";
         PreparedStatement ps = null;
         
         try {
