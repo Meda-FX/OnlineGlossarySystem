@@ -82,9 +82,7 @@ public class EditorServlet extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 Gson gson = new Gson();
-
                 String str = gson.toJson(def);
-
                 response.getWriter().write(str);
                 return;
             }
