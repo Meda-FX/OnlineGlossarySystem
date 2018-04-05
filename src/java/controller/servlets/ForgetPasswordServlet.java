@@ -47,7 +47,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             }
             
             AccountRequestService ars = new AccountRequestService();
-            ars.removeOldPasswordRequest(user);
+            ars.removeOldRequest(user, 2);
             String token = ars.insert(user, 2);
             
             HashMap<String, String> contents = new HashMap<>();

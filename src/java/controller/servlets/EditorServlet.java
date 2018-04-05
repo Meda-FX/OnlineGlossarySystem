@@ -11,7 +11,6 @@ import business.domainClasses.User;
 import business.serviceClasses.CourseService;
 import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
-import business.serviceClasses.GlossaryEntryLogService;
 import business.serviceClasses.UserService;
 import com.google.gson.Gson;
 import java.io.IOException;

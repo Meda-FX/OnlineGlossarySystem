@@ -44,7 +44,7 @@
     <c:forEach items="${courseList}" var="course">
         <div class="checkbox">
         <label>
-            <input name="selectedCourse" type="checkbox" <c:if test="${checked != null}">checked</c:if><c:out value="${course.courseCode}"/>>${course.courseCode}
+            <input name="selectedCourse" type="checkbox" <c:if test="${user.getCourses().contains(course.courseCode)==true}">checked</c:if> value="${course.courseCode}" >${course.courseCode}
         </label>        
         </div>
     </c:forEach>      

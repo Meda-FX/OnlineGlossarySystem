@@ -453,8 +453,8 @@ public class UserBroker extends Broker {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -733,10 +733,10 @@ public class UserBroker extends Broker {
             try {
 //                rs.close();
 //                ps.close();
-                ps2.close();
-                ps3.close();
-                ps4.close();
-                ps5.close();
+                if(ps2 != null) ps2.close();
+                if(ps3 != null) ps3.close();
+                if(ps4 != null) ps4.close();
+                if(ps5 != null) ps5.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -780,7 +780,7 @@ public class UserBroker extends Broker {
             try {
 //                rs.close();
 //                ps.close();
-                ps2.close();
+                if(ps2 != null) ps2.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -873,8 +873,8 @@ public class UserBroker extends Broker {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null)ps.close();
 
             } catch (SQLException ex) {
             }
@@ -888,14 +888,26 @@ public class UserBroker extends Broker {
        ConnectionPool pool = ConnectionPool.getInstance();
        Connection connection = pool.getConnection();
        
+       ArrayList<Course> courses =(ArrayList<Course>) user.getCourses().getCourses();
+       
        String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
-     //  String sql_i = "Insert Into [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
+       String sql_i = "INSERT INTO [user_course] (course_code,user_id) VALUES (?,?)";
+     //INSERT INTO [user_course] (course_code,user_id,year) VALUES ('CMPS-307-9','1','2017-Fal9');
        PreparedStatement ps = null;
         
         try {
             ps = connection.prepareStatement(sql_d);
             ps.setString(1, user.getID());            
             ps.executeUpdate();
+            if(ps != null) ps.close();
+            for(Course c:courses)
+            {
+                ps=connection.prepareStatement(sql_i);
+                ps.setString(1, c.getCourseCode());
+                ps.setString(2, user.getID());
+              //  ps.setDate(3, x);
+                ps.executeUpdate();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         return 0;

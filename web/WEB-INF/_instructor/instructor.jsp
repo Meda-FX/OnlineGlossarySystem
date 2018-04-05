@@ -2,7 +2,7 @@
 
 <div class="container list-terms"> 
 
-    <div id="">
+    <div id="crud">
         <form action="instructor" method="post">
             <h1>Add Terms</h1>    
             <div class="form-group">
@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label for="dicCitation">Dictionary Citation</label>
-                <input type="text" class="form-control" value="${defCitation}" id="defCitation" name="dicCitation" placeholder="Dectionary Citation">
+                <input type="text" class="form-control" value="${defCitation}" id="dicCitation" name="dicCitation" placeholder="Dectionary Citation">
             </div>
 
             <div class="form-group selectpicker">
@@ -121,7 +121,7 @@
                         </form>
                     </td>
                     <td>     
-            <form action="instructor" method="POST">
+            <form class="editForm" action="instructor" method="GET">
                         <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                         <input type="hidden" name="action" value="edit">
                         <input type="hidden" name="defId" value="${def.definitionID}">
