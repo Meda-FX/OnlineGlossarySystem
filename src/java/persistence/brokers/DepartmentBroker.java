@@ -187,6 +187,13 @@ public class DepartmentBroker extends Broker{
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+            }
+            pool.freeConnection(connection);
         }
         return dept;
     }
@@ -220,6 +227,13 @@ public class DepartmentBroker extends Broker{
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+            }
+            pool.freeConnection(connection);
         }
         return deptObject;
     }

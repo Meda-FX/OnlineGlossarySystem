@@ -45,7 +45,7 @@ public class CourseBroker extends Broker {
         int department;
         String courseName = null;
         String year = null;
-        DepartmentBroker ds = new DepartmentBroker();
+        
         Course course = null;
 
         try {
@@ -57,7 +57,7 @@ public class CourseBroker extends Broker {
 
                 courseName = rs.getString("course_code");
                 department = rs.getInt("department_id");
-                course = new Course(courseCode, courseName, ds.getByID(department));
+                course = new Course(courseCode, courseName,new Department(department));
 
             }
         } catch (SQLException ex) {

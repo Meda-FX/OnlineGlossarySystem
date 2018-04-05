@@ -12,6 +12,18 @@ $(document).ready(function(){
         event.preventDefault();
     });
     
+    $(".editInstructorForm").submit(function(event) {
+        $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
+            $("#term").val(responseJson.term);
+            $("#termId").val(responseJson.definitionID);
+            $("#definition").val(responseJson.content);
+            $("#citation").val(responseJson.citation);
+            $("#defDefinition").val(responseJson.dictionaryContent);
+            $("#dicCitation").val(responseJson.dictionaryCitation);           
+            $("#course-code").val(responseJson.course.courseName);
+        });
+        event.preventDefault();
+    });
     //CRUD hide and show script
     $("#crud").hide(); 
     $(".hideFormTerm").click(function(){

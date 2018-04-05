@@ -59,4 +59,8 @@ public class DefinitionService {
     public List<Definition> getByMadeBy(User user) {
         return db.getByUserAndCourse(user);
     }
+    
+    public Definition getByID(int id){
+        return db.getByID(id);
+    }
 }

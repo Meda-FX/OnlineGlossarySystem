@@ -39,6 +39,14 @@ public class Course {
         this.department = department;
         this.year = year;
     }
+    
+        /**
+     * Constructs a course object for courses exists in the system
+     * @param courseCode courseCode the course code of the courses
+     * */
+    public Course(String courseCode) {
+        this.courseCode = courseCode;
+    }
 
     /**
      * Returns the course code of the course 
