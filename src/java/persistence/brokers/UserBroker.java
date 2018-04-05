@@ -453,8 +453,8 @@ public class UserBroker extends Broker {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -780,7 +780,7 @@ public class UserBroker extends Broker {
             try {
 //                rs.close();
 //                ps.close();
-                ps2.close();
+                if(ps2 != null) ps2.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);

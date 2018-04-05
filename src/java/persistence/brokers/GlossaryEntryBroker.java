@@ -289,8 +289,8 @@ public class GlossaryEntryBroker extends Broker {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
