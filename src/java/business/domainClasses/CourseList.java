@@ -69,9 +69,10 @@ public class CourseList {
     public void reload(String[] selectedCourse) {
         //Tools | Templates.
         List<Course> courselist = new ArrayList<>();
-        Course course = new Course();
+        Course course=null;
         for(int i=0;i<selectedCourse.length;i++)
         {
+            course = new Course();
             course.setCourseCode(selectedCourse[i]);
             courselist.add(course);
         }
