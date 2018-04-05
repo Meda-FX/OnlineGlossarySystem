@@ -68,11 +68,11 @@ public class DefinitionBroker extends Broker {
         java.util.Date newDate;
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[definition] "
-                + "join [dbo].[course] "
-                + "on (definition.course_code=course.course_code) "
-                + "join [dbo].[user] "
-                + "on (definition.made_by=[dbo].[user].user_id) "
+                + "from [GlossaryDatabase].[dbo].[definition] "
+                //+ "join [GlossaryDatabase].[dbo].[course] "
+                //+ "on (definition.course_code=course.course_code) "
+                //+ "join [GlossaryDatabase].[dbo].[user] "
+                //+ "on (definition.made_by=[dbo].[user].[user_id]) "
                 + "where definition_uid = ?";
 
         PreparedStatement ps = null;
@@ -89,18 +89,16 @@ public class DefinitionBroker extends Broker {
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 status = rs.getString("status");
-                name = rs.getString("name");
-                userid = rs.getString("user_id");
+                userid = rs.getString("made_by");
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 user = new User();
                 user.setID(userid);
-                user.setName(name);
                 courseId = rs.getString("course_code"); // need to get course info
-                course_name = rs.getString("course_name");
+                //course_name = rs.getString("course_name");
                 course = new Course();
                 course.setCourseCode(courseId);
-                course.setCourseName(course_name);
+                //course.setCourseName(course_name);
                 // definition = new definition(user,)
                 definition = new Definition(did, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
@@ -342,7 +340,7 @@ public class DefinitionBroker extends Broker {
                 newDate = new java.util.Date(rs.getTimestamp("date_created").getTime());
                 citation = rs.getString("citation");
                 courseId = rs.getString("course_code"); // need to get course info
-                course = cs.get(courseId);
+                course = new Course(courseId);
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 // definition = new definition(user,)
