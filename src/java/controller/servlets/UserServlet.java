@@ -43,8 +43,6 @@ public class UserServlet extends HttpServlet {
         CourseService cs = new CourseService();
         List<Course> courseList = cs.getByDepartment(department);
         request.setAttribute("courseList", courseList);
-      //  String selectedCourse[] = request.getParameterValues("selectedCourse");        
-
         //request.setAttribute("selected", "selected");
         getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
