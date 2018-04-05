@@ -47,10 +47,9 @@ public class UserServlet extends HttpServlet {
         
         for(int i = 0; i < user.getCourses().getCourses().size(); i++){
             request.setAttribute("checked", user.getCourses().getCourses().get(i));
-        }
+        }        
         
-        
-        request.setAttribute("selected", "selected");
+        //request.setAttribute("selected", "selected");
         getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
 
