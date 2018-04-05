@@ -43,13 +43,45 @@ public class UserServlet extends HttpServlet {
         CourseService cs = new CourseService();
         List<Course> courseList = cs.getByDepartment(department);
         request.setAttribute("courseList", courseList);
+      //  String selectedCourse[] = request.getParameterValues("selectedCourse");
         
+        for(int i = 0; i < user.getCourses().getCourses().size(); i++){
+            request.setAttribute("checked", user.getCourses().getCourses().get(i));
+        }
+        
+        
+        request.setAttribute("selected", "selected");
         getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        Department department = user.getDepartment();
+        CourseService cs = new CourseService();
+        UserService us = new UserService();
+        List<Course> courseList = cs.getByDepartment(department);
+        Course c = new Course();        
+       
+        String action = request.getParameter("action");
+        String selectedCourse[] = request.getParameterValues("selectedCourse");
+         
+        
+        //to be deleted
+        
+            
+        
+        if(action != null && action.equals("addCourse")) {
+            user.getCourses().reload(selectedCourse);
+            us.reloadCourses(user);
+            session.setAttribute("user", user);
+            request.setAttribute("test", "You have reached action.");
+            
+        }
+        //getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);
+        doGet(request, response);
     }
 }

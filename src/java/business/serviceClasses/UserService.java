@@ -118,4 +118,9 @@ public class UserService {
         List<User> userlist = userDB.getByDepartment(department);
         return userlist;
     }
+    
+    public int reloadCourses(User user)
+    {
+       return userDB.reloadCourses(user);
+    }
 }

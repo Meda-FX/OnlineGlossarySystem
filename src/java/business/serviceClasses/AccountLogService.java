@@ -34,7 +34,7 @@ public class AccountLogService {
         return accountLogDB.insert(glossaryRequest);
     }
     
-    public List<AccountLog> getByDatesAndType(Date start, Date end, int type) {
-        return accountLogDB.getByDatesAndType(start, end, type);
+    public List<AccountLog> getByDDT(Date start, Date end, int department, int type) {
+        return accountLogDB.getByDDT(start, end, department, type);
     }
 }

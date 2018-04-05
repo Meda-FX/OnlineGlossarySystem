@@ -26,6 +26,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="resources/css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">      
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <!--Favicons starts-->
         <link rel="icon" type="image/png" href="http://www.sait.ca/assets/prebuilt/img/favicon/favicon-16x16.png" sizes="16x16">
         <link rel="icon" type="image/png" href="http://www.sait.ca/assets/prebuilt/img/favicon/favicon-32x32.png" sizes="32x32">

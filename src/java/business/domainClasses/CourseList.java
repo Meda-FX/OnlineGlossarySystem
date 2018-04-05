@@ -1,6 +1,7 @@
 package business.domainClasses;
 
 import business.serviceClasses.CourseService;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +64,17 @@ public class CourseList {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public void reload(String[] selectedCourse) {
+        //Tools | Templates.
+        List<Course> courselist = new ArrayList<>();
+        Course course = new Course();
+        for(int i=0;i<selectedCourse.length;i++)
+        {
+            course.setCourseCode(selectedCourse[i]);
+            courselist.add(course);
+        }
+        courses=courselist;
     }
 }

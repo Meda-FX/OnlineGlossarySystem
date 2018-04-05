@@ -33,7 +33,7 @@ public class AccountLogBroker extends Broker {
         AccountLog accountLog = (AccountLog)object;
         String insertSQL = "INSERT INTO [GlossaryDataBase].[dbo].[account_log] "
                 + "(activity_by, activity_date, activity_type) "
-                + "VALUES (?, ?, ?, ?)";
+                + "VALUES (?, ?, ?)";
         PreparedStatement ps = null;
         
         try {
@@ -46,7 +46,7 @@ public class AccountLogBroker extends Broker {
             if (result >0)
                 return 1;
         } catch (SQLException ex) {
-            Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountRequest", ex);
+            Logger.getLogger(AccountLogBroker.class.getName()).log(Level.SEVERE, "Cannot insert AccountLog", ex);
             
         } finally {
             try {
@@ -74,15 +74,18 @@ public class AccountLogBroker extends Broker {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<AccountLog> getByDatesAndType(Date start, Date end, int type) {
+    public List<AccountLog> getByDDT(Date start, Date end,int department, int type) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
         String selectSQL = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[account_log] "
-                + "WHERE [GlossaryDataBase].[dbo].[account_log].activity_type = ? "
-                + "AND [GlossaryDataBase].[dbo].[account_log].activity_date >= ? "
-                + "AND [GlossaryDataBase].[dbo].[account_log].activity_date <= ? + 1 day";
+                + "JOIN [[GlossaryDataBase].[dbo].[user] "
+                + "ON (account_log.activityBy = user.user_id) "
+                + "WHERE activity_type = ? "
+                + "AND department_id = ? "
+                + "AND activity_date >= ? "
+                + "AND activity_date <= ? + 1 day";
         PreparedStatement ps = null;
         ResultSet rs = null;
         
@@ -92,8 +95,9 @@ public class AccountLogBroker extends Broker {
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setInt(1, type);
-            ps.setTimestamp(2, startStamp);
-            ps.setTimestamp(3, endStamp);
+            ps.setInt(2, department);
+            ps.setTimestamp(3, startStamp);
+            ps.setTimestamp(4, endStamp);
             
             rs = ps.executeQuery();
             while(rs.next()) {
@@ -102,7 +106,7 @@ public class AccountLogBroker extends Broker {
                 User user = new User();
                 user.setID(activityBy);
                 Date activityDate = new Date(rs.getTimestamp("activity_date").getTime());
-                AccountLog accountLog = new AccountLog(logID, type, user, activityDate);
+                AccountLog accountLog = new AccountLog(type, user, activityDate);
                 accountLogList.add(accountLog);
             }
         } catch (SQLException ex) {

@@ -45,20 +45,6 @@ CREATE TABLE [dbo].[glossary_entry](
 	REFERENCES [user](user_id)
 	)
 
---activity_type:
---new entry: 1
-CREATE TABLE [dbo].[glossary_entry_log](
-        log_id int IDENTITY(1,1) PRIMARY KEY,
-	glossary_entry varchar (40) NOT NULL,
-	activity_by VARCHAR (20) NOT NULL,
-	activity_date Varchar(20) NOT NULL,
-        activity_type int NOT NULL,
-	CONSTRAINT FK_glossary_entry_log_glossary_entry FOREIGN KEY (glossary_entry)
-	REFERENCES glossary_entry(glossary_entry),
-	CONSTRAINT FK_glossary_entry_activity_by FOREIGN KEY (activity_by)
-	REFERENCES [user](user_id)
-        )
-
 
 --Status:
 --Published
@@ -123,18 +109,4 @@ CREATE TABLE [dbo].[account_request](
         CONSTRAINT FK_account_request_request_id FOREIGN KEY (request_by)
         REFERENCES [user](user_id)
 	)
-	
---activity_type:
---create new definition: 1
-CREATE TABLE [dbo].[definition_log](
-        log_id int IDENTITY(1,1) PRIMARY KEY,
-	definition_uid Int NOT NULL,
-	activity_by Varchar(20) NOT NULL,
-	activity_date datetime NOT NULL ,
-        activity_type int NOT NULL,
-	CONSTRAINT FK_definition_log_definition_uid FOREIGN KEY (definition_uid)
-	REFERENCES definition(definition_uid),
-	CONSTRAINT FK_definition_log_activity_by FOREIGN KEY (activity_by)
-	REFERENCES [user](user_id)
-	) 
 	

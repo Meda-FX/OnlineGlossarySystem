@@ -152,4 +152,12 @@
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>p@ssword123</env-entry-value>
     </env-entry>
+<!--    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/404_page.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/500_page.jsp</location>
+    </error-page>-->
 </web-app>

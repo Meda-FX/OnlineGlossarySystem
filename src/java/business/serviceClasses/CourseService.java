@@ -31,4 +31,12 @@ public class CourseService {
     }
 
 
+    
+    public int insert(Course course) {
+        return courseDB.insert(course);
+    }
+    
+    public int delete(Course course) {
+        return courseDB.delete(course);
+    }
 }

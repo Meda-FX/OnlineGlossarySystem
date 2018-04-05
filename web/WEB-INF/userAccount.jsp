@@ -40,15 +40,15 @@
     <br>  
     
     <h3>Select Course</h3>
+    <form action="user" method="POST">  
     <c:forEach items="${courseList}" var="course">
         <div class="checkbox">
         <label>
-            <input type="checkbox" <c:out value="${course.courseCode}"/>>${course.courseCode}
+            <input name="selectedCourse" type="checkbox" ${checked} <c:out value="${course.courseCode}"/>>${course.courseCode}
         </label>        
         </div>
-    </c:forEach>
-    <form action="user" method="POST">    
-        <input type="hidden" name="action" value="addcourse">
+    </c:forEach>      
+        <input type="hidden" name="action" value="addCourse">
         <input type="submit" value="Add Course">
     </form>
 </div> <!-- list items  -->
