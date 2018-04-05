@@ -285,10 +285,9 @@ public class CourseBroker extends Broker {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         DepartmentService ds = new DepartmentService();
-        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course]  "
-                + "inner join [GlossaryDataBase].[dbo].[user_course] on course.course_code=user_course.course_code "
-                + "inner join [GlossaryDataBase].[dbo].[user] on user_course.user_id=[user].user_id "
-                + "WHERE [GlossaryDataBase].[dbo].[course].department_id=?;";
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user_course]  "
+                + "join [GlossaryDataBase].[dbo].[course] on course.course_code=user_course.course_code "
+                + "WHERE user_id=?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
