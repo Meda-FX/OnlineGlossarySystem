@@ -45,7 +45,6 @@ public class NewPasswordServlet extends HttpServlet {
         }
         request.setAttribute("loginMessage", "Unable to reset password. Please contact your department office.");
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        //response.sendRedirect("login");
         return;
     }
 
@@ -68,19 +67,15 @@ public class NewPasswordServlet extends HttpServlet {
         UserService us = new UserService();
         try {
             us.update(user);
-            //session.invalidate();
             request.setAttribute("loginMessage", "Password reset successful, please log in again");
             AccountRequestService ars = new AccountRequestService();
-            ars.removeOldPasswordRequest(user);
-            //response.sendRedirect("login");
-            //return;
+            ars.removeOldRequest(user, 2);
         } catch (Exception ex) {
             Logger.getLogger(NewPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("loginMessage", "Unable to reset password. Please contact your department office");
         }
         session.invalidate();
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        //response.sendRedirect("login");
         return;
     }
 }

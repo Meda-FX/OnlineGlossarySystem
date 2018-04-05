@@ -5,11 +5,14 @@
  */
 package controller.servlets;
 
+import business.domainClasses.AccountLog;
 import business.domainClasses.User;
+import business.serviceClasses.AccountLogService;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                     user.setIsActivated(true);
                     UserService us = new UserService();
                     us.update(user);
-                    ars.removeOldPasswordRequest(user);
+                    ars.removeOldRequest(user, 1);
                     request.setAttribute("loginMessage", "Account activated, now you can log in");
                 } else {
                     request.setAttribute("loginMessage", "Unable to activate account. Plese contact your department office.");
@@ -83,6 +86,9 @@ public class LoginServlet extends HttpServlet {
         else
         {
             //user.setPassword("");
+            AccountLogService als = new AccountLogService();
+            AccountLog log = new AccountLog(2, user, new Date());
+            als.insert(log);
             session.setAttribute("user", user);
             url = "/WEB-INF/index.jsp";
         }

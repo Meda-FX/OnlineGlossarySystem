@@ -81,7 +81,7 @@ public class AccountRequestService {
 
         accountRequest.setRequestDate(new Date());
 
-        removeOldPasswordRequest(requestUser);
+        removeOldRequest(requestUser, requestType);
         if (requestDB.insert(accountRequest) ==0)
             throw new Exception("fail to insert request");
         
@@ -131,7 +131,7 @@ public class AccountRequestService {
      * Removes a old password request with its requested user
      * @param requestUser requestUser the requester who's password request to be removed
      */
-    public int removeOldPasswordRequest(User requestUser) {
-        return requestDB.removeOldPasswordRequest(requestUser.getID());
+    public int removeOldRequest(User requestUser, int requestType) {
+        return requestDB.removeOldRequest(requestUser.getID(), requestType);
     }
 }

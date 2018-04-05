@@ -292,20 +292,20 @@ public class AccountRequestBroker extends Broker {
         return accountRequestList;
     }
 
-    public int removeOldPasswordRequest(String id) {
+    public int removeOldRequest(String id, int requestType) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         
         String deleteSQL = "DELETE FROM [GlossaryDataBase].[dbo].[account_request] "
                             + "WHERE request_by = ? "
-                            + "AND request_type = 2";
+                            + "AND request_type = ?";
         PreparedStatement ps = null;
         
         try {
             ps = connection.prepareStatement(deleteSQL);
             
             ps.setString(1, id);
-            
+            ps.setInt(2, requestType);
             int result = ps.executeUpdate();
             if (result >0)
                 return 1;

@@ -12,31 +12,20 @@ import java.util.Date;
  * @author 727153
  */
 public class AccountLog {
-    private int logID;
     private int activityType;
     private User activityBy;
     private Date activityDate;
 
     /**
      * Constructs a glossary request
-     * @param logID
      * @param activityType activityType the type of the requested glossary
      * @param activityBy requestBy the glossary request 
      * @param activityDate activityDate the date in which the glossary is created
      */
-    public AccountLog(int logID, int activityType, User activityBy, Date activityDate) {
-        this.logID = logID;
+    public AccountLog(int activityType, User activityBy, Date activityDate) {
         this.activityType = activityType;
         this.activityBy = activityBy;
         this.activityDate = activityDate;
-    }
-
-    public int getLogID() {
-        return logID;
-    }
-
-    public void setLogID(int logID) {
-        this.logID = logID;
     }
 
     /**
