@@ -22,7 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Receive and response to requests from web client for administrator page 
+ * Receive and response to requests from web client for administrator page
+ *
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1
  */
@@ -32,24 +33,25 @@ public class AdminManageUsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        
+        User user = (User) session.getAttribute("user");
+
         Department department = user.getDepartment();
         UserService us = new UserService();
         String action = request.getParameter("action");
-        if  (action != null && action.equals("view")) {
-            String selectedUserID = request.getParameter("selectedID");
-            User selectedUser = us.get(selectedUserID);
-            selectedUser.setPassword("");
-            request.setAttribute("selectedUser", selectedUser);
-        } 
-        if (action != null && action.equals("add")) {
+
+        if (action != null) {
             CourseService cs = new CourseService();
             List<Course> courseList = cs.getByDepartment(department);
             request.setAttribute("courseList", courseList);
             PrivilegeService ps = new PrivilegeService();
             List<Privilege> privilegeList = ps.getAll();
             request.setAttribute("privilegeList", privilegeList);
+            if (action.equals("view")) {
+                String selectedUserID = request.getParameter("selectedID");
+                User selectedUser = us.get(selectedUserID);
+                selectedUser.setPassword("");
+                request.setAttribute("selectedUser", selectedUser);
+            }
         }
         List<User> userList = us.getByDepartment(department);
         request.setAttribute("userList", userList);
@@ -60,17 +62,17 @@ public class AdminManageUsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         Department department = user.getDepartment();
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         PrivilegeService ps = new PrivilegeService();
-        List<Privilege> privilegeList = ps.getAll(); 
-        //request.setAttribute("", privilegeList);
+        List<Privilege> privilegeList = ps.getAll();
+        //request.setAttribute("",privilegeList);
         CourseService cs = new CourseService();
-        List<Course> courseList = cs.getByDepartment(user.getDepartment()); 
+        List<Course> courseList = cs.getByDepartment(user.getDepartment());
         //request.setAttribute("", courseList);
         boolean active = request.getParameter("active") != null;
         UserService us = new UserService();
@@ -86,8 +88,9 @@ public class AdminManageUsersServlet extends HttpServlet {
             userEdit.setName(name);
             userEdit.getPrivileges().setPrivileges(privilegeList);
             userEdit.getCourses().setCourses(courseList);
-            if (password!=null & !password.isEmpty())
+            if (password != null & !password.isEmpty()) {
                 userEdit.setPassword(password);
+            }
             us.update(user);
         } else if (action.equals("register")) {
             User userRegister = new User();
