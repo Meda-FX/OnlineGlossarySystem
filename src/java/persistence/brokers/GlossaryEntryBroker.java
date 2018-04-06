@@ -142,7 +142,7 @@ public class GlossaryEntryBroker extends Broker {
                 + "JOIN [GlossaryDataBase].[dbo].[user] "
                 + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
                 + "JOIN [GlossaryDataBase].[dbo].[course] "
-                + "ON ([GlossaryDataBase].[dbo].[couser].course_code=[GlossaryDataBase].[dbo].[definition].course_code) "
+                + "ON ([GlossaryDataBase].[dbo].[course].course_code=[GlossaryDataBase].[dbo].[definition].course_code) "
                 + "WHERE UPPER([GlossaryDataBase].[dbo].[definition].glossary_entry) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;

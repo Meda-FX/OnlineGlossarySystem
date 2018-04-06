@@ -62,9 +62,9 @@ public class SearchServlet extends HttpServlet {
             }
         }
         //get advanced search from the page
-        String departmentID = request.getParameter("departmentID");
-        String courseCode = request.getParameter("courseCode");
-        String userId = request.getParameter("userId");
+        String departmentID = request.getParameter("departmentID") + "";
+        String courseCode = request.getParameter("courseCode") + "";
+        String userId = request.getParameter("userId") + "";
         //get searching key word from field
         if (action != null && action.equals("searchTerm")) {
             url = "/WEB-INF/search.jsp";
@@ -78,29 +78,23 @@ public class SearchServlet extends HttpServlet {
 
                 //should return a list of entries based on the searching term
                 termlist = (ArrayList<GlossaryEntry>) ges.getMatched(searchedEntry);
-                
-                if(user == null && departmentID!=null)
-                {
+
+                if (user == null && departmentID != null && !departmentID.isEmpty()) {
                     //filter by deparment
-                    int deptId = Integer.parseInt(departmentID);
-                    for(int i = 0;i<termlist.size();i++)
-                    {
-                        for(int j=0;j< termlist.get(i).getDefinitionList().getDefinitionList().size();j++)
-                        {
-                            if(termlist.get(i).getDefinitionList().getDefinitionList().get(j).getCourse().getDepartment().getDepartmentID()!=deptId)
-                            {
-                                termlist.get(i).getDefinitionList().getDefinitionList().remove(j);
-                            }
-                        }
-                        if( termlist.get(i).getDefinitionList().getDefinitionList().isEmpty()) 
-                        {
-                            termlist.remove(i);
-                        }
+                    int deptId = 0;
+                    try {
+                        deptId = Integer.parseInt(departmentID);
+                     //  request.setAttribute("recDepartId", deptId);
+                    } catch (NumberFormatException e) {
+                        System.out.println("error occur!");
                     }
+
                 }
-                if(user != null && (courseCode !=null ||userId !=null))
-                {
-                    //
+                if (user != null && (courseCode != null) && !courseCode.isEmpty()) {
+                   // request.setAttribute("recCourseCode", courseCode);
+                }
+                if (user != null && (userId != null) && !userId.isEmpty()) {
+                   // request.setAttribute("recInstrID", userId);
                 }
 
             }
@@ -118,21 +112,17 @@ public class SearchServlet extends HttpServlet {
         }
         if (action != null && action.equals("advancedSearch")) {
             url = "/WEB-INF/search.jsp";
-            emptyTerm=true;
+            emptyTerm = true;
         }
-        
-        
-        
-        
-        
-        
-        if (termlist.size() != 0) {
+
+        if (!termlist.isEmpty()) {
             request.setAttribute("termlist", termlist);
         } //return null means no such entries
-        else  {
+        else {
             //display message to tell user
-            if(emptyTerm==false)
-                 request.setAttribute("noSuchEntry", true);
+            if (emptyTerm == false) {
+                request.setAttribute("noSuchEntry", true);
+            }
         }
         request.setAttribute("deparlist", deparlist);
         request.setAttribute("courselist", courselist);
