@@ -1,8 +1,50 @@
 <%@ include file="../includes/header.jsp" %>   
+<div class="container list-terms"> 
+    <div id="crud">
+        <h1>Manage Users</h1>
+        <form action="manageusers" method="POST" id="form" >
+            <div class="form-group">
+                <label for="user">User Id</label>
+                <input type="text"  class="form-control" id="userId" name="userId" value="${selectedUser.ID}" readonly="">
+            </div>
+            <div class="form-group">
+                <label for="term">User Name</label>
+                <input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" value="${selectedUser.name}">
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" class="form-control" id="department" placeholder="Department" name="department" value="${selectedUser.department}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${selectedUser.email}">
+            </div> 
+            <div class="form-group">
+                <label for="isActive">Active</label>
+                <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
+            </div>  
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="${selectedUser.password}">
+            </div> 
+            <div class="form-group">
+                <label for="privilege">Privilege</label>
+                <input type="text" class="form-control" id="privilege" placeholder="Privilege" name="privilege" value="${selectedUser.privilege}">
+            </div> 
+            
+            <!--<input type="hidden" name="saveTerm" value="save">-->
+            <input class="btn" type="submit" name="action" value="Add User">
+            <!--<input type="hidden" name="submitTerm" value="submit">-->
+            <!--<input class="btn" type="submit" name="action" value="Submit Term">-->
+            <input class=" btn hideFormTerm" type="button" value="Hide Form">
+        </form>
+    </div>
+</div>
+<br>
 
 <div class="container list-terms">
     
-    <!-- CRUD -->
+<!--     CRUD 
     <br>
     <div class="panel-group">
         <div class="panel">
@@ -16,7 +58,7 @@
 
 
                     <div class="form-group">
-                        <label for="usr">First Name:</label>
+                        <label for="usr">Name:</label>
                         <input type="text" class="form-control" id="usr">
                     </div>
                     <div class="form-group">
@@ -35,14 +77,13 @@
                         <label for="pwd">Course Name:</label>
                         <input type="text" class="form-control" id="pwd">
                     </div>
-
                     <button type="button" class="btn">SAVE</button>
                 </ul>
 
             </div>
         </div>
     </div>
-    <!-- CRUD ends -->
+     CRUD ends -->
 
     <br>
     <!--Search starts here-->
@@ -59,7 +100,7 @@
                 </div>   
             </form>
             <div>
-                <p class="message">${message}</p>   
+                <p class="message"><c:out value="${message}" /></p>   
             </div>
         </div>
     </div><!--Search ends here-->
@@ -67,170 +108,37 @@
     <!--table begins here-->
     <table class="table table-hover">
         <tr>
-            <th>First Name</th>
-            <th>Course Code</th>
+            <th>User Id</th>
+            <th>Name</th>
             <th>Department</th>
             <th>Email</th>
-            <th>Course Name</th>
+            <th>Active</th>
             <th></th>
             <th></th>
         </tr>
-        <tr>
-            <td>Emerald</td>
-            <td>N2V 2I8</td>
-            <td>S4B 0V4</td>
-            <td>orci.lacus@Nunc.co.uk</td>
-            <td>Web</td>
+        <c:forEach items="${userList}" var="users">
+        <tr>            
+            <td><c:out value="${users.ID}"/></td>
+            <td><c:out value="${users.name}"/></td>
+            <td><c:out value="${users.department.name}"/></td>
+            <td><c:out value="${users.email}"/></td>
+            <td><c:out value="${users.isActivated}"/></td>
             <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
+                <form action="manageusers" method="POST">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="selectedID" value="${users.ID}">
+                    <input class="btn fa-input addTerms" type="submit" value="&#xf014">
+                </form>
             </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Colette</td>
-            <td>Z6E 9T0</td>
-            <td>C2D 2O6</td>
-            <td>leo.Vivamus@velconvallisin.com</td>
-            <td>Database</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
+            <td>     
+                <form class="editUsers" action="manageusers" method="GET">                             
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="selectedID" value="${users.ID}">
+                    <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
+                </form>
             </td>
         </tr>
-        <tr>
-            <td>Lacy</td>
-            <td>F9L 1Z7</td>
-            <td>S5G 2A3</td>
-            <td>et.magna.Praesent@ridiculusmusProin.edu</td>
-            <td>Computer Systems</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Kaitlin</td>
-            <td>B2D 6P9</td>
-            <td>I8O 3G4</td>
-            <td>a.mi.fringilla@augue.com</td>
-            <td>Accounting</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Ifeoma</td>
-            <td>X9Z 5D0</td>
-            <td>G9A 3D1</td>
-            <td>facilisis.magna@urna.ca</td>
-            <td>Tourism</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Hannah</td>
-            <td>R6Q 7U5</td>
-            <td>T0M 8F5</td>
-            <td>turpis.non@luctus.ca</td>
-            <td>Object Oriented Prog</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Robin</td>
-            <td>M0D 2I4</td>
-            <td>W8D 1D1</td>
-            <td>Donec@interdum.net</td>
-            <td>Interface Design</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Ora</td>
-            <td>Z5E 3N3</td>
-            <td>K0L 3J2</td>
-            <td>tincidunt@ametdiam.com</td>
-            <td>Marketing</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Irma</td>
-            <td>Q1Q 0N8</td>
-            <td>C3T 3D9</td>
-            <td>ipsum@cubilia.org</td>
-            <td>Garrett</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Eliana</td>
-            <td>J7Z 2R7</td>
-            <td>K3S 9C7</td>
-            <td>Aliquam@velitinaliquet.edu</td>
-            <td>Evan</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Mechelle</td>
-            <td>U1D 0J5</td>
-            <td>U4X 7I6</td>
-            <td>et.lacinia.vitae@auctorveliteget.co.uk</td>
-            <td>Web</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
-        <tr>
-            <td>Beatrice</td>
-            <td>O7L 3T5</td>
-            <td>R9E 1G8</td>
-            <td>non.massa@enimconsequat.net</td>
-            <td>Database</td>
-            <td>
-                <span id="icons" class="glyphicon glyphicon-trash"></span>
-            </td>
-            <td>
-                <span id="icons" class="glyphicon  glyphicon-pencil"></span>        
-            </td>
-        </tr>
+        </c:forEach> 
     </table> <!--Table ends here-->
 
 </div> <!-- list items  -->

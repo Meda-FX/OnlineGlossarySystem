@@ -11,7 +11,23 @@ $(document).ready(function(){
         });
         event.preventDefault();
     });
-        $(".editInstructorForm").submit(function(event) {
+        
+    
+     $(".editUsers").submit(function(event) {
+        $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
+            $("#userId").val(responseJson.ID);
+            $("#userName").val(responseJson.name);
+            $("#department").val(responseJson.department.name);
+            $("#email").val(responseJson.email);
+            $("#isActive").val(responseJson.isActive);
+//            $("#password").val(responseJson.password);  
+//            $("#privilege").val(responseJson.privilege);         
+        
+        });
+        event.preventDefault();
+    });
+    
+    $(".editInstructorForm").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#term").val(responseJson.term);
             $("#termId").val(responseJson.definitionID);
@@ -58,5 +74,6 @@ $(document).ready(function(){
            $(this).addClass('active');
        }
    });
-   
+        
  });
+ 
