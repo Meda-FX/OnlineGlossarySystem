@@ -15,13 +15,11 @@ $(document).ready(function(){
     
      $(".editUsers").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
-            $("#userId").val(responseJson.ID);
+            $("#userId").val(responseJson.id);
             $("#userName").val(responseJson.name);
-            $("#department").val(responseJson.department.name);
             $("#email").val(responseJson.email);
             $("#isActive").val(responseJson.isActive);
-//            $("#password").val(responseJson.password);  
-//            $("#privilege").val(responseJson.privilege);         
+            $("#privileges").val(responseJson.privilege);         
         
         });
         event.preventDefault();

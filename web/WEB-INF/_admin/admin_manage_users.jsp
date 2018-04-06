@@ -112,7 +112,7 @@
             <th>Name</th>
             <th>Department</th>
             <th>Email</th>
-            <th>Active</th>
+            <th>Status</th>
             <th></th>
             <th></th>
         </tr>
@@ -122,7 +122,9 @@
             <td><c:out value="${users.name}"/></td>
             <td><c:out value="${users.department.name}"/></td>
             <td><c:out value="${users.email}"/></td>
-            <td><c:out value="${users.isActivated}"/></td>
+            <td><c:if test="${users.isActivated}">Active</c:if>
+                <c:if test="${!users.isActivated}">Inactive</c:if>
+            </td>
             <td>
                 <form action="manageusers" method="POST">
                     <input type="hidden" name="action" value="delete">
@@ -132,7 +134,7 @@
             </td>
             <td>     
                 <form class="editUsers" action="manageusers" method="GET">                             
-                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="action" value="view">
                     <input type="hidden" name="selectedID" value="${users.ID}">
                     <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
                 </form>

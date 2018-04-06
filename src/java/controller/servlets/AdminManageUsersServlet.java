@@ -50,8 +50,21 @@ public class AdminManageUsersServlet extends HttpServlet {
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
-                selectedUser.setPassword("");
-                request.setAttribute("selectedUser", selectedUser);
+                //selectedUser.setPassword("");
+                //request.setAttribute("selectedUser", selectedUser);
+
+                boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+                if (ajax) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    Gson gson = new Gson();
+
+                    String str = gson.toJson(selectedUser);
+
+                    response.getWriter().write(str);
+                    return;
+                }
             }
         }
         List<User> userList = us.getByDepartment(department);
@@ -61,7 +74,7 @@ public class AdminManageUsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {        
+            throws ServletException, IOException {
         String url = "/WEB-INF/_admin/admin_manage_users.jsp";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");

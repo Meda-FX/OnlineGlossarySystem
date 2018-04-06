@@ -258,6 +258,7 @@ public class UserBroker extends Broker {
                 user.setDepartment(department);
                 user.setName(userName);
                 user.setEmail(userEmail);
+                user.setIsActivated(activated);
 //                privilegeList = user.getPrivileges();
 //                courseList = user.getCourses();
 //                //PRIVILEGE
