@@ -11,6 +11,7 @@ $(document).ready(function(){
         });
         event.preventDefault();
     });
+        
     
      $(".editUsers").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
@@ -20,8 +21,7 @@ $(document).ready(function(){
             $("#email").val(responseJson.email);
             $("#isActive").val(responseJson.isActive);
 //            $("#password").val(responseJson.password);  
-//            $("#privilege").val(responseJson.privilege); 
-        
+//            $("#privilege").val(responseJson.privilege);         
         
         });
         event.preventDefault();
@@ -35,10 +35,12 @@ $(document).ready(function(){
             $("#citation").val(responseJson.citation);
             $("#defDefinition").val(responseJson.dictionaryContent);
             $("#dicCitation").val(responseJson.dictionaryCitation);           
-            $("#course-code").val(responseJson.course.courseName);
+            $("#courseCode").val(responseJson.course.courseCode);           
         });
         event.preventDefault();
     });
+    
+
     //CRUD hide and show script
     $("#crud").hide(); 
     $(".hideFormTerm").click(function(){
@@ -72,5 +74,6 @@ $(document).ready(function(){
            $(this).addClass('active');
        }
    });
-   
+        
  });
+ 

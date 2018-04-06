@@ -59,6 +59,7 @@ public class InstructorServlet extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 Gson gson = new Gson();
+                
 
                 String str = gson.toJson(ds.getByID(Integer.parseInt(request.getParameter("defId"))));
 
@@ -67,10 +68,9 @@ public class InstructorServlet extends HttpServlet {
             }
             // request.setAttribute("selectedTerm", def);
 
-        }
-
-        
-        
+        }else if(action != null && action.equals("delete"))
+         
+         
         getServletContext().getRequestDispatcher(url).forward(request, response);
         
     }
