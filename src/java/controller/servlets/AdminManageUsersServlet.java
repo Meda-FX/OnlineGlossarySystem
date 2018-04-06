@@ -66,8 +66,12 @@ public class AdminManageUsersServlet extends HttpServlet {
         String email = request.getParameter("email");
         String id = request.getParameter("id");
         String password = request.getParameter("password");
-        List<Privilege> privilegeList = null; //TODO
-        List<Course> courseList = null; //TODO
+        PrivilegeService ps = new PrivilegeService();
+        List<Privilege> privilegeList = ps.getAll(); 
+        //request.setAttribute("", privilegeList);
+        CourseService cs = new CourseService();
+        List<Course> courseList = cs.getByDepartment(user.getDepartment()); 
+        //request.setAttribute("", courseList);
         boolean active = request.getParameter("active") != null;
         UserService us = new UserService();
         String action = request.getParameter("action");
