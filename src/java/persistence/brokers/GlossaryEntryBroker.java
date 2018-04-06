@@ -1,7 +1,9 @@
 package persistence.brokers;
 
+import business.domainClasses.Course;
 import business.domainClasses.Definition;
 import business.domainClasses.DefinitionList;
+import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import java.sql.Connection;
@@ -139,6 +141,8 @@ public class GlossaryEntryBroker extends Broker {
                 + "ON ([GlossaryDataBase].[dbo].[definition].glossary_entry=[GlossaryDataBase].[dbo].[glossary_entry].glossary_entry) "
                 + "JOIN [GlossaryDataBase].[dbo].[user] "
                 + "ON ([GlossaryDataBase].[dbo].[definition].made_by=[GlossaryDataBase].[dbo].[user].user_id) "
+                + "JOIN [GlossaryDataBase].[dbo].[course] "
+                + "ON ([GlossaryDataBase].[dbo].[couser].course_code=[GlossaryDataBase].[dbo].[definition].course_code) "
                 + "WHERE UPPER([GlossaryDataBase].[dbo].[definition].glossary_entry) LIKE ?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -150,6 +154,8 @@ public class GlossaryEntryBroker extends Broker {
         ArrayList<GlossaryEntry> terms = new ArrayList<GlossaryEntry>();
         GlossaryEntry ge = null;
         Definition definition;
+        Course course;
+        Department depart;
         //ArrayList<Definition> definitionlist= new ArrayList<>();
 
         String username = null;
@@ -165,6 +171,9 @@ public class GlossaryEntryBroker extends Broker {
         String dictionaryCitation;
         String definitionStatus;
         String comparedTerm = "";
+        String course_code;
+        String course_name;
+        int department_id;
 
         try {
             ps = connection.prepareStatement(selectSQL);
@@ -197,6 +206,14 @@ public class GlossaryEntryBroker extends Broker {
                 dictionaryContent = rs.getString("dictionary_definition");
                 dictionaryCitation = rs.getString("dictionary_citation");
                 definitionStatus = rs.getString("status");
+                
+                course_code = rs.getString("course_code");
+                course_name = rs.getString("course_name");
+                department_id = rs.getInt("department_id");
+                        
+                depart = new Department(department_id);
+                course= new Course(course_code, course_name, depart);
+                          
                 definition.setDictionaryContent(dictionaryContent);
                 definition.setDictionaryCitation(dictionaryCitation);
                 definition.setCitation(citation);
@@ -205,6 +222,7 @@ public class GlossaryEntryBroker extends Broker {
                 definition.setWrittenBy(user);
                 definition.setDateCreated(definitionDateCreated);
                 definition.setStatus(definitionStatus);
+                definition.setCourse(course);
                 definitionList.add(definition);
             }
             if (ge != null) {
@@ -289,8 +307,12 @@ public class GlossaryEntryBroker extends Broker {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                if(rs != null) rs.close();
-                if(ps != null) ps.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -324,7 +346,7 @@ public class GlossaryEntryBroker extends Broker {
         //ArrayList<Definition> definitionlist= new ArrayList<>();
 
         String username = null;
-        String glossaryTerm ="";
+        String glossaryTerm = "";
         String content = null;
         int definition_id;
         String citation;

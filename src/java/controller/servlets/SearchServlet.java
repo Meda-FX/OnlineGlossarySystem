@@ -10,10 +10,13 @@ import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
 import business.serviceClasses.CourseService;
+import business.serviceClasses.DepartmentService;
 import business.serviceClasses.GlossaryEntryService;
+import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -39,7 +42,29 @@ public class SearchServlet extends HttpServlet {
         ArrayList<GlossaryEntry> termlist = new ArrayList<>();
         String url = "/WEB-INF/index.jsp";
         String searchedEntry;
-
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        DepartmentService ds = new DepartmentService();
+        CourseService cs = new CourseService();
+        UserService us = new UserService();
+        ArrayList<Course> courselist = new ArrayList<>();
+        ArrayList<User> instructorlist = new ArrayList<>();
+        ArrayList<Department> deparlist = (ArrayList<Department>) ds.getAll();
+        Boolean emptyTerm = true;
+        //load course list and instructor list
+        if (user != null) {
+            courselist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
+            ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
+            for (User u : userlist) {
+                if (u.getPrivileges().contains(4)) {
+                    instructorlist.add(u);
+                }
+            }
+        }
+        //get advanced search from the page
+        String departmentID = request.getParameter("departmentID");
+        String courseCode = request.getParameter("courseCode");
+        String userId = request.getParameter("userId");
         //get searching key word from field
         if (action != null && action.equals("searchTerm")) {
             url = "/WEB-INF/search.jsp";
@@ -51,9 +76,32 @@ public class SearchServlet extends HttpServlet {
             } else {
                 request.setAttribute("searchedEntry", searchedEntry);
 
-                //TODO 
                 //should return a list of entries based on the searching term
                 termlist = (ArrayList<GlossaryEntry>) ges.getMatched(searchedEntry);
+                
+                if(user == null && departmentID!=null)
+                {
+                    //filter by deparment
+                    int deptId = Integer.parseInt(departmentID);
+                    for(int i = 0;i<termlist.size();i++)
+                    {
+                        for(int j=0;j< termlist.get(i).getDefinitionList().getDefinitionList().size();j++)
+                        {
+                            if(termlist.get(i).getDefinitionList().getDefinitionList().get(j).getCourse().getDepartment().getDepartmentID()!=deptId)
+                            {
+                                termlist.get(i).getDefinitionList().getDefinitionList().remove(j);
+                            }
+                        }
+                        if( termlist.get(i).getDefinitionList().getDefinitionList().isEmpty()) 
+                        {
+                            termlist.remove(i);
+                        }
+                    }
+                }
+                if(user != null && (courseCode !=null ||userId !=null))
+                {
+                    //
+                }
 
             }
         }
@@ -68,18 +116,27 @@ public class SearchServlet extends HttpServlet {
                 termlist = ges.getByAlpha(letter);
             }
         }
-        if(action != null && action.equals("advancedSearch"))
-        {
+        if (action != null && action.equals("advancedSearch")) {
             url = "/WEB-INF/search.jsp";
+            emptyTerm=true;
         }
+        
+        
+        
+        
+        
+        
         if (termlist.size() != 0) {
             request.setAttribute("termlist", termlist);
         } //return null means no such entries
-        else {
+        else  {
             //display message to tell user
-            request.setAttribute("noSuchEntry", true);
+            if(emptyTerm==false)
+                 request.setAttribute("noSuchEntry", true);
         }
-
+        request.setAttribute("deparlist", deparlist);
+        request.setAttribute("courselist", courselist);
+        request.setAttribute("instructorlist", instructorlist);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
