@@ -8,7 +8,6 @@
                 <label for="term">Term ID</label>
                 <input type="text"  class="form-control" id="termId" name="defId" value="${selectedTerm.definitionID}" readonly="">
             </div>
-
             <div class="form-group">
                 <label for="term">Term</label>
                 <input type="text" class="form-control" id="term" placeholder="Term" name="term" value="${selectedTerm.term}" readonly="">
