@@ -23,11 +23,13 @@ $(document).ready(function(){
             } else {
                 $("#inactive").prop("checked", true);
             }
+            $("#privList").children().each(function(){
+                $(this).prop("checked", false);
+            });
             responseJson.privileges.privileges.forEach(function(item){
                $("#privList").children().eq(item.privilegeID-1).prop("checked", true);
             });
         });
-        
         event.preventDefault();
     });
     
@@ -44,6 +46,26 @@ $(document).ready(function(){
         event.preventDefault();
     });
     
+    $(".newUser").click(function(){
+        $("#userId").val("");
+        $("#userName").val("");
+        $("#email").val("");
+        $("#active").prop("checked", false);
+        $("#inactive").prop("checked", false);
+        $("#privList").children().each(function(){
+            $(this).prop("checked", false);
+        });
+    });
+
+    $(".newTerm").click(function(){
+        $("#term").val("");
+        $("#termId").val("");
+        $("#definition").val("");
+        $("#citation").val("");
+        $("#defDefinition").val("");
+        $("#dicCitation").val("");           
+        $("#courseCode").val("");
+    });
 
     //CRUD hide and show script
     $("#crud").hide(); 

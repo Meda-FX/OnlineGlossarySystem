@@ -84,8 +84,8 @@
     </div><!--Search ends here-->
 
     <div class="row">
-        <div class="addTerms" class="col-md-12">
-            <button type="button" class="btn navbar-right">Add Term</button>
+        <div class="newTerm" class="col-md-12">
+            <button type="button" class="btn navbar-right addTerms">Add Term</button>
         </div>
     </div>
 

@@ -44,13 +44,9 @@ public class AdminManageUsersServlet extends HttpServlet {
         List<Privilege> privilegeList = ps.getAll();
         request.setAttribute("privilegeList", privilegeList);
         if (action != null) {
-            CourseService cs = new CourseService();
-            List<Course> courseList = cs.getByDepartment(department);
-            request.setAttribute("courseList", courseList);
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
-
                 boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
                 if (ajax) {
