@@ -58,7 +58,7 @@
                         
                         <!--------------------- Admin nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(1) == true}">
-                            <li><a href="manageusers">MANAGE USERS</a></li>
+                            <li><a href="manageusers">DEPARTMENT USERS</a></li>
                             <li><a href="report">REPORT</a></li>                        
                         </c:if>
                         
@@ -70,13 +70,13 @@
                         
                         <!--------------------- Editor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(3) == true}"> 
-                            <li><a href="edit">MANAGE TERMS</a></li> 
+                            <li><a href="edit">DEPARTMENT TERMS</a></li> 
                             <li><a href="editorpending">PENDING TERMS</a></li> 
                         </c:if>
                         
                         <!--------------------- Instructor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(4) == true}">
-                            <li><a href="instructor?action=yourterm">MANAGE TERMS</a></li> 
+                            <li><a href="instructor?action=yourterm">YOUR TERMS</a></li> 
                         </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

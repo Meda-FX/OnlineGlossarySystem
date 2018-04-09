@@ -172,8 +172,8 @@ public class AdminManageUsersServlet extends HttpServlet {
                     String base = emailURL.substring(0, emailURL.length() - uri.length() + ctx.length());
                     contents.put("link", base + "/login?id=" + token);
 
-//                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
-//                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
+                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
+                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
                 } catch (Exception ex) {
                     Logger.getLogger(AdminManageUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
