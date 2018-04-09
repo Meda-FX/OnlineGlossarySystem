@@ -12,6 +12,7 @@ import business.domainClasses.User;
 import business.serviceClasses.CourseService;
 import business.serviceClasses.PrivilegeService;
 import business.serviceClasses.UserService;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -58,7 +59,8 @@ public class AdminManageUsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
+        String url = "/WEB-INF/_admin/admin_manage_users.jsp";
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         Department department = user.getDepartment();
@@ -71,20 +73,34 @@ public class AdminManageUsersServlet extends HttpServlet {
         boolean active = request.getParameter("active") != null;
         UserService us = new UserService();
         String action = request.getParameter("action");
-        if (action.equals("delete")) {
+        User users = new User();
+        if (action != null && action.equals("delete")) {
             String selectedUserID = request.getParameter("selectedID");
             us.delete(selectedUserID);
-        } else if (action.equals("edit")) {
-            User userEdit = us.get(id);
-            userEdit.setDepartment(department);
-            userEdit.setEmail(email);
-            userEdit.setIsActivated(active);
-            userEdit.setName(name);
-            userEdit.getPrivileges().setPrivileges(privilegeList);
-            userEdit.getCourses().setCourses(courseList);
-            if (password!=null & !password.isEmpty())
-                userEdit.setPassword(password);
-            us.update(user);
+        } else if (action != null && action.equals("edit")) {
+//            User userEdit = us.get(id);
+//            userEdit.setDepartment(department);
+//            userEdit.setEmail(email);
+//            userEdit.setIsActivated(active);
+//            userEdit.setName(name);
+//            userEdit.getPrivileges().setPrivileges(privilegeList);
+//            userEdit.getCourses().setCourses(courseList);
+//            if (password!=null & !password.isEmpty())
+//                userEdit.setPassword(password);
+//            us.update(user);
+            
+            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+            if (ajax) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                Gson gson = new Gson();
+
+                String str = gson.toJson(users);
+
+                response.getWriter().write(str);
+                return;
+            }
         } else if (action.equals("register")) {
             User userRegister = new User();
             userRegister.setDepartment(department);
@@ -97,6 +113,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             userRegister.setPassword(password);
             us.insert(user);
         }
-        response.sendRedirect("managerusers");
+        getServletContext().getRequestDispatcher(url).forward(request, response);
+        //response.sendRedirect("managerusers");
     }
 }

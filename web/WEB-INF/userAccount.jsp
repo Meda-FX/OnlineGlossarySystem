@@ -39,18 +39,41 @@
     </table> <!--Table ends here-->
     <br>  
     
-    <h3>Select Course</h3>
-    <form action="user" method="POST">  
-    <c:forEach items="${courseList}" var="course">
-        <div class="checkbox">
-        <label>
-            <input name="selectedCourse" type="checkbox" <c:if test="${user.getCourses().contains(course.courseCode)==true}">checked</c:if> value="${course.courseCode}" >${course.courseCode}
-        </label>        
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Eligible Course</h3>
+            <form action="user" method="POST">  
+                <c:forEach items="${courseList}" var="course">
+                    <div class="checkbox">
+                    <label>
+                        <input name="selectedCourse" type="checkbox" <c:if test="${user.getCourses().contains(course.courseCode)==true}">checked</c:if> value="${course.courseCode}" >${course.courseCode}
+                    </label>
+                    </div>
+                </c:forEach>      
+                <input type="hidden" name="action" value="addCourse">
+                <input type="submit" value="Add Course">
+            </form>
         </div>
-    </c:forEach>      
-        <input type="hidden" name="action" value="addCourse">
-        <input type="submit" value="Add Course">
-    </form>
+        <div class="col-md-8">
+            <h3>Registered In</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${user.getCourses().getCourses()}" var="cour">
+                    <tr>     
+                        <td>${cour.courseCode}</td>
+                        <td>${cour.courseName}</td>                                                              
+                    </tr>
+                    </c:forEach>  
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div> <!-- list items  -->
 
 <%@ include file="includes/footer.jsp" %>

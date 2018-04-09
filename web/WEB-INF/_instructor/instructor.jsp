@@ -30,7 +30,7 @@
 
             <div class="form-group selectpicker">
                 <label for="course-code">Course Code:</label>
-                <select id="course-code" name="courseCode">
+                <select id="courseCode" name="courseCode">
                     <option value="-1" >Please select course</option>
                     <c:forEach items="${courseList}" var="course">
                         <option value="${course.courseCode}" >${course.courseCode} - ${course.courseName}</option>                        
@@ -115,13 +115,12 @@
                     <td>
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
                         <form action="instructor" method="POST">
-                        <input type="hidden" name="action" value="Delete Term">
                         <input type="hidden" name="defId" value="${def.definitionID}">
                         <input type="submit" name="submitButton" value="Delete">
                         </form>
                     </td>
                     <td>     
-            <form class="editForm" action="instructor" method="GET">
+            <form class="editInstructorForm" action="instructor" method="GET">
                         <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                         <input type="hidden" name="action" value="edit">
                         <input type="hidden" name="defId" value="${def.definitionID}">

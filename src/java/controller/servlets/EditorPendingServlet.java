@@ -81,9 +81,7 @@ public class EditorPendingServlet extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute("message", "cannot be empty");
         }
-
         doGet(request, response);
-
     }
 
     @Override

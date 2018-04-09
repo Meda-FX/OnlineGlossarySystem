@@ -43,7 +43,6 @@ public class UserServlet extends HttpServlet {
         CourseService cs = new CourseService();
         List<Course> courseList = cs.getByDepartment(department);
         request.setAttribute("courseList", courseList);
-        //request.setAttribute("selected", "selected");
         getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);        
     }
 
@@ -60,12 +59,7 @@ public class UserServlet extends HttpServlet {
         Course c = new Course();        
        
         String action = request.getParameter("action");
-        String selectedCourse[] = request.getParameterValues("selectedCourse");
-         
-        
-        //to be deleted
-        
-            
+        String selectedCourse[] = request.getParameterValues("selectedCourse");          
         
         if(action != null && action.equals("addCourse")) {
             user.getCourses().reload(selectedCourse);

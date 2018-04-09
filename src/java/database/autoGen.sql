@@ -155,7 +155,7 @@ VALUES
 INSERT INTO user_role
 VALUES ('4', 1);
 
-INSERT INTO [course] (course_code,department_id,course_name) VALUES ('MHIT-30-0','1','course0');
+INSERT INTO [course] (course_code,department_id,course_name) VALUES ('CMPS-307-Z','1','course0');
 INSERT INTO [course] (course_code,department_id,course_name) VALUES ('CPRG-31-1','2','course1');
 INSERT INTO [course] (course_code,department_id,course_name) VALUES ('ITSC-32-2','3','course2');
 INSERT INTO [course] (course_code,department_id,course_name) VALUES ('DBAD-33-3','1','course3');
@@ -206,7 +206,7 @@ INSERT INTO [course] (course_code,department_id,course_name) VALUES ('DBAD-347-4
 INSERT INTO [course] (course_code,department_id,course_name) VALUES ('MHIT-348-48','1','course48');
 INSERT INTO [course] (course_code,department_id,course_name) VALUES ('CPRG-349-49','2','course49');
 
-INSERT INTO [user_course] (course_code,user_id,year) VALUES ('MHIT-30-0','0','2017-Fal0');
+INSERT INTO [user_course] (course_code,user_id,year) VALUES ('MHIT-348-48','1','2017-Fall');
 INSERT INTO [user_course] (course_code,user_id,year) VALUES ('CPRG-31-1','1','2017-Fal1');
 INSERT INTO [user_course] (course_code,user_id,year) VALUES ('ITSC-32-2','2','2017-Fal2');
 INSERT INTO [user_course] (course_code,user_id,year) VALUES ('DBAD-33-3','3','2017-Fal3');
@@ -271,29 +271,29 @@ insert into glossary_entry (glossary_entry, date_added, made_by) values ('Grassl
 insert into glossary_entry (glossary_entry, date_added, made_by) values ('Cobwebby Thistle', '2017-07-09', 0);
 
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Polynesian Heliotrope','def0','term0','2016-10-02','cite0','Published','www.link.com','0','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Orcutt''s Bristleweed','def1','term1','2016-10-02','cite1','Published','www.link.com','1','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Orcutt''s Bristleweed','def1','term1','2016-10-02','cite1','In Progress','www.link.com','1','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Short-lobe Indian Paintbrush','def2','term2','2016-10-02','cite2','Published','www.link.com','2','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Pohnpei Syzygium','def3','term3','2016-10-02','cite3','Published','www.link.com','3','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Alpine Bedstraw','def4','term4','2016-10-02','cite4','Published','www.link.com','4','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cryphaea Moss','def5','term5','2016-10-02','cite5','Published','www.link.com','0','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Alpine Bedstraw','def4','term4','2016-10-02','cite4','Under Review','www.link.com','4','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cryphaea Moss','def5','term5','2016-10-02','cite5','In Progress','www.link.com','0','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Dust Lichen','def6','term6','2016-10-02','cite6','Published','www.link.com','1','HH-201-B');
 
 
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Like a flower just uglier','term7','2016-10-02','Websters','Published','www.link.com','0','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Grassland stuff','term7','2016-10-02','Smart people.','Published','www.link.com','2','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Like a flower just uglier','term7','2016-10-02','Websters','Under Review','www.link.com','0','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Grassland stuff','term7','2016-10-02','Smart people.','In Progress','www.link.com','2','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Looks good in a swamp.','term7','2016-10-02','Plant book.','Published','www.link.com','0','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Moss is soft.','term7','2016-10-02','University of Japan.','Published','www.link.com','0','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Andreaea Moss','Moss is soft.','term7','2016-10-02','University of Japan.','In Progress','www.link.com','0','HH-201-B');
 
 
 
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Good green food.','term8','2016-10-02','cite8','Published','www.link.com','3','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Lunch','term8','2016-10-02','cite8','Published','www.link.com','3','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Okra is from Africa I think','term8','2016-10-02','cite8','Published','www.link.com','3','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Okra is good with chicken.','term8','2016-10-02','cite8','Published','www.link.com','3','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Okra is from Africa I think','term8','2016-10-02','cite8','In Progress','www.link.com','3','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Okra','Okra is good with chicken.','term8','2016-10-02','cite8','Under Review','www.link.com','3','HH-201-B');
 
 
 
 
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Theobroma','def9','term9','2016-10-02','cite9','Published','www.link.com','4','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Grassleaf Lettuce','def10','term10','2016-10-02','cite10','Published','www.link.com','0','HH-201-B');
-INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cobwebby Thistle','def11','term11','2016-10-02','cite11','Published','www.link.com','1','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Grassleaf Lettuce','def10','term10','2016-10-02','cite10','In Progress','www.link.com','0','HH-201-B');
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cobwebby Thistle','def11','term11','2016-10-02','cite11','Under Review','www.link.com','1','HH-201-B');
