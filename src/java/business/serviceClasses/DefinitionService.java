@@ -79,4 +79,8 @@ public class DefinitionService {
         return db.getMatched(searchedEntry);
        }
 
+    public ArrayList<Definition> getByAlpha(String letter) {
+        return db.getByAlpha(letter);
+        }
+
 }

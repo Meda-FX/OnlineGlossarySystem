@@ -45,6 +45,7 @@ public class EditorServlet extends HttpServlet {
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = new ArrayList<>();
+        ArrayList<User> instructorlist = new ArrayList<>();
 
         ArrayList<Definition> definitionlist = new ArrayList<>();
         String action = request.getParameter("action");
@@ -52,16 +53,22 @@ public class EditorServlet extends HttpServlet {
         String txtSearch = request.getParameter("txtSearch");
         Definition def = new Definition();
 
-       if (txtSearch != null && !txtSearch.equals("")) {
+        for (User u : userlist) {
+            if (u.getPrivileges().contains(4)) {
+                instructorlist.add(u);
+            }
+        }
+
+        if (txtSearch != null && !txtSearch.equals("")) {
             request.setAttribute("txtSearch", txtSearch);
-            String courseCode = request.getParameter("courseCode") ;
+            String courseCode = request.getParameter("courseCode");
             //request.setAttribute("courseCode", courseCode);
-            String userId = request.getParameter("userId") ;
+            String userId = request.getParameter("userId");
             deflist = (ArrayList<Definition>) ds.getByDepartmentFilterByTCU(user.getDepartment(), txtSearch, courseCode, userId);
 
-       } else {
+        } else {
             deflist = (ArrayList<Definition>) ds.getByDepartment(user.getDepartment());
-       }
+        }
         if (deflist.isEmpty()) {
             request.setAttribute("message", "There are no terms!");
         } else {
@@ -94,7 +101,7 @@ public class EditorServlet extends HttpServlet {
 
         request.setAttribute("definitionlist", definitionlist);
         request.setAttribute("courselist", courlist);
-        request.setAttribute("userlist", userlist);
+        request.setAttribute("userlist", instructorlist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
