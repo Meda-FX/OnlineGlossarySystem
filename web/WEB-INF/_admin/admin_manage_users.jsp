@@ -11,10 +11,10 @@
                 <label for="term">User Name</label>
                 <input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" value="${selectedUser.name}">
             </div>
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label for="department">Department</label>
                 <input type="text" class="form-control" id="department" placeholder="Department" name="department" value="${selectedUser.department}">
-            </div>
+            </div>-->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${selectedUser.email}">
@@ -24,14 +24,32 @@
                 <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
             </div>  
             <div class="form-group">
+                <label for="status">Status</label>
+                <div>
+                <input type="radio" id="active" name="status" value="active"> Active
+                <input type="radio" id="inactive" name="status" value="active"> InActive
+                </div>
+            </div> 
+<!--            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="${selectedUser.password}">
-            </div> 
-            <div class="form-group">
+            </div> -->
+<!--            <div class="form-group">
                 <label for="privilege">Privilege</label>
                 <input type="text" class="form-control" id="privilege" placeholder="Privilege" name="privilege" value="${selectedUser.privilege}">
-            </div> 
-            
+            </div>             -->
+            <div class="form-group">
+                <label for="privilege">Privilege</label>
+<!--                <c:forEach items="${privilegeList}" var="priv"> 
+                    <input name="privilege" type="checkbox" value="${priv.description}" > ${priv.getDescription().description}
+                </c:forEach> -->
+                <div>
+                    <input name="privilege" type="checkbox" value="" > Administrator
+                    <input name="privilege" type="checkbox" value="" > Editor
+                    <input name="privilege" type="checkbox" value="" > Instructor
+                    <input name="privilege" type="checkbox" value="" > Student
+                </div>
+            </div>  
             <!--<input type="hidden" name="saveTerm" value="save">-->
             <input class="btn" type="submit" name="action" value="Add User">
             <!--<input type="hidden" name="submitTerm" value="submit">-->

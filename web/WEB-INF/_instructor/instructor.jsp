@@ -115,7 +115,6 @@
                     <td>
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
                         <form action="instructor" method="POST">
-                        <input type="hidden" name="action" value="Delete Term">
                         <input type="hidden" name="defId" value="${def.definitionID}">
                         <input type="submit" name="submitButton" value="Delete">
                         </form>
