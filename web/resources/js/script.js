@@ -18,10 +18,16 @@ $(document).ready(function(){
             $("#userId").val(responseJson.id);
             $("#userName").val(responseJson.name);
             $("#email").val(responseJson.email);
-            $("#isActive").val(responseJson.isActive);
-            $("#privileges").val(responseJson.privilege);         
-        
+            if (responseJson.isActivated) {
+                $("#active").prop("checked", true);
+            } else {
+                $("#inactive").prop("checked", true);
+            }
+            responseJson.privileges.privileges.forEach(function(item){
+               $("#privList").children().eq(item.privilegeID-1).prop("checked", true);
+            });
         });
+        
         event.preventDefault();
     });
     

@@ -40,18 +40,16 @@ public class AdminManageUsersServlet extends HttpServlet {
         UserService us = new UserService();
         String action = request.getParameter("action");
 
+        PrivilegeService ps = new PrivilegeService();
+        List<Privilege> privilegeList = ps.getAll();
+        request.setAttribute("privilegeList", privilegeList);
         if (action != null) {
             CourseService cs = new CourseService();
             List<Course> courseList = cs.getByDepartment(department);
             request.setAttribute("courseList", courseList);
-            PrivilegeService ps = new PrivilegeService();
-            List<Privilege> privilegeList = ps.getAll();
-            request.setAttribute("privilegeList", privilegeList);
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
-                //selectedUser.setPassword("");
-                //request.setAttribute("selectedUser", selectedUser);
 
                 boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
@@ -120,7 +118,6 @@ public class AdminManageUsersServlet extends HttpServlet {
             userRegister.setPassword(password);
             us.insert(user);
         }
-        getServletContext().getRequestDispatcher(url).forward(request, response);
-        //response.sendRedirect("managerusers");
+        response.sendRedirect("manageusers");
     }
 }

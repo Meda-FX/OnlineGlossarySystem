@@ -19,15 +19,15 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${selectedUser.email}">
             </div> 
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label for="isActive">Active</label>
                 <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
-            </div>  
+            </div>  -->
             <div class="form-group">
                 <label for="status">Status</label>
                 <div>
                 <input type="radio" id="active" name="status" value="active"> Active
-                <input type="radio" id="inactive" name="status" value="active"> InActive
+                <input type="radio" id="inactive" name="status" value="inactive"> Inactive
                 </div>
             </div> 
 <!--            <div class="form-group">
@@ -40,15 +40,17 @@
             </div>             -->
             <div class="form-group">
                 <label for="privilege">Privilege</label>
-<!--                <c:forEach items="${privilegeList}" var="priv"> 
-                    <input name="privilege" type="checkbox" value="${priv.description}" > ${priv.getDescription().description}
-                </c:forEach> -->
-                <div>
+                <div id="privList">
+                <c:forEach items="${privilegeList}" var="priv"> 
+                    <input name="privilege" type="checkbox" value="${priv.privilegeID}" id="priv${priv.privilegeID}"> ${priv.description}
+                </c:forEach>
+                </div>
+<!--                <div>
                     <input name="privilege" type="checkbox" value="" > Administrator
                     <input name="privilege" type="checkbox" value="" > Editor
                     <input name="privilege" type="checkbox" value="" > Instructor
                     <input name="privilege" type="checkbox" value="" > Student
-                </div>
+                </div>-->
             </div>  
             <!--<input type="hidden" name="saveTerm" value="save">-->
             <input class="btn" type="submit" name="action" value="Add User">
