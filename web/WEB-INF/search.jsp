@@ -85,7 +85,7 @@
                     <select class="form-control" name="departmentID">
                         <option value="">Filter By School</option>
                         <c:forEach items="${deparlist}" var="department">
-                            <option  value="${department.departmentID}"><c:out value="${department.name}"/></option>
+                            <option  value="${department.departmentID}" <c:if test="${curSelectedDepart==department.departmentID}">selected</c:if>><c:out value="${department.name}"/></option>
                         </c:forEach>
                     </select>
                 </div>
@@ -112,7 +112,7 @@
                         <select class="form-control searchFilterDD" name="courseCode">
                             <option value="">Filter By Course</option>
                             <c:forEach items="${courselist}" var="course">
-                                <option  value="${course.courseCode}"><c:out value="${course.courseCode}"/></option>
+                                <option  value="${course.courseCode}" <c:if test="${curSelectedCour==course.courseCode}">selected</c:if>><c:out value="${course.courseCode}"/></option>
                             </c:forEach>
                         </select>
                     </div> <!-- Filter by instructor ends here-->    
@@ -131,7 +131,7 @@
                         <select class="form-control" name="userId">
                             <option value="">Filter By Instructor</option>
                             <c:forEach items="${instructorlist}" var="user">
-                                <option  value="${user.getID()}"><c:out value="${user.name}"/></option>
+                                <option  value="${user.getID()}" <c:if test="${curSelectedUser==user.getID()}">selected</c:if>><c:out value="${user.name}"/></option>
                             </c:forEach>
                         </select>
                     </div><!--Filter by course ends here-->
@@ -149,51 +149,40 @@
     </div>
     <!-- Term definitions starts here -->
     <c:if test="${noSuchEntry != true}">
-        <c:forEach var="term" items="${termlist}" > 
-            <c:forEach var="definition" items="${term.definitionList.definitionList}"> 
-                
-         <!--       <c:if test="${(recDepartId==null || recDepartId==definition.course.department.departmentID)}">
-                    <c:if test="${(recCourseCode==null || recCourseCode==definition.course.courseCode)}">
-                        <c:if test="${(recInstrID==null || recInstrID==definition.writtenBy.getID())}" >
-                            <c:if test="${definition.status=='Published'}"> -->
-                            <div class="row">
-                                <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
-                                <div class="col-xs-12 col-md-3">
-                                    <h4>${term.term}</h4>
-                                    <p>Instructor: ${definition.writtenBy.name} </p>
-                                    <p>Citation: ${definition.citation}</p>                     
-                                    <p>Date: <fmt:formatDate value="${definition.dateCreated}" pattern="yyyy-MM-dd" /></p>
-                                </div><!--Left side of the search ends here-->
+        <c:forEach var="definition" items="${definitionlist}"> 
+            <div class="row">
+                <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
+                <div class="col-xs-12 col-md-3">
+                    <h4>${definition.term}</h4>
+                    <p>Instructor: ${definition.writtenBy.name} </p>
+                    <p>Citation: ${definition.citation}</p>                     
+                    <p>Date: <fmt:formatDate value="${definition.dateCreated}" pattern="yyyy-MM-dd" /></p>
+                </div><!--Left side of the search ends here-->
 
-                                <!--Right side of the search result starts here: term definition-->
-                                <c:if test="${user.getPrivileges().contains(3) == true}">
-                                    <div class="col-xs-10 col-md-9">
-                                    </c:if>
+                <!--Right side of the search result starts here: term definition-->
+                <c:if test="${user.getPrivileges().contains(3) == true}">
+                    <div class="col-xs-10 col-md-9">
+                    </c:if>
 
-                                    <c:if test="${user.getPrivileges().contains(3) != true}">
-                                        <div class="col-xs-12 col-md-9">
-                                        </c:if>
-                                        <h4>Term Definition</h4>
-                                        <div> 
-                                            ${definition.content} <a class="readMore hide" href="#"> Read More </a>
-                                            <span class="readMoreContent">
-                                                <div><h5>Citation</h5></div>
-                                                <div>${definition.citation}</div>
-                                                <div><h5>Dictionary Definition</h5></div>
-                                                <div>${definition.dictionaryContent}</div>
-                                                <div><h5>Citation</h5></div>
-                                                <div>${definition.dictionaryCitation}</div> 
-                                                <div><a class="readLess hide" href="#">Read Less</a></div>                                    
-                                            </span>
-                                        </div>
-                                    </div><!--Right side of the search ends here-->  
-                                </div><!-- Term definitions end here -->
-                                <hr class="line">
-              <!--              </c:if>
-                            </c:if>
+                    <c:if test="${user.getPrivileges().contains(3) != true}">
+                        <div class="col-xs-12 col-md-9">
                         </c:if>
-                    </c:if>         -->      
-                </c:forEach>
+                        <h4>Term Definition</h4>
+                        <div> 
+                            ${definition.content} <a class="readMore hide" href="#"> Read More </a>
+                            <span class="readMoreContent">
+                                <div><h5>Citation</h5></div>
+                                <div>${definition.citation}</div>
+                                <div><h5>Dictionary Definition</h5></div>
+                                <div>${definition.dictionaryContent}</div>
+                                <div><h5>Citation</h5></div>
+                                <div>${definition.dictionaryCitation}</div> 
+                                <div><a class="readLess hide" href="#">Read Less</a></div>                                    
+                            </span>
+                        </div>
+                    </div><!--Right side of the search ends here-->  
+                </div><!-- Term definitions end here -->
+                <hr class="line">
             </c:forEach>
         </c:if>
 
