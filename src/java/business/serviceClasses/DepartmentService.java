@@ -5,6 +5,7 @@
  */
 package business.serviceClasses;
 
+import business.domainClasses.Definition;
 import business.domainClasses.Department;
 import business.domainClasses.User;
 import java.util.ArrayList;
@@ -36,4 +37,6 @@ public class DepartmentService {
     public Department  getByUserID(User user) {
         return db.getByUserID(user);
     }
+
+
 }

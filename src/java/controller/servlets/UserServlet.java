@@ -64,8 +64,9 @@ public class UserServlet extends HttpServlet {
         if(action != null && action.equals("addCourse")) {
             user.getCourses().reload(selectedCourse);
             us.reloadCourses(user);
+            user = us.get(user.getID());
             session.setAttribute("user", user);
-            request.setAttribute("test", "You have reached action.");
+           // request.setAttribute("test", "You have reached action.");
             
         }
         //getServletContext().getRequestDispatcher("/WEB-INF/userAccount.jsp").forward(request, response);

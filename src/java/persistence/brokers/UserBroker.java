@@ -112,10 +112,11 @@ public class UserBroker extends Broker {
                 user.setDepartment(department);
                 user.setIsActivated(activated);
             }
-            
-            if (user.getID()==null)
+
+            if (user.getID() == null) {
                 return null;
-            
+            }
+
             PrivilegeList privileges = user.getPrivileges();
             String privilegeDescription = null;
 
@@ -199,7 +200,7 @@ public class UserBroker extends Broker {
                 + "FROM [GlossaryDataBase].[dbo].[user] "
                 + "WHERE department_id = ?;";
 
-        String sql_priv = "SELECT [GlossaryDataBase].[dbo].[user_role].privilege_id privilege_id1, [GlossaryDataBase].[dbo].[user_role].description description"
+        String sql_priv = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[user_role] "
                 + "JOIN [GlossaryDataBase].[dbo].[role] "
                 + "ON([GlossaryDataBase].[dbo].[user_role].privilege_id = [GlossaryDataBase].[dbo].[role].privilege_id) "
@@ -293,17 +294,23 @@ public class UserBroker extends Broker {
 //                courseList.add(new Course(courseCode, courseName, department));
                 users.add(user);
             }
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
             for (User u : users) {
                 ps1 = connection.prepareStatement(sql_priv);
                 ps1.setString(1, u.getID());
-                rs1 = ps.executeQuery();
+                rs1 = ps1.executeQuery();
                 privilegeList = u.getPrivileges();
                 while (rs1.next()) {
                     //PRIVILEGE
                     Privilege priv = new Privilege();
-                    privID = rs1.getInt("privilege_id1");
+                    privID = rs1.getInt("privilege_id");
                     description = rs1.getString("description");
-                   // priv.setPrivilegeID(privID);
+                    priv.setPrivilegeID(privID);
                     priv.setDescription(description);
                     privilegeList.add(priv);
                 }
@@ -317,7 +324,7 @@ public class UserBroker extends Broker {
             for (User u : users) {
                 ps2 = connection.prepareStatement(sql_course);
                 ps2.setString(1, u.getID());
-                rs2 = ps.executeQuery();
+                rs2 = ps2.executeQuery();
                 courseList = u.getCourses();
                 while (rs2.next()) {
                     //COURSE
@@ -339,15 +346,6 @@ public class UserBroker extends Broker {
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException ex) {
-            }
             pool.freeConnection(connection);
         }
 
@@ -454,8 +452,12 @@ public class UserBroker extends Broker {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                if(rs != null) rs.close();
-                if(ps != null) ps.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -548,10 +550,16 @@ public class UserBroker extends Broker {
                 user.setDepartment(department);
                 user.setIsActivated(activated);
             }
-            
-            if (user.getID()==null)
+
+            if (user.getID() == null) {
                 return null;
-            
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
             PrivilegeList privileges = user.getPrivileges();
             String privilegeDescription = null;
 
@@ -563,6 +571,13 @@ public class UserBroker extends Broker {
                 privID = rs2.getInt("privilege_id");
                 privilegeDescription = rs2.getString("description");
                 privileges.add(new Privilege(privID, privilegeDescription));
+            }
+
+            if (rs2 != null) {
+                rs2.close();
+            }
+            if (ps2 != null) {
+                ps2.close();
             }
 
             CourseList courses = user.getCourses();
@@ -582,33 +597,17 @@ public class UserBroker extends Broker {
                 courseDepartment = new Department(courseDepartmentID, courseDepartmentName);
                 courses.add(new Course(courseCode, courseName, courseDepartment));
             }
+
+            if (rs3 != null) {
+                rs3.close();
+            }
+            if (ps3 != null) {
+                ps3.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
 
-                if (rs2 != null) {
-                    rs2.close();
-                }
-                if (ps2 != null) {
-                    ps2.close();
-                }
-
-                if (rs3 != null) {
-                    rs3.close();
-                }
-                if (ps3 != null) {
-                    ps3.close();
-                }
-
-            } catch (SQLException ex) {
-            }
             pool.freeConnection(connection);
         }
         return user;
@@ -628,7 +627,7 @@ public class UserBroker extends Broker {
         String userRoleSQL = "INSERT INTO [GlossaryDataBase].[dbo].[user_role] "
                 + "VALUES (?, ?);";
         PreparedStatement ps2 = null;
-        
+
         try {
             ps = connection.prepareStatement(userSQL);
             ps.setString(1, user.getID());
@@ -636,9 +635,9 @@ public class UserBroker extends Broker {
             ps.setInt(3, user.getDepartment().getDepartmentID());
             ps.setString(4, user.getName());
             ps.setString(5, user.getEmail());
-            ps.setInt(6, user.getIsActivated()? 1:0);
+            ps.setInt(6, user.getIsActivated() ? 1 : 0);
             ps.executeUpdate();
-            
+
             ps2 = connection.prepareStatement(userRoleSQL);
             ps2.setString(1, user.getID());
             ps2.setInt(2, user.getDepartment().getDepartmentID());
@@ -649,11 +648,13 @@ public class UserBroker extends Broker {
         } finally {
             try {
                 //rs.close();
-                if (ps!=null)
+                if (ps != null) {
                     ps.close();
-                
-                if (ps2!=null)
+                }
+
+                if (ps2 != null) {
                     ps2.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -870,8 +871,12 @@ public class UserBroker extends Broker {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if(rs != null) rs.close();
-                if(ps != null)ps.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
 
             } catch (SQLException ex) {
             }
@@ -882,40 +887,43 @@ public class UserBroker extends Broker {
     }
 
     public int reloadCourses(User user) {
-       ConnectionPool pool = ConnectionPool.getInstance();
-       Connection connection = pool.getConnection();
-       
-       ArrayList<Course> courses =(ArrayList<Course>) user.getCourses().getCourses();
-       
-       String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
-       String sql_i = "INSERT INTO [user_course] (course_code,user_id) VALUES (?,?)";
-     //INSERT INTO [user_course] (course_code,user_id,year) VALUES ('CMPS-307-9','1','2017-Fal9');
-       PreparedStatement ps = null;
-        
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Course> courses = (ArrayList<Course>) user.getCourses().getCourses();
+
+        String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
+        String sql_i = "INSERT INTO [user_course] (course_code,user_id) VALUES (?,?)";
+        //INSERT INTO [user_course] (course_code,user_id,year) VALUES ('CMPS-307-9','1','2017-Fal9');
+        PreparedStatement ps = null;
+
         try {
             ps = connection.prepareStatement(sql_d);
-            ps.setString(1, user.getID());            
+            ps.setString(1, user.getID());
             ps.executeUpdate();
-            if(ps != null) ps.close();
-            for(Course c:courses)
-            {
-                ps=connection.prepareStatement(sql_i);
+            if (ps != null) {
+                ps.close();
+            }
+            for (Course c : courses) {
+                ps = connection.prepareStatement(sql_i);
                 ps.setString(1, c.getCourseCode());
                 ps.setString(2, user.getID());
-              //  ps.setDate(3, x);
+                //  ps.setDate(3, x);
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
-        return 0;
+            return 0;
         } finally {
             try {
-                if(ps != null) ps.close();
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
-       return 1;
+        return 1;
     }
     
     public int reloadPrivileges(User user) {
