@@ -93,9 +93,6 @@ public class AdminManageUsersServlet extends HttpServlet {
             String email = request.getParameter("email");
             List<Privilege> privilegeList = new ArrayList<Privilege>();
             String[] privilegeStr = request.getParameterValues("privilege");
-            for (int i = 0; i < privilegeStr.length; i++) {
-                privilegeList.add(new Privilege(Integer.parseInt(privilegeStr[i])));
-            }
             String id = request.getParameter("userId");
             boolean active = false;
             if (request.getParameter("status").equals("active")) {
@@ -106,7 +103,7 @@ public class AdminManageUsersServlet extends HttpServlet {
 
             if (name == null || name.equals("")
                     || email == null || email.equals("")
-                    || privilegeList.size() == 0) {
+                    || privilegeStr == null || privilegeStr.length == 0) {
                 //display error message about fields empty
                 request.setAttribute("message", "All fields must be completed");
                 request.setAttribute("userName", name);
@@ -114,6 +111,11 @@ public class AdminManageUsersServlet extends HttpServlet {
                 request.setAttribute("email", email);
                 getServletContext().getRequestDispatcher(url).forward(request, response);
                 return;
+            }
+            
+            
+            for (int i = 0; i < privilegeStr.length; i++) {
+                privilegeList.add(new Privilege(Integer.parseInt(privilegeStr[i])));
             }
 
             if (!email.endsWith("@edu.sait.ca") && !email.endsWith("@sait.ca")) {
@@ -178,8 +180,8 @@ public class AdminManageUsersServlet extends HttpServlet {
                     String base = emailURL.substring(0, emailURL.length() - uri.length() + ctx.length());
                     contents.put("link", base + "/login?id=" + token);
 
-//                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
-//                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
+                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
+                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
                 } catch (Exception ex) {
                     Logger.getLogger(AdminManageUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
