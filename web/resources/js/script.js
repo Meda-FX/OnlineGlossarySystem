@@ -16,8 +16,11 @@ $(document).ready(function(){
      $(".editUsers").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#userId").val(responseJson.id);
+            $("#userId").prop("readonly", true);
             $("#userName").val(responseJson.name);
             $("#email").val(responseJson.email);
+            $("#active").attr("disabled", false);
+            $("#inactive").attr("disabled", false);
             if (responseJson.isActivated) {
                 $("#active").prop("checked", true);
             } else {
@@ -48,10 +51,13 @@ $(document).ready(function(){
     
     $(".newUser").click(function(){
         $("#userId").val("");
+        $("#userId").prop("readonly", false);
         $("#userName").val("");
         $("#email").val("");
         $("#active").prop("checked", false);
         $("#inactive").prop("checked", false);
+        $("#active").attr("disabled", true);
+        $("#inactive").attr("disabled", true);
         $("#privList").children().each(function(){
             $(this).prop("checked", false);
         });

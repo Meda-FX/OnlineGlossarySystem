@@ -123,4 +123,9 @@ public class UserService {
     {
        return userDB.reloadCourses(user);
     }
+    
+    public int reloadPrivileges(User user)
+    {
+       return userDB.reloadPrivileges(user);
+    }
 }

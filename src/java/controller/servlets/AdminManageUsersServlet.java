@@ -5,22 +5,31 @@
  */
 package controller.servlets;
 
+import business.domainClasses.AccountLog;
 import business.domainClasses.Course;
 import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.User;
+import business.serviceClasses.AccountLogService;
+import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.CourseService;
 import business.serviceClasses.PrivilegeService;
 import business.serviceClasses.UserService;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.WebMailUtil;
 
 /**
  * Receive and response to requests from web client for administrator page
@@ -71,48 +80,110 @@ public class AdminManageUsersServlet extends HttpServlet {
             throws ServletException, IOException {
         String url = "/WEB-INF/_admin/admin_manage_users.jsp";
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        Department department = user.getDepartment();
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        PrivilegeService ps = new PrivilegeService();
-        List<Privilege> privilegeList = ps.getAll();
-        //request.setAttribute("",privilegeList);
-        CourseService cs = new CourseService();
-        List<Course> courseList = cs.getByDepartment(user.getDepartment());
-        //request.setAttribute("", courseList);
-        boolean active = request.getParameter("active") != null;
+        User currentUser = (User) session.getAttribute("user");
+
         UserService us = new UserService();
         String action = request.getParameter("action");
-        User users = new User();
         if (action != null && action.equals("delete")) {
             String selectedUserID = request.getParameter("selectedID");
             us.delete(selectedUserID);
-        } else if (action.equals("edit")) {
-            User userEdit = us.get(id);
-            userEdit.setDepartment(department);
-            userEdit.setEmail(email);
-            userEdit.setIsActivated(active);
-            userEdit.setName(name);
-            userEdit.getPrivileges().setPrivileges(privilegeList);
-            userEdit.getCourses().setCourses(courseList);
-            if (password != null & !password.isEmpty()) {
-                userEdit.setPassword(password);
+        } else if (action != null && action.equals("manage")) {
+            Department department = currentUser.getDepartment();
+            String name = request.getParameter("userName");
+            String email = request.getParameter("email");
+            List<Privilege> privilegeList = new ArrayList<Privilege>();
+            String[] privilegeStr = request.getParameterValues("privilege");
+            for (int i = 0; i < privilegeStr.length; i++) {
+                privilegeList.add(new Privilege(Integer.parseInt(privilegeStr[i])));
             }
-            us.update(user);
-        } else if (action.equals("register")) {
-            User userRegister = new User();
-            userRegister.setDepartment(department);
-            userRegister.setEmail(email);
-            userRegister.setIsActivated(active);
-            userRegister.setName(name);
-            userRegister.getPrivileges().setPrivileges(privilegeList);
-            userRegister.getCourses().setCourses(courseList);
-            userRegister.setID(id);
-            userRegister.setPassword(password);
-            us.insert(user);
+            String id = request.getParameter("userId");
+            boolean active = false;
+            if (request.getParameter("status").equals("active")) {
+                active = true;
+            } else if (request.getParameter("status").equals("inactive")) {
+                active = false;
+            }
+
+            if (name == null || name.equals("")
+                    || email == null || email.equals("")
+                    || privilegeList.size() == 0) {
+                //display error message about fields empty
+                request.setAttribute("message", "All fields must be completed");
+                request.setAttribute("userName", name);
+                request.setAttribute("userId", id);
+                request.setAttribute("email", email);
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                return;
+            }
+
+            if (!email.endsWith("@edu.sait.ca") && !email.endsWith("@sait.ca")) {
+                //display error message about email not from sait
+                request.setAttribute("message", "Please use SAIT email for registration");
+                request.setAttribute("userName", name);
+                request.setAttribute("userId", id);
+                request.setAttribute("email", email);
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                return;
+            }
+
+            User user = us.get(id);
+            if (user != null) {
+                user.setEmail(email);
+                user.setIsActivated(active);
+                user.setName(name);
+                user.getPrivileges().setPrivileges(privilegeList);
+                us.update(user);
+                us.reloadPrivileges(user);
+            } else {
+
+                if (!id.matches("\\d{9}")) {
+                    request.setAttribute("message", "Please use valid 9-digit SAIT ID");
+                    request.setAttribute("userName", name);
+                    request.setAttribute("userId", id);
+                    request.setAttribute("email", email);
+                    getServletContext().getRequestDispatcher(url).forward(request, response);
+                    return;
+                }
+
+                if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
+                    request.setAttribute("message", "Account already exist");
+                    request.setAttribute("userName", name);
+                    request.setAttribute("userId", id);
+                    request.setAttribute("email", email);
+                    getServletContext().getRequestDispatcher(url).forward(request, response);
+                    return;
+                }
+
+                user.setDepartment(department);
+                user.setEmail(email);
+                user.setIsActivated(active);
+                user.setName(name);
+                user.getPrivileges().setPrivileges(privilegeList);
+                user.setID(id);
+                user.setPassword(id);
+                us.insert(user);
+
+                try {
+                    AccountRequestService ars = new AccountRequestService();
+                    String token = ars.insert(user, 1);
+
+                    AccountLogService als = new AccountLogService();
+                    AccountLog log = new AccountLog(1, user, new Date());
+                    als.insert(log);
+
+                    HashMap<String, String> contents = new HashMap<>();
+                    StringBuffer emailURL = request.getRequestURL();
+                    String uri = request.getRequestURI();
+                    String ctx = request.getContextPath();
+                    String base = emailURL.substring(0, emailURL.length() - uri.length() + ctx.length());
+                    contents.put("link", base + "/login?id=" + token);
+
+                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
+                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
+                } catch (Exception ex) {
+                    Logger.getLogger(AdminManageUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         response.sendRedirect("manageusers");
     }

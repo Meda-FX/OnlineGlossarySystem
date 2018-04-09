@@ -5,7 +5,7 @@
         <form action="manageusers" method="POST" id="form" >
             <div class="form-group">
                 <label for="user">User Id</label>
-                <input type="text"  class="form-control" id="userId" name="userId" value="${selectedUser.ID}" readonly="">
+                <input type="text"  class="form-control" id="userId" placeholder="User ID" name="userId" value="${selectedUser.ID}">
             </div>
             <div class="form-group">
                 <label for="term">User Name</label>
@@ -29,7 +29,7 @@
                     <input type="radio" id="active" name="status" value="active"> Active
                     <input type="radio" id="inactive" name="status" value="inactive"> Inactive
                 </div>
-            </div> 
+            </div>
             <!--            <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="${selectedUser.password}">
@@ -42,7 +42,7 @@
                 <label for="privilege">Privilege</label>
                 <div id="privList">
                     <c:forEach items="${privilegeList}" var="priv"> 
-                        <input name="privilege" type="checkbox" value="${priv.privilegeID}" id="priv${priv.privilegeID}"> ${priv.description}
+                        <input name="privilege" type="checkbox" value="${priv.privilegeID}"> ${priv.description}
                     </c:forEach>
                 </div>
                 <!--                <div>
@@ -53,14 +53,8 @@
                                 </div>-->
             </div>  
             <!--<input type="hidden" name="saveTerm" value="save">-->
-            <c:if test="${selectedUser == null}">
-                <input class="btn" type="submit" value="Add User">
-                <input type="hidden" name="action" value="register">
-            </c:if>
-            <c:if test="${selectedUser != null}">
-                <input class="btn" type="submit" value="Save Changes">
-                <input type="hidden" name="action" value="edit">
-            </c:if>
+            <input class="btn" type="submit" value="Confirm">
+            <input type="hidden" name="action" value="manage">
             <input class=" btn hideFormTerm" type="button" value="Hide Form">
         </form>
     </div>
@@ -134,10 +128,10 @@
             <button type="button" class="btn navbar-right addTerms">New User</button>
         </div>
     </div>
-<!--    <form class="editUsers" action="manageusers" method="GET">                             
-        <input type="hidden" name="action" value="add">
-        <input class="btn fa-input addTerms" type="submit" value="New User"> 
-    </form>-->
+    <!--    <form class="editUsers" action="manageusers" method="GET">                             
+            <input type="hidden" name="action" value="add">
+            <input class="btn fa-input addTerms" type="submit" value="New User"> 
+        </form>-->
 
     <!--table begins here-->
     <table class="table table-hover">

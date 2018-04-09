@@ -683,7 +683,7 @@ public class UserBroker extends Broker {
 
 //        String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
 //                + " WHERE user_id = ?;";
-//        PreparedStatement ps2 = null;
+//        PreparedStatement ps = null;
         //ResultSet rs2 = null;
 
         String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
@@ -707,10 +707,10 @@ public class UserBroker extends Broker {
 //            //rs = ps.executeQuery();
 //            ps.executeUpdate();
 
-//            ps2 = connection.prepareStatement(selectSQL2);
-//            ps2.setString(1, user.getID());
-            //rs2 = ps2.executeQuery();
-//            ps2.executeUpdate();
+//            ps = connection.prepareStatement(selectSQL2);
+//            ps.setString(1, user.getID());
+            //rs2 = ps.executeQuery();
+//            ps.executeUpdate();
 
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, user.getID());
@@ -734,7 +734,7 @@ public class UserBroker extends Broker {
             try {
 //                rs.close();
                 ps.close();
-//                if(ps2 != null) ps2.close();
+//                if(ps != null) ps.close();
 //                if(ps3 != null) ps3.close();
 //                if(ps4 != null) ps4.close();
 //                if(ps5 != null) ps5.close();
@@ -753,26 +753,22 @@ public class UserBroker extends Broker {
         Connection connection = pool.getConnection();
         User user = (User) object;
 
-        String selectSQL2 = "UPDATE [GlossaryDataBase].[dbo].[user] "
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[user] "
                 + "SET user_id = ?, password = ?, department_id = ?, name = ?, email = ?, activated = ? "
                 + "WHERE user_id = ?;";
-        PreparedStatement ps2 = null;
+        PreparedStatement ps = null;
         //ResultSet rs2 = null;
 
         try {
-//            ps = connection.prepareStatement(userSQL);
-//            ps.setString(1, user.getID());
-//            ps.executeUpdate();
-
-            ps2 = connection.prepareStatement(selectSQL2);
-            ps2.setString(1, user.getID());
-            ps2.setString(2, user.getPassword());
-            ps2.setInt(3, user.getDepartment().getDepartmentID());
-            ps2.setString(4, user.getName());
-            ps2.setString(5, user.getEmail());
-            ps2.setInt(6, user.getIsActivated()?1:0);
-            ps2.setString(7, user.getID());
-            ps2.executeUpdate();
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, user.getID());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getDepartment().getDepartmentID());
+            ps.setString(4, user.getName());
+            ps.setString(5, user.getEmail());
+            ps.setInt(6, user.getIsActivated()?1:0);
+            ps.setString(7, user.getID());
+            ps.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
@@ -781,7 +777,7 @@ public class UserBroker extends Broker {
             try {
 //                rs.close();
 //                ps.close();
-                if(ps2 != null) ps2.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -907,6 +903,41 @@ public class UserBroker extends Broker {
                 ps.setString(1, c.getCourseCode());
                 ps.setString(2, user.getID());
               //  ps.setDate(3, x);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
+        return 0;
+        } finally {
+            try {
+                if(ps != null) ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+       return 1;
+    }
+    
+    public int reloadPrivileges(User user) {
+       ConnectionPool pool = ConnectionPool.getInstance();
+       Connection connection = pool.getConnection();
+       
+       ArrayList<Privilege> privileges =(ArrayList<Privilege>) user.getPrivileges().getPrivileges();
+       
+       String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_role] WHERE [user_id] = ?;";
+       String sql_i = "INSERT INTO [user_course] (privilege_code,user_id) VALUES (?,?)";
+       PreparedStatement ps = null;
+        
+        try {
+            ps = connection.prepareStatement(sql_d);
+            ps.setString(1, user.getID());            
+            ps.executeUpdate();
+            if(ps != null) ps.close();
+            for(Privilege p:privileges)
+            {
+                ps=connection.prepareStatement(sql_i);
+                ps.setInt(1, p.getPrivilegeID());
+                ps.setString(2, user.getID());
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
