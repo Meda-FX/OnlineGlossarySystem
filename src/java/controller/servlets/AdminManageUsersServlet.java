@@ -73,6 +73,10 @@ public class AdminManageUsersServlet extends HttpServlet {
         List<User> userList = us.getByDepartment(department);
         request.setAttribute("userList", userList);
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
+        
+        String msg = (String)session.getAttribute("message");
+        if (msg != null && !msg.isEmpty())
+            session.removeAttribute("message");
     }
 
     @Override
@@ -95,41 +99,35 @@ public class AdminManageUsersServlet extends HttpServlet {
             String[] privilegeStr = request.getParameterValues("privilege");
             String id = request.getParameter("userId");
             boolean active = false;
-            if (request.getParameter("status").equals("active")) {
-                active = true;
-            } else if (request.getParameter("status").equals("inactive")) {
-                active = false;
-            }
 
             if (name == null || name.equals("")
                     || email == null || email.equals("")
                     || privilegeStr == null || privilegeStr.length == 0) {
                 //display error message about fields empty
-                request.setAttribute("message", "All fields must be completed");
-                request.setAttribute("userName", name);
-                request.setAttribute("userId", id);
-                request.setAttribute("email", email);
-                getServletContext().getRequestDispatcher(url).forward(request, response);
+                session.setAttribute("message", "All fields must be completed");
+                response.sendRedirect("manageusers");
                 return;
             }
-            
-            
+
             for (int i = 0; i < privilegeStr.length; i++) {
                 privilegeList.add(new Privilege(Integer.parseInt(privilegeStr[i])));
             }
 
             if (!email.endsWith("@edu.sait.ca") && !email.endsWith("@sait.ca")) {
                 //display error message about email not from sait
-                request.setAttribute("message", "Please use SAIT email for registration");
-                request.setAttribute("userName", name);
-                request.setAttribute("userId", id);
-                request.setAttribute("email", email);
-                getServletContext().getRequestDispatcher(url).forward(request, response);
+                session.setAttribute("message", "Please use SAIT email for registration");
+                response.sendRedirect("manageusers");
                 return;
             }
 
             User user = us.get(id);
             if (user != null) {
+                if (request.getParameter("status").equals("active")) {
+                    active = true;
+                } else if (request.getParameter("status").equals("inactive")) {
+                    active = false;
+                }
+
                 user.setEmail(email);
                 user.setIsActivated(active);
                 user.setName(name);
@@ -139,23 +137,17 @@ public class AdminManageUsersServlet extends HttpServlet {
             } else {
 
                 if (!id.matches("\\d{9}")) {
-                    request.setAttribute("message", "Please use valid 9-digit SAIT ID");
-                    request.setAttribute("userName", name);
-                    request.setAttribute("userId", id);
-                    request.setAttribute("email", email);
-                    getServletContext().getRequestDispatcher(url).forward(request, response);
+                    session.setAttribute("message", "Please use valid 9-digit SAIT ID");
+                    response.sendRedirect("manageusers");
                     return;
                 }
 
                 if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
-                    request.setAttribute("message", "Account already exist");
-                    request.setAttribute("userName", name);
-                    request.setAttribute("userId", id);
-                    request.setAttribute("email", email);
-                    getServletContext().getRequestDispatcher(url).forward(request, response);
+                    session.setAttribute("message", "Account already exist");
+                    response.sendRedirect("manageusers");
                     return;
                 }
-
+                user = new User();
                 user.setDepartment(department);
                 user.setEmail(email);
                 user.setIsActivated(active);
@@ -180,8 +172,8 @@ public class AdminManageUsersServlet extends HttpServlet {
                     String base = emailURL.substring(0, emailURL.length() - uri.length() + ctx.length());
                     contents.put("link", base + "/login?id=" + token);
 
-                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
-                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
+//                    WebMailUtil.sendMail(email, "Online Glossary System New Registration",
+//                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
                 } catch (Exception ex) {
                     Logger.getLogger(AdminManageUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
