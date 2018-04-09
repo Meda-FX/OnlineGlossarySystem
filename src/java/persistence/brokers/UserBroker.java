@@ -681,24 +681,24 @@ public class UserBroker extends Broker {
 //        PreparedStatement ps = null;
 //        //ResultSet rs = null;
 
-        String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
-                + " WHERE user_id = ?;";
-        PreparedStatement ps2 = null;
+//        String selectSQL2 = "DELETE FROM [GlossaryDataBase].[dbo].[user_course]"
+//                + " WHERE user_id = ?;";
+//        PreparedStatement ps2 = null;
         //ResultSet rs2 = null;
 
-        String selectSQL3 = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
+        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[user]"
                 + " WHERE user_id = ?;";
-        PreparedStatement ps3 = null;
+        PreparedStatement ps = null;
         //ResultSet rs3 = null;
 
-        String selectSQL4 = "DELETE FROM [GlossaryDataBase].[dbo].[definition]"
-                + " WHERE made_by = ?;";
-        PreparedStatement ps4 = null;
+//        String selectSQL4 = "DELETE FROM [GlossaryDataBase].[dbo].[definition]"
+//                + " WHERE made_by = ?;";
+//        PreparedStatement ps4 = null;
         //ResultSet rs4 = null;
 
-        String selectSQL5 = "DELETE FROM [GlossaryDataBase].[dbo].[glossary_entry]"
-                + " WHERE made_by = ?;";
-        PreparedStatement ps5 = null;
+//        String selectSQL5 = "DELETE FROM [GlossaryDataBase].[dbo].[glossary_entry]"
+//                + " WHERE made_by = ?;";
+//        PreparedStatement ps5 = null;
         //ResultSet rs5 = null;
 
         try {
@@ -707,25 +707,25 @@ public class UserBroker extends Broker {
 //            //rs = ps.executeQuery();
 //            ps.executeUpdate();
 
-            ps2 = connection.prepareStatement(selectSQL2);
-            ps2.setString(1, user.getID());
+//            ps2 = connection.prepareStatement(selectSQL2);
+//            ps2.setString(1, user.getID());
             //rs2 = ps2.executeQuery();
-            ps2.executeUpdate();
+//            ps2.executeUpdate();
 
-            ps3 = connection.prepareStatement(selectSQL3);
-            ps3.setString(1, user.getID());
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, user.getID());
             //rs3 = ps3.executeQuery();
-            ps3.executeUpdate();
+            ps.executeUpdate();
 
-            ps4 = connection.prepareStatement(selectSQL4);
-            ps4.setString(1, user.getID());
+//            ps4 = connection.prepareStatement(selectSQL4);
+//            ps4.setString(1, user.getID());
             //rs4 = ps4.executeQuery();
-            ps4.executeUpdate();
+            //ps4.executeUpdate();
 
-            ps5 = connection.prepareStatement(selectSQL5);
-            ps5.setString(1, user.getID());
+            //ps5 = connection.prepareStatement(selectSQL5);
+            //ps5.setString(1, user.getID());
             //rs5 = ps5.executeQuery();
-            ps5.executeUpdate();
+            //ps5.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
@@ -733,11 +733,11 @@ public class UserBroker extends Broker {
         } finally {
             try {
 //                rs.close();
-//                ps.close();
-                if(ps2 != null) ps2.close();
-                if(ps3 != null) ps3.close();
-                if(ps4 != null) ps4.close();
-                if(ps5 != null) ps5.close();
+                ps.close();
+//                if(ps2 != null) ps2.close();
+//                if(ps3 != null) ps3.close();
+//                if(ps4 != null) ps4.close();
+//                if(ps5 != null) ps5.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);

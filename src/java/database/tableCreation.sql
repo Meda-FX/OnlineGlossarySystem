@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[user_role] (
 	privilege_id int NOT NULL,
 	user_id Varchar(20) NOT NULL,
 	CONSTRAINT FK_user_role_user_id FOREIGN KEY (user_id)
-	REFERENCES [user](user_id),
+	REFERENCES [user](user_id) ON DELETE CASCADE,
 	CONSTRAINT FK_user_role_privilege_id FOREIGN KEY (privilege_id)
 	REFERENCES role(privilege_id)
 	)
@@ -40,9 +40,7 @@ CREATE TABLE [dbo].[user_role] (
 CREATE TABLE [dbo].[glossary_entry](
 	glossary_entry varchar (40) NOT NULL PRIMARY KEY,  
 	date_added datetime NOT NULL,
-	made_by Varchar(20) NOT NULL,
-	CONSTRAINT FK_glossary_entry_user_id FOREIGN KEY (made_by)
-	REFERENCES [user](user_id)
+	made_by Varchar(20) NOT NULL
 	)
 
 
@@ -62,7 +60,7 @@ CREATE TABLE [dbo].[definition](
 	made_by Varchar(20) NOT NULL,
 	course_code varchar (20) NOT NULL,
         CONSTRAINT FK_definition_made_by FOREIGN KEY (made_by)
-	REFERENCES [user](user_id),
+	REFERENCES [user](user_id) ON DELETE CASCADE,
         CONSTRAINT FK_definition_glossary_entry FOREIGN KEY (glossary_entry)
         REFERENCES [glossary_entry](glossary_entry)
 	)
@@ -81,7 +79,7 @@ CREATE TABLE [dbo].[user_course](
 	CONSTRAINT FK_user_course_course_code FOREIGN KEY (course_code)
 	REFERENCES course(course_code),
 	CONSTRAINT FK_user_course_user_id FOREIGN KEY (user_id)
-	REFERENCES [user](user_id),
+	REFERENCES [user](user_id) ON DELETE CASCADE,
         PRIMARY KEY(course_code,user_id,[year])
 	)
 
@@ -92,9 +90,7 @@ CREATE TABLE [dbo].[account_log](
 	log_id int IDENTITY(1,1) PRIMARY KEY,
 	activity_by Varchar(20) NOT NULL,
 	activity_date datetime NOT NULL,
-        activity_type int NOT NULL,
-        CONSTRAINT FK_account_log_request_id FOREIGN KEY (activity_by)
-        REFERENCES [user](user_id)
+        activity_type int NOT NULL
 	)
 
 --request_type:
@@ -107,6 +103,6 @@ CREATE TABLE [dbo].[account_request](
  	request_by Varchar(20) NOT NULL,
         request_type int NOT NULL,
         CONSTRAINT FK_account_request_request_id FOREIGN KEY (request_by)
-        REFERENCES [user](user_id)
+        REFERENCES [user](user_id) ON DELETE CASCADE
 	)
 	

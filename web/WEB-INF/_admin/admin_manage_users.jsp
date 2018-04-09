@@ -149,7 +149,7 @@
                 <form action="manageusers" method="POST">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="selectedID" value="${users.ID}">
-                    <input class="btn fa-input addTerms" type="submit" value="&#xf014">
+                    <input class="btn fa-input" type="submit" value="&#xf014">
                 </form>
             </td>
             <td>     
