@@ -6,18 +6,15 @@
 package controller.servlets;
 
 import business.domainClasses.AccountLog;
-import business.domainClasses.Course;
 import business.domainClasses.Department;
 import business.domainClasses.Privilege;
 import business.domainClasses.User;
 import business.serviceClasses.AccountLogService;
 import business.serviceClasses.AccountRequestService;
-import business.serviceClasses.CourseService;
 import business.serviceClasses.PrivilegeService;
 import business.serviceClasses.UserService;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -91,6 +88,7 @@ public class AdminManageUsersServlet extends HttpServlet {
         if (action != null && action.equals("delete")) {
             String selectedUserID = request.getParameter("selectedID");
             us.delete(selectedUserID);
+            session.setAttribute("message", "User deleted");
         } else if (action != null && action.equals("manage")) {
             Department department = currentUser.getDepartment();
             String name = request.getParameter("userName");
@@ -134,6 +132,7 @@ public class AdminManageUsersServlet extends HttpServlet {
                 user.getPrivileges().setPrivileges(privilegeList);
                 us.update(user);
                 us.reloadPrivileges(user);
+                session.setAttribute("message", "User removed");
             } else {
 
                 if (!id.matches("\\d{9}")) {
@@ -173,9 +172,11 @@ public class AdminManageUsersServlet extends HttpServlet {
                     contents.put("link", base + "/login?id=" + token);
 
                     WebMailUtil.sendMail(email, "Online Glossary System New Registration",
-                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newregistration.html", contents);
+                            getServletContext().getRealPath("/WEB-INF") + "/emailtemplates/newaccount.html", contents);
+                    session.setAttribute("message", "User created successfully");
                 } catch (Exception ex) {
                     Logger.getLogger(AdminManageUsersServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    session.setAttribute("message", "Unable to create user");
                 }
             }
         }

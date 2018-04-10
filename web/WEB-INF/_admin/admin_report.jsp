@@ -4,40 +4,43 @@
 <div class="container list-terms">
 
     <div calss="row"> 
-        <h3>Monthly Usage Report</h3>
+        <h3>Daily Usage Report</h3>
         <hr>
         <p> 
-            The report provides an accurate number of users that utilizes Sait’s glossary system during the month of selected period.
-            The report provides an accurate number of users that utilizes Sait’s glossary system during the month of selected period.
+            The report provides an accurate plot of the selected activity between the selected dates.
         </p>
+        <form action="report" method="GET">
         <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
             <div class="form-group">
                 <label for="start">Start Date:</label>
-                <input type="date" class="form-control" id="start">
+                <input type="date" class="form-control" id="start" name="start">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
             <div class="form-group">
                 <label for="end">End Date:</label>
-                <input type="date" class="form-control" id="end">
+                <input type="date" class="form-control" id="end" name="end">
             </div>
         </div>
 
+        <select id="type">
+            <option value="" selected disabled hidden>Report Type</option>
+            <option value="1">Registrations</option>
+            <option value="2">Logins</option>
+        </select>
         <div class="col-xs-12 col-md-12">
-            <button type="button" class="btn">GENERATE REPORT</button>
+            <input type="submit" class="btn">GENERATE REPORT</button>
+            <input type="hidden" name="action" value="report">
         </div>
         <br>
-        
+        </form>
         <!-- Chart goes here -->
         <div class="col-xs-12 col-md-12">
-            <h3> Summary Report </h3>
+            <h3> Report </h3>
             <hr>
             <br>
-            <p>
-                The chart shows the amount of logged in users between January 2017 and December 2017.
-            </p>
-            <img src="./assets/img/chart.png">
+            <canvas id="canvas"></canvas>
         </div>
     </div>
 </div> <!-- list items  -->
