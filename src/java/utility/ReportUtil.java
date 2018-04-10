@@ -34,8 +34,7 @@ public class ReportUtil {
                 count = 1;
             }
         }
-        Gson gson = new Gson();
-        return gson.toJson(dataPoints);
+        return new Gson().toJson(dataPoints);
         
     }
     

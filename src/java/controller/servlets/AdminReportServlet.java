@@ -56,7 +56,7 @@ public class AdminReportServlet extends HttpServlet {
                     return;
                 }
             } catch (Exception ex) {
-                request.setAttribute("message", "Error generating report");
+                request.setAttribute("message", "Error generating report. Please ensure all options are selected.");
             }
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);

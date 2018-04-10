@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+    $("#end").prop("max", moment().format("YYYY-MM-DD")); 
+    $("#start").prop("max", moment().format("YYYY-MM-DD")); 
+    
     $("#start").change(function(){
        $("#end").prop("min", $(this).val()); 
     });
