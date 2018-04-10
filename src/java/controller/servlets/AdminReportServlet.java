@@ -52,7 +52,8 @@ public class AdminReportServlet extends HttpServlet {
                 if (ajax) {
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(ReportUtil.prepareData(logList));
+                    String json = ReportUtil.prepareData(logList);
+                    response.getWriter().write(json);
                     return;
                 }
             } catch (Exception ex) {

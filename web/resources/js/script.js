@@ -122,18 +122,20 @@ $(document).ready(function () {
         $.get($(this).attr("action"), $(this).serialize(), function (responseJson) {
 
             var data = responseJson.map(function (item) {
-                return {x: new Date(item["date"]), y: item["count"]};
+                return {x: moment(new Date(item["date"])).format("YYYY-MM-DD"), y: item["count"]};
             });
             var type;
+
+            var startDate = moment($("#start").val());
+            var endDate = moment($("#end").val());
+            var daysMagnitude = endDate.diff(startDate, 'days');
 
             if ($("#reportType").val() === "1")
                 type = 'Registrations';
             else if ($("#reportType").val() === "2")
                 type = 'Logins';
 
-            var startDate = moment($("#start").val(), "YYYY-MM-DD");
-            var endDate = moment($("#end").val(), "YYYY-MM-DD");
-            var daysMagnitude = endDate.diff(startDate, 'days');
+            var title = "Daily " + type + " between " + startDate.format("YYYY-MM-DD") + " and " + endDate.format("YYYY-MM-DD");
             var timescale;
             if (daysMagnitude < 14) {
                 timescale = 'day';
@@ -147,13 +149,19 @@ $(document).ready(function () {
                 timescale = 'year';
             }
 
-            var title = type + ' in unit of ' + timescale;
-
-
             var chart = new Chart($('#canvas'), {
                 type: 'line',
-                data: data,
+                data: {
+                    datasets: [{
+                            data: data,
+                            borderColor: '#da291c',
+                            fill: false
+                        }]
+                },
                 options: {
+                    legend: {
+                        display: false
+                    },
                     responsive: true,
                     title: {
                         display: true,
@@ -170,21 +178,23 @@ $(document).ready(function () {
                                 type: "time",
                                 time: {
                                     unit: timescale,
-                                    distribution: 'linear'
+                                    distribution: 'linear',
+                                    max: endDate,
+                                    min: startDate
                                 },
-                                bounds: 'data',
                                 ticks: {
-                                    source: 'atuo'
+                                    source: 'auto'
                                 }
                             }],
                         yAxes: [{
                                 gridLines: {
                                     drawBorder: false
                                 },
+                                type: "linear",
                                 bounds: 'data',
                                 ticks: {
                                     beginAtZero: true,
-                                    source: 'atuo'
+                                    source: 'auto'
                                 }
                             }]
                     }}

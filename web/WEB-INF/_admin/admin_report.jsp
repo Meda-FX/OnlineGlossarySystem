@@ -7,7 +7,7 @@
         <h3>Daily Usage Report</h3>
         <hr>
         <p> 
-            The report provides an accurate plot of the selected activity between the selected dates.
+            The report provides an accurate plot of the daily selected activity between the selected dates.
         </p>
         <form class="reportForm" action="report" method="GET">
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">

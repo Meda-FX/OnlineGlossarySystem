@@ -85,7 +85,7 @@ public class AccountLogBroker extends Broker {
                 + "WHERE activity_type = ? "
                 + "AND department_id = ? "
                 + "AND activity_date >= ? "
-                + "AND activity_date <= ?";
+                + "AND activity_date <= DATEADD(day, 1, ?)";
         PreparedStatement ps = null;
         ResultSet rs = null;
         
