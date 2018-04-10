@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+    $("#end").prop("max", moment().format("YYYY-MM-DD")); 
+    $("#start").prop("max", moment().format("YYYY-MM-DD")); 
+    
+    $("#start").change(function(){
+       $("#end").prop("min", $(this).val()); 
+    });
+
+    $("#end").change(function(){
+       $("#start").prop("max", $(this).val()); 
+    });
+
     $(".editForm").submit(function(event) {
         $.get($(this).attr("action"), $(this).serialize(), function(responseJson) {
             $("#term").val(responseJson.term);

@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[user] (
 	email varchar (40) NOT NULL,
 	activated bit NOT NULL,
 	CONSTRAINT FK_user_department_id FOREIGN KEY (department_id)
-        REFERENCES department(department_id)
+        REFERENCES [department](department_id)
 	)
 
 CREATE TABLE [dbo].[user_role] (
@@ -33,7 +33,7 @@ CREATE TABLE [dbo].[user_role] (
 	CONSTRAINT FK_user_role_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id) ON DELETE CASCADE,
 	CONSTRAINT FK_user_role_privilege_id FOREIGN KEY (privilege_id)
-	REFERENCES role(privilege_id)
+	REFERENCES [role](privilege_id)
 	)
 
 
@@ -70,14 +70,14 @@ CREATE TABLE [dbo].[course](
 	department_id Int NOT NULL,
 	course_name varchar (100) NOT NULL,
 	CONSTRAINT FK_course_department_id FOREIGN KEY (department_id)
-	REFERENCES  department(department_id)
+	REFERENCES  [department](department_id)
 	)
 CREATE TABLE [dbo].[user_course](
 	course_code varchar (20) NOT NULL,
 	user_id Varchar(20) NOT NULL,
 	[year] varchar(20) NOT NULL,
 	CONSTRAINT FK_user_course_course_code FOREIGN KEY (course_code)
-	REFERENCES course(course_code),
+	REFERENCES [course](course_code),
 	CONSTRAINT FK_user_course_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id) ON DELETE CASCADE,
         PRIMARY KEY(course_code,user_id,[year])
