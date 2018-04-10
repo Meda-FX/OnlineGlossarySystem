@@ -9,7 +9,7 @@
         <p> 
             The report provides an accurate plot of the selected activity between the selected dates.
         </p>
-        <form action="report" method="GET">
+        <form class="reportForm" action="report" method="GET">
             <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
                 <div class="form-group">
                     <label for="start">Start Date:</label>
@@ -46,6 +46,4 @@
         </div>
     </div>
 </div> <!-- list items  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <%@ include file="../includes/footer.jsp" %>
