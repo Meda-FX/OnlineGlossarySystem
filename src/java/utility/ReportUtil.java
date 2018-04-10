@@ -20,7 +20,7 @@ public class ReportUtil {
     
     public static String prepareData(List<AccountLog> logs) {
         List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date dateToCompare = logs.get(0).getActivityDate();
         int count = 0;
         for (AccountLog log : logs) {

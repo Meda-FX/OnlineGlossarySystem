@@ -118,46 +118,80 @@ $(document).ready(function () {
         }
     });
 
-//    $(".reportForm").submit(function (event) {
-//        $.get($(this).attr("action"), $(this).serialize(), function (responseJson) {
-//            
-//            var data = responseJson.map(function(item) {
-//                return {x: new Date(item["date"]), y: item["count"]};
-//            });
-//            // change handler on the date filter drop down which changes the chart data and time scale options
-//
-//            var selectedRange = $(this).val();
-//            var parsedStartDate = ;// use selectedRange to parse start date
-//            var parsedEndDate = ;// use selectedRange to parse end date
-//            var dayMagnitude = ; // use moment.js to calculate difference in start/end in days
-//
-//            if (daysMagnitude < 30) {
-//                // configure time scale displayFormat in terms of days
-//            } else if (daysMagnitude < 90) {
-//                // configure time scale displayFormat in terms of months
-//            } else if (daysMagnitude < 180) {
-//                // configure time scale displayFormat in terms of quarters
-//            }
-//            // ...
-//
-//            // update the underlying chart data by accessing the underlying dataset that you are modifying
-//            chart.data.datasets[0].data = // new data object based on the filter criteria
-//
-//                    // update the time scale options
-//            chart.options.scales.yAxes = // updated time scale options
-//
-//                    // re-render your chart
-//            
-//            
-//            var chart = new Chart($('#canvas'), {
-//                type: 'line',
-//                data: data,
-//                options: {/* options...including time scale options */}
-//            });
-//            
-//            chart.update();
-//        });
-//        event.preventDefault();
-//    });
+    $(".reportForm").submit(function (event) {
+        $.get($(this).attr("action"), $(this).serialize(), function (responseJson) {
+
+            var data = responseJson.map(function (item) {
+                return {x: new Date(item["date"]), y: item["count"]};
+            });
+            var type;
+
+            if ($("#reportType").val() === "1")
+                type = 'Registrations';
+            else if ($("#reportType").val() === "2")
+                type = 'Logins';
+
+            var startDate = moment($("#start").val(), "YYYY-MM-DD");
+            var endDate = moment($("#end").val(), "YYYY-MM-DD");
+            var daysMagnitude = endDate.diff(startDate, 'days');
+            var timescale;
+            if (daysMagnitude < 14) {
+                timescale = 'day';
+            } else if (daysMagnitude < 28 * 4) {
+                timescale = 'week';
+            } else if (daysMagnitude < 365) {
+                timescale = 'month';
+            } else if (daysMagnitude < 365 * 4) {
+                timescale = 'quarter';
+            } else {
+                timescale = 'year';
+            }
+
+            var title = type + ' in unit of ' + timescale;
+
+
+            var chart = new Chart($('#canvas'), {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: title,
+                        fontColor: '#da291c',
+                        fontSize: 24
+                    },
+                    scales: {
+                        xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                type: "time",
+                                time: {
+                                    unit: timescale,
+                                    distribution: 'linear'
+                                },
+                                bounds: 'data',
+                                ticks: {
+                                    source: 'atuo'
+                                }
+                            }],
+                        yAxes: [{
+                                gridLines: {
+                                    drawBorder: false
+                                },
+                                bounds: 'data',
+                                ticks: {
+                                    beginAtZero: true,
+                                    source: 'atuo'
+                                }
+                            }]
+                    }}
+            });
+            chart.update();
+        });
+        event.preventDefault();
+    });
 });
 

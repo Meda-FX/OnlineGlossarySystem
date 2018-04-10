@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div>
-                <select name="type">
+                <select name="type" id="reportType">
                     <option value="" selected disabled hidden>Report Type</option>
                     <option value="1">Registrations</option>
                     <option value="2">Logins</option>
