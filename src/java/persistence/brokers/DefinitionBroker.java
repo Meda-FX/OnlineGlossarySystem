@@ -636,7 +636,7 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to insert definition", ex);
         } finally {
             try {
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
 
             }
