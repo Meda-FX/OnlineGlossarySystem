@@ -60,6 +60,7 @@ public class AccountRequestService {
      * @param requestUser requestUser the request made by the user
      * @param requestType requestType the type of request being made, 1 is a
      * request for creating new account, 2 is a forget password request
+     * @throws java.lang.Exception
      * @return the string to be send to the user
      */
     public String insert(User requestUser, int requestType) throws Exception {
@@ -108,6 +109,7 @@ public class AccountRequestService {
      * @param token token the token that is passed to verify the user
      * @param requestType the request type of the current call for verify ID, 1
      * is a request for creating new account, 2 is a forget password request
+     * @throws java.security.NoSuchAlgorithmException
      * @return the verified user when verified and returns null when failed
      */
     public User verifyID(String token, int requestType) throws NoSuchAlgorithmException {

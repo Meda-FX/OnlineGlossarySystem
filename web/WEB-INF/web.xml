@@ -22,6 +22,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
+        <servlet-name>AdminManageCoursesServlet</servlet-name>
         <servlet-name>AdminManageUsersServlet</servlet-name>
         <servlet-name>AdminReportServlet</servlet-name>
     </filter-mapping>
@@ -36,6 +37,7 @@
         <servlet-name>EditorServlet</servlet-name>
         <servlet-name>UserServlet</servlet-name>
         <servlet-name>AdminManageUsersServlet</servlet-name>
+        <servlet-name>AdminManageCoursesServlet</servlet-name>
         <servlet-name>AdminReportServlet</servlet-name>
     </filter-mapping>
     <servlet>
@@ -69,6 +71,10 @@
     <servlet>
         <servlet-name>AdminManageUsersServlet</servlet-name>
         <servlet-class>controller.servlets.AdminManageUsersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminManageCoursesServlet</servlet-name>
+        <servlet-class>controller.servlets.AdminManageCoursesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NewPasswordServlet</servlet-name>
@@ -117,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>AdminManageUsersServlet</servlet-name>
         <url-pattern>/manageusers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManageCoursesServlet</servlet-name>
+        <url-pattern>/managecourses</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>search</welcome-file>

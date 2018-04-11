@@ -31,7 +31,7 @@ public class DefinitionBroker extends Broker {
     /**
      * The getById method returns a definition related to the user's ID.
      *
-     * @param id represents the course in the course table in the database.
+     * @param did represents the definition_id column in the course table in the database.
      * @return a definition of a term
      */
     public Definition getByID(int did) {
@@ -201,7 +201,7 @@ public class DefinitionBroker extends Broker {
     /**
      * The getByCourse method returns a list of definitions related to the user.
      *
-     * @param course represents the course in the course table in the database.
+     * @param department a department object with the department ID
      * @return a list of definitions by course.
      */
     public List<Definition> getByDepartment(Department department) {

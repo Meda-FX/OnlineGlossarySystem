@@ -9,7 +9,6 @@ public class Course {
     private String courseCode;
     private String courseName;
     private Department department;
-    private String year;
 
     public Course() {
     }
@@ -26,19 +25,6 @@ public class Course {
         this.department = department;
     }
     
-    /**
-     * Constructs a course object for courses exists in the system
-     * @param courseCode courseCode the course code of the courses
-     * @param courseName courseName the course name of the courses
-     * @param department department the department i which he courses reside
-     * @param year year the course was provided
-     */
-    public Course(String courseCode, String courseName, Department department, String year) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.department = department;
-        this.year = year;
-    }
     
         /**
      * Constructs a course object for courses exists in the system
@@ -94,14 +80,6 @@ public class Course {
      */
     public void setDepartment(Department department) {
         this.department = department;
-    }    
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
     }
     
     @Override

@@ -85,7 +85,6 @@ public class UserBroker extends Broker {
         String description;
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         try {
             ps = connection.prepareStatement(sql_user);
@@ -238,7 +237,6 @@ public class UserBroker extends Broker {
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         try {
             ps = connection.prepareStatement(sql_user);
@@ -390,7 +388,6 @@ public class UserBroker extends Broker {
         String description;
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         try {
             ps = connection.prepareStatement(selectSQL);
@@ -440,7 +437,6 @@ public class UserBroker extends Broker {
                 Course course = new Course();
                 courseCode = rs.getString("courseCode");
                 courseName = rs.getString("courseName");
-                year = rs.getString("year");
 
                 //LISTS
                 //privilegeList.add(priv);
@@ -523,7 +519,6 @@ public class UserBroker extends Broker {
         String description;
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         try {
             ps = connection.prepareStatement(sql_user);
@@ -803,7 +798,6 @@ public class UserBroker extends Broker {
         String description;
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         Department department = null;
 
@@ -854,7 +848,6 @@ public class UserBroker extends Broker {
                 Course course = new Course();
                 courseCode = rs.getString("courseCode");
                 courseName = rs.getString("courseName");
-                year = rs.getString("year");
 
                 //LISTS
                 //privilegeList.add(privID);
@@ -891,7 +884,6 @@ public class UserBroker extends Broker {
 
         String sql_d = "DELETE FROM [GlossaryDataBase].[dbo].[user_course] WHERE [user_id] = ?;";
         String sql_i = "INSERT INTO [GlossaryDataBase].[dbo].[user_course] (course_code,user_id) VALUES (?,?)";
-        //INSERT INTO [user_course] (course_code,user_id,year) VALUES ('CMPS-307-9','1','2017-Fal9');
         PreparedStatement ps = null;
 
         try {

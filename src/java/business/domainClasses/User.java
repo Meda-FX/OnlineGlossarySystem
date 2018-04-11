@@ -31,6 +31,7 @@ public class User {
      * @param password the password of the user
      * @param privileges the privilege given by the administrator if the glossary system manager
      * @param courses the corse that the user enrolled into.
+     * @param isActivated a legacy param.
      */
     public User(Department department, String name, String email, String id, String password, PrivilegeList privileges, CourseList courses, boolean isActivated) {
         this.department = department;

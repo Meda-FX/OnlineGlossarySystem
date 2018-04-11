@@ -29,7 +29,7 @@ public class CourseBroker extends Broker {
     /**
      * The getByID method returns the course by the specified course ID.
      *
-     * @param courseID represents the ID for a certain course.
+     * @param courseCode represents the ID for a certain course.
      * @return a Course object representing a course from the database.
      */
     public Course getByCourseCode(String courseCode) {
@@ -44,20 +44,19 @@ public class CourseBroker extends Broker {
         //for course list
         int department;
         String courseName = null;
-        String year = null;
-        
+
         Course course = null;
 
         try {
 
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, "CMPS-307-A");
+            ps.setString(1, courseCode);
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                courseName = rs.getString("course_code");
+                courseName = rs.getString("course_name");
                 department = rs.getInt("department_id");
-                course = new Course(courseCode, courseName,new Department(department));
+                course = new Course(courseCode, courseName, new Department(department));
 
             }
         } catch (SQLException ex) {
@@ -79,7 +78,7 @@ public class CourseBroker extends Broker {
      * The getByDepartmentID return a list of courses by the specified
      * department ID.
      *
-     * @param departmentID represents the ID for a certain department.
+     * @param department represents the ID for a certain department.
      * @return a list of Course objects representing courses from the database.
      */
     public List<Course> getByDepartmentID(Department department) {
@@ -96,7 +95,6 @@ public class CourseBroker extends Broker {
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         int departmentID = department.getDepartmentID();
 
@@ -137,7 +135,6 @@ public class CourseBroker extends Broker {
         Connection connection = pool.getConnection();
 
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Course course = (Course) object;
         //int dept_id = 0;
 
@@ -146,13 +143,9 @@ public class CourseBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setInt(1, course.getDepartment().getDepartmentID());
+            ps.setString(1, course.getCourseCode());
             ps.setInt(2, course.getDepartment().getDepartmentID());
             ps.setString(3, course.getCourseName());
-            rs = ps.executeQuery();
-//            while(rs.next()){
-//                dept_id = rs.getInt("department_id");
-//            }
 
             ps.executeUpdate();
 
@@ -161,7 +154,6 @@ public class CourseBroker extends Broker {
             return 0;
         } finally {
             try {
-                rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
@@ -178,22 +170,19 @@ public class CourseBroker extends Broker {
         Connection connection = pool.getConnection();
 
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Course course = (Course) object;
 
-        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].course_name = ?;";
+        String selectSQL = "DELETE FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].course_code = ?;";
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1, course.getCourseName());
-            rs = ps.executeQuery();
+            ps.setString(1, course.getCourseCode());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CourseBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
-                rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
@@ -210,13 +199,12 @@ public class CourseBroker extends Broker {
         Connection connection = pool.getConnection();
 
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Course course = (Course) object;
 
-        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[course] \n"
-                + "SET [GlossaryDataBase].[dbo].[course].course_code = ?, \n"
-                + "[GlossaryDataBase].[dbo].[course].department_id = ?, \n"
-                + "[GlossaryDataBase].[dbo].[course].course_name = ? \n"
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[course] "
+                + "SET [GlossaryDataBase].[dbo].[course].course_code = ?, "
+                + "[GlossaryDataBase].[dbo].[course].department_id = ?, "
+                + "[GlossaryDataBase].[dbo].[course].course_name = ? "
                 + "WHERE [GlossaryDataBase].[dbo].[course].course_code = ?;";
 
         try {
@@ -224,14 +212,13 @@ public class CourseBroker extends Broker {
             ps.setString(1, course.getCourseCode());
             ps.setInt(2, course.getDepartment().getDepartmentID());
             ps.setString(3, course.getCourseName());
-            rs = ps.executeQuery();
+            ps.setString(4, course.getCourseCode());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CourseBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
             return 0;
         } finally {
             try {
-                rs.close();
                 ps.close();
             } catch (SQLException ex) {
             }
@@ -253,7 +240,7 @@ public class CourseBroker extends Broker {
 
         Course course = null;
 
-        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user];";
+        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course];";
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -286,7 +273,8 @@ public class CourseBroker extends Broker {
         Connection connection = pool.getConnection();
         DepartmentService ds = new DepartmentService();
         String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[user_course]  "
-                + "join [GlossaryDataBase].[dbo].[course] on course.course_code=user_course.course_code "
+                + "join [GlossaryDataBase].[dbo].[course] "
+                + "on [GlossaryDataBase].[dbo].[course].course_code=[GlossaryDataBase].[dbo].[user_course].course_code "
                 + "WHERE user_id=?;";
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -296,7 +284,6 @@ public class CourseBroker extends Broker {
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
         int department;
         String userID = user.getID();
 
@@ -309,7 +296,7 @@ public class CourseBroker extends Broker {
                 courseCode = rs.getString("course_code");
                 courseName = rs.getString("course_name");
                 department = rs.getInt("department_id");
-                courseList.add(new Course(courseCode, courseName, ds.getByUserID(user)));
+                courseList.add(new Course(courseCode, courseName, new Department(department)));
 
             }
         } catch (SQLException ex) {
@@ -330,5 +317,54 @@ public class CourseBroker extends Broker {
         return courseList;
 
     }
-}
 
+    public List<Course> search(String searchWith) {
+ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[course] "
+                + "WHERE [GlossaryDataBase].[dbo].[course].course_code LIKE ? "
+                + "OR [GlossaryDataBase].[dbo].[course].course_name LIKE ? ;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        ArrayList<Course> courseList = new ArrayList<>();
+
+        //for course list
+        String courseCode = null;
+        String courseName = null;
+        int departmentID;
+        Department department;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, "%"+ searchWith +"%");
+            ps.setString(2, "%"+ searchWith +"%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                //COURSE
+                courseCode = rs.getString("course_code");
+                courseName = rs.getString("course_name");
+                departmentID = rs.getInt("department_id");
+                department = new Department(departmentID);
+                courseList.add(new Course(courseCode, courseName, department));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return courseList;
+    }
+}

@@ -57,7 +57,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
-                session.setAttribute("selectedUserID", selectedUserID);
+                session.setAttribute("sessionSelectedUserID", selectedUserID);
                 boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
                 if (ajax) {
@@ -98,12 +98,15 @@ public class AdminManageUsersServlet extends HttpServlet {
                     request.setAttribute("txtSearch", txtSearch);
                     request.setAttribute("searchedBy", searchedBy);
                 }
+                if(userList.isEmpty()) message="No such user in the list!";
+                request.setAttribute("message", message);
             }
         }
-        //       List<User> userList = us.getByDepartment(department);
-        if(userList.isEmpty()) message="No such user in the list!";
-        request.setAttribute("message", message);
         request.setAttribute("userList", userList);
+        String sessionUserID = (String)session.getAttribute("sessionSelectedUserID");
+        if (sessionUserID != null && !sessionUserID.isEmpty())
+            session.removeAttribute("sessionSelectedUserID");
+        
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
 
         String msg = (String) session.getAttribute("message");
@@ -118,7 +121,6 @@ public class AdminManageUsersServlet extends HttpServlet {
         String url = "/WEB-INF/_admin/admin_manage_users.jsp";
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
-
         UserService us = new UserService();
         String action = request.getParameter("action");
         if (action != null && action.equals("delete")) {
@@ -126,6 +128,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             us.delete(selectedUserID);
             session.setAttribute("message", "User deleted");
         } else if (action != null && action.equals("manage")) {
+            String sessionSelectedUserID = (String)session.getAttribute("sessionSelectedUserID");
             Department department = currentUser.getDepartment();
             String name = request.getParameter("userName");
             String email = request.getParameter("email");
@@ -154,8 +157,9 @@ public class AdminManageUsersServlet extends HttpServlet {
                 return;
             }
 
-            User user = us.get(id);
-            if (user != null) {
+            
+            if (sessionSelectedUserID != null && sessionSelectedUserID.equals(id)) {
+                User user = us.get(id);
                 if (request.getParameter("status").equals("active")) {
                     active = true;
                 } else if (request.getParameter("status").equals("inactive")) {
@@ -170,17 +174,16 @@ public class AdminManageUsersServlet extends HttpServlet {
                 us.reloadPrivileges(user);
                 session.setAttribute("message", "User removed");
             } else {
-
+                
                 if (!id.matches("\\d{9}")) {
                     session.setAttribute("message", "Please use valid 9-digit SAIT ID");
                     response.sendRedirect("manageusers");
                     return;
                 }
 
-                
-                
-                if ((us.getByEmail(email) != null)) {
-                    session.setAttribute("message", "This email is associated with another account");
+                User user = us.get(id);
+                if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
+                    session.setAttribute("message", "The id and/or email is associated with another account");
                     response.sendRedirect("manageusers");
                     return;
                 }

@@ -31,6 +31,9 @@ public class CourseService {
     }
 
 
+    public int update(Course course) {
+        return courseDB.update(course);
+    }
     
     public int insert(Course course) {
         return courseDB.insert(course);
@@ -38,5 +41,9 @@ public class CourseService {
     
     public int delete(Course course) {
         return courseDB.delete(course);
+    }
+    
+    public List<Course> search(String searchWith) {
+        return courseDB.search(searchWith);
     }
 }
