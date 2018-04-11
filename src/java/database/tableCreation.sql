@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[role](
 
 CREATE TABLE [dbo].[user] (
 	user_id Varchar(20) NOT NULL PRIMARY KEY,
-	password varchar (40) NOT NULL,
+	password varchar (80) NOT NULL,
 	department_id int NOT NULL,
 	name varchar (40) NOT NULL,
 	email varchar (40) NOT NULL,

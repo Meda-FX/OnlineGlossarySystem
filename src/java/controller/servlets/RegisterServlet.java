@@ -15,14 +15,18 @@ import business.serviceClasses.DepartmentService;
 import business.serviceClasses.UserService;
 import utility.WebMailUtil;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.HashingUtil;
 
 /**
  *
@@ -56,6 +60,7 @@ public class RegisterServlet extends HttpServlet {
         UserService us = new UserService();
         AccountRequestService ars = new AccountRequestService();
         String url = "/WEB-INF/register.jsp";
+        boolean flag = true;
 
         //for dropdown menu
         DepartmentService ds = new DepartmentService();
@@ -115,6 +120,12 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("studentId", student_id);
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
+        }
+
+        try {
+            password = HashingUtil.hash(password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         User newUser = new User();
