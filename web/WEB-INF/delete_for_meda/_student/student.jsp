@@ -50,17 +50,14 @@
             </div>   
         </form>
         <div>
-            <p class="message">${message}</p>   
+            <p class="message"><c:out value="${message}" /></p>   
         </div>
     </div>
 </div><!--Search ends here-->
-
 <!--Search filter starts here-->
 <div class="row search-filter"> <!-- main filter container -->    
-     <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-    
-    
-    <!-- Filter by instructor starts here -->
+    <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">   
+        <!-- Filter by instructor starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
             <!-- Small button group -->
             <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,12 +67,9 @@
                 <li><a href="#">Corse One</a></li>
                 <li><a href="#">Course Two</a></li>
                 <li><a href="#">Course Three</a></li>
-               
             </ul>
-        </div> <!-- Filter by instructor ends here-->    
-    
-    
-    <!-- Filter by course starts here -->
+        </div> <!-- Filter by instructor ends here-->   
+        <!-- Filter by course starts here -->
         <div class="col-xs-12 col-sm-6 col-md-6">
             <!-- Small button group -->
             <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,17 +80,15 @@
                 <li><a href="#">Instructor Two</a></li>
                 <li><a href="#">Instructor Three</a></li>
         </div><!--Filter by course ends here-->
-   
-</div>     
+    </div>     
 </div> <!-- main filter container -->
 <!--Search filter ends here-->
-
 <div class="container list-terms">
     <div>
-    <h4>Term List</h4>
-    <hr class="line">
+        <h4>Term List</h4>
+        <hr class="line">
     </div>
-    
+
     <!-- Term definitions starts here -->
     <c:forEach var="definition" items="${definitions}"> 
         <div class="row">
@@ -117,7 +109,6 @@
             </div><!--Right side of the search ends here-->      
         </div><!-- Term definitions end here -->
     </c:forEach>
-
     <div class="row">
         <div class="col-xs-12 col-md-3">
             <h4>JAVA</h4>
@@ -125,7 +116,6 @@
                 Citation: Citation... <br>
                 Date: January 25/2013</p>
         </div>
-
         <div class="col-xs-12 col-md-9">
             <h4>Term Definition</h4>
             <p>Citations are included in research projects anytime you use another individual?s work in your own assignment. When including a quote, paraphrased information, images, or any other piece of information from another?s work, you need to show where you found it by including a citation. This APA format guide explains how to make citations in APA style.</p>

@@ -6,20 +6,20 @@
 <html lang="en">
     <head>
         <title>
-             <c:if test="${user == null}">
-               SAIT Glossary System
+            <c:if test="${user == null}">
+                SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(1) == true}">
-               Administrator - SAIT Glossary System
+                Administrator - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(2) == true}">
-               Student - SAIT Glossary System
+                Student - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(3) == true}">
-               Editor - SAIT Glossary System
+                Editor - SAIT Glossary System
             </c:if>
             <c:if test="${user.getPrivileges().contains(4) == true}">
-               Instructor - SAIT Glossary System
+                Instructor - SAIT Glossary System
             </c:if>
         </title>
         <meta charset="utf-8">
@@ -51,43 +51,43 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"> 
-                         <c:if test="${user != null}">
+                        <c:if test="${user != null}">
                             <li><a href="user">ACCOUNT</a></li>
                             <li><a href="search">SEARCH</a></li>
-                        </c:if>
-                        
+                            </c:if>
+
                         <!--------------------- Admin nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(1) == true}">
                             <li><a href="manageusers">DEPARTMENT USERS</a></li>
                             <li><a href="managecourses">DEPARTMENT COURSES</a></li>
                             <li><a href="report">REPORT</a></li>                        
-                        </c:if>
-                        
+                            </c:if>
+
                         <!--------------------- Student nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(2) == true}">
                             <li><a href="https://www.mysait.ca/cp/home/displaylogin" target="_blank">MY SAIT</a></li>
-                             <li><a href="http://www.sait.ca/" target="_blank">SAIT</a></li>
-                        </c:if>
-                        
+                            <li><a href="http://www.sait.ca/" target="_blank">SAIT</a></li>
+                            </c:if>
+
                         <!--------------------- Editor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(3) == true}"> 
                             <li><a href="edit">DEPARTMENT TERMS</a></li> 
                             <li><a href="editorpending">PENDING TERMS</a></li> 
-                        </c:if>
-                        
+                            </c:if>
+
                         <!--------------------- Instructor nav ---------------------->
                         <c:if test="${user.getPrivileges().contains(4) == true}">
                             <li><a href="instructor?action=yourterm">YOUR TERMS</a></li> 
-                        </c:if>
+                            </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <c:if test="${user != null}">
-                           <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
-                        </c:if>                                  
-                         <c:if test="${user == null}">
+                        <c:if test="${user != null}">
+                            <li><a href="login?action=logout"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
+                            </c:if>                                  
+                            <c:if test="${user == null}">
                             <li><a href="register"><span class="glyphicon glyphicon-pencil"></span> REGISTER</a></li>
                             <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
-                        </c:if>                           
+                            </c:if>                           
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

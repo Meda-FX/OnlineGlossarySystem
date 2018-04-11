@@ -7,7 +7,7 @@
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
         <div class="alphabets">
             <div class="btn-group btn-group-sm">
-                   <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=b">B</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=c">C</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=d">D</a></button>
@@ -39,28 +39,27 @@
     </div>
 </div> <!--Alphabet search ends here-->
 
-<!--Search filter starts here-->
-<div class="row glossarySearchHeaderStyle">
-    <div class="col-sm-8 col-md-6 col-md-offset-3 col-sm-offset-2">
-        <h3>SEARCH TERMS</h3>
-        <form action="search" method="GET">    
-            <div class="input-group">
-                <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch" value="${searchedEntry}"/>
-                <input type="text" name="action" value="searchTerm" hidden/>
-                <div class="input-group-btn">
-                    <button class="btn" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
+    <!--Search filter starts here-->
+    <div class="row glossarySearchHeaderStyle">
+        <div class="col-sm-8 col-md-6 col-md-offset-3 col-sm-offset-2">
+            <h3>SEARCH TERMS</h3>
+            <form action="search" method="GET">    
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchedEntry" placeholder="Search" id="txtSearch" value="${searchedEntry}"/>
+                    <input type="text" name="action" value="searchTerm" hidden/>
+                    <div class="input-group-btn">
+                        <button class="btn" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
                 </div>
+            </form>
+            <div>
+                <p>
+                    <a href="search?action=advancedSearch"> Advanced Search </a>
+                </p>
             </div>
-        </form>
-        <div>
-            <p>
-                <a href="search?action=advancedSearch"> Advanced Search </a>
-            </p>
-        </div>
-
-</div> 
-</div><!--Search filter ends here-->
+        </div> 
+    </div><!--Search filter ends here-->
 </div>
 <%@ include file="includes/footer.jsp" %>
