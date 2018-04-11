@@ -17,10 +17,11 @@ import persistence.ConnectionPool;
 /**
  * The PrivilegeBroker provide connectivity to the database and allow insertion,
  * retrieval and removal of Privilege from the database
+ *
  * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
  * @version 0.1.2
  */
-public class PrivilegeBroker extends Broker{
+public class PrivilegeBroker extends Broker {
 
     /**
      * The getByID method gets the privilege with the privilege ID.
@@ -33,10 +34,9 @@ public class PrivilegeBroker extends Broker{
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
         Privilege privilege = null;
-      
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[role] "
+                + "from [GlossaryDataBase].[dbo].[role] "
                 + "where privilege_id = ?";
 
         PreparedStatement ps = null;
@@ -63,18 +63,18 @@ public class PrivilegeBroker extends Broker{
             pool.freeConnection(connection);
         }
         return privilege;
-        
+
     }
 
     @Override
     public int insert(Object object) {
-         ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
-        Privilege privilege = (Privilege)object;
-        int affectRows=0;
+        Privilege privilege = (Privilege) object;
+        int affectRows = 0;
 
-        String selectSQL = "INSERT INTO [dbo].[role] (description)"
+        String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[role] (description)"
                 + "VALUSE (?) ";
 
         PreparedStatement ps = null;
@@ -83,8 +83,8 @@ public class PrivilegeBroker extends Broker{
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, privilege.getDescription());
-            affectRows=ps.executeUpdate();
-            
+            affectRows = ps.executeUpdate();
+
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to read definition", ex);
         } finally {
@@ -95,8 +95,8 @@ public class PrivilegeBroker extends Broker{
             }
             pool.freeConnection(connection);
         }
-        return affectRows==0?0:1;
-   //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return affectRows == 0 ? 0 : 1;
+        //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -106,13 +106,13 @@ public class PrivilegeBroker extends Broker{
 
     @Override
     public int update(Object object) {
-       ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
-        Privilege privilege = (Privilege)object;
-        int affectRows=0;
+        Privilege privilege = (Privilege) object;
+        int affectRows = 0;
 
-        String selectSQL = "UPDATE [dbo].[role] "
+        String selectSQL = "UPDATE [GlossaryDataBase].[dbo].[role] "
                 + "SET description = ? "
                 + "WHERE privilege_id = ? ";
 
@@ -123,8 +123,8 @@ public class PrivilegeBroker extends Broker{
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, privilege.getDescription());
             ps.setInt(2, privilege.getPrivilegeID());
-            affectRows=ps.executeUpdate();
-            
+            affectRows = ps.executeUpdate();
+
         } catch (SQLException ex) {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to read definition", ex);
         } finally {
@@ -135,35 +135,34 @@ public class PrivilegeBroker extends Broker{
             }
             pool.freeConnection(connection);
         }
-        return affectRows==0?0:1;
+        return affectRows == 0 ? 0 : 1;
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Object> getAll() {
-    ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
         List<Object> privilegelist = new ArrayList<>();
-        
+
         Privilege privilege = null;
 
         String selectSQL = "SELECT * "
-                + "from [dbo].[role] ";
-                
+                + "from [GlossaryDataBase].[dbo].[role] ";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
             ps = connection.prepareStatement(selectSQL);
- 
+
             rs = ps.executeQuery();
             while (rs.next()) {
                 privilege = new Privilege();
                 privilege.setPrivilegeID(rs.getInt("privilege_id"));
                 privilege.setDescription(rs.getString("description"));
-                
+
                 privilegelist.add(privilege);
             }
 

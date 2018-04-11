@@ -5,12 +5,23 @@
  */
 package controller.servlets;
 
+import business.domainClasses.AccountLog;
+import business.domainClasses.Department;
+import business.domainClasses.User;
+import business.serviceClasses.AccountLogService;
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import utility.ReportUtil;
 
 /**
  *
@@ -18,27 +29,44 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AdminReportServlet extends HttpServlet {
 
-   @Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String url = "/WEB-INF/_admin/admin_report.jsp";
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        String url = "/WEB-INF/_admin/admin.jsp";
-        if(action != null && action.equals("manageUsers"))
-        {
-            url = "/WEB-INF/_admin/admin_manage_users.jsp";
+
+        if (action != null && action.equals("report")) {
+            try {
+                User user = (User) session.getAttribute("user");
+                Department department = user.getDepartment();
+                Date start = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("start"));
+                Date end = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("end"));
+                int type = Integer.parseInt(request.getParameter("type"));
+                
+                AccountLogService als = new AccountLogService();
+                List<AccountLog> logList = als.getByDDT(start, end, department.getDepartmentID(), type);
+
+                boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+                if (ajax) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    String json = ReportUtil.prepareData(logList);
+                    response.getWriter().write(json);
+                    return;
+                }
+            } catch (Exception ex) {
+                request.setAttribute("message", "Error generating report. Please ensure all options are selected.");
+            }
         }
-        if(action != null && action.equals("report"))
-        {
-            url = "/WEB-INF/_admin/admin_report.jsp";
-        }
-        getServletContext().getRequestDispatcher(url).forward(request, response);    
-        
+        getServletContext().getRequestDispatcher(url).forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }

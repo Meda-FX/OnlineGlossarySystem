@@ -10,6 +10,7 @@ import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.HashingUtil;
 
 /**
  *
@@ -56,13 +58,17 @@ public class NewPasswordServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        
+
         if (!password.equals(confirmPassword)) {
             request.setAttribute("message", "Password does not match");
             getServletContext().getRequestDispatcher("/WEB-INF/newPassword.jsp").forward(request, response);
             return;
         }
-        
+        try {
+            password = HashingUtil.hash(password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         user.setPassword(password);
         UserService us = new UserService();
         try {

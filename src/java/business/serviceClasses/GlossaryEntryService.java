@@ -87,4 +87,11 @@ public class GlossaryEntryService {
         return glossaryEntryDB.getByAlpha(letter);
     }
 
+    public void checkTerm(GlossaryEntry ge) {
+        if(glossaryEntryDB.getByTerm(ge.getTerm())==null)
+        {
+            glossaryEntryDB.insert(ge);
+        }
+    }
+
 }

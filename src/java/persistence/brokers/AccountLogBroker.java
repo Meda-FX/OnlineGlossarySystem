@@ -80,12 +80,12 @@ public class AccountLogBroker extends Broker {
         
         String selectSQL = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[account_log] "
-                + "JOIN [[GlossaryDataBase].[dbo].[user] "
-                + "ON (account_log.activityBy = user.user_id) "
+                + "JOIN [GlossaryDataBase].[dbo].[user] "
+                + "ON ([GlossaryDataBase].[dbo].[account_log].activity_by = [GlossaryDataBase].[dbo].[user].user_id) "
                 + "WHERE activity_type = ? "
                 + "AND department_id = ? "
                 + "AND activity_date >= ? "
-                + "AND activity_date <= ? + 1 day";
+                + "AND activity_date <= DATEADD(day, 1, ?)";
         PreparedStatement ps = null;
         ResultSet rs = null;
         

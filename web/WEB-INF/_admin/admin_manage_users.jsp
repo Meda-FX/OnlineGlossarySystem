@@ -1,41 +1,61 @@
 <%@ include file="../includes/header.jsp" %>   
+
 <div class="container list-terms"> 
     <div id="crud">
         <h1>Manage Users</h1>
         <form action="manageusers" method="POST" id="form" >
             <div class="form-group">
                 <label for="user">User Id</label>
-                <input type="text"  class="form-control" id="userId" name="userId" value="${selectedUser.ID}" readonly="">
+                <input type="text"  class="form-control" id="userId" placeholder="User ID" name="userId" value="${selectedUser.ID}">
             </div>
             <div class="form-group">
                 <label for="term">User Name</label>
                 <input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" value="${selectedUser.name}">
             </div>
-            <div class="form-group">
-                <label for="department">Department</label>
-                <input type="text" class="form-control" id="department" placeholder="Department" name="department" value="${selectedUser.department}">
-            </div>
+            <!--            <div class="form-group">
+                            <label for="department">Department</label>
+                            <input type="text" class="form-control" id="department" placeholder="Department" name="department" value="${selectedUser.department}">
+                        </div>-->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${selectedUser.email}">
             </div> 
+            <!--            <div class="form-group">
+                            <label for="isActive">Active</label>
+                            <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
+                        </div>  -->
             <div class="form-group">
-                <label for="isActive">Active</label>
-                <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
-            </div>  
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="${selectedUser.password}">
-            </div> 
+                <label for="status">Status</label>
+                <div>
+                    <input type="radio" id="active" name="status" value="active"> Active
+                    <input type="radio" id="inactive" name="status" value="inactive"> Inactive
+                </div>
+            </div>
+            <!--            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" name="password" value="${selectedUser.password}">
+                        </div> -->
+            <!--            <div class="form-group">
+                            <label for="privilege">Privilege</label>
+                            <input type="text" class="form-control" id="privilege" placeholder="Privilege" name="privilege" value="${selectedUser.privilege}">
+                        </div>             -->
             <div class="form-group">
                 <label for="privilege">Privilege</label>
-                <input type="text" class="form-control" id="privilege" placeholder="Privilege" name="privilege" value="${selectedUser.privilege}">
-            </div> 
-            
+                <div id="privList">
+                    <c:forEach items="${privilegeList}" var="priv"> 
+                        <input name="privilege" type="checkbox" value="${priv.privilegeID}"> ${priv.description}
+                    </c:forEach>
+                </div>
+                <!--                <div>
+                                    <input name="privilege" type="checkbox" value="" > Administrator
+                                    <input name="privilege" type="checkbox" value="" > Editor
+                                    <input name="privilege" type="checkbox" value="" > Instructor
+                                    <input name="privilege" type="checkbox" value="" > Student
+                                </div>-->
+            </div>  
             <!--<input type="hidden" name="saveTerm" value="save">-->
-            <input class="btn" type="submit" name="action" value="Add User">
-            <!--<input type="hidden" name="submitTerm" value="submit">-->
-            <!--<input class="btn" type="submit" name="action" value="Submit Term">-->
+            <input class="btn" type="submit" value="Confirm">
+            <input type="hidden" name="action" value="manage">
             <input class=" btn hideFormTerm" type="button" value="Hide Form">
         </form>
     </div>
@@ -43,55 +63,58 @@
 <br>
 
 <div class="container list-terms">
+
+    <!--     CRUD 
+        <br>
+        <div class="panel-group">
+            <div class="panel">
+                <div id="toogleText" class="panel-heading">
+                    <h4  class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1"><h3>Manage Users</h3></a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <ul class="list-group">
     
-<!--     CRUD 
-    <br>
-    <div class="panel-group">
-        <div class="panel">
-            <div id="toogleText" class="panel-heading">
-                <h4  class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1"><h3>Manage Users</h3></a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <ul class="list-group">
-
-
-                    <div class="form-group">
-                        <label for="usr">Name:</label>
-                        <input type="text" class="form-control" id="usr">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Course Code:</label>
-                        <input type="text" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Department:</label>
-                        <input type="text" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Email:</label>
-                        <input type="text" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Course Name:</label>
-                        <input type="text" class="form-control" id="pwd">
-                    </div>
-                    <button type="button" class="btn">SAVE</button>
-                </ul>
-
+    
+                        <div class="form-group">
+                            <label for="usr">Name:</label>
+                            <input type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Course Code:</label>
+                            <input type="text" class="form-control" id="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Department:</label>
+                            <input type="text" class="form-control" id="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Email:</label>
+                            <input type="text" class="form-control" id="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Course Name:</label>
+                            <input type="text" class="form-control" id="pwd">
+                        </div>
+                        <button type="button" class="btn">SAVE</button>
+                    </ul>
+    
+                </div>
             </div>
         </div>
-    </div>
-     CRUD ends -->
+         CRUD ends -->
 
     <br>
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-            <form action="#" method="GET">    
+            <form action="manageusers" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" />
+                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" name="txtSearch" value="${txtSearch}"/>
+                    <input type="hidden" name="action" value="searchuser">
+                    <input type="radio" id="searchedname" name="searchedBy" value="searchedname" <c:if test="${searchedBy==null||searchedBy=='searchedname'}">checked </c:if>> ByName
+                        <input type="radio" id="searchedId" name="searchedBy" value="searchedId" <c:if test="${searchedBy=='searchedId'}">checked </c:if>> ById
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -104,7 +127,17 @@
             </div>
         </div>
     </div><!--Search ends here-->
+    <div class="row">
+        <div class="container newUser">
+            <button type="button" class="btn navbar-right addTerms">New User</button>
+        </div>
+    </div>
     <br>
+    <!--    <form class="editUsers" action="manageusers" method="GET">                             
+            <input type="hidden" name="action" value="add">
+            <input class="btn fa-input addTerms" type="submit" value="New User"> 
+        </form>-->
+
     <!--table begins here-->
     <table class="table table-hover">
         <tr>
@@ -112,32 +145,34 @@
             <th>Name</th>
             <th>Department</th>
             <th>Email</th>
-            <th>Active</th>
+            <th>Status</th>
             <th></th>
             <th></th>
         </tr>
         <c:forEach items="${userList}" var="users">
-        <tr>            
-            <td><c:out value="${users.ID}"/></td>
-            <td><c:out value="${users.name}"/></td>
-            <td><c:out value="${users.department.name}"/></td>
-            <td><c:out value="${users.email}"/></td>
-            <td><c:out value="${users.isActivated}"/></td>
-            <td>
-                <form action="manageusers" method="POST">
-                    <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="selectedID" value="${users.ID}">
-                    <input class="btn fa-input addTerms" type="submit" value="&#xf014">
-                </form>
-            </td>
-            <td>     
-                <form class="editUsers" action="manageusers" method="GET">                             
-                    <input type="hidden" name="action" value="edit">
-                    <input type="hidden" name="selectedID" value="${users.ID}">
-                    <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
-                </form>
-            </td>
-        </tr>
+            <tr>            
+                <td><c:out value="${users.ID}"/></td>
+                <td><c:out value="${users.name}"/></td>
+                <td><c:out value="${users.department.name}"/></td>
+                <td><c:out value="${users.email}"/></td>
+                <td><c:if test="${users.isActivated}">Active</c:if>
+                    <c:if test="${!users.isActivated}">Inactive</c:if>
+                    </td>
+                    <td>
+                        <form action="manageusers" method="POST">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="selectedID" value="${users.ID}">
+                        <input class="btn fa-input" type="submit" value="&#xf014">
+                    </form>
+                </td>
+                <td>     
+                    <form class="editUsers" action="manageusers" method="GET">                             
+                        <input type="hidden" name="action" value="view">
+                        <input type="hidden" name="selectedID" value="${users.ID}">
+                        <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
+                    </form>
+                </td>
+            </tr>
         </c:forEach> 
     </table> <!--Table ends here-->
 

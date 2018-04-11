@@ -49,7 +49,7 @@ public class EditorPendingServlet extends HttpServlet {
         Definition definition = new Definition();
         try {
             defId = Integer.parseInt(definitionId);
-            definition.setDefinitionID(defId);
+            definition = ds.getByID(defId);
 
             if (action != null && action.equals("Delete Term")) {
                 url = "/WEB-INF/_editor/editor_pending_terms.jsp";
@@ -86,7 +86,7 @@ public class EditorPendingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-             String url = "/WEB-INF/_editor/editor_pending_terms.jsp";
+        String url = "/WEB-INF/_editor/editor_pending_terms.jsp";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         GlossaryEntryService ges = new GlossaryEntryService();
@@ -98,12 +98,19 @@ public class EditorPendingServlet extends HttpServlet {
         ArrayList<Course> courlist = (ArrayList<Course>) cs.getByDepartment(user.getDepartment());
         ArrayList<User> userlist = (ArrayList<User>) us.getByDepartment(user.getDepartment());
         ArrayList<Definition> deflist = new ArrayList<>();
-
+        ArrayList<User> instructorlist = new ArrayList<>();
         ArrayList<Definition> definitionlist = new ArrayList<>();
+
         String action = request.getParameter("action");
         String defId = request.getParameter("defId");
         String txtSearch = request.getParameter("txtSearch");
         Definition def = new Definition();
+
+        for (User u : userlist) {
+            if (u.getPrivileges().contains(4)) {
+                instructorlist.add(u);
+            }
+        }
 
         if (txtSearch != null && !txtSearch.equals("")) {
             request.setAttribute("txtSearch", txtSearch);
@@ -146,7 +153,7 @@ public class EditorPendingServlet extends HttpServlet {
 
         request.setAttribute("definitionlist", definitionlist);
         request.setAttribute("courselist", courlist);
-        request.setAttribute("userlist", userlist);
+        request.setAttribute("userlist", instructorlist);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }

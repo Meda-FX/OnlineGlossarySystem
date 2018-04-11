@@ -70,7 +70,10 @@ public class CourseList {
         //Tools | Templates.
         List<Course> courselist = new ArrayList<>();
         Course course=null;
-        for(int i=0;i<selectedCourse.length;i++)
+        int len = 0;
+        if(selectedCourse!=null) len = selectedCourse.length;
+        
+        for(int i=0;i<len;i++)
         {
             course = new Course();
             course.setCourseCode(selectedCourse[i]);

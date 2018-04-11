@@ -1,20 +1,4 @@
-INSERT INTO role
-    ( description)
-VALUES 
-    ('admin');
-INSERT INTO role
-    (description)
-VALUES 
-    ('student');
-INSERT INTO role
-    (description)
-VALUES 
-    ('editor');
-INSERT INTO ROLE
-    (description)
-VALUES
-    ('instructor');
-	
+
 insert into [department] (name) values ('RTSP');
 insert into [department] (name) values ('European Law');
 insert into [department] (name) values ('SAP XI');
@@ -297,3 +281,6 @@ INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Theobroma','def9','term9','2016-10-02','cite9','Published','www.link.com','4','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Grassleaf Lettuce','def10','term10','2016-10-02','cite10','In Progress','www.link.com','0','HH-201-B');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cobwebby Thistle','def11','term11','2016-10-02','cite11','Under Review','www.link.com','1','HH-201-B');
+
+
+INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) VALUES ('Cobwebby Thistle','def11','term11','2016-10-02','cite11','Under Review','www.link.com','1','ITSC-330-30');

@@ -117,8 +117,7 @@
 <br>
 <div class="container list-terms">
 
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-hover">        
             <tr>
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
@@ -127,10 +126,8 @@
                 <th scope="col">Status</th>
                 <th></th>
                 <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--    <tr>
+            </tr>        
+                <!--    <tr>
                   <td>JAVA</td>
                   <td>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
@@ -149,13 +146,13 @@
                     </td> 
                     <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td>
                     <td><c:out value = "${def.writtenBy.name}"/></td> 
-                    <td><c:out value = "${def.writtenBy.name}"/></td> 
+                    <td><c:out value = "${def.status}"/></td> 
                     <td>
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
                         <form action="editorpending" method="POST">
                             <input type="hidden" name="action" value="Delete Term">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input type="submit"  value="Delete">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf014">
                         </form>
                     </td>
                     <td>     
@@ -163,12 +160,11 @@
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input class="addTerms" type="submit" value="Edit">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
                         </form>
                     </td>
                 </tr>
             </c:forEach>
-        </tbody>
     </table>
 </div> <!-- list items  -->
 

@@ -7,32 +7,33 @@
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
         <div class="alphabets">
             <div class="btn-group btn-group-sm">
-                <button class="btn btn-default">A</button>
-                <button class="btn btn-default">B</button>
-                <button class="btn btn-default">C</button>
-                <button class="btn btn-default">D</button>
-                <button class="btn btn-default">E</button>
-                <button class="btn btn-default">F</button>
-                <button class="btn btn-default">G</button>
-                <button class="btn btn-default">H</button>
-                <button class="btn btn-default">I</button>
-                <button class="btn btn-default">J</button>
-                <button class="btn btn-default">K</button>
-                <button class="btn btn-default">L</button>
-                <button class="btn btn-default">M</button>
-                <button class="btn btn-default">N</button>
-                <button class="btn btn-default">O</button>
-                <button class="btn btn-default">P</button>
-                <button class="btn btn-default">Q</button>
-                <button class="btn btn-default">R</button>
-                <button class="btn btn-default">S</button>
-                <button class="btn btn-default">T</button>
-                <button class="btn btn-default">U</button>
-                <button class="btn btn-default">V</button>
-                <button class="btn btn-default">W</button>
-                <button class="btn btn-default">X</button>
-                <button class="btn btn-default">Y</button>
-                <button class="btn btn-default">Z</button>
+                   <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=b">B</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=c">C</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=d">D</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=e">E</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=f">F</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=g">G</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=h">H</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=i">I</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=j">J</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=k">K</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=l">L</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=m">M</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=n">N</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=o">O</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=p">P</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=q">Q</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=r">R</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=s">S</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=t">T</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=u">U</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=v">V</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=w">W</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=x">X</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=y">Y</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=z">Z</a></button>
+
             </div>
         </div>
     </div>
