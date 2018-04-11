@@ -1,4 +1,5 @@
 <%@ include file="../includes/header.jsp" %>   
+
 <div class="container list-terms"> 
     <div id="crud">
         <h1>Manage Users</h1>
@@ -124,10 +125,11 @@
         </div>
     </div><!--Search ends here-->
     <div class="row">
-        <div class="newUser" class="col-md-12">
+        <div class="container newUser">
             <button type="button" class="btn navbar-right addTerms">New User</button>
         </div>
     </div>
+    <br>
     <!--    <form class="editUsers" action="manageusers" method="GET">                             
             <input type="hidden" name="action" value="add">
             <input class="btn fa-input addTerms" type="submit" value="New User"> 

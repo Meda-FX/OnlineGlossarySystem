@@ -33,10 +33,8 @@
             
             <!--<input type="hidden" name="saveTerm" value="save">-->
             <input class="btn" type="submit" name="action" value="Save Term">
-
             <!--<input type="hidden" name="submitTerm" value="submit">-->
             <input class="btn" type="submit" name="action" value="Submit Term">
-
             <input class=" btn hideFormTerm" type="button" value="Hide Form">
         </form>
     </div>
@@ -55,7 +53,7 @@
                 </div>
             </div>           
         <div>
-            <p class="message">${message}</p>   
+            <p class="message"><c:out value="${message}"/></p>   
         </div>
     </div>
 </div><!--Search ends here-->
@@ -110,7 +108,7 @@
 <div class="container list-terms">
 
     <table class="table table-hover">
-        <thead>
+       
             <tr>
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
@@ -120,8 +118,6 @@
                 <th></th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody> 
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
                     <td><c:out value = "${def.term}"/></td>
@@ -149,7 +145,7 @@
                     </td>
                 </tr>
             </c:forEach>
-        </tbody>
+       
     </table>
 </div> <!-- list items  -->
 
