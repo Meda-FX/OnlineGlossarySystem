@@ -5,11 +5,11 @@
         <h1>Manage Users</h1>
         <form action="manageusers" method="POST" id="form" >
             <div class="form-group">
-                <label for="user">User Id</label>
+                <label for="userId">User Id</label>
                 <input type="text"  class="form-control" id="userId" placeholder="User ID" name="userId" value="${selectedUser.ID}">
             </div>
             <div class="form-group">
-                <label for="term">User Name</label>
+                <label for="userName">User Name</label>
                 <input type="text" class="form-control" id="userName" placeholder="User Name" name="userName" value="${selectedUser.name}">
             </div>
             <!--            <div class="form-group">
@@ -40,7 +40,7 @@
                             <input type="text" class="form-control" id="privilege" placeholder="Privilege" name="privilege" value="${selectedUser.privilege}">
                         </div>             -->
             <div class="form-group">
-                <label for="privilege">Privilege</label>
+                <label for="privList">Privilege</label>
                 <div id="privList">
                     <c:forEach items="${privilegeList}" var="priv"> 
                         <input name="privilege" type="checkbox" value="${priv.privilegeID}"> ${priv.description}

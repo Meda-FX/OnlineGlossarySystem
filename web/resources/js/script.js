@@ -46,6 +46,15 @@ $(document).ready(function () {
         });
         event.preventDefault();
     });
+    
+    $(".editCourses").submit(function (event) {
+        $.get($(this).attr("action"), $(this).serialize(), function (responseJson) {
+            $("#courseId").val(responseJson.courseCode);
+            $("#courseId").prop("readonly", true);
+            $("#courseName").val(responseJson.courseName);
+        });
+        event.preventDefault();
+    });
 
     $(".editInstructorForm").submit(function (event) {
         $.get($(this).attr("action"), $(this).serialize(), function (responseJson) {
@@ -75,12 +84,18 @@ $(document).ready(function () {
         $("#userName").val("");
         $("#email").val("");
         $("#active").prop("checked", false);
-        $("#inactive").prop("checked", false);
+        $("#inactive").prop("checked", true);
         $("#active").attr("disabled", true);
         $("#inactive").attr("disabled", true);
         $("#privList").children().each(function () {
             $(this).prop("checked", false);
         });
+    });
+    
+    $(".newCourse").click(function () {
+        $("#courseId").val("");
+        $("#courseName").val("");
+        
     });
 
     $(".newTerm").click(function () {
