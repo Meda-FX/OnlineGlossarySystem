@@ -7,9 +7,9 @@
         <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
             <div class="alphabets">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default">A</button>
-                    <button class="btn btn-default">B</button>
-                    <button class="btn btn-default">C</button>
+                    <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=b">B</a></button>
+                <button class="btn btn-default"><a href="search?action=alphSearch&letter=c">C</a></button>
                     <button class="btn btn-default">D</button>
                     <button class="btn btn-default">E</button>
                     <button class="btn btn-default">F</button>

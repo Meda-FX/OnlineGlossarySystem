@@ -92,6 +92,20 @@ $(document).ready(function () {
     $(".addTerms").click(function () {
         $("#crud").show(1000);
     });
+    
+    //Manage Course inside users account
+    $("#userCursesManager").hide();
+    $(".closeManageUsers").hide();
+    $(".closeManageUsers").click(function () {
+        $("#userCursesManager").hide(1000);
+        $(".manageUsers").show(1000);
+         $(".closeManageUsers").hide(1000);
+    });
+    $(".manageUsers").click(function () {
+        $("#userCursesManager").show(500);
+        $(".manageUsers").hide(500);
+        $(".closeManageUsers").show(500);
+    });
 
     //Read More and Read Less script
     $('.readMoreContent').addClass('hide');
