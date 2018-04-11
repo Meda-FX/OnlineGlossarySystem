@@ -63,10 +63,6 @@ $(document).ready(function () {
  //           var courselist = document.getElementById("#courseCode");
 
     //        $("#courseCode").val(responseJson.course.courseCode);           
-
-            $("#dicCitation").val(responseJson.dictionaryCitation);
-            $("#courseCode").val(responseJson.course.courseCode);
-
         });
         event.preventDefault();
     });

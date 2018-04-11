@@ -17,32 +17,38 @@ import java.util.List;
  * @author 727153
  */
 public class ReportUtil {
-    
+
     public static String prepareData(List<AccountLog> logs) {
         List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        Date dateToCompare = logs.get(0).getActivityDate();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        String dateToCompare = fmt.format(logs.get(0).getActivityDate());
         int count = 0;
-        for (AccountLog log : logs) {
-            Date logDate = log.getActivityDate();
-            if (fmt.format(logDate).equals(fmt.format(dateToCompare))) {
+        for (int i = 0; i < logs.size(); i++) {
+            Date logDate = logs.get(i).getActivityDate();
+            if (fmt.format(logDate).equals(dateToCompare)) {
                 count++;
+                
             } else {
                 DataPoint dataPoint = new DataPoint(count, dateToCompare);
                 dataPoints.add(dataPoint);
-                dateToCompare = logDate;
+                dateToCompare = fmt.format(logDate);
                 count = 1;
+            }
+            if (i == logs.size() - 1) {
+                DataPoint dataPoint = new DataPoint(count, dateToCompare);
+                dataPoints.add(dataPoint);
             }
         }
         return new Gson().toJson(dataPoints);
-        
-    }
-    
-    private static class DataPoint {
-        private int count;
-        private Date date;
 
-        public DataPoint(int count, Date date) {
+    }
+
+    private static class DataPoint {
+
+        private int count;
+        private String date;
+
+        public DataPoint(int count, String date) {
             this.count = count;
             this.date = date;
         }

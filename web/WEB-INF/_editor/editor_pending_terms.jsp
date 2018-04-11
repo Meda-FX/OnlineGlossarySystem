@@ -117,8 +117,7 @@
 <br>
 <div class="container list-terms">
 
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-hover">        
             <tr>
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
@@ -127,10 +126,8 @@
                 <th scope="col">Status</th>
                 <th></th>
                 <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--    <tr>
+            </tr>        
+                <!--    <tr>
                   <td>JAVA</td>
                   <td>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
@@ -168,7 +165,6 @@
                     </td>
                 </tr>
             </c:forEach>
-        </tbody>
     </table>
 </div> <!-- list items  -->
 
