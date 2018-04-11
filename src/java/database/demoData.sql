@@ -1,33 +1,33 @@
 INSERT INTO [user] (user_id, password, department_id, [name], email, activated)
-VALUES ('000999123','password',6,'John Johnson','john.johnson@sait.ca', 1); -- admin
+VALUES ('000999123','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'John Johnson','john.johnson@sait.ca', 1); -- admin
 INSERT INTO [user] 
-VALUES ('000541125','password',6,'Bob Bobson','bob.bobson@sait.ca', 1); -- editor
+VALUES ('000541125','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Bob Bobson','bob.bobson@sait.ca', 1); -- editor
 INSERT INTO [user]
-VALUES ('000985472','password',6,'Aron Alice','aron.alice@sait.ca', 1); -- instructor
+VALUES ('000985472','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Aron Alice','aron.alice@sait.ca', 1); -- instructor
 INSERT INTO [user] 
-VALUES ('000435323','password',6,'Stephon Curry','stephon.curry@sait.ca', 1); -- instructor
+VALUES ('000435323','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Stephon Curry','stephon.curry@sait.ca', 1); -- instructor
 INSERT INTO [user] 
-VALUES ('000435320','password',6,'Steve Hawkins','steve.hawkins@sait.ca', 1); -- instructor
+VALUES ('000435320','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Steve Hawkins','steve.hawkins@sait.ca', 1); -- instructor
 INSERT INTO [user]
-VALUES ('000412324', 'password', 6, 'Mike Thomas', 'mike.thomas@edu.sait.ca', 1); -- student
+VALUES ('000412324', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 6, 'Mike Thomas', 'mike.thomas@edu.sait.ca', 1); -- student
 INSERT INTO [user] 
-VALUES ('000541625','password',6,'Don Chen','don.chen@edu.sait.ca', 1); -- student
+VALUES ('000541625','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Don Chen','don.chen@edu.sait.ca', 1); -- student
 INSERT INTO [user]
-VALUES ('000985972','password',6,'Sam Lee','sam.lee@edu.sait.ca', 1); -- student
+VALUES ('000985972','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Sam Lee','sam.lee@edu.sait.ca', 1); -- student
 INSERT INTO [user] 
-VALUES ('000435623','password',6,'Mary Mason','mary.mason@edu.sait.ca', 1); -- student
+VALUES ('000435623','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Mary Mason','mary.mason@edu.sait.ca', 1); -- student
 INSERT INTO [user]
-VALUES ('000412024', 'password', 6, 'Bella Nelson', 'bella.nelson@edu.sait.ca', 1); -- student
+VALUES ('000412024', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 6, 'Bella Nelson', 'bella.nelson@edu.sait.ca', 1); -- student
 INSERT INTO [user]
-VALUES ('000512324', 'password', 6, 'Tim Higgins', 'tim.higgins@sait.ca', 1); -- student
+VALUES ('000512324', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 6, 'Tim Higgins', 'tim.higgins@sait.ca', 1); -- student
 INSERT INTO [user] 
-VALUES ('000641625','password',6,'Emily Bell','emily.bell@edu.sait.ca', 1); -- student
+VALUES ('000641625','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Emily Bell','emily.bell@edu.sait.ca', 1); -- student
 INSERT INTO [user]
-VALUES ('000085972','password',6,'Rodney Moore','rodney.moore@edu.sait.ca', 1); -- student
+VALUES ('000085972','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Rodney Moore','rodney.moore@edu.sait.ca', 1); -- student
 INSERT INTO [user] 
-VALUES ('000535623','password',6,'Hether Sunderland','hether.sunderland@edu.sait.ca', 1); -- student
+VALUES ('000535623','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'Hether Sunderland','hether.sunderland@edu.sait.ca', 1); -- student
 INSERT INTO [user]
-VALUES ('000512024', 'password', 6, 'Elliot Williams', 'elliot.williams@edu.sait.ca', 1); -- student
+VALUES ('000512024', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 6, 'Elliot Williams', 'elliot.williams@edu.sait.ca', 1); -- student
 
 INSERT INTO [user_role] (privilege_id,user_id)
 VALUES (1, '000999123');
@@ -142,71 +142,71 @@ INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_
 VALUES ('JavaScript',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper mi quam, in pharetra mi laoreet ut. Vivamus gravida purus vel venenatis tincidunt.',
     'Vivamus mattis leo sit amet arcu efficitur malesuada. Fusce dictum tempor mauris eget mollis.',
-    '2016-10-02','https://example.com/aftermath/blade','Published','http://example.com/boat','000985472','MHIT-316-16');
+    '2018-01-02','https://example.com/aftermath/blade','Published','http://example.com/boat','000985472','MHIT-316-16');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Rust',
     'Sed convallis vehicula lorem, sit amet tincidunt magna porta nec. Nulla sit amet elit sed libero molestie sodales et sed nibh.',
     'Maecenas facilisis bibendum dui, eu semper ante fringilla eu. Pellentesque sit amet consectetur quam.',
-    '2016-10-02','http://example.com/?action=apparel&bomb=breath','Published','http://www.example.com/appliance/bell','000985472','DBAD-315-15');
+    '2018-02-16','http://example.com/?action=apparel&bomb=breath','Published','http://www.example.com/appliance/bell','000985472','DBAD-315-15');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Scala',
     'Praesent pellentesque condimentum molestie. ',
     'Sed volutpat euismod leo ac maximus. Aliquam euismod est in commodo elementum. Cras gravida libero vitae lacus posuere dignissim.',
-    '2016-10-02','http://example.com/animal/advertisement.aspx','Published','http://www.example.com/?bubble=bath&acoustics=belief','000435320','ITSC-314-14');
+    '2018-03-14','http://example.com/animal/advertisement.aspx','Published','http://www.example.com/?bubble=bath&acoustics=belief','000435320','ITSC-314-14');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('python',
     'Aliquam eu cursus purus. Vivamus id velit a risus interdum congue.',
     'Quisque a diam luctus urna fringilla facilisis sed ut magna.',
-    '2016-10-02','http://example.com/animal/advertisement.aspx','Published','https://www.example.com/aunt/believe.html','000435320','MHIT-312-12');
+    '2018-01-02','http://example.com/animal/advertisement.aspx','Published','https://www.example.com/aunt/believe.html','000435320','MHIT-312-12');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Ruby',
     'Fusce congue dictum sapien, sed feugiat ex elementum ut. ',
     'Ut malesuada turpis sit amet libero scelerisque pulvinar.',
-    '2016-10-02','http://www.example.com/?boy=beginner&ants=baseball','Published','http://book.example.com/?actor=birds&box=adjustment','000435320','DBAD-311-11');
+    '2018-04-02','http://www.example.com/?boy=beginner&ants=baseball','Published','http://book.example.com/?actor=birds&box=adjustment','000435320','DBAD-311-11');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Perl',
     'Ut et dui vitae sapien semper sodales nec eu nisl.',
     'Nam semper aliquam mauris vitae cursus.term5',
-    '2016-10-02','http://acoustics.example.com/','Published','http://bone.example.com/bell.html?achiever=box&blow=boundary','000985472','MHIT-312-12');
+    '2018-01-31','http://acoustics.example.com/','Published','http://bone.example.com/bell.html?achiever=box&blow=boundary','000985472','MHIT-312-12');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('MySQL',
     'Quisque congue sed metus id lobortis. Sed a dignissim mi, id sollicitudin mauris.',
     'Etiam eu sem ante. Nam convallis convallis euismod.',
-    '2016-10-02','https://www.example.com/brake?bit=brass&bone=beginner','Published','https://example.net/art','000435320','ITSC-314-14');
+    '2018-02-02','https://www.example.com/brake?bit=brass&bone=beginner','Published','https://example.net/art','000435320','ITSC-314-14');
 
 
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Java',
     'Nulla quis dui dignissim, tincidunt justo sed, vestibulum nisi.',
     'Phasellus rhoncus lorem id dui auctor euismod. ',
-    '2016-10-02','https://www.example.com/bee/agreement.aspx','Published','https://www.example.com/bird.aspx','000985472','ITSC-318-18');
+    '2018-03-12','https://www.example.com/bee/agreement.aspx','Published','https://www.example.com/bird.aspx','000985472','ITSC-318-18');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Java',
     'Pellentesque pharetra consectetur massa, vitae ullamcorper dolor volutpat imperdiet.',
     'Donec lorem est, euismod eget dui nec, placerat congue mi.',
-    '2016-10-02','http://www.example.net/beginner?border=air','Published','https://balance.example.com/appliance.htm','000435320','CPRG-317-17');
+    '2018-04-02','http://www.example.net/beginner?border=air','Published','https://balance.example.com/appliance.htm','000435320','CPRG-317-17');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('Java',
     'Looks good in a swamp.',
     'term7',
-    '2016-10-02','https://www.example.com/#arithmetic','Published','http://example.org/airport/amusement.php','000435323','MHIT-316-16');
+    '2018-03-15','https://www.example.com/#arithmetic','Published','http://example.org/airport/amusement.php','000435323','MHIT-316-16');
 
 
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('SQL',
     'Sed molestie metus eu nulla tempor, a iaculis felis blandit.',
     'Ut placerat, est ac mollis scelerisque, eros massa laoreet enim, sed facilisis felis tellus eleifend diam. ',
-    '2016-10-02','http://www.example.com/adjustment/afterthought','Published','https://www.example.com/alarm.html?acoustics=bikes','000985472','MHIT-312-12');
+    '2018-02-11','http://www.example.com/adjustment/afterthought','Published','https://www.example.com/alarm.html?acoustics=bikes','000985472','MHIT-312-12');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('SQL',
     'Nullam tristique ligula neque, in varius purus vulputate eu.',
     'Cras blandit felis eu mauris tempor blandit.',
-    '2016-10-02','https://www.example.com/badge.html','Published','http://example.org/babies.htm','000435323','ITSC-310-10');
+    '2018-03-17','https://www.example.com/badge.html','Published','http://example.org/babies.htm','000435323','ITSC-310-10');
 INSERT INTO [definition] (glossary_entry,definition,dictionary_definition, date_created,citation, status,dictionary_citation,made_by,course_code) 
 VALUES ('SQL',
     'Aenean porttitor ligula in pulvinar tempus.',
     'In faucibus sodales fringilla. Praesent ac mollis risus.',
-    '2016-10-02','https://basketball.example.com/','Published','http://www.example.com/angle?blow=bait&base=bell','000435320','MHIT-312-12');
+    '2018-01-08','https://basketball.example.com/','Published','http://www.example.com/angle?blow=bait&base=bell','000435320','MHIT-312-12');
 
 
 
@@ -226,4 +226,124 @@ VALUES ('Fsharp',
     'Donec ut porttitor urna.',
     '2016-10-02','https://www.example.edu/bed?bell=bone&board=berry','Published','http://www.example.com/#authority','000435323','CPRG-313-13');
 
---INSERT INTO []
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-1', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-1', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-1', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-1', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-2', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-2', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-2', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-3', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-3', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-4', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-5', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-6', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-6', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-6', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-7', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-8', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-8', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-8', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-9', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-9', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-9', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-10', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-10', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-11', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-11', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-11', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-11', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-12', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-12', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-13', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-13', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-13', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-13', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-14', 2);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-15', 2);
+
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000999123', '2018-04-1', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000541125', '2018-04-2', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000985472', '2018-04-2', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000435323', '2018-04-2', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000435320', '2018-04-3', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000412324', '2018-04-3', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000541625', '2018-04-4', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000985972', '2018-04-5', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000435623', '2018-04-6', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000412024', '2018-04-6', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000512324', '2018-04-6', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000641625', '2018-04-7', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000085972', '2018-04-7', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000535623', '2018-04-7', 1);
+INSERT INTO [account_log] (activity_by, activity_date, activity_type)
+VALUES ('000512024', '2018-04-7', 1);

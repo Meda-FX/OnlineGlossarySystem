@@ -62,35 +62,35 @@ VALUES
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000001','password',1,'Energy Default Admin','energy.admin@sait.ca', 1);
+    ('xxx000001','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',1,'Energy Default Admin','energy.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000002','password',2,'Business Default Admin','business.admin@sait.ca', 1);
+    ('xxx000002','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',2,'Business Default Admin','business.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000003','password',3,'Construction Default Admin','construction.admin@sait.ca', 1);
+    ('xxx000003','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',3,'Construction Default Admin','construction.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000004','password',4,'HPS Default Admin','hps.admin@sait.ca', 1);
+    ('xxx000004','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',4,'HPS Default Admin','hps.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000005','password',5,'Hospitality Default Admin','hospitality.admin@sait.ca', 1);
+    ('xxx000005','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',5,'Hospitality Default Admin','hospitality.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000006','password',6,'ICT Default Admin','ict.admin@sait.ca', 1);
+    ('xxx000006','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',6,'ICT Default Admin','ict.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000007','password',7,'MA Default Admin','ma.admin@sait.ca', 1);
+    ('xxx000007','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',7,'MA Default Admin','ma.admin@sait.ca', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('xxx000008','password',8,'Transportation Default Admin','transportation.admin@sait.ca', 1);
+    ('xxx000008','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',8,'Transportation Default Admin','transportation.admin@sait.ca', 1);
 
 INSERT INTO [GlossaryDataBase].[dbo].[user_role]
     (user_id, privilege_id)
