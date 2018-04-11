@@ -23,13 +23,7 @@
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>      
-                        <div class="message">  
-                            <%--<c:if test="${isEmpty == true}">--%>
-                                <!--You need to enter your email and password./-->
-                            <%--</c:if>--%>
-                            <%--<c:if test="${isInvalid == true}">--%>
-                                <!--Invalid email or password!-->
-                            <%--</c:if>--%>
+                        <div class="message"> 
                             <c:if test="${not empty loginMessage}">
                                 <c:out value="${loginMessage}"></c:out>
                             </c:if>
@@ -49,7 +43,7 @@
                                 <a id="login-footer-link" href="forgetpassword">   Reset Password</a>
                             </p>
                         </label>                       
-                       
+
                     </form>  
                 </div>
             </div>

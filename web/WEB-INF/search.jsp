@@ -5,7 +5,6 @@
         <!-- Alphabet buttons -->
         <div class="alphabets">
             <div class="btn-group btn-group-xs">
-
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=b">B</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=c">C</a></button>
@@ -32,19 +31,14 @@
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=x">X</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=y">Y</a></button>
                 <button class="btn btn-default"><a href="search?action=alphSearch&letter=z">Z</a></button>
-
-
             </div>
         </div>
     </div>
 </div>
-
 <!--Search starts here-->
 <form action="search" method="GET">  
     <div class="row">
-
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-
             <div class="input-group">
                 <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch" value="${searchedEntry}" />
                 <input type="text" name="action" value="searchTerm" hidden/>
@@ -54,34 +48,16 @@
                     </button>
                 </div>
             </div>   
-
             <div>
                 <p class="message">${message}</p>   
             </div>
         </div>
     </div><!--Search ends here-->
-
     <c:if test="${user == null}">
         <!--Search filter starts here-->
         <div class="search-filter">
             <div class="row">
-                <div class="col-xs-8 col-md-4 col-md-offset-4 col-xs-offset-2">
-                    <!-- Small button group -->
-                    <!--                <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Filter By School <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Business, Accounting and Management</a></li>
-                                        <li><a href="#">Construction and Trades</a></li>
-                                        <li><a href="#">Culinary, Hospitality and Travel</a></li>
-                                        <li><a href="#">Energy, Oil and Gas</a></li>
-                                        <li><a href="#">Engineering Technologies</a></li>
-                                        <li><a href="#">Health and Medical</a></li>
-                                        <li><a href="#">Information Technology</a></li>
-                                        <li><a href="#">Manufacturing</a></li>
-                                        <li><a href="#">Media and Communications</a></li>
-                                        <li><a href="#">Transportation</a></li>
-                                    </ul>-->
+                <div class="col-xs-8 col-md-4 col-md-offset-4 col-xs-offset-2">                   
                     <select class="form-control" name="departmentID">
                         <option value="">Filter By School</option>
                         <c:forEach items="${deparlist}" var="department">
@@ -92,42 +68,21 @@
             </div>
         </div>
     </c:if>
-
     <c:if test="${user != null}">
         <div class="search-filter">
             <div class="row">
                 <div class="col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                     <!-- Filter by instructor starts here -->
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <!--                     Small button group 
-                                            <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Filter By Course <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Corse One</a></li>
-                                                <li><a href="#">Course Two</a></li>
-                                                <li><a href="#">Course Three</a></li>
-                        
-                                            </ul>-->
                         <select class="form-control searchFilterDD" name="courseCode">
                             <option value="">Filter By Course</option>
                             <c:forEach items="${courselist}" var="course">
                                 <option  value="${course.courseCode}" <c:if test="${curSelectedCour==course.courseCode}">selected</c:if>><c:out value="${course.courseCode}"/></option>
                             </c:forEach>
                         </select>
-                    </div> <!-- Filter by instructor ends here-->    
-
-
+                    </div> <!-- Filter by instructor ends here-->  
                     <!-- Filter by course starts here -->
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <!--                     Small button group 
-                                            <button id="dropdown_search" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Filter By Instructor <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Instructor One</a></li>
-                                                <li><a href="#">Instructor Two</a></li>
-                                                <li><a href="#">Instructor Three</a></li>-->
+                    <div class="col-xs-12 col-sm-6 col-md-6">                        
                         <select class="form-control" name="userId">
                             <option value="">Filter By Instructor</option>
                             <c:forEach items="${instructorlist}" var="user">
@@ -137,7 +92,6 @@
                     </div><!--Filter by course ends here-->
                 </div>        
             </div>    
-
         </div> <!--Search filter ends here-->
     </form>
 </c:if>
@@ -185,15 +139,12 @@
                 <hr class="line">
             </c:forEach>
         </c:if>
-
         <c:if test="${emptyInput == true}">
             <p class="message">You have to type a term.</p>   
         </c:if>
-
         <c:if test="${noSuchEntry == true}">
             <p class="message">The term does not exist.</p>   
         </c:if>
-
         <br>
     </div>
 </div> <!-- list items  -->
