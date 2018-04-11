@@ -152,7 +152,7 @@
                         <form action="editorpending" method="POST">
                             <input type="hidden" name="action" value="Delete Term">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input type="submit"  value="Delete">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf014">
                         </form>
                     </td>
                     <td>     
@@ -160,7 +160,7 @@
                             <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                             <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="defId" value="${def.definitionID}">
-                            <input class="addTerms" type="submit" value="Edit">
+                            <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
                         </form>
                     </td>
                 </tr>

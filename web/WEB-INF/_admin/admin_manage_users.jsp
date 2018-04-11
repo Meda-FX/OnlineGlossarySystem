@@ -109,9 +109,12 @@
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-            <form action="#" method="GET">    
+            <form action="manageusers" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" />
+                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" name="txtSearch" value="${txtSearch}"/>
+                    <input type="hidden" name="action" value="searchuser">
+                    <input type="radio" id="searchedname" name="searchedBy" value="searchedname" <c:if test="${searchedBy==null||searchedBy=='searchedname'}">checked </c:if>> ByName
+                        <input type="radio" id="searchedId" name="searchedBy" value="searchedId" <c:if test="${searchedBy=='searchedId'}">checked </c:if>> ById
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>

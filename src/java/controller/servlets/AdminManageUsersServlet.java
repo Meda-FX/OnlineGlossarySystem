@@ -46,10 +46,13 @@ public class AdminManageUsersServlet extends HttpServlet {
         Department department = user.getDepartment();
         UserService us = new UserService();
         String action = request.getParameter("action");
-
+        String message = "";
         PrivilegeService ps = new PrivilegeService();
         List<Privilege> privilegeList = ps.getAll();
         request.setAttribute("privilegeList", privilegeList);
+
+        List<User> userList = us.getByDepartment(department);
+
         if (action != null) {
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
@@ -68,18 +71,49 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
             }
+            if (action.equals("searchuser")) {
+                String txtSearch = request.getParameter("txtSearch");
+                String searchedBy = request.getParameter("searchedBy");
+                List<User> tempUserList = new ArrayList<>();
+                if (txtSearch == null || txtSearch.isEmpty()) {
+                    message = "Search field cannot be empty!";
+                } else {
+                    if (searchedBy != null && searchedBy.equals("searchedname")) {
+                        for (User u : userList) {
+                            if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
+                                tempUserList.add(u);
+                            }
+                        }
+                        userList = tempUserList;
+                    }
+                    if (searchedBy != null && searchedBy.equals("searchedId")) {
+                        for (User u : userList) {
+                            if (u.getID().contains(txtSearch)) {
+                                tempUserList.add(u);
+                            }
+                        }
+                        userList = tempUserList;
+                    }
+                    
+                    request.setAttribute("txtSearch", txtSearch);
+                    request.setAttribute("searchedBy", searchedBy);
+                }
+            }
         }
-        List<User> userList = us.getByDepartment(department);
+        //       List<User> userList = us.getByDepartment(department);
+        if(userList.isEmpty()) message="No such user in the list!";
+        request.setAttribute("message", message);
         request.setAttribute("userList", userList);
         String sessionUserID = (String)session.getAttribute("sessionSelectedUserID");
         if (sessionUserID != null && !sessionUserID.isEmpty())
             session.removeAttribute("sessionSelectedUserID");
         
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
-        
-        String msg = (String)session.getAttribute("message");
-        if (msg != null && !msg.isEmpty())
+
+        String msg = (String) session.getAttribute("message");
+        if (msg != null && !msg.isEmpty()) {
             session.removeAttribute("message");
+        }
     }
 
     @Override

@@ -116,8 +116,8 @@
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
                         <form action="instructor" method="POST">
                         <input type="hidden" name="defId" value="${def.definitionID}">
-                        <!--<input type="submit" name="submitButton" value="Delete">-->
-                        <input class="btn fa-input addTerms" name="submitButton" type="submit" value="&#xf014">
+                        <input type="hidden" name="submitButton" value="Delete">
+                        <input class="btn fa-input addTerms" type="submit" value="&#xf014">
                         </form>
                     </td>
                     <td>     
