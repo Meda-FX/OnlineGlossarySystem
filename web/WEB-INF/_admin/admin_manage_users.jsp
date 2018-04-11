@@ -19,10 +19,10 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${selectedUser.email}">
             </div> 
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label for="isActive">Active</label>
                 <input type="text" class="form-control" id="isActive" placeholder="Is Active" name="isActive" value="${selectedUser.isActive}">
-            </div>  
+            </div>  -->
             <div class="form-group">
                 <label for="status">Status</label>
                 <div>
