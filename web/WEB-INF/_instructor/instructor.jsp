@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms"> 
@@ -46,12 +47,9 @@
 
 
 
-            <input type="submit" name="submitButton" value="Save Term">
-
-
-            <input type="submit" name="submitButton" value="Submit Term">
-
-            <input class="hideFormTerm" type="button" value="Hide Form">
+            <input class="btn" type="submit" name="submitButton" value="Save Term">
+            <input class="btn" type="submit" name="submitButton" value="Submit Term">
+            <input class=" btn hideFormTerm" type="button" value="Hide Form">
 
         </form>
     </div>
@@ -78,20 +76,20 @@
                 </div>   
             </form>
             <div>
-                <p class="message">${message}</p>   
+                <p class="message"><c:out value="${message}"/></p>   
             </div>
         </div>
     </div><!--Search ends here-->
 
     <div class="row">
-        <div class="newTerm" class="col-md-12">
+        <div class="container newTerm">
             <button type="button" class="btn navbar-right addTerms">Add Term</button>
         </div>
     </div>
-
+    <br>
     <!--table begins here-->
     <table class="table table-hover"> 
-        <thead>
+        
             <tr>                
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
@@ -101,8 +99,8 @@
                 <th></th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody>
+        
+        
             <c:forEach items="${definitionlist}" var="def">
                 <tr>
                     <td><c:out value = "${def.term}"/></td>
@@ -116,7 +114,8 @@
                         <!--<span id="icons" class="glyphicon glyphicon-trash"></span>-->
                         <form action="instructor" method="POST">
                         <input type="hidden" name="defId" value="${def.definitionID}">
-                        <input type="submit" name="submitButton" value="Delete">
+                        <!--<input type="submit" name="submitButton" value="Delete">-->
+                        <input class="btn fa-input addTerms" name="submitButton" type="submit" value="&#xf014">
                         </form>
                     </td>
                     <td>     
@@ -124,12 +123,13 @@
                         <!--<span id="icons" class="glyphicon  glyphicon-pencil addTerms"></span>-->      
                         <input type="hidden" name="action" value="edit">
                         <input type="hidden" name="defId" value="${def.definitionID}">
-                        <input class="addTerms" name="submitButton" type="submit" value="Edit">
+                        <input class="btn fa-input addTerms" name="submitButton" type="submit" value="&#xf040"> 
+                        <!--<input class="addTerms" name="submitButton" type="submit" value="Edit">-->
             </form>
             </td>
             </tr>
         </c:forEach>         
-        </tbody>
+        
     </table> <!--Table ends here-->
 </div>
 </div> <!-- list items  -->
