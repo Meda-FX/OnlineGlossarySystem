@@ -247,7 +247,7 @@ public class AccountRequestBroker extends Broker {
         String selectSQL = "SELECT * "
                 + "FROM [GlossaryDataBase].[dbo].[account_request] "
                 + "WHERE [GlossaryDataBase].[dbo].[account_request].request_type = ? "
-                + "AND DATEDIFF(hour, [GlossaryDataBase].[dbo].[account_request].request_date, GETDATE()) < 24";
+                + "AND DATEDIFF(hour, [GlossaryDataBase].[dbo].[account_request].request_date, GETDATE()) < 72";
         PreparedStatement ps = null;
         ResultSet rs = null;
 

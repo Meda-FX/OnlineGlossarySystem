@@ -189,8 +189,8 @@ public class DepartmentBroker extends Broker{
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+               if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
@@ -229,8 +229,8 @@ public class DepartmentBroker extends Broker{
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+               if(rs != null) rs.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);

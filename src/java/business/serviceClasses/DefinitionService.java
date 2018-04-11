@@ -10,6 +10,7 @@ import business.domainClasses.Definition;
 import business.domainClasses.Department;
 import business.domainClasses.GlossaryEntry;
 import business.domainClasses.User;
+import java.util.ArrayList;
 import java.util.List;
 import persistence.brokers.DefinitionBroker;
 
@@ -63,4 +64,23 @@ public class DefinitionService {
     public Definition getByID(int id){
         return db.getByID(id);
     }
+
+    public List<Definition> getMatchedFilterByDepart(String searchEntry, int deptId) {
+
+        return db.getMatchedFilterByDepart(searchEntry,deptId);
+        
+    }
+
+    public List<Definition> getMatchedFilterByCU(String searchedEntry, String courseCode, String userId) {
+        return db.getMatchedFilterByCU( searchedEntry,  courseCode,  userId);
+    }
+
+    public List<Definition> getMatched(String searchedEntry) {
+        return db.getMatched(searchedEntry);
+       }
+
+    public ArrayList<Definition> getByAlpha(String letter) {
+        return db.getByAlpha(letter);
+        }
+
 }

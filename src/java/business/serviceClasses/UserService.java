@@ -81,7 +81,7 @@ public class UserService {
      * 1 and if the deletion is un successful the return type will be a 0. 
      */
     public int delete(String id){
-        return userDB.delete(id);
+        return userDB.delete(this.get(id));
     }
     
     /**
@@ -122,5 +122,10 @@ public class UserService {
     public int reloadCourses(User user)
     {
        return userDB.reloadCourses(user);
+    }
+    
+    public int reloadPrivileges(User user)
+    {
+       return userDB.reloadPrivileges(user);
     }
 }
