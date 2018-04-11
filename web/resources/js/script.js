@@ -54,6 +54,8 @@ $(document).ready(function () {
             $("#definition").val(responseJson.content);
             $("#citation").val(responseJson.citation);
             $("#defDefinition").val(responseJson.dictionaryContent);
+            $("#dicCitation").val(responseJson.dictionaryCitation);
+            $("#courseCode").val(responseJson.course.courseCode);
 
             $("#dicCitation").val(responseJson.dictionaryCitation);   
             var courseToSet = responseJson.course.courseCode;
