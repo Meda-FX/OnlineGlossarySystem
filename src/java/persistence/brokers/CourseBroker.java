@@ -44,7 +44,6 @@ public class CourseBroker extends Broker {
         //for course list
         int department;
         String courseName = null;
-        String year = null;
 
         Course course = null;
 
@@ -96,7 +95,6 @@ public class CourseBroker extends Broker {
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
 
         int departmentID = department.getDepartmentID();
 
@@ -286,7 +284,6 @@ public class CourseBroker extends Broker {
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
         int department;
         String userID = user.getID();
 
@@ -336,7 +333,6 @@ ConnectionPool pool = ConnectionPool.getInstance();
         //for course list
         String courseCode = null;
         String courseName = null;
-        String year = null;
         int departmentID;
         Department department;
         

@@ -88,7 +88,6 @@ CREATE TABLE [dbo].[course](
 CREATE TABLE [dbo].[user_course](
 	course_code varchar (20) NOT NULL,
 	user_id Varchar(20) NOT NULL,
-	[year] varchar(20),
 	CONSTRAINT FK_user_course_course_code FOREIGN KEY (course_code)
 	REFERENCES [course](course_code) ON DELETE CASCADE,
 	CONSTRAINT FK_user_course_user_id FOREIGN KEY (user_id)
