@@ -43,6 +43,10 @@ public class Definition {
      * @param citation citation the original writer of the definition credit
      * @param course course the course in which the definition is written
      * @param content content the content of the definition written by the user
+     * @param dictionaryCitation the citation of the dictionary 
+     * @param dictionaryContent content of the dictionary term
+     * @param term the term being defined
+     * @param status the status of the term ex In progress
      */
     public Definition(int definitionID,User writtenBy, Date dateCreated, String citation, 
             String dictionaryCitation, Course course, String content, 

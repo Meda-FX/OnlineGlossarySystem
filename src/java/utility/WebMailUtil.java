@@ -37,10 +37,10 @@ public class WebMailUtil {
      * @param template Template the template of the email that will be sent to
      * the user
      * @param contents contents the content of the email to be send to the user
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws MessagingException
-     * @throws NamingException
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws javax.mail.MessagingException
+     * @throws javax.naming.NamingException
      */
     public static void sendMail(String to, String subject, String template, HashMap<String, String> contents) throws FileNotFoundException, IOException, MessagingException, NamingException {
         BufferedReader br = new BufferedReader(new FileReader(new File(template)));
