@@ -80,7 +80,7 @@ public class InstructorServlet extends HttpServlet {
                 searchedEntry = searchedEntry.trim();
                 for(Definition d: termList)
                 {
-                    if(d.getTerm().contains(searchedEntry)) temptermList.add(d);
+                    if(d.getTerm().toLowerCase().contains(searchedEntry.toLowerCase())) temptermList.add(d);
                 }
                 termList = temptermList;
                 if(termList.isEmpty()) errorMessage="No matched terms!";

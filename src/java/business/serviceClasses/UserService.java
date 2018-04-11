@@ -2,11 +2,13 @@ package business.serviceClasses;
 
 import business.domainClasses.Department;
 import business.domainClasses.User;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistence.brokers.UserBroker;
+import utility.HashingUtil;
 
 /**
  * UserService class uses to access data from the database by utilizing the UserBroker.
@@ -34,6 +36,11 @@ public class UserService {
     public User checkLogin(String email, String password) {
         
             User u = userDB.getByEmail(email);
+        try {
+            password = HashingUtil.hash(password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
             if (u != null && password.equals(u.getPassword())) {
                 u.setPassword("");
                 return u;

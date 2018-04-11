@@ -71,6 +71,7 @@
             <form action="instructor?action=search" method="GET">    
                 <div class="input-group">
                     <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch" value="${searchedEntry}"/>
+                    <input type="text" hidden name="action" value="search">
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
