@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.HashingUtil;
 import utility.WebMailUtil;
 
 /**
@@ -45,14 +46,18 @@ public class AdminManageUsersServlet extends HttpServlet {
         Department department = user.getDepartment();
         UserService us = new UserService();
         String action = request.getParameter("action");
-
+        String message = "";
         PrivilegeService ps = new PrivilegeService();
         List<Privilege> privilegeList = ps.getAll();
         request.setAttribute("privilegeList", privilegeList);
+
+        List<User> userList = us.getByDepartment(department);
+
         if (action != null) {
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
+                session.setAttribute("selectedUserID", selectedUserID);
                 boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
                 if (ajax) {
@@ -66,14 +71,45 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
             }
+            if (action.equals("searchuser")) {
+                String txtSearch = request.getParameter("txtSearch");
+                String searchedBy = request.getParameter("searchedBy");
+                List<User> tempUserList = new ArrayList<>();
+                if (txtSearch == null || txtSearch.isEmpty()) {
+                    message = "Search field cannot be empty!";
+                } else {
+                    if (searchedBy != null && searchedBy.equals("searchedname")) {
+                        for (User u : userList) {
+                            if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
+                                tempUserList.add(u);
+                            }
+                        }
+                        userList = tempUserList;
+                    }
+                    if (searchedBy != null && searchedBy.equals("searchedId")) {
+                        for (User u : userList) {
+                            if (u.getID().contains(txtSearch)) {
+                                tempUserList.add(u);
+                            }
+                        }
+                        userList = tempUserList;
+                    }
+                    
+                    request.setAttribute("txtSearch", txtSearch);
+                    request.setAttribute("searchedBy", searchedBy);
+                }
+            }
         }
-        List<User> userList = us.getByDepartment(department);
+        //       List<User> userList = us.getByDepartment(department);
+        if(userList.isEmpty()) message="No such user in the list!";
+        request.setAttribute("message", message);
         request.setAttribute("userList", userList);
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
-        
-        String msg = (String)session.getAttribute("message");
-        if (msg != null && !msg.isEmpty())
+
+        String msg = (String) session.getAttribute("message");
+        if (msg != null && !msg.isEmpty()) {
             session.removeAttribute("message");
+        }
     }
 
     @Override
@@ -141,11 +177,14 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
 
-                if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
-                    session.setAttribute("message", "Account already exist");
+                
+                
+                if ((us.getByEmail(email) != null)) {
+                    session.setAttribute("message", "This email is associated with another account");
                     response.sendRedirect("manageusers");
                     return;
                 }
+                try {
                 user = new User();
                 user.setDepartment(department);
                 user.setEmail(email);
@@ -153,10 +192,10 @@ public class AdminManageUsersServlet extends HttpServlet {
                 user.setName(name);
                 user.getPrivileges().setPrivileges(privilegeList);
                 user.setID(id);
-                user.setPassword(id);
+                user.setPassword(HashingUtil.hash(id));
                 us.insert(user);
 
-                try {
+                
                     AccountRequestService ars = new AccountRequestService();
                     String token = ars.insert(user, 1);
 

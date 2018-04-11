@@ -56,6 +56,15 @@ $(document).ready(function () {
             $("#defDefinition").val(responseJson.dictionaryContent);
             $("#dicCitation").val(responseJson.dictionaryCitation);
             $("#courseCode").val(responseJson.course.courseCode);
+
+            $("#dicCitation").val(responseJson.dictionaryCitation);   
+            var courseToSet = responseJson.course.courseCode;
+            
+            $("#courseCode option[value="+courseToSet+"]").attr('selected', 'selected');
+            
+ //           var courselist = document.getElementById("#courseCode");
+
+    //        $("#courseCode").val(responseJson.course.courseCode);           
         });
         event.preventDefault();
     });
@@ -192,9 +201,7 @@ $(document).ready(function () {
                                 type: "time",
                                 time: {
                                     unit: timescale,
-                                    distribution: 'linear',
-                                    max: endDate,
-                                    min: startDate
+                                    distribution: 'linear'
                                 },
                                 ticks: {
                                     source: 'auto'

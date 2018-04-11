@@ -45,24 +45,24 @@ VALUES
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('0','password',1,'John Johnson','johnjohnson@gmail.com', 1);
+    ('0','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',1,'John Johnson','johnjohnson@gmail.com', 1);
 
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('1','password',1,'Bob Bobson','bobBobson@gmail.com', 1);
+    ('1','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',1,'Bob Bobson','bobBobson@gmail.com', 1);
 
 INSERT INTO [GlossaryDataBase].[dbo].[user]
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('2','password',1,'Aron Alice','aronAlice@gmail.com', 1);
+    ('2','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',1,'Aron Alice','aronAlice@gmail.com', 1);
 
 INSERT INTO [GlossaryDataBase].[dbo].[user] 
     (user_id, password, department_id, [name], email, activated)
 VALUES
-    ('3','password',1,'Stephon Curry','stephonCurry@gmail.com', 1);
+    ('3','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',1,'Stephon Curry','stephonCurry@gmail.com', 1);
 INSERT INTO [GlossaryDataBase].[dbo].[user]
-VALUES ('4', 'password', 1, 'Javen Liang', 'javenliang.sait@gmail.com', 1);
+VALUES ('4', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 1, 'Javen Liang', 'javenliang.sait@gmail.com', 1);
 
 
 INSERT INTO [GlossaryDataBase].[dbo].[user_role]

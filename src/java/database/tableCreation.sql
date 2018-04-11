@@ -4,12 +4,25 @@ CREATE DATABASE [GlossaryDataBase]
 
 use [GlossaryDataBase]
 
-
+--1: MacPhail School of Energy
+--2: School of Business
+--3: School of Construction
+--4: School of Health and Public Safety
+--5: School of Hospitality and Tourism
+--6: School of Information and Communications Technologies
+--7: School of Manufacturing and Automation
+--8: School of Transportation
 CREATE TABLE [dbo].[department](
 	department_id int IDENTITY(1,1) PRIMARY KEY,
 	name varchar (100) NOT NULL
 	
 	)
+
+--role:
+--1: admin
+--2: student
+--3: editor
+--4: instructor
 CREATE TABLE [dbo].[role](
 	privilege_id int IDENTITY(1,1) PRIMARY KEY,
 	description varchar (40) NOT NULL
@@ -18,7 +31,7 @@ CREATE TABLE [dbo].[role](
 
 CREATE TABLE [dbo].[user] (
 	user_id Varchar(20) NOT NULL PRIMARY KEY,
-	password varchar (40) NOT NULL,
+	password varchar (80) NOT NULL,
 	department_id int NOT NULL,
 	name varchar (40) NOT NULL,
 	email varchar (40) NOT NULL,
@@ -75,12 +88,12 @@ CREATE TABLE [dbo].[course](
 CREATE TABLE [dbo].[user_course](
 	course_code varchar (20) NOT NULL,
 	user_id Varchar(20) NOT NULL,
-	[year] varchar(20) NOT NULL,
+	[year] varchar(20),
 	CONSTRAINT FK_user_course_course_code FOREIGN KEY (course_code)
 	REFERENCES [course](course_code),
 	CONSTRAINT FK_user_course_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id) ON DELETE CASCADE,
-        PRIMARY KEY(course_code,user_id,[year])
+        PRIMARY KEY(course_code,user_id)
 	)
 
 --request_log_type:
