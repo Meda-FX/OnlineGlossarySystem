@@ -4,12 +4,25 @@ CREATE DATABASE [GlossaryDataBase]
 
 use [GlossaryDataBase]
 
-
+--1: MacPhail School of Energy
+--2: School of Business
+--3: School of Construction
+--4: School of Health and Public Safety
+--5: School of Hospitality and Tourism
+--6: School of Information and Communications Technologies
+--7: School of Manufacturing and Automation
+--8: School of Transportation
 CREATE TABLE [dbo].[department](
 	department_id int IDENTITY(1,1) PRIMARY KEY,
 	name varchar (100) NOT NULL
 	
 	)
+
+--role:
+--1: admin
+--2: student
+--3: editor
+--4: instructor
 CREATE TABLE [dbo].[role](
 	privilege_id int IDENTITY(1,1) PRIMARY KEY,
 	description varchar (40) NOT NULL
