@@ -49,7 +49,7 @@ public class EditorPendingServlet extends HttpServlet {
         Definition definition = new Definition();
         try {
             defId = Integer.parseInt(definitionId);
-            definition.setDefinitionID(defId);
+            definition = ds.getByID(defId);
 
             if (action != null && action.equals("Delete Term")) {
                 url = "/WEB-INF/_editor/editor_pending_terms.jsp";

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-    $("#end").prop("max", moment().format("YYYY-MM-DD")); 
-    $("#start").prop("max", moment().format("YYYY-MM-DD")); 
+//    $("#end").prop("max", moment().format("YYYY-MM-DD")); 
+//    $("#start").prop("max", moment().format("YYYY-MM-DD")); 
     
     $("#start").change(function(){
        $("#end").prop("min", $(this).val()); 
@@ -54,8 +54,14 @@ $(document).ready(function(){
             $("#definition").val(responseJson.content);
             $("#citation").val(responseJson.citation);
             $("#defDefinition").val(responseJson.dictionaryContent);
-            $("#dicCitation").val(responseJson.dictionaryCitation);           
-            $("#courseCode").val(responseJson.course.courseCode);           
+            $("#dicCitation").val(responseJson.dictionaryCitation);   
+            var courseToSet = responseJson.course.courseCode;
+            
+            $("#courseCode option[value="+courseToSet+"]").attr('selected', 'selected');
+            
+ //           var courselist = document.getElementById("#courseCode");
+
+    //        $("#courseCode").val(responseJson.course.courseCode);           
         });
         event.preventDefault();
     });
