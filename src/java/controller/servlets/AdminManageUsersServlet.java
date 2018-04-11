@@ -181,14 +181,13 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
 
-                User user = us.get(id);
                 if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
                     session.setAttribute("message", "The id and/or email is associated with another account");
                     response.sendRedirect("manageusers");
                     return;
                 }
                 try {
-                user = new User();
+                User user = new User();
                 user.setDepartment(department);
                 user.setEmail(email);
                 user.setIsActivated(active);
