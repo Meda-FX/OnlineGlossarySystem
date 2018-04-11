@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.HashingUtil;
 import utility.WebMailUtil;
 
 /**
@@ -53,6 +54,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             if (action.equals("view")) {
                 String selectedUserID = request.getParameter("selectedID");
                 User selectedUser = us.get(selectedUserID);
+                session.setAttribute("selectedUserID", selectedUserID);
                 boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
                 if (ajax) {
@@ -141,11 +143,14 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
 
-                if ((us.get(id) != null) || (us.getByEmail(email) != null)) {
-                    session.setAttribute("message", "Account already exist");
+                
+                
+                if ((us.getByEmail(email) != null)) {
+                    session.setAttribute("message", "This email is associated with another account");
                     response.sendRedirect("manageusers");
                     return;
                 }
+                try {
                 user = new User();
                 user.setDepartment(department);
                 user.setEmail(email);
@@ -153,10 +158,10 @@ public class AdminManageUsersServlet extends HttpServlet {
                 user.setName(name);
                 user.getPrivileges().setPrivileges(privilegeList);
                 user.setID(id);
-                user.setPassword(id);
+                user.setPassword(HashingUtil.hash(id));
                 us.insert(user);
 
-                try {
+                
                     AccountRequestService ars = new AccountRequestService();
                     String token = ars.insert(user, 1);
 
