@@ -33,8 +33,40 @@ public class GlossaryEntryBroker extends Broker {
      * matching result set.
      * @return a Glossary Entry object.
      */
-    public GlossaryEntry getByTerm(String term) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public GlossaryEntry getByTerm(String term) {        
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        
+        String sql = "SELECT * FROM [GlossaryDataBase].[dbo].[glossary_entry] "
+                   + "WHERE [GlossaryDataBase].[dbo].[glossary_entry].glossary_entry = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        GlossaryEntry ge= null;
+        User user =null;
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, term);
+            rs= ps.executeQuery();
+            while(rs.next())
+            {
+                ge = new GlossaryEntry();
+                ge.setTerm(rs.getString("glossary_entry"));
+                ge.setDateCreated(rs.getDate("date_added"));
+                user = new User();
+                user.setName(rs.getString("made_by"));
+                ge.setCreatedBy(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+        return ge;
     }
 
     @Override
@@ -88,7 +120,7 @@ public class GlossaryEntryBroker extends Broker {
         } finally {
             try {
                 //rs.close();
-                ps.close();
+                if(ps != null ) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);

@@ -6,6 +6,7 @@
     <div id="crud">
         <form action="instructor" method="post">
             <h1>Add Terms</h1>    
+            <input type="text" hidden id="termId" name="defId" value="${termId}" readonly="">
             <div class="form-group">
                 <label for="term">Term</label>
                 <input type="text" class="form-control" id="term" value="${term}" name="term" placeholder="Term">
@@ -32,8 +33,8 @@
             <div class="form-group selectpicker">
                 <label for="course-code">Course Code:</label>
                 <select id="courseCode" name="courseCode">
-                    <option value="-1" >Please select course</option>
-                    <c:forEach items="${courseList}" var="course">
+                    <option value="" selected>Please select course</option>
+                    <c:forEach items="${user.courses.courses}" var="course">
                         <option value="${course.courseCode}" >${course.courseCode} - ${course.courseName}</option>                        
                     </c:forEach>
                 </select>
@@ -65,9 +66,10 @@
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-            <form action="#" method="GET">    
+            <form action="instructor?action=search" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" />
+                    <input type="text" class="form-control" name="searchedEntry" placeholder="Search terms" id="txtSearch" value="${searchedEntry}"/>
+                    <input type="text" hidden name="action" value="search">
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -107,7 +109,7 @@
                     <td>
                         <c:out value = "${def.content}"/>
                     </td> 
-                    <td><c:out value = "${def.writtenBy.name}"/></td>
+                    <td><c:out value = "${def.course.courseCode}"/></td>
                     <td><fmt:formatDate value="${def.dateCreated}" pattern="yyyy-MM-dd" /></td> 
                     <td><c:out value = "${def.status}"/></td> 
                     <td>

@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[role](
 
 CREATE TABLE [dbo].[user] (
 	user_id Varchar(20) NOT NULL PRIMARY KEY,
-	password varchar (40) NOT NULL,
+	password varchar (80) NOT NULL,
 	department_id int NOT NULL,
 	name varchar (40) NOT NULL,
 	email varchar (40) NOT NULL,
@@ -88,12 +88,12 @@ CREATE TABLE [dbo].[course](
 CREATE TABLE [dbo].[user_course](
 	course_code varchar (20) NOT NULL,
 	user_id Varchar(20) NOT NULL,
-	[year] varchar(20) NOT NULL,
+	[year] varchar(20),
 	CONSTRAINT FK_user_course_course_code FOREIGN KEY (course_code)
 	REFERENCES [course](course_code),
 	CONSTRAINT FK_user_course_user_id FOREIGN KEY (user_id)
 	REFERENCES [user](user_id) ON DELETE CASCADE,
-        PRIMARY KEY(course_code,user_id,[year])
+        PRIMARY KEY(course_code,user_id)
 	)
 
 --request_log_type:

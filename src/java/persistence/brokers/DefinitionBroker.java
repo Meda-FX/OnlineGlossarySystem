@@ -491,7 +491,8 @@ public class DefinitionBroker extends Broker {
         Definition definition = (Definition) object;
         String sql = "UPDATE [GlossaryDataBase].[dbo].[definition] "
                 + "SET definition=?,dictionary_definition=?,"
-                + "citation=?,dictionary_citation=?,status=? "
+                + "citation=?,dictionary_citation=?,status=?,"
+                + "made_by = ?, course_code=? "
                 + "WHERE definition_uid=? ";
 
         PreparedStatement ps = null;
@@ -507,7 +508,11 @@ public class DefinitionBroker extends Broker {
             ps.setString(3, definition.getCitation());
             ps.setString(4, definition.getDictionaryCitation());
             ps.setString(5, definition.getStatus());
-            ps.setInt(6, definition.getDefinitionID());
+            
+            ps.setString(6, definition.getWrittenBy().getID());
+            ps.setString(7,definition.getCourse().getCourseCode());
+            
+            ps.setInt(8, definition.getDefinitionID());
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log
@@ -518,7 +523,7 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to update definition", ex);
         } finally {
             try {
-                ps.close();
+                if(ps != null)ps.close();
             } catch (SQLException ex) {
 
             }
