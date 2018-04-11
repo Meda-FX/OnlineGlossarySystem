@@ -38,7 +38,7 @@
         </c:if>
     </table> <!--Table ends here-->
     <br>  
-    
+    <c:if test="${user.privileges.contains(4) || user.privileges.contains(2)}">
     <div class="row">
         <div class="col-md-4">
             <h3>Eligible Course</h3>
@@ -74,6 +74,7 @@
             </table>
         </div>
     </div>
+    </c:if>
 </div> <!-- list items  -->
 
 <%@ include file="includes/footer.jsp" %>
