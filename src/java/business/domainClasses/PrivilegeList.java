@@ -30,7 +30,7 @@ public class PrivilegeList {
     /**
      * A method that adds a privilege for a user using the 
      * privilege id that is passed as a parameter
-     * @param privilegeID privilegeID the parameter that is passed to add a user privilege
+     * @param newPrivilege privilegeID the parameter that is passed to add a user privilege
      */
     public void add(Privilege newPrivilege) {
         privileges.add(newPrivilege);

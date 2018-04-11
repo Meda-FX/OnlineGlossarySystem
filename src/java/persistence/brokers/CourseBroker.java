@@ -29,7 +29,7 @@ public class CourseBroker extends Broker {
     /**
      * The getByID method returns the course by the specified course ID.
      *
-     * @param courseID represents the ID for a certain course.
+     * @param courseCode represents the ID for a certain course.
      * @return a Course object representing a course from the database.
      */
     public Course getByCourseCode(String courseCode) {
@@ -79,7 +79,7 @@ public class CourseBroker extends Broker {
      * The getByDepartmentID return a list of courses by the specified
      * department ID.
      *
-     * @param departmentID represents the ID for a certain department.
+     * @param department represents the ID for a certain department.
      * @return a list of Course objects representing courses from the database.
      */
     public List<Course> getByDepartmentID(Department department) {
