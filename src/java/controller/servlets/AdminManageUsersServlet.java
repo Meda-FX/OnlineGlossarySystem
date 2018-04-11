@@ -78,7 +78,7 @@ public class AdminManageUsersServlet extends HttpServlet {
                 } else {
                     if (searchedBy != null && searchedBy.equals("searchedname")) {
                         for (User u : userList) {
-                            if (user.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
+                            if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
                                 tempUserList.add(u);
                             }
                         }
@@ -86,17 +86,21 @@ public class AdminManageUsersServlet extends HttpServlet {
                     }
                     if (searchedBy != null && searchedBy.equals("searchedId")) {
                         for (User u : userList) {
-                            if (user.getID().contains(txtSearch)) {
+                            if (u.getID().contains(txtSearch)) {
                                 tempUserList.add(u);
                             }
                         }
                         userList = tempUserList;
                     }
+                    
                     request.setAttribute("txtSearch", txtSearch);
+                    request.setAttribute("searchedBy", searchedBy);
                 }
             }
         }
         //       List<User> userList = us.getByDepartment(department);
+        if(userList.isEmpty()) message="No such user in the list!";
+        request.setAttribute("message", message);
         request.setAttribute("userList", userList);
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
 
