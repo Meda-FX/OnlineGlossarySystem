@@ -45,7 +45,7 @@ public class CourseBroker extends Broker {
         int department;
         String courseName = null;
         String year = null;
-        
+
         Course course = null;
 
         try {
@@ -57,7 +57,7 @@ public class CourseBroker extends Broker {
 
                 courseName = rs.getString("course_name");
                 department = rs.getInt("department_id");
-                course = new Course(courseCode, courseName,new Department(department));
+                course = new Course(courseCode, courseName, new Department(department));
 
             }
         } catch (SQLException ex) {
@@ -320,5 +320,55 @@ public class CourseBroker extends Broker {
         return courseList;
 
     }
-}
 
+    public List<Course> search(String searchWith) {
+ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        String selectSQL = "SELECT * "
+                + "FROM [GlossaryDataBase].[dbo].[course] "
+                + "WHERE [GlossaryDataBase].[dbo].[course].course_code LIKE ? "
+                + "OR [GlossaryDataBase].[dbo].[course].course_name LIKE ? ;";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        ArrayList<Course> courseList = new ArrayList<>();
+
+        //for course list
+        String courseCode = null;
+        String courseName = null;
+        String year = null;
+        int departmentID;
+        Department department;
+        
+        try {
+            ps = connection.prepareStatement(selectSQL);
+            ps.setString(1, "%"+ searchWith +"%");
+            ps.setString(2, "%"+ searchWith +"%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                //COURSE
+                courseCode = rs.getString("course_code");
+                courseName = rs.getString("course_name");
+                departmentID = rs.getInt("department_id");
+                department = new Department(departmentID);
+                courseList.add(new Course(courseCode, courseName, department));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+            }
+            pool.freeConnection(connection);
+        }
+
+        return courseList;
+    }
+}

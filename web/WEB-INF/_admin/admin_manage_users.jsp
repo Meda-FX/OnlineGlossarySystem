@@ -128,8 +128,8 @@
         </div>
     </div><!--Search ends here-->
     <div class="row">
-        <div class="container newUser">
-            <button type="button" class="btn navbar-right addTerms">New User</button>
+        <div class="container">
+            <button type="button" class="btn navbar-right addTerms newUser">New User</button>
         </div>
     </div>
     <br>

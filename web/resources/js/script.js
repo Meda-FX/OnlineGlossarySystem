@@ -93,6 +93,7 @@ $(document).ready(function () {
     });
     
     $(".newCourse").click(function () {
+        $("#courseId").prop("readonly", false);
         $("#courseId").val("");
         $("#courseName").val("");
         

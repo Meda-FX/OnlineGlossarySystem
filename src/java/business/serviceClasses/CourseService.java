@@ -42,4 +42,8 @@ public class CourseService {
     public int delete(Course course) {
         return courseDB.delete(course);
     }
+    
+    public List<Course> search(String searchWith) {
+        return courseDB.search(searchWith);
+    }
 }

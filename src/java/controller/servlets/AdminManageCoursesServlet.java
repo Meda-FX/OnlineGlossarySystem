@@ -49,6 +49,7 @@ public class AdminManageCoursesServlet extends HttpServlet {
         CourseService cs = new CourseService();
         String action = request.getParameter("action");
 
+        List<Course> courseList = cs.getByDepartment(department);
         if (action != null) {
             if (action.equals("view")) {
                 String selectedCourseCode = request.getParameter("selectedID");
@@ -67,8 +68,11 @@ public class AdminManageCoursesServlet extends HttpServlet {
                     return;
                 }
             }
+            if (action.equals("search")) {
+                String searchWith = request.getParameter("txtSearch");
+                courseList = cs.search(searchWith);
+            }
         }
-        List<Course> courseList = cs.getByDepartment(department);
         request.setAttribute("courseList", courseList);
         String sessionCourseID = (String) session.getAttribute("sessionSelectedCourseID");
         if (sessionCourseID != null && !sessionCourseID.isEmpty()) {

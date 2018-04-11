@@ -25,9 +25,10 @@
     <!--Search starts here-->
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
-            <form action="#" method="GET">    
+            <form action="managecourses" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search courses" id="txtSearch" />
+                    <input type="text" class="form-control" placeholder="Search courses" id="txtSearch" name="txtSearch"/>
+                    <input type="hidden" name="action" value="search">
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -41,8 +42,8 @@
         </div>
     </div><!--Search ends here-->
     <div class="row">
-        <div class="container newCourse">
-            <button type="button" class="btn navbar-right addTerms">New Course</button>
+        <div class="container">
+            <button type="button" class="btn navbar-right addTerms newCourse">New Course</button>
         </div>
     </div>
     <br>

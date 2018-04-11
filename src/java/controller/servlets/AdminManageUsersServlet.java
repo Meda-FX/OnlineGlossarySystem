@@ -98,11 +98,10 @@ public class AdminManageUsersServlet extends HttpServlet {
                     request.setAttribute("txtSearch", txtSearch);
                     request.setAttribute("searchedBy", searchedBy);
                 }
+                if(userList.isEmpty()) message="No such user in the list!";
+                request.setAttribute("message", message);
             }
         }
-        //       List<User> userList = us.getByDepartment(department);
-        if(userList.isEmpty()) message="No such user in the list!";
-        request.setAttribute("message", message);
         request.setAttribute("userList", userList);
         String sessionUserID = (String)session.getAttribute("sessionSelectedUserID");
         if (sessionUserID != null && !sessionUserID.isEmpty())
