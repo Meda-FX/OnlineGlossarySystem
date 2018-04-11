@@ -187,9 +187,7 @@ $(document).ready(function () {
                                 type: "time",
                                 time: {
                                     unit: timescale,
-                                    distribution: 'linear',
-                                    max: endDate,
-                                    min: startDate
+                                    distribution: 'linear'
                                 },
                                 ticks: {
                                     source: 'auto'
