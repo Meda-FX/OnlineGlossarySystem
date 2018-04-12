@@ -59,7 +59,15 @@ public class AdminManageCoursesServlet extends HttpServlet {
             }
             if (action.equals("search")) {
                 String searchWith = request.getParameter("txtSearch");
-                courseList = cs.search(searchWith);
+                if (searchWith == null || searchWith.isEmpty()) {
+                    request.setAttribute("message", "Search field cannot be empty");
+                } else {
+                    courseList = cs.search(searchWith);
+                    if (courseList.isEmpty()) {
+                        request.setAttribute("message", "No course found in the department");
+                    }
+                }
+                request.setAttribute("txtSearch", searchWith);
             }
         }
         request.setAttribute("courseList", courseList);

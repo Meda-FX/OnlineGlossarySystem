@@ -73,35 +73,28 @@ public class AdminManageUsersServlet extends HttpServlet {
             }
             if (action.equals("searchuser")) {
                 String txtSearch = request.getParameter("txtSearch");
-                String searchedBy = request.getParameter("searchedBy");
                 List<User> tempUserList = new ArrayList<>();
                 if (txtSearch == null || txtSearch.isEmpty()) {
-                    message = "Search field cannot be empty!";
+                    request.setAttribute("message", "Search field cannot be empty");
                 } else {
-                    if (searchedBy != null && searchedBy.equals("searchedname")) {
-                        for (User u : userList) {
-                            if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
-                                tempUserList.add(u);
-                            }
+                    for (User u : userList) {
+                        if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
+                            tempUserList.add(u);
                         }
-                        userList = tempUserList;
                     }
-                    if (searchedBy != null && searchedBy.equals("searchedId")) {
-                        for (User u : userList) {
-                            if (u.getID().contains(txtSearch)) {
-                                tempUserList.add(u);
-                            }
+                    for (User u : userList) {
+                        if (u.getID().contains(txtSearch)) {
+                            tempUserList.add(u);
                         }
-                        userList = tempUserList;
                     }
+                    userList = tempUserList;
 
                     request.setAttribute("txtSearch", txtSearch);
-                    request.setAttribute("searchedBy", searchedBy);
                 }
                 if (userList.isEmpty()) {
-                    message = "No such user in the list!";
+                    request.setAttribute("message", "No user found in the department");
                 }
-                request.setAttribute("message", message);
+
             }
         }
         request.setAttribute("userList", userList);

@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
             <form action="managecourses" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search courses" id="txtSearch" name="txtSearch"/>
+                    <input type="text" class="form-control" placeholder="Search courses" id="txtSearch" name="txtSearch" value="<c:out value="${txtSearch}"></c:out>"/>
                     <input type="hidden" name="action" value="search">
                     <div class="input-group-btn">
                         <button class="btn" type="submit">

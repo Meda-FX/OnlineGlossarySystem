@@ -18,10 +18,10 @@
                             <h2>REGISTRATION</h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="fname" id="firstname" placeholder="Enter Your First Name">
+                            <input type="text" class="form-control" name="fname" id="firstname" placeholder="Enter Your First Name" value="<c:out value="${fname}"></c:out>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="lname" id="lastname" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
+                            <input type="text" class="form-control" name="lname" id="lastname" aria-describedby="emailHelp" placeholder="Enter Your Last Name" value="<c:out value="${lname}"></c:out>">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" name="pass" id="exampleInputEmail1" aria-describedby="password" placeholder="Enter Your Password">
@@ -30,10 +30,10 @@
                             <input type="password" class="form-control" name="confirmPass" id="exampleInputEmail1" aria-describedby="confirmPassword" placeholder="Confirm Your Password">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
+                            <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email" value="<c:out value="${email}"></c:out>">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="studentId" class="form-control" id="studentid" placeholder="Student ID">
+                            <input type="password" name="studentId" class="form-control" id="studentid" placeholder="Student ID" value="<c:out value="${studentId}"></c:out>">
                         </div>
                         <div class="form-group">
                             <select name="department">
