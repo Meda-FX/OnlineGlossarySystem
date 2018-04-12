@@ -9,13 +9,10 @@ import business.domainClasses.AccountLog;
 import business.domainClasses.Department;
 import business.domainClasses.User;
 import business.serviceClasses.AccountLogService;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +58,6 @@ public class AdminReportServlet extends HttpServlet {
             }
         }
         getServletContext().getRequestDispatcher(url).forward(request, response);
-
     }
 
     @Override

@@ -5,32 +5,32 @@
         <!-- Alphabet buttons -->
         <div class="alphabets">
             <div class="btn-group btn-group-xs">
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=a">A</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=b">B</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=c">C</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=d">D</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=e">E</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=f">F</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=g">G</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=h">H</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=i">I</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=j">J</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=k">K</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=l">L</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=m">M</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=n">N</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=o">O</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=p">P</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=q">Q</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=r">R</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=s">S</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=t">T</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=u">U</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=v">V</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=w">W</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=x">X</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=y">Y</a></button>
-                <button class="btn btn-default"><a href="search?action=alphSearch&letter=z">Z</a></button>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=a">A</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=b">B</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=c">C</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=d">D</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=e">E</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=f">F</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=g">G</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=h">H</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=i">I</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=j">J</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=k">K</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=l">L</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=m">M</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=n">N</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=o">O</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=p">P</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=q">Q</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=r">R</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=s">S</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=t">T</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=u">U</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=v">V</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=w">W</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=x">X</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=y">Y</a>
+                <a class="btn btn-default" href="search?action=alphSearch&letter=z">Z</a>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
                 </div>
             </div>   
             <div>
-                <p class="message">${message}</p>   
+                <p class="message"><c:out value="${message}"/></p>   
             </div>
         </div>
     </div><!--Search ends here-->
@@ -107,9 +107,8 @@
             <div class="row">
                 <!--Left side of the search result starts here: Term title, instructor, citation and date created-->
                 <div class="col-xs-12 col-md-3">
-                    <h4>${definition.term}</h4>
-                    <p>Instructor: ${definition.writtenBy.name} </p>
-                    <p>Citation: ${definition.citation}</p>                     
+                    <h4><c:out value="${definition.term}" /></h4>
+                    <p>Instructor: <c:out value="${definition.writtenBy.name}" /></p>                   
                     <p>Date: <fmt:formatDate value="${definition.dateCreated}" pattern="yyyy-MM-dd" /></p>
                 </div><!--Left side of the search ends here-->
 
@@ -123,14 +122,14 @@
                         </c:if>
                         <h4>Term Definition</h4>
                         <div> 
-                            ${definition.content} <a class="readMore hide" href="#"> Read More </a>
+                            <c:out value="${definition.content}" /> <a class="readMore hide" href="#"> Read More </a>
                             <span class="readMoreContent">
                                 <div><h5>Citation</h5></div>
-                                <div>${definition.citation}</div>
+                                <div><c:out value="${definition.citation}" /></div>
                                 <div><h5>Dictionary Definition</h5></div>
-                                <div>${definition.dictionaryContent}</div>
+                                <div><c:out value="${definition.dictionaryContent}" /></div>
                                 <div><h5>Citation</h5></div>
-                                <div>${definition.dictionaryCitation}</div> 
+                                <div><c:out value="${definition.dictionaryCitation}" /></div> 
                                 <div><a class="readLess hide" href="#">Read Less</a></div>                                    
                             </span>
                         </div>

@@ -5,9 +5,9 @@
     <div calss="row"> 
         <h3>Daily Usage Report</h3>
         <hr>
-        <p> 
+<!--        <p> 
             The report provides an accurate plot of the daily selected activity between the selected dates.
-        </p>
+        </p>-->
         <form class="reportForm" action="report" method="GET">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
@@ -37,14 +37,17 @@
             </div>
             <br>
         </form>
+<br>
         <!-- Chart goes here -->
-        <div class="col-xs-12 col-md-12">
-            <h3> Report </h3>
-            <hr>
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+<!--            <h3> Report </h3>
+            <hr>-->
             <c:out value="${message}"></c:out>
                 <br>
                 <canvas id="canvas"></canvas>
             </div>
+            <br><br>
         </div>
+        
     </div> <!-- list items  -->
 <%@ include file="../includes/footer.jsp" %>
