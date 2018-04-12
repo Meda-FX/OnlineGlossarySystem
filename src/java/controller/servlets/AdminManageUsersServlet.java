@@ -77,12 +77,9 @@ public class AdminManageUsersServlet extends HttpServlet {
                     request.setAttribute("message", "Search field cannot be empty");
                 } else {
                     for (User u : userList) {
-                        if (u.getName().toLowerCase().contains(txtSearch.toLowerCase())) {
-                            tempUserList.add(u);
-                        }
-                    }
-                    for (User u : userList) {
-                        if (u.getID().contains(txtSearch)) {
+                        if (u.getName().toLowerCase().contains(txtSearch.toLowerCase()) ||
+                              u.getID().contains(txtSearch) ||
+                                u.getEmail().toLowerCase().contains(txtSearch.toLowerCase())) {
                             tempUserList.add(u);
                         }
                     }
