@@ -94,19 +94,22 @@ public class AdminManageUsersServlet extends HttpServlet {
                         }
                         userList = tempUserList;
                     }
-                    
+
                     request.setAttribute("txtSearch", txtSearch);
                     request.setAttribute("searchedBy", searchedBy);
                 }
-                if(userList.isEmpty()) message="No such user in the list!";
+                if (userList.isEmpty()) {
+                    message = "No such user in the list!";
+                }
                 request.setAttribute("message", message);
             }
         }
         request.setAttribute("userList", userList);
-        String sessionUserID = (String)session.getAttribute("sessionSelectedUserID");
-        if (sessionUserID != null && !sessionUserID.isEmpty())
+        String sessionUserID = (String) session.getAttribute("sessionSelectedUserID");
+        if (sessionUserID != null && !sessionUserID.isEmpty()) {
             session.removeAttribute("sessionSelectedUserID");
-        
+        }
+
         getServletContext().getRequestDispatcher("/WEB-INF/_admin/admin_manage_users.jsp").forward(request, response);
 
         String msg = (String) session.getAttribute("message");
@@ -128,7 +131,7 @@ public class AdminManageUsersServlet extends HttpServlet {
             us.delete(selectedUserID);
             session.setAttribute("message", "User deleted");
         } else if (action != null && action.equals("manage")) {
-            String sessionSelectedUserID = (String)session.getAttribute("sessionSelectedUserID");
+            String sessionSelectedUserID = (String) session.getAttribute("sessionSelectedUserID");
             Department department = currentUser.getDepartment();
             String name = request.getParameter("userName");
             String email = request.getParameter("email");
@@ -157,7 +160,6 @@ public class AdminManageUsersServlet extends HttpServlet {
                 return;
             }
 
-            
             if (sessionSelectedUserID != null && sessionSelectedUserID.equals(id)) {
                 User user = us.get(id);
                 if (request.getParameter("status").equals("active")) {
@@ -172,9 +174,9 @@ public class AdminManageUsersServlet extends HttpServlet {
                 user.getPrivileges().setPrivileges(privilegeList);
                 us.update(user);
                 us.reloadPrivileges(user);
-                session.setAttribute("message", "User removed");
+                session.setAttribute("message", "User updated successfully");
             } else {
-                
+
                 if (!id.matches("\\d{9}")) {
                     session.setAttribute("message", "Please use valid 9-digit SAIT ID");
                     response.sendRedirect("manageusers");
@@ -187,17 +189,16 @@ public class AdminManageUsersServlet extends HttpServlet {
                     return;
                 }
                 try {
-                User user = new User();
-                user.setDepartment(department);
-                user.setEmail(email);
-                user.setIsActivated(active);
-                user.setName(name);
-                user.getPrivileges().setPrivileges(privilegeList);
-                user.setID(id);
-                user.setPassword(HashingUtil.hash(id));
-                us.insert(user);
+                    User user = new User();
+                    user.setDepartment(department);
+                    user.setEmail(email);
+                    user.setIsActivated(active);
+                    user.setName(name);
+                    user.getPrivileges().setPrivileges(privilegeList);
+                    user.setID(id);
+                    user.setPassword(HashingUtil.hash(id));
+                    us.insert(user);
 
-                
                     AccountRequestService ars = new AccountRequestService();
                     String token = ars.insert(user, 1);
 

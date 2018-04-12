@@ -5,22 +5,12 @@
  */
 package controller.servlets;
 
-import business.domainClasses.AccountLog;
 import business.domainClasses.Course;
 import business.domainClasses.Department;
-import business.domainClasses.Privilege;
 import business.domainClasses.User;
-import business.serviceClasses.AccountLogService;
-import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.CourseService;
-import business.serviceClasses.PrivilegeService;
-import business.serviceClasses.UserService;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utility.WebMailUtil;
 
 /**
  *
