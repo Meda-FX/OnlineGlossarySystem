@@ -1,7 +1,7 @@
 <%@ include file="../includes/header.jsp" %>  
 <div id="top-page"></div>
 <div class="container list-terms"> 
-    <div id="crud">
+    <div id="crud" class="hide">
         <h1>Manage Users</h1>
         <form action="manageusers" method="POST" id="form" >
             <div class="form-group">
@@ -55,10 +55,6 @@
                         </button>
                     </div>                    
                 </div> 
-                <div class="input-group">
-                    <input type="radio" id="searchedname" name="searchedBy" value="searchedname" <c:if test="${searchedBy==null||searchedBy=='searchedname'}">checked </c:if>> ByName
-                    <input type="radio" id="searchedId" name="searchedBy" value="searchedId" <c:if test="${searchedBy=='searchedId'}">checked </c:if>> ById
-                    </div>
                 </form>
                 <br>
                 <div>

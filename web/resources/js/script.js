@@ -1,5 +1,31 @@
 $(document).ready(function () {
 
+    //CRUD hide and show script
+    $("#crud").hide();
+    $("#crud").removeClass("hide"); //This is used to remove the FOOC, same in Manage Course
+    $(".hideFormTerm").click(function () {
+        $("#crud").hide(1000);
+    });
+    $(".addTerms").click(function () {
+        $("#crud").show(1000);
+    });
+    
+    //Manage Course inside users account
+    $("#userCoursesManager").hide();
+    $("#userCoursesManager").removeClass("hide");
+    $(".closeManageUsers").hide();
+    $(".closeManageUsers").removeClass("hide");
+    $(".closeManageUsers").click(function () {
+        $("#userCoursesManager").hide(1000);
+        $(".manageUsers").show(1000);
+        $(".closeManageUsers").hide(1000);
+    });
+    $(".manageUsers").click(function () {
+        $("#userCoursesManager").show(500);
+        $(".manageUsers").hide(500);
+        $(".closeManageUsers").show(500);
+    });
+
     $("#end").prop("max", moment().format("YYYY-MM-DD"));
     $("#start").prop("max", moment().format("YYYY-MM-DD"));
 
@@ -115,29 +141,6 @@ $(document).ready(function () {
         $("#defDefinition").val("");
         $("#dicCitation").val("");
         $("#courseCode").val("");
-    });
-
-    //CRUD hide and show script
-    $("#crud").hide();
-    $(".hideFormTerm").click(function () {
-        $("#crud").hide(1000);
-    });
-    $(".addTerms").click(function () {
-        $("#crud").show(1000);
-    });
-    
-    //Manage Course inside users account
-    $("#userCursesManager").hide();
-    $(".closeManageUsers").hide();
-    $(".closeManageUsers").click(function () {
-        $("#userCursesManager").hide(1000);
-        $(".manageUsers").show(1000);
-         $(".closeManageUsers").hide(1000);
-    });
-    $(".manageUsers").click(function () {
-        $("#userCursesManager").show(500);
-        $(".manageUsers").hide(500);
-        $(".closeManageUsers").show(500);
     });
 
     //Read More and Read Less script

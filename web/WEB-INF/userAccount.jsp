@@ -44,13 +44,13 @@
             <button type="button" class="btn navbar-left manageUsers">Manage Your Course</button>
         </div>
          <div>
-            <button type="button" class="btn navbar-left closeManageUsers">Hide Manage Your Course</button>
+            <button type="button" class="btn navbar-left closeManageUsers hide">Hide Manage Your Course</button>
         </div>
     </div>
     
     
     <br>
-    <div class="row" id="userCursesManager">
+    <div class="row hide" id="userCoursesManager">
         <div class="col-md-4">
             <h3>Eligible Course</h3>
             <form action="user" method="POST">  

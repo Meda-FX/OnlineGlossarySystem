@@ -46,7 +46,6 @@ public class AdminManageUsersServlet extends HttpServlet {
         Department department = user.getDepartment();
         UserService us = new UserService();
         String action = request.getParameter("action");
-        String message = "";
         PrivilegeService ps = new PrivilegeService();
         List<Privilege> privilegeList = ps.getAll();
         request.setAttribute("privilegeList", privilegeList);
@@ -94,7 +93,6 @@ public class AdminManageUsersServlet extends HttpServlet {
                 if (userList.isEmpty()) {
                     request.setAttribute("message", "No user found in the department");
                 }
-
             }
         }
         request.setAttribute("userList", userList);

@@ -1,7 +1,7 @@
 <%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms"> 
-    <div id="crud">
+    <div id="crud" class="hide">
         <h1>Manage Courses</h1>
         <form action="managecourses" method="POST" id="form" >
             <div class="form-group">
