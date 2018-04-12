@@ -2,7 +2,7 @@
 <%@ include file="../includes/header.jsp" %>   
 
 <div class="container list-terms"> 
-    <div id="crud">
+    <div id="crud" class="hide">
         <form action="instructor" method="post">
             <h1>Add Terms</h1>    
             <input type="text" hidden id="termId" name="defId" value="${termId}" readonly="">

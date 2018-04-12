@@ -198,7 +198,6 @@ $(document).ready(function () {
             } else {
                 timescale = 'year';
             }
-
             var chart = new Chart($('#canvas'), {
                 type: 'line',
                 data: {

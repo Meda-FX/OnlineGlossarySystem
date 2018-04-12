@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container list-terms"> 
-    <div id="crud">
+    <div id="crud" class="hide">
         <h1>Edit Terms</h1>
         <form action="editorpending" method="POST" id="form" >
             <div class="form-group">
