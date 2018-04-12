@@ -21,6 +21,8 @@ $(document).ready(function () {
             $("#dicCitation").val(responseJson.dictionaryCitation);
         });
         event.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     });
 
 
@@ -45,6 +47,8 @@ $(document).ready(function () {
             });
         });
         event.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     });
     
     $(".editCourses").submit(function (event) {
@@ -54,6 +58,8 @@ $(document).ready(function () {
             $("#courseName").val(responseJson.courseName);
         });
         event.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     });
 
     $(".editInstructorForm").submit(function (event) {
@@ -76,6 +82,8 @@ $(document).ready(function () {
     //        $("#courseCode").val(responseJson.course.courseCode);           
         });
         event.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     });
 
     $(".newUser").click(function () {

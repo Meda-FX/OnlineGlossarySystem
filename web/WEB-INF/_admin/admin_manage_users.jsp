@@ -102,10 +102,9 @@
                 <td>     
                     <form class="editUsers" action="manageusers" method="GET">  
                         <input type="hidden" name="action" value="view">
-                         <input type="hidden" name="selectedID" value="${users.ID}"> 
-                        <a href='#top-page'>
-                        <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
-                        </a>
+                         <input type="hidden" name="selectedID" value="${users.ID}">                         
+                        <input id="goTop" class="btn fa-input addTerms" type="submit" value="&#xf040"> 
+                        
                     </form>
                 </td>
             </tr>
