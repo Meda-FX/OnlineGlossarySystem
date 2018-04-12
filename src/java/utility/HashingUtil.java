@@ -12,10 +12,18 @@ import java.util.Base64;
 import java.util.Random;
 
 /**
- *
- * @author 727153
+ * HashingUtil is to provide hashing function on password
+ * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
+ * @version 0.1.2
  */
 public class HashingUtil {
+    /**
+     * The hash method is to hash the input string using SHA-256
+     * 
+     * @param toHash a string that needs to hasd
+     * @return 
+     * @throws NoSuchAlgorithmException 
+     */
     public static String hash(String toHash)
             throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -32,7 +40,10 @@ public class HashingUtil {
         }
         return sb.toString();
     }
-
+/**
+ * 
+ * @return 
+ */
     public static String getSalt() {
         Random r = new SecureRandom();
         byte[] saltBytes = new byte[32];
