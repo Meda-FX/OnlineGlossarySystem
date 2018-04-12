@@ -47,8 +47,8 @@
         <div class="col-xs-12 col-sm-10 col-md-6 col-md-offset-3 col-sm-offset-1">
             <form action="manageusers" method="GET">    
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" name="txtSearch" value="${txtSearch}"/>
-                    <input type="hidden" name="action" value="searchuser">                   
+                    <input type="text" class="form-control" placeholder="Search with name or ID" id="txtSearch" name="txtSearch" value="${txtSearch}"/>
+                    <input type="hidden" name="action" value="searchuser">
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
