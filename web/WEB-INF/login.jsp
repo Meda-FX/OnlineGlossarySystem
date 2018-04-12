@@ -32,18 +32,20 @@
                             <button class="login-button" type="submit" >Login</button>
                         </div>
                         <hr>
+                        <div class="col-md-8 col-md-offset-2">
                         <label>
-                            <p id="regis-home_login">
+                            <p>
                                 <a id="login-footer-link" href="search"><span class="glyphicon glyphicon-home"></span>   Home</a>
                             </p>
                         </label>  
                         <label>|</label>  
                         <label>
-                            <p id="regis-reset-login">			        
+                            <p>			        
                                 <a id="login-footer-link" href="forgetpassword">   Reset Password</a>
                             </p>
                         </label>                       
-
+                        </div>
+                        <br>
                     </form>  
                 </div>
             </div>
