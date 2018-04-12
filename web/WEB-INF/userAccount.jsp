@@ -62,9 +62,9 @@
                         </div>
                 </c:forEach>      
                 <input type="hidden" name="action" value="addCourse">
-                <input type="submit" value="Add Course">
+                <input class="btn" type="submit" value="Update Course">
             </form>
-        </div>
+        </div>      
         <div class="col-md-8">
             <h3>Registered In</h3>
             <table class="table table-hover">
@@ -87,5 +87,5 @@
     </div>
     </c:if>
 </div> <!-- list items  -->
-
+<br><br>
 <%@ include file="includes/footer.jsp" %>

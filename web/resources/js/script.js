@@ -193,7 +193,7 @@ $(document).ready(function () {
                 data: {
                     datasets: [{
                             data: data,
-                            borderColor: '#da291c',
+                            borderColor: '#005eb8',
                             fill: false
                         }]
                 },

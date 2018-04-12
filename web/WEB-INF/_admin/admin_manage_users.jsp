@@ -1,5 +1,5 @@
 <%@ include file="../includes/header.jsp" %>  
-
+<div id="top-page"></div>
 <div class="container list-terms"> 
     <div id="crud">
         <h1>Manage Users</h1>
@@ -48,18 +48,21 @@
             <form action="manageusers" method="GET">    
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search terms" id="txtSearch" name="txtSearch" value="${txtSearch}"/>
-                    <input type="hidden" name="action" value="searchuser">
-                    <input type="radio" id="searchedname" name="searchedBy" value="searchedname" <c:if test="${searchedBy==null||searchedBy=='searchedname'}">checked </c:if>> ByName
-                        <input type="radio" id="searchedId" name="searchedBy" value="searchedId" <c:if test="${searchedBy=='searchedId'}">checked </c:if>> ById
+                    <input type="hidden" name="action" value="searchuser">                   
                     <div class="input-group-btn">
                         <button class="btn" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
+                    </div>                    
+                </div> 
+                <div class="input-group">
+                    <input type="radio" id="searchedname" name="searchedBy" value="searchedname" <c:if test="${searchedBy==null||searchedBy=='searchedname'}">checked </c:if>> ByName
+                    <input type="radio" id="searchedId" name="searchedBy" value="searchedId" <c:if test="${searchedBy=='searchedId'}">checked </c:if>> ById
                     </div>
-                </div>   
-            </form>
-            <div>
-                <p class="message"><c:out value="${message}" /></p>   
+                </form>
+                <br>
+                <div>
+                    <p class="message"><c:out value="${message}" /></p>   
             </div>
         </div>
     </div><!--Search ends here-->
@@ -97,10 +100,12 @@
                     </form>
                 </td>
                 <td>     
-                    <form class="editUsers" action="manageusers" method="GET">                             
+                    <form class="editUsers" action="manageusers" method="GET">  
                         <input type="hidden" name="action" value="view">
-                        <input type="hidden" name="selectedID" value="${users.ID}">
+                         <input type="hidden" name="selectedID" value="${users.ID}"> 
+                        <a href='#top-page'>
                         <input class="btn fa-input addTerms" type="submit" value="&#xf040"> 
+                        </a>
                     </form>
                 </td>
             </tr>
