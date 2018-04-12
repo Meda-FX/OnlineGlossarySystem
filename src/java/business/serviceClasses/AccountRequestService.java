@@ -2,9 +2,7 @@ package business.serviceClasses;
 
 import business.domainClasses.AccountRequest;
 import business.domainClasses.User;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

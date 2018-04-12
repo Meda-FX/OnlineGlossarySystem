@@ -197,10 +197,15 @@ public class DepartmentBroker extends Broker{
         }
         return dept;
     }
-
+/**
+ * getByUserID method used to get the department information for a user
+ * 
+ * @param user represents the target user searching for department
+ * @return department for a user
+ */
     public Department getByUserID(User user) {
         
-                ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
         Department deptObject = null;

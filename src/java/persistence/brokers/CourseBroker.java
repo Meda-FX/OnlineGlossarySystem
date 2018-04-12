@@ -1,10 +1,7 @@
 package persistence.brokers;
 
 import business.domainClasses.Course;
-import business.domainClasses.CourseList;
 import business.domainClasses.Department;
-import business.domainClasses.Privilege;
-import business.domainClasses.PrivilegeList;
 import business.domainClasses.User;
 import business.serviceClasses.DepartmentService;
 import java.sql.Connection;
@@ -63,8 +60,8 @@ public class CourseBroker extends Broker {
             Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
@@ -136,9 +133,6 @@ public class CourseBroker extends Broker {
 
         PreparedStatement ps = null;
         Course course = (Course) object;
-        //int dept_id = 0;
-
-        //String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[course] WHERE [GlossaryDataBase].[dbo].[course].department_id = ?;";
         String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[course] (course_code, department_id, course_name) VALUES (?,?,?);";
 
         try {
@@ -154,15 +148,14 @@ public class CourseBroker extends Broker {
             return 0;
         } finally {
             try {
-                ps.close();
+               if(ps != null)  ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
 
         return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+         }
 
     @Override
     public int delete(Object object) {
@@ -183,15 +176,14 @@ public class CourseBroker extends Broker {
             return 0;
         } finally {
             try {
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
 
         return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+           }
 
     @Override
     public int update(Object object) {
@@ -219,14 +211,13 @@ public class CourseBroker extends Broker {
             return 0;
         } finally {
             try {
-                ps.close();
+              if(ps != null)  ps.close();
             } catch (SQLException ex) {
             }
             pool.freeConnection(connection);
         }
         return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+      }
 
     @Override
     public List<Object> getAll() {
@@ -267,7 +258,12 @@ public class CourseBroker extends Broker {
         return courses;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+/**
+ * getByUser method used to get all the courses selected by a user
+ * 
+ * @param user represents the user to get the course
+ * @return a course list for the user
+ */
     public ArrayList<Course> getByUser(User user) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -317,7 +313,13 @@ public class CourseBroker extends Broker {
         return courseList;
 
     }
-
+/**
+ * search method is to all the courses that partially matches the input with 
+ * course code or course name
+ * 
+ * @param searchWith the text needs to search with
+ * @return a list course fulfill requirements
+ */
     public List<Course> search(String searchWith) {
 ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

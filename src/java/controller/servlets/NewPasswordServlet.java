@@ -9,7 +9,6 @@ import business.domainClasses.User;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

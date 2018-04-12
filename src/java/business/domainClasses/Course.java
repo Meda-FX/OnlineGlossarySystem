@@ -9,7 +9,9 @@ public class Course {
     private String courseCode;
     private String courseName;
     private Department department;
-
+/**
+ * Default constructor for Course
+ */
     public Course() {
     }
     

@@ -14,7 +14,6 @@ import business.serviceClasses.DefinitionService;
 import business.serviceClasses.GlossaryEntryService;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import persistence.brokers.GlossaryEntryBroker;
 
 /**
  * Receive and response to requests from web client for instructor page

@@ -5,7 +5,6 @@
  */
 package business.serviceClasses;
 
-import business.domainClasses.Definition;
 import business.domainClasses.Department;
 import business.domainClasses.User;
 import java.util.ArrayList;
@@ -13,16 +12,25 @@ import java.util.List;
 import persistence.brokers.DepartmentBroker;
 
 /**
+ * DepartmentService class uses to access data from the database by utilizing the
+ * DepartmentBroker.
  *
- * @author 727153
+ * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
+ * @version 0.1
  */
 public class DepartmentService {
     private DepartmentBroker db;
-
+    /**
+     * Constructs a Department service object
+     */
     public DepartmentService() {
         db = new DepartmentBroker();
     }
-    
+    /**
+     * getAll method used to get all Departments
+     *
+     * @return a list of Departments
+     */
     public List<Department> getAll() {
         List<Object> objectList = db.getAll();
         List<Department> departmentList = new ArrayList<Department>();

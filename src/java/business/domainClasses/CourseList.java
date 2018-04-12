@@ -1,7 +1,5 @@
 package business.domainClasses;
 
-import business.serviceClasses.CourseService;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,11 +59,17 @@ public class CourseList {
        }
        return false;
     }
-
+/**
+ * set a list of course
+ * @param courses  a list of course to be set
+ */
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
-
+/**
+ * the reload method used update the course list
+ * @param selectedCourse the course list used to replace the old list
+ */
     public void reload(String[] selectedCourse) {
         //Tools | Templates.
         List<Course> courselist = new ArrayList<>();

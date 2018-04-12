@@ -20,8 +20,8 @@ public class HashingUtil {
     /**
      * The hash method is to hash the input string using SHA-256
      * 
-     * @param toHash a string that needs to hasd
-     * @return 
+     * @param toHash a string that needs to be hashed
+     * @return a string after hashing from input string
      * @throws NoSuchAlgorithmException 
      */
     public static String hash(String toHash)
@@ -41,8 +41,10 @@ public class HashingUtil {
         return sb.toString();
     }
 /**
+ * The getSalt method is to add a salt to the hash string 
+ * in order to enhance security level
  * 
- * @return 
+ * @return a random string as salt
  */
     public static String getSalt() {
         Random r = new SecureRandom();

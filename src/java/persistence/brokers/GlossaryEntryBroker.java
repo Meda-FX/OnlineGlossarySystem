@@ -75,36 +75,12 @@ public class GlossaryEntryBroker extends Broker {
         Connection connection = pool.getConnection();
 
         GlossaryEntry ge = (GlossaryEntry) object;
-//        boolean check = true;
-
-//        String user_id = null;
-//        String password = null;
-//        int department_id = 0;
-//        String name = null;
-//        String email = null;
-//        int activated = 0;
-//        
-//        String glossary_entry = null;
-//        Date date_added = null;
-//        String made_by = null;
-//        
-//        int definition_uid = 0;
-//	  String geGlossary_entry = null;  
-//        String definition = null;
-//	  Date date_created = null;
-//	  String citation = null;
-//	  String geMade_by = null;
-//	  String course_code = null;
-//	  char type = 'x';
-//        String selectSQL = "SELECT * FROM [GlossaryDataBase].[dbo].[glossary_entry], [GlossaryDataBase].[dbo].[user], [GlossaryDataBase].[dbo].[definition] WHERE [GlossaryDataBase].[dbo].[user].user_id = [GlossaryDataBase].[dbo].[definition].made_by AND [GlossaryDataBase].[dbo].[user].user_id = [GlossaryDataBase].[dbo].[glossary_entry].made_by;";
         String selectSQL = "INSERT INTO [GlossaryDataBase].[dbo].[glossary_entry] (glossary_entry, date_added, made_by) VALUES (?,?,?);";
         PreparedStatement ps = null;
         //ResultSet rs = null;
 
         try {
-            //ps = connection.prepareStatement(selectSQL);
-            //rs = ps.executeQuery();
-
+  
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, ge.getTerm());
             ps.setTimestamp(2, new Timestamp(ge.getDateCreated().getTime()));
@@ -126,9 +102,7 @@ public class GlossaryEntryBroker extends Broker {
             pool.freeConnection(connection);
         }
         return 0;
-        //return 1;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  }
 
     @Override
     public int delete(Object object) {
@@ -143,24 +117,14 @@ public class GlossaryEntryBroker extends Broker {
     @Override
     public List<Object> getAll() {
 
-//        try{ 
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GlossaryEntryBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-//        } finally {
-//            try {
-//                rs.close();
-//                ps.close();
-//            } catch (SQLException ex) {
-//            }
-//            pool.freeConnection(connection);
-//        }
-//        
-//        
-//        return (List<Object>) list;
         return null;
     }
-
+/**
+ * getMatched method used to all terms contain input term in it.
+ * 
+ * @param term needs to be checked in DB that any terms contain it
+ * @return a term list with all required term
+ */
     public List<GlossaryEntry> getMatched(String term) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -276,7 +240,12 @@ public class GlossaryEntryBroker extends Broker {
         }
         return terms;
     }
-
+/**
+ * getByUser method used to get all the terms created by a user using user id
+ * 
+ * @param userID is the ID of the user 
+ * @return a term list with all the term created by the user
+ */
     public List<GlossaryEntry> getByUser(String userID) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -351,7 +320,12 @@ public class GlossaryEntryBroker extends Broker {
         }
         return terms;
     }
-
+/**
+ * getByAlpha method used to get a list of terms starts with particular letter
+ * 
+ * @param letter the particular letter from A-Z 
+ * @return a term list of terms started with the letter
+ */
     public ArrayList<GlossaryEntry> getByAlpha(String letter) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

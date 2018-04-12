@@ -105,7 +105,7 @@ public class AccountRequestBroker extends Broker {
             
         } finally {
             try {
-                ps.close();
+               if(ps != null) ps.close();
             } catch (SQLException ex){
                 
             }
@@ -137,7 +137,7 @@ public class AccountRequestBroker extends Broker {
             
         } finally {
             try {
-                ps.close();
+               if(ps != null) ps.close();
             } catch (SQLException ex){
                 
             }
@@ -179,7 +179,7 @@ public class AccountRequestBroker extends Broker {
             
         } finally {
             try {
-                ps.close();
+               if(ps != null) ps.close();
             } catch (SQLException ex){
                 
             }
@@ -231,8 +231,8 @@ public class AccountRequestBroker extends Broker {
             Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot read account requests", e);
         } finally {
             try {
-                rs.close();
-                ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
@@ -283,15 +283,21 @@ public class AccountRequestBroker extends Broker {
             Logger.getLogger(AccountRequestBroker.class.getName()).log(Level.SEVERE, "Cannot read account requests", e);
         } finally {
             try {
-                rs.close();
-                ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
         }
         return accountRequestList;
     }
-
+/**
+ * removeOldRequest method used to remove unnecessary request by id and type
+ * 
+ * @param id represents the id of a request
+ * @param requestType represents the type of a request
+ * @return if remove successfully, return 1. else return 0
+ */
     public int removeOldRequest(String id, int requestType) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

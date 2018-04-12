@@ -6,25 +6,17 @@
 package controller.servlets;
 
 import business.domainClasses.Course;
-import business.domainClasses.CourseList;
 import business.domainClasses.Department;
-import business.domainClasses.Privilege;
-import business.domainClasses.PrivilegeList;
 import business.domainClasses.User;
 import business.serviceClasses.CourseService;
-import business.serviceClasses.PrivilegeService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import persistence.brokers.CourseBroker;
-import persistence.brokers.DepartmentBroker;
-import persistence.brokers.PrivilegeBroker;
 
 /**
  * Receive and response to requests from web client for user account page 

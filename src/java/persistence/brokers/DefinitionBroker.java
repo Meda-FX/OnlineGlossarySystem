@@ -31,23 +31,11 @@ public class DefinitionBroker extends Broker {
     /**
      * The getById method returns a definition related to the user's ID.
      *
-     * @param did represents the definition_id column in the course table in the database.
+     * @param did represents the definition_id column in the course table in the
+     * database.
      * @return a definition of a term
      */
     public Definition getByID(int did) {
-        /*
-        definition_uid int IDENTITY(1,1) PRIMARY KEY, 
-	glossary_entry varchar (40) NOT NULL,   
-        definition varchar (500) NOT NULL,
-        dictionary_definition varchar(500) NOT NULL,
-	date_created datetime NOT NULL,
-	citation varchar(100) ,
-	activated bit NOT NULL,
-        dictionary_citation varchar(100)NOT NULL,
-	made_by Varchar(20) NOT NULL,
-	course_code varchar (20
-         */
-
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         //  ArrayList<Definition> delist = new ArrayList<>();
@@ -69,10 +57,6 @@ public class DefinitionBroker extends Broker {
 
         String selectSQL = "SELECT * "
                 + "from [GlossaryDatabase].[dbo].[definition] "
-                //+ "join [GlossaryDatabase].[dbo].[course] "
-                //+ "on (definition.course_code=course.course_code) "
-                //+ "join [GlossaryDatabase].[dbo].[user] "
-                //+ "on (definition.made_by=[dbo].[user].[user_id]) "
                 + "where definition_uid = ?";
 
         PreparedStatement ps = null;
@@ -98,8 +82,7 @@ public class DefinitionBroker extends Broker {
                 //course_name = rs.getString("course_name");
                 course = new Course();
                 course.setCourseCode(courseId);
-                //course.setCourseName(course_name);
-                // definition = new definition(user,)
+
                 definition = new Definition(did, user, newDate, citation, dictionaryCitation,
                         course, content, dictionaryContent, term, status);
             }
@@ -211,7 +194,7 @@ public class DefinitionBroker extends Broker {
         ArrayList<Definition> delist = new ArrayList<>();
 
         Definition definition = null;
-        
+
         //  Course course;
         User user = null;
         Course course = null;
@@ -297,8 +280,9 @@ public class DefinitionBroker extends Broker {
     }
 
     /**
-     * The getByUser method returns a list of definitions related to the user.
-     *As well as the courses coralated within the 
+     * The getByUserAndCourse method returns a list of definitions related to the user.
+
+     *
      * @param user represents the account in the user table in the database.
      * @return a list of definitions by user.
      */
@@ -332,7 +316,7 @@ public class DefinitionBroker extends Broker {
 
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setString(1,user.getID());
+            ps.setString(1, user.getID());
             rs = ps.executeQuery();
             while (rs.next()) {
                 definitionID = rs.getInt("definition_uid");
@@ -508,10 +492,10 @@ public class DefinitionBroker extends Broker {
             ps.setString(3, definition.getCitation());
             ps.setString(4, definition.getDictionaryCitation());
             ps.setString(5, definition.getStatus());
-            
+
             ps.setString(6, definition.getWrittenBy().getID());
-            ps.setString(7,definition.getCourse().getCourseCode());
-            
+            ps.setString(7, definition.getCourse().getCourseCode());
+
             ps.setInt(8, definition.getDefinitionID());
 
             affectRows = ps.executeUpdate();
@@ -523,7 +507,9 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to update definition", ex);
         } finally {
             try {
-                if(ps != null)ps.close();
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
 
             }
@@ -624,13 +610,12 @@ public class DefinitionBroker extends Broker {
             ps.setString(1, definition.getTerm());
             ps.setString(2, definition.getContent());
             ps.setString(3, definition.getDictionaryContent());
-            ps.setTimestamp(4,date);
+            ps.setTimestamp(4, date);
             ps.setString(5, definition.getCitation());
             ps.setString(6, definition.getStatus());
             ps.setString(7, definition.getDictionaryCitation());
             ps.setString(8, definition.getWrittenBy().getID());
             ps.setString(9, definition.getCourse().getCourseCode());
-            
 
             affectRows = ps.executeUpdate();
             // may need to update the definition edit log
@@ -641,7 +626,9 @@ public class DefinitionBroker extends Broker {
             Logger.getLogger(DefinitionBroker.class.getName()).log(Level.SEVERE, "Fail to insert definition", ex);
         } finally {
             try {
-                if(ps != null) ps.close();
+                if (ps != null) {
+                    ps.close();
+                }
             } catch (SQLException ex) {
 
             }
@@ -651,6 +638,17 @@ public class DefinitionBroker extends Broker {
         return 0;
     }
 
+    /**
+     * getByDepartmentFilterByTCU method used to get a term list under a
+     * particular department which may filtered by searched text, course and
+     * instructor/user
+     *
+     * @param department represents department to search
+     * @param txtSearch represents the text to filter
+     * @param courseCode represents the course code of a course to filter
+     * @param userId represents the user ID of a user to filter
+     * @return a list of definition fulfill the requirements
+     */
     public List<Definition> getByDepartmentFilterByTCU(Department department, String txtSearch, String courseCode, String userId) {
         //need to rewrite
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -689,19 +687,23 @@ public class DefinitionBroker extends Broker {
                 + "AND [GlossaryDataBase].[dbo].[definition].glossary_entry LIKE ? "
                 + "AND [GlossaryDataBase].[dbo].[course].course_code LIKE ? "
                 + "AND [GlossaryDataBase].[dbo].[user].user_id LIKE ?";
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
-        if(courseCode.equals("")) courseCode="%";
-        if(userId.equals("")) userId="%";
-        txtSearch = "%"+txtSearch+"%";
+        if (courseCode.equals("")) {
+            courseCode = "%";
+        }
+        if (userId.equals("")) {
+            userId = "%";
+        }
+        txtSearch = "%" + txtSearch + "%";
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setInt(1, department.getDepartmentID());
             ps.setString(2, txtSearch);
             ps.setString(3, courseCode);
             ps.setString(4, userId);
-         //  if(courseCode != null && courseCode.equals("")) 
+            //  if(courseCode != null && courseCode.equals("")) 
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -750,8 +752,16 @@ public class DefinitionBroker extends Broker {
         return delist;
     }
 
+    /**
+     * getMatchedFilterByDepart method used to all matched term which means a
+     * term contains input term under a particular department
+     *
+     * @param searchEntry represents the text to search
+     * @param deptId represents the id of the department to filter
+     * @return a list of definition fulfill the requirements
+     */
     public List<Definition> getMatchedFilterByDepart(String searchEntry, int deptId) {
-          
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();
@@ -787,19 +797,16 @@ public class DefinitionBroker extends Broker {
                 + "on ([GlossaryDataBase].[dbo].[department].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
                 + "where [GlossaryDataBase].[dbo].[department].department_id = ? "
                 + "AND [GlossaryDataBase].[dbo].[definition].glossary_entry LIKE ? ";
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 //        if(courseCode.equals("")) courseCode="%";
 //        if(userId.equals("")) userId="%";
-        searchEntry = "%"+searchEntry+"%";
+        searchEntry = "%" + searchEntry + "%";
         try {
             ps = connection.prepareStatement(selectSQL);
-            ps.setInt(1,deptId);
+            ps.setInt(1, deptId);
             ps.setString(2, searchEntry);
-//            ps.setString(3, courseCode);
-//            ps.setString(4, userId);
-         //  if(courseCode != null && courseCode.equals("")) 
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -822,7 +829,7 @@ public class DefinitionBroker extends Broker {
                 course_name = rs.getString("course_name");
                 course.setCourseCode(course_code);
                 course.setCourseName(course_name);
-                
+
                 course.setDepartment(department);
                 // definition = new definition(user,)
                 definition = new Definition(definitionID, user, newDate, citation,
@@ -849,8 +856,17 @@ public class DefinitionBroker extends Broker {
         return delist;
     }
 
+    /**
+     * getMatchedFilterByCU method used to get a term list which may filtered by
+     * searched text, course and instructor/user
+     *
+     * @param searchedEntry represents the text to filter
+     * @param courseCode represents the course code of a course to filter
+     * @param userId represents the user ID of a user to filter
+     * @return a list of definition fulfill the requirements
+     */
     public ArrayList<Definition> getMatchedFilterByCU(String searchedEntry, String courseCode, String userId) {
-      
+
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();
@@ -875,7 +891,7 @@ public class DefinitionBroker extends Broker {
         java.util.Date newDate;
         String dictionaryContent;
         String dictionaryCitation;
-     //   String userExpress = userId.isEmpty()?"":"AND [GlossaryDataBase].[dbo].[user].user_id = ? ";
+        //   String userExpress = userId.isEmpty()?"":"AND [GlossaryDataBase].[dbo].[user].user_id = ? ";
 
         String selectSQL = "SELECT * "
                 + "from [GlossaryDataBase].[dbo].[definition] "
@@ -886,21 +902,27 @@ public class DefinitionBroker extends Broker {
                 + "join [GlossaryDataBase].[dbo].[department] "
                 + "on ([GlossaryDataBase].[dbo].[department].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
                 + "WHERE [GlossaryDataBase].[dbo].[definition].glossary_entry LIKE ? "
-                +  (userId.isEmpty()?"":"AND [GlossaryDataBase].[dbo].[user].user_id = ? ")
-                 + (courseCode.isEmpty()?"":"AND [GlossaryDataBase].[dbo].[course].course_code = ? ");
-        
+                + (userId.isEmpty() ? "" : "AND [GlossaryDataBase].[dbo].[user].user_id = ? ")
+                + (courseCode.isEmpty() ? "" : "AND [GlossaryDataBase].[dbo].[course].course_code = ? ");
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 //        if(courseCode.equals("")) courseCode="%";
 //        if(userId.equals("")) userId="%";
-        searchedEntry = "%"+searchedEntry+"%";
+        searchedEntry = "%" + searchedEntry + "%";
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, searchedEntry);
-         if(!userId.isEmpty()) ps.setString(2, userId);
-          if(!courseCode.isEmpty()&&!userId.isEmpty()) ps.setString(3, courseCode);
-          if(!courseCode.isEmpty()&&userId.isEmpty()) ps.setString(2, courseCode);
-         //  if(courseCode != null && courseCode.equals("")) 
+            if (!userId.isEmpty()) {
+                ps.setString(2, userId);
+            }
+            if (!courseCode.isEmpty() && !userId.isEmpty()) {
+                ps.setString(3, courseCode);
+            }
+            if (!courseCode.isEmpty() && userId.isEmpty()) {
+                ps.setString(2, courseCode);
+            }
+            //  if(courseCode != null && courseCode.equals("")) 
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -923,9 +945,9 @@ public class DefinitionBroker extends Broker {
                 course_name = rs.getString("course_name");
                 course.setCourseCode(course_code);
                 course.setCourseName(course_name);
-                
+
                 department = new Department(rs.getInt("department_id"));
-                
+
                 course.setDepartment(department);
                 // definition = new definition(user,)
                 definition = new Definition(definitionID, user, newDate, citation,
@@ -952,8 +974,14 @@ public class DefinitionBroker extends Broker {
         return delist;
     }
 
+    /**
+     * getMatched method used to all terms contain input term in it.
+     *
+     * @param searchedEntry needs to be checked in DB that any terms contain it
+     * @return a term list with all required term
+     */
     public List<Definition> getMatched(String searchedEntry) {
-    ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();
 
@@ -987,16 +1015,13 @@ public class DefinitionBroker extends Broker {
                 + "join [GlossaryDataBase].[dbo].[department] "
                 + "on ([GlossaryDataBase].[dbo].[department].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
                 + "WHERE [GlossaryDataBase].[dbo].[definition].glossary_entry LIKE ? ";
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
-//        if(courseCode.equals("")) courseCode="%";
-//        if(userId.equals("")) userId="%";
-        searchedEntry = "%"+searchedEntry+"%";
+        searchedEntry = "%" + searchedEntry + "%";
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, searchedEntry);
-         //  if(courseCode != null && courseCode.equals("")) 
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -1019,9 +1044,9 @@ public class DefinitionBroker extends Broker {
                 course_name = rs.getString("course_name");
                 course.setCourseCode(course_code);
                 course.setCourseName(course_name);
-                
+
                 department = new Department(rs.getInt("department_id"));
-                
+
                 course.setDepartment(department);
                 // definition = new definition(user,)
                 definition = new Definition(definitionID, user, newDate, citation,
@@ -1048,8 +1073,15 @@ public class DefinitionBroker extends Broker {
         return delist;
     }
 
+    /**
+     * getByAlpha method used to get a list of terms starts with particular
+     * letter
+     *
+     * @param letter the particular letter from A-Z
+     * @return a term list of terms started with the letter
+     */
     public ArrayList<Definition> getByAlpha(String letter) {
- ConnectionPool pool = ConnectionPool.getInstance();
+        ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         ArrayList<Definition> delist = new ArrayList<>();
 
@@ -1083,16 +1115,16 @@ public class DefinitionBroker extends Broker {
                 + "join [GlossaryDataBase].[dbo].[department] "
                 + "on ([GlossaryDataBase].[dbo].[department].department_id=[GlossaryDataBase].[dbo].[course].department_id) "
                 + "WHERE [GlossaryDataBase].[dbo].[definition].glossary_entry LIKE ? ";
-        
+
         PreparedStatement ps = null;
         ResultSet rs = null;
 //        if(courseCode.equals("")) courseCode="%";
 //        if(userId.equals("")) userId="%";
-        letter = letter.charAt(0)+"%";
+        letter = letter.charAt(0) + "%";
         try {
             ps = connection.prepareStatement(selectSQL);
             ps.setString(1, letter);
-         //  if(courseCode != null && courseCode.equals("")) 
+            //  if(courseCode != null && courseCode.equals("")) 
             rs = ps.executeQuery();
             while (rs.next()) {
                 term = rs.getString("glossary_entry");
@@ -1115,9 +1147,9 @@ public class DefinitionBroker extends Broker {
                 course_name = rs.getString("course_name");
                 course.setCourseCode(course_code);
                 course.setCourseName(course_name);
-                
+
                 department = new Department(rs.getInt("department_id"));
-                
+
                 course.setDepartment(department);
                 // definition = new definition(user,)
                 definition = new Definition(definitionID, user, newDate, citation,
@@ -1144,5 +1176,4 @@ public class DefinitionBroker extends Broker {
         return delist;
     }
 
-    
 }

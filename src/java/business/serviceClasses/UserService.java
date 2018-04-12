@@ -120,17 +120,31 @@ public class UserService {
     public List<User> getByName(String name) {
         return userDB.getByName(name);
     }
-    
+    /**
+     * The getByName method is to find a list of users with the specified department.
+     * @param department  representing a department
+     * @return returns a List of type user on account that they exist in the database
+     */
     public List<User> getByDepartment(Department department) {
         List<User> userlist = userDB.getByDepartment(department);
         return userlist;
     }
-    
+    /**
+     * reloadCourses method is to reload courses for a user
+     * 
+     * @param user representing a user to get courses
+     * @return if load courses successfully return 1, else 0
+     */
     public int reloadCourses(User user)
     {
        return userDB.reloadCourses(user);
     }
-    
+    /**
+     * reloadPrivileges method is to reload privileges/roles for a user
+     * 
+     * @param user representing a user to get privileges
+     * @return if load privileges successfully return 1, else 0
+     */
     public int reloadPrivileges(User user)
     {
        return userDB.reloadPrivileges(user);

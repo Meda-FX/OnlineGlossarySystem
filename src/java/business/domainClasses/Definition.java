@@ -206,19 +206,31 @@ public class Definition {
     public void setDictionaryContent(String dictionaryContent){
         this.dictionaryContent = dictionaryContent;
     }
-
+/**
+ * get the term of the definition 
+ * @return the term
+ */
     public String getTerm() {
         return term;
     }
-
+/**
+ * set the term of the definition 
+ * @param term of the definition
+ */
     public void setTerm(String term) {
         this.term = term;
     }
-
+/**
+ * get the status of the definition 
+ * @return the status
+ */
     public String getStatus() {
         return status;
     }
-
+/**
+ * set the status of the definition 
+ * @param status of the definition
+ */
     public void setStatus(String status) {
         this.status = status;
     }

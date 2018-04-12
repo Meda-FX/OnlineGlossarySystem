@@ -11,7 +11,6 @@ import business.serviceClasses.AccountLogService;
 import business.serviceClasses.AccountRequestService;
 import business.serviceClasses.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

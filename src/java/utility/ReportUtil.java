@@ -13,11 +13,16 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author 727153
+ * Report class is to
+ * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
+ * @version 0.1.2
  */
 public class ReportUtil {
-
+/**
+ * 
+ * @param logs
+ * @return 
+ */
     public static String prepareData(List<AccountLog> logs) {
         List<DataPoint> dataPoints = new ArrayList<DataPoint>();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,7 +47,9 @@ public class ReportUtil {
         return new Gson().toJson(dataPoints);
 
     }
-
+/**
+ * 
+ */
     private static class DataPoint {
 
         private int count;

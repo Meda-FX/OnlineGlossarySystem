@@ -1,9 +1,6 @@
 package persistence.brokers;
 
-import business.domainClasses.Course;
-import business.domainClasses.Definition;
 import business.domainClasses.Privilege;
-import business.domainClasses.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,7 +93,6 @@ public class PrivilegeBroker extends Broker {
             pool.freeConnection(connection);
         }
         return affectRows == 0 ? 0 : 1;
-        //     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -177,6 +173,5 @@ public class PrivilegeBroker extends Broker {
             pool.freeConnection(connection);
         }
         return privilegelist;
-//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  }
 }

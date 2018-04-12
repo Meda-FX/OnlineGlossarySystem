@@ -20,8 +20,11 @@ import java.util.logging.Logger;
 import persistence.ConnectionPool;
 
 /**
+ * The AccountLogBroker provide connectivity to the database and allow
+ * insertion, retrieval and removal of AccountLog from the database
  *
- * @author 727153
+ * @author J. Liang, F. Xiao, M. Neguse, O. McAteer, K. Goertzen
+ * @version 0.1.2
  */
 public class AccountLogBroker extends Broker {
 
@@ -73,7 +76,16 @@ public class AccountLogBroker extends Broker {
     public List<Object> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+/**
+ * getByDDT method used to get a list of account log information 
+ * by a date period, department and type
+ * 
+ * @param start represents the date to start
+ * @param end represents the date for end
+ * @param department represents the department to search
+ * @param type represents the type of the log
+ * @return a list of account log 
+ */
     public List<AccountLog> getByDDT(Date start, Date end,int department, int type) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -113,8 +125,8 @@ public class AccountLogBroker extends Broker {
             Logger.getLogger(AccountLogBroker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null)ps.close();
             } catch (SQLException e) {
             }
             pool.freeConnection(connection);
